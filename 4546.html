@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vlad Petrov | Infographics Design</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        /* --- VARIABLES & RESET --- */
+        :root {
+            --bg-color: #050505;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --accent-primary: #7000ff; /* Neon Purple */
+            --accent-secondary: #00d2ff; /* Neon Blue (Ozon) */
+            --accent-tertiary: #cb11ab; /* Neon Pink (WB) */
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --blur: 20px;
+            --font-head: 'Bebas Neue', sans-serif;
+            --font-body: 'Manrope', sans-serif;
+            --container: 1240px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-primary);
+            border-radius: 4px;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+
+        /* --- UTILS --- */
+        .container {
+            max-width: var(--container);
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        .title-lg {
+            font-family: var(--font-head);
+            font-size: clamp(40px, 6vw, 100px);
+            line-height: 0.9;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #fff, var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .gradient-text-alt {
+            background: linear-gradient(90deg, var(--accent-tertiary), var(--accent-primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 32px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 50px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .btn-primary {
+            background: var(--accent-primary);
+            color: #fff;
+            box-shadow: 0 0 20px rgba(112, 0, 255, 0.4);
+        }
+        .btn-primary:hover {
+            box-shadow: 0 0 40px rgba(112, 0, 255, 0.8);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--glass-border);
+            color: #fff;
+        }
+        .btn-outline:hover {
+            border-color: var(--accent-secondary);
+            color: var(--accent-secondary);
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
+        }
+
+        /* --- BACKGROUND FX --- */
+        .bg-fx {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: floatBlob 10s infinite alternate ease-in-out;
+        }
+        .blob-1 { width: 400px; height: 400px; background: var(--accent-primary); top: -10%; left: -10%; }
+        .blob-2 { width: 500px; height: 500px; background: var(--accent-tertiary); bottom: -10%; right: -10%; animation-delay: 2s; }
+        .blob-3 { width: 300px; height: 300px; background: var(--accent-secondary); top: 40%; left: 40%; animation-delay: 4s; opacity: 0.2; }
+
+        .floating-icon {
+            position: absolute;
+            font-weight: 900;
+            font-family: var(--font-head);
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        @keyframes floatBlob {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(50px, 50px) rotate(20deg); }
+        }
+
+        /* --- PRELOADER --- */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .preloader-text {
+            font-family: var(--font-head);
+            font-size: 120px;
+            color: transparent;
+            -webkit-text-stroke: 1px var(--accent-primary);
+            position: relative;
+        }
+        .preloader-text::before {
+            content: 'VP';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            color: var(--accent-primary);
+            overflow: hidden;
+            border-right: 2px solid var(--accent-secondary);
+            animation: fillText 2s ease forwards;
+        }
+        @keyframes fillText {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1200px;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        .logo {
+            font-family: var(--font-head);
+            font-size: 28px;
+            letter-spacing: 1px;
+        }
+        .logo span { color: var(--accent-primary); }
+
+        nav ul { display: flex; gap: 30px; }
+        nav a {
+            font-size: 14px;
+            text-transform: uppercase;
+            font-weight: 600;
+            position: relative;
+        }
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-secondary);
+            transition: 0.3s;
+        }
+        nav a:hover::after { width: 100%; }
+
+        .burger { display: none; font-size: 24px; cursor: pointer; }
+
+        /* --- HERO --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .hero-text h1 {
+            line-height: 0.9;
+        }
+        
+        .hero-text .sub {
+            font-size: 18px;
+            color: var(--text-muted);
+            margin: 30px 0 40px;
+            max-width: 500px;
+            line-height: 1.6;
+        }
+
+        .hero-btns { display: flex; gap: 20px; }
+
+        .hero-img-wrap {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-circle {
+            width: 450px;
+            height: 450px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(112,0,255,0.2) 0%, rgba(0,0,0,0) 70%);
+            border: 1px solid var(--glass-border);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(112,0,255,0.2);
+        }
+        
+        .hero-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.1); /* Slight zoom for parallax */
+        }
+
+        .floating-badge {
+            position: absolute;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .badge-wb { top: 20%; right: 0; color: var(--accent-tertiary); border-color: var(--accent-tertiary); }
+        .badge-ozon { bottom: 20%; left: 0; color: var(--accent-secondary); border-color: var(--accent-secondary); }
+
+        /* --- MARQUEE --- */
+        .marquee {
+            background: var(--accent-primary);
+            color: #fff;
+            padding: 15px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            z-index: 5;
+            transform: rotate(-2deg) scale(1.05);
+            margin: 50px 0;
+            border-top: 2px solid #fff;
+            border-bottom: 2px solid #fff;
+        }
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 20s linear infinite;
+        }
+        .marquee-item {
+            font-family: var(--font-head);
+            font-size: 30px;
+            margin: 0 40px;
+            text-transform: uppercase;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* --- ABOUT --- */
+        .about-text {
+            font-size: 24px;
+            line-height: 1.6;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .highlight { color: var(--accent-primary); font-weight: 700; }
+
+        /* --- PORTFOLIO (MASONRY) --- */
+        .portfolio-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 50px;
+        }
+        .pin-link {
+            color: var(--text-muted);
+            text-decoration: underline;
+            font-size: 14px;
+        }
+
+        .masonry-grid {
+            column-count: 3;
+            column-gap: 20px;
+        }
+        
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 20px;
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .masonry-item img {
+            width: 100%;
+            border-radius: 12px;
+            transition: transform 0.5s ease;
+        }
+        
+        .masonry-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: 0.3s;
+        }
+        .masonry-overlay i {
+            font-size: 40px;
+            color: #fff;
+            transform: scale(0);
+            transition: 0.3s;
+        }
+
+        .masonry-item:hover img { transform: scale(1.05); }
+        .masonry-item:hover .masonry-overlay { opacity: 1; }
+        .masonry-item:hover .masonry-overlay i { transform: scale(1); }
+
+        /* --- SERVICES (TILT CARDS) --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            perspective: 1000px;
+        }
+
+        .card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.1s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.05), transparent);
+            pointer-events: none;
+        }
+
+        .card-price {
+            font-family: var(--font-head);
+            font-size: 40px;
+            color: var(--accent-secondary);
+            margin: 20px 0;
+        }
+        .card.premium {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 30px rgba(112, 0, 255, 0.15);
+        }
+        .card.premium .card-price { color: var(--accent-primary); }
+
+        .card-features li {
+            margin-bottom: 10px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card-features li i { color: #fff; }
+
+        .hit-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--accent-primary);
+            padding: 5px 10px;
+            font-size: 12px;
+            font-weight: 800;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        /* --- EDUCATION --- */
+        .education-section {
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+            background: linear-gradient(to bottom, transparent, rgba(112,0,255,0.05), transparent);
+        }
+        
+        .edu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .edu-card {
+            background: #0a0a0a;
+            border: 1px solid #333;
+            padding: 40px;
+            border-radius: 0; /* Strict look */
+            position: relative;
+            transition: 0.3s;
+        }
+        .edu-card:hover {
+            border-color: var(--accent-tertiary);
+            transform: translateY(-10px);
+        }
+        .edu-card h3 { font-family: var(--font-head); font-size: 32px; margin-bottom: 10px; }
+        .edu-card .price { font-size: 24px; font-weight: 700; color: #fff; margin-bottom: 20px; }
+
+        /* --- PROCESS TIMELINE --- */
+        .timeline-wrap {
+            position: relative;
+            padding: 50px 0;
+        }
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: #222;
+            transform: translateX(-50%);
+        }
+        .timeline-progress {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 4px;
+            height: 0%;
+            background: var(--accent-secondary);
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px var(--accent-secondary);
+        }
+        
+        .timeline-step {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 100px;
+            position: relative;
+            z-index: 2;
+        }
+        .timeline-step:nth-child(even) { flex-direction: row-reverse; }
+        
+        .step-content {
+            width: 45%;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 30px;
+            border-radius: 12px;
+        }
+        .step-dot {
+            width: 20px;
+            height: 20px;
+            background: #000;
+            border: 4px solid #fff;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: 0.3s;
+        }
+        .step-active .step-dot { border-color: var(--accent-secondary); background: var(--accent-secondary); box-shadow: 0 0 15px var(--accent-secondary); }
+
+        /* --- REVIEWS MARQUEE --- */
+        .reviews-wrap {
+            overflow: hidden;
+            position: relative;
+        }
+        .reviews-track {
+            display: flex;
+            gap: 30px;
+            width: max-content;
+            animation: scrollReviews 30s linear infinite;
+        }
+        .review-card {
+            width: 350px;
+            background: #111;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #222;
+        }
+        .review-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
+        .avatar { width: 50px; height: 50px; background: #333; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        .stars { color: #FFD700; margin-bottom: 10px; }
+        
+        @keyframes scrollReviews {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* --- FAQ --- */
+        .accordion-item {
+            border-bottom: 1px solid #333;
+            margin-bottom: 10px;
+        }
+        .accordion-header {
+            padding: 20px 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 20px;
+            font-weight: 600;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: 0.5s ease;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        .active .accordion-content { max-height: 200px; padding-bottom: 20px; }
+        .icon-plus { transition: 0.3s; }
+        .active .icon-plus { transform: rotate(45deg); color: var(--accent-primary); }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #000;
+            padding: 80px 0 30px;
+            border-top: 1px solid #222;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+        .form-group { margin-bottom: 20px; }
+        input, textarea {
+            width: 100%;
+            background: #111;
+            border: 1px solid #333;
+            padding: 15px;
+            color: #fff;
+            font-family: var(--font-body);
+            border-radius: 8px;
+        }
+        input:focus, textarea:focus { outline: none; border-color: var(--accent-primary); }
+        
+        /* --- MOBILE --- */
+        @media (max-width: 900px) {
+            .hero-grid { grid-template-columns: 1fr; text-align: center; }
+            .hero-btns { justify-content: center; }
+            .hero-img-wrap { margin-top: 50px; }
+            .hero-circle { width: 300px; height: 300px; }
+            .badge-wb { top: 0; right: 0; }
+            .badge-ozon { bottom: 0; left: 0; }
+            
+            nav { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: #000; flex-direction: column; justify-content: center; transform: translateX(100%); transition: 0.3s; }
+            nav.open { transform: translateX(0); }
+            nav ul { flex-direction: column; align-items: center; }
+            .burger { display: block; z-index: 101; }
+            
+            .masonry-grid { column-count: 1; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .timeline-line { left: 20px; }
+            .timeline-progress { left: 20px; }
+            .timeline-step { flex-direction: column; align-items: flex-start; margin-left: 50px; }
+            .timeline-step:nth-child(even) { flex-direction: column; }
+            .step-content { width: 100%; }
+            .step-dot { left: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. Preloader -->
+    <div class="preloader">
+        <div class="preloader-text">VP</div>
+    </div>
+
+    <!-- Background FX -->
+    <div class="bg-fx">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- 2. Header -->
+    <header>
+        <div class="logo">VP | <span>DESIGN</span></div>
+        <nav>
+            <ul>
+                <li><a href="#portfolio">Портфолио</a></li>
+                <li><a href="#services">Услуги</a></li>
+                <li><a href="#education">Обучение</a></li>
+                <li><a href="#reviews">Отзывы</a></li>
+                <li><a href="#contacts">Контакты</a></li>
+            </ul>
+        </nav>
+        <div class="burger"><i class="ph ph-list"></i></div>
+        <a href="#contacts" class="btn btn-primary" style="display: none; @media(min-width: 900px){display:flex;}">Обсудить проект</a>
+    </header>
+
+    <!-- 3. Hero Section -->
+    <section class="hero container">
+        <div class="hero-grid">
+            <div class="hero-text">
+                <h1 class="title-lg">ПРОДАЮЩАЯ <br><span class="gradient-text">ИНФОГРАФИКА</span></h1>
+                <p class="sub">Создаю дизайн для Wildberries и Ozon, который повышает CTR и продажи, а не просто занимает место в карточке.</p>
+                <div class="hero-btns">
+                    <a href="#portfolio" class="btn btn-primary">Смотреть кейсы</a>
+                    <a href="#services" class="btn btn-outline">Тарифы</a>
+                </div>
+            </div>
+            <div class="hero-img-wrap">
+                <div class="hero-circle">
+                    <!-- Использую object-fit cover чтобы идеально вписать в круг -->
+                    <img src="https://i.ibb.co/zWp1WzTk/1127-20260207204539.png" alt="Vlad Petrov" class="hero-photo">
+                </div>
+                <!-- Floating Elements -->
+                <div class="floating-badge badge-wb"><i class="ph-fill ph-shopping-bag"></i> TOP SELLER</div>
+                <div class="floating-badge badge-ozon"><i class="ph-fill ph-lightning"></i> HIGH CTR</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Running Text -->
+    <div class="marquee">
+        <div class="marquee-content">
+            <span class="marquee-item">ПОВЫШЕНИЕ ПРОДАЖ ЧЕРЕЗ ДИЗАЙН</span>
+            <span class="marquee-item">•</span>
+            <span class="marquee-item">ИНФОГРАФИКА</span>
+            <span class="marquee-item">•</span>
+            <span class="marquee-item">RICH CONTENT</span>
+            <span class="marquee-item">•</span>
+            <span class="marquee-item">ПОВЫШЕНИЕ ПРОДАЖ ЧЕРЕЗ ДИЗАЙН</span>
+            <span class="marquee-item">•</span>
+            <span class="marquee-item">ИНФОГРАФИКА</span>
+            <span class="marquee-item">•</span>
+            <span class="marquee-item">RICH CONTENT</span>
+        </div>
+    </div>
+
+    <!-- 4. About Me -->
+    <section class="container section-padding">
+        <div class="about-text" id="about-text">
+            Меня зовут Влад, мне 19 лет, я из Анапы. <br>
+            Занимаюсь дизайном с 2020 года. Специализируюсь на инфографике для маркетплейсов, которая <span class="highlight">не просто красивая, а продаёт.</span>
+        </div>
+    </section>
+
+    <!-- 5. Portfolio (Masonry) -->
+    <section id="portfolio" class="container section-padding">
+        <div class="portfolio-header">
+            <h2 class="title-lg">Мои <span class="gradient-text">Работы</span></h2>
+            <a href="https://pin.it/7jIAFGYmf" target="_blank" class="pin-link">Смотреть на Pinterest <i class="ph ph-arrow-up-right"></i></a>
+        </div>
+        
+        <div class="masonry-grid">
+            <!-- Items generated based on user input -->
+            <div class="masonry-item"><img src="https://i.ibb.co/FLsCKXYD/579-20251105185725.jpg" alt="Work 1" loading="lazy"><div class="masonry-overlay"><i class="ph ph-eye"></i></div></div>
+            <div class="masonry-item"><img src="https://i.ibb.co/wFh0gByn/IMG-8041.jpg" alt="Work 2" loading="lazy"><div class="masonry-overlay"><i class="ph ph-eye"></i></div></div>
+            <div class="masonry-item"><img src="https://i.ibb.co/k6wSmDBj/IMG-7170.jpg" alt="Work 3" loading="lazy"><div class="masonry-overlay"><i class="ph ph-eye"></i></div></div>
+            <div class="masonry-item"><img src="https://i.ibb.co/JwML7f4g/373-20250817165435.jpg" alt="Work 4" loading="lazy"><div class="masonry-overlay"><i class="ph ph-eye"></i></div></div>
+            <div class="masonry-item"><img src="https://i.ibb.co/p6C8zZLn/969-20251230133150.jpg" alt="Work 5" loading="lazy"><div class="masonry-overlay"><i class="ph ph-eye"></i></div></div>
+            <div class="masonry-item"><img src="https://i.ibb.co/Z6RPgtBs/394-20250921005440.jpg" alt="Work 6" loading="lazy"><div class="masonry-overlay"><i class="ph ph-eye"></i></div></div>
+            <div class="masonry-item"><img src="https://i.ibb.co/ZRTgFQ8r/IMG-7801.jpg" alt="Work 7" loading="lazy"><div class="masonry-overlay"><i class="ph ph-eye"></i></div></div>
+            <div class="masonry-item"><img src="https://i.ibb.co/hR04gy83/1115-20260201215842.png" alt="Work 8" loading="lazy"><div class="masonry-overlay"><i class="ph ph-eye"></i></div></div>
+            <div class="masonry-item"><img src="https://i.ibb.co/6RkgYh1G/IMG-7410.jpg" alt="Work 9" loading="lazy"><div class="masonry-overlay"><i class="ph ph-eye"></i></div></div>
+            <div class="masonry-item"><img src="https://i.ibb.co/6cjb5PS9/601-20251110164430.jpg" alt="Work 10" loading="lazy"><div class="masonry-overlay"><i class="ph ph-eye"></i></div></div>
+            <div class="masonry-item"><img src="https://i.ibb.co/8LX6HLHN/IMG-3641.jpg" alt="Work 11" loading="lazy"><div class="masonry-overlay"><i class="ph ph-eye"></i></div></div>
+            <div class="masonry-item"><img src="https://i.ibb.co/W4FM2HxQ/436-20250929191023.jpg" alt="Work 12" loading="lazy"><div class="masonry-overlay"><i class="ph ph-eye"></i></div></div>
+        </div>
+    </section>
+
+    <!-- 6. Services (Tilt Cards) -->
+    <section id="services" class="container section-padding">
+        <h2 class="title-lg text-center">Услуги и <span class="gradient-text">Цены</span></h2>
+        
+        <div class="services-grid">
+            <!-- Single -->
+            <div class="card js-tilt">
+                <h3>Главный слайд</h3>
+                <div class="card-price">1 500₽</div>
+                <ul class="card-features">
+                    <li><i class="ph ph-check"></i> Глубокий анализ ниши</li>
+                    <li><i class="ph ph-check"></i> Разработка УТП</li>
+                    <li><i class="ph ph-check"></i> Ретушь фото</li>
+                </ul>
+            </div>
+             <!-- Standard -->
+             <div class="card js-tilt">
+                <h3>Пакет "Стандарт"</h3>
+                <div class="card-price">6 900₽</div>
+                <ul class="card-features">
+                    <li><i class="ph ph-check"></i> До 5 слайдов</li>
+                    <li><i class="ph ph-check"></i> Воронка продаж</li>
+                    <li><i class="ph ph-check"></i> Исходники в подарок</li>
+                </ul>
+            </div>
+            <!-- Premium -->
+            <div class="card premium js-tilt">
+                <div class="hit-badge">ХИТ</div>
+                <h3>Пакет "Премиум"</h3>
+                <div class="card-price">8 900₽</div>
+                <ul class="card-features">
+                    <li><i class="ph ph-check"></i> Полная упаковка (7-10 шт)</li>
+                    <li><i class="ph ph-check"></i> SEO-анализ</li>
+                    <li><i class="ph ph-check"></i> Видеообложка</li>
+                    <li><i class="ph ph-check"></i> Приоритетная поддержка</li>
+                </ul>
+                <a href="#contacts" class="btn btn-primary" style="margin-top:20px; width:100%">Заказать</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Education Section -->
+    <section id="education" class="education-section section-padding">
+        <div class="container">
+            <h2 class="title-lg text-center">Стань <span class="gradient-text-alt">ТОП-Дизайнером</span></h2>
+            <p class="text-center" style="color:#aaa; margin-bottom: 40px;">Освой профессию с 0 до первых клиентов за 4 недели</p>
+            
+            <div class="edu-grid">
+                <div class="edu-card">
+                    <h3>БАЗА</h3>
+                    <div class="price">9 990₽</div>
+                    <ul class="card-features">
+                        <li><i class="ph ph-check"></i> Доступ к урокам</li>
+                        <li><i class="ph ph-check"></i> Домашки без проверки</li>
+                        <li><i class="ph ph-x" style="opacity:0.3"></i> Чат с куратором</li>
+                    </ul>
+                </div>
+                <div class="edu-card">
+                    <h3>ПРО</h3>
+                    <div class="price">29 990₽</div>
+                    <ul class="card-features">
+                        <li><i class="ph ph-check"></i> Всё из "Базы"</li>
+                        <li><i class="ph ph-check"></i> Проверка ДЗ куратором</li>
+                        <li><i class="ph ph-check"></i> Разборы работ</li>
+                        <li><i class="ph ph-check"></i> Модуль по поиску клиентов</li>
+                    </ul>
+                </div>
+                <div class="edu-card" style="border-color: var(--accent-tertiary);">
+                    <div class="hit-badge" style="background: var(--accent-tertiary);">Личное ведение</div>
+                    <h3>НАСТАВНИЧЕСТВО</h3>
+                    <div class="price" style="color:var(--accent-tertiary)">49 990₽</div>
+                    <ul class="card-features">
+                        <li><i class="ph ph-check"></i> Личная работа с Владом</li>
+                        <li><i class="ph ph-check"></i> Созвоны каждую неделю</li>
+                        <li><i class="ph ph-check"></i> Гарантия результата</li>
+                        <li><i class="ph ph-check"></i> Доступ к базе агентства</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. Process (Timeline) -->
+    <section class="container section-padding">
+        <h2 class="title-lg text-center">Процесс <span class="gradient-text">Работы</span></h2>
+        <div class="timeline-wrap">
+            <div class="timeline-line"></div>
+            <div class="timeline-progress"></div>
+            
+            <div class="timeline-step">
+                <div class="step-content">
+                    <h3>01. Бриф</h3>
+                    <p style="color:#aaa; margin-top:10px">Заполняете анкету, присылаете фото товара и референсы.</p>
+                </div>
+                <div class="step-dot"></div>
+            </div>
+            
+            <div class="timeline-step">
+                <div class="step-content">
+                    <h3>02. Анализ</h3>
+                    <p style="color:#aaa; margin-top:10px">Изучаю конкурентов, выявляю боли ЦА и формирую воронку продаж в слайдах.</p>
+                </div>
+                <div class="step-dot"></div>
+            </div>
+            
+            <div class="timeline-step">
+                <div class="step-content">
+                    <h3>03. Дизайн</h3>
+                    <p style="color:#aaa; margin-top:10px">Разрабатываю стилистику, делаю ретушь и собираю сочную инфографику.</p>
+                </div>
+                <div class="step-dot"></div>
+            </div>
+            
+            <div class="timeline-step">
+                <div class="step-content">
+                    <h3>04. Финал</h3>
+                    <p style="color:#aaa; margin-top:10px">Вносим правки (если есть) и я отдаю готовые файлы для загрузки.</p>
+                </div>
+                <div class="step-dot"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. Reviews (Marquee) -->
+    <section id="reviews" class="section-padding" style="background: #080808;">
+        <div class="container">
+            <h2 class="title-lg" style="margin-bottom: 50px;">Что говорят <span class="gradient-text">Клиенты</span></h2>
+        </div>
+        <div class="reviews-wrap">
+            <div class="reviews-track">
+                <!-- 8 Cards Loop -->
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="avatar">А</div>
+                        <div><strong>Анна К.</strong><br><span style="font-size:12px; color:#666">Селлер WB</span></div>
+                    </div>
+                    <div class="stars">★★★★★</div>
+                    <p style="color:#bbb; font-size:14px;">CTR вырос с 2% до 5.5% после смены обложки! Влад - профи.</p>
+                </div>
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="avatar">Д</div>
+                        <div><strong>Дмитрий</strong><br><span style="font-size:12px; color:#666">Селлер Ozon</span></div>
+                    </div>
+                    <div class="stars">★★★★★</div>
+                    <p style="color:#bbb; font-size:14px;">Заказывал пакет Стандарт. Сделали быстро, правки учли. Рекомендую.</p>
+                </div>
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="avatar">Е</div>
+                        <div><strong>Елена</strong><br><span style="font-size:12px; color:#666">Ученица курса</span></div>
+                    </div>
+                    <div class="stars">★★★★★</div>
+                    <p style="color:#bbb; font-size:14px;">Курс просто пушка! Окупила обучение уже на второй неделе.</p>
+                </div>
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="avatar">М</div>
+                        <div><strong>Максим</strong><br><span style="font-size:12px; color:#666">Бренд одежды</span></div>
+                    </div>
+                    <div class="stars">★★★★★</div>
+                    <p style="color:#bbb; font-size:14px;">Лучшая инфографика на рынке. Дорого, но оно того стоит.</p>
+                </div>
+                 <!-- Duplicate for infinite effect -->
+                 <div class="review-card">
+                    <div class="review-header">
+                        <div class="avatar">А</div>
+                        <div><strong>Анна К.</strong><br><span style="font-size:12px; color:#666">Селлер WB</span></div>
+                    </div>
+                    <div class="stars">★★★★★</div>
+                    <p style="color:#bbb; font-size:14px;">CTR вырос с 2% до 5.5% после смены обложки! Влад - профи.</p>
+                </div>
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="avatar">Д</div>
+                        <div><strong>Дмитрий</strong><br><span style="font-size:12px; color:#666">Селлер Ozon</span></div>
+                    </div>
+                    <div class="stars">★★★★★</div>
+                    <p style="color:#bbb; font-size:14px;">Заказывал пакет Стандарт. Сделали быстро, правки учли. Рекомендую.</p>
+                </div>
+                 <div class="review-card">
+                    <div class="review-header">
+                        <div class="avatar">Е</div>
+                        <div><strong>Елена</strong><br><span style="font-size:12px; color:#666">Ученица курса</span></div>
+                    </div>
+                    <div class="stars">★★★★★</div>
+                    <p style="color:#bbb; font-size:14px;">Курс просто пушка! Окупила обучение уже на второй неделе.</p>
+                </div>
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="avatar">М</div>
+                        <div><strong>Максим</strong><br><span style="font-size:12px; color:#666">Бренд одежды</span></div>
+                    </div>
+                    <div class="stars">★★★★★</div>
+                    <p style="color:#bbb; font-size:14px;">Лучшая инфографика на рынке. Дорого, но оно того стоит.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. FAQ -->
+    <section class="container section-padding">
+        <h2 class="title-lg text-center">Частые <span class="gradient-text">Вопросы</span></h2>
+        <div style="max-width: 800px; margin: 0 auto;">
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    Сколько времени занимает разработка?
+                    <i class="ph ph-plus icon-plus"></i>
+                </div>
+                <div class="accordion-content">
+                    Обычно от 1 до 3 дней в зависимости от объема и текущей загруженности. Срочные заказы обсуждаются индивидуально.
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    Что нужно для начала работы?
+                    <i class="ph ph-plus icon-plus"></i>
+                </div>
+                <div class="accordion-content">
+                    Фотографии товара в хорошем качестве, ссылка на товар (если есть) и ваши пожелания (ТЗ). Если ТЗ нет, я помогу его составить.
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    Есть ли предоплата?
+                    <i class="ph ph-plus icon-plus"></i>
+                </div>
+                <div class="accordion-content">
+                    Да, работа начинается после внесения предоплаты 50%.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 11. Footer -->
+    <footer id="contacts">
+        <div class="container">
+            <h2 class="title-lg">Готовы <span class="gradient-text">Взорвать продажи?</span></h2>
+            <div class="footer-grid">
+                <div>
+                    <p style="font-size:20px; margin-bottom: 20px;">Свяжитесь со мной:</p>
+                    <p style="margin-bottom:10px;"><i class="ph ph-phone"></i> +7 919 630-10-67</p>
+                    <p style="margin-bottom:10px;"><i class="ph ph-telegram-logo"></i> @vladpetroov</p>
+                    <p style="margin-bottom:30px;"><i class="ph ph-vk-logo"></i> vk.com/vladpetrovagency</p>
+                    <p style="color:#555; font-size: 14px;">© 2026 Vlad Petrov Design. All rights reserved.</p>
+                </div>
+                <form onsubmit="event.preventDefault(); alert('Заявка отправлена!');">
+                    <div class="form-group">
+                        <input type="text" placeholder="Ваше Имя" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" placeholder="Ваш телефон" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea rows="4" placeholder="Кратко о задаче"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width:100%">Оставить заявку</button>
+                </form>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Register ScrollTrigger
+        gsap.registerPlugin(ScrollTrigger);
+
+        // 1. Preloader Animation
+        window.addEventListener('load', () => {
+            const tl = gsap.timeline();
+            tl.to('.preloader-text', { duration: 0.5, opacity: 0, delay: 2.2 })
+              .to('.preloader', { duration: 0.8, y: '-100%', ease: 'power4.inOut' })
+              .from('.hero-text h1', { y: 100, opacity: 0, duration: 1, ease: 'power3.out' })
+              .from('.hero-text .sub', { y: 50, opacity: 0, duration: 1 }, '-=0.5')
+              .from('.hero-circle', { scale: 0.5, opacity: 0, rotation: -10, duration: 1.5, ease: 'elastic.out(1, 0.5)' }, '-=1');
+        });
+
+        // 2. Hero Image Parallax (Mouse Move)
+        const heroSection = document.querySelector('.hero');
+        const heroPhoto = document.querySelector('.hero-photo');
+        
+        heroSection.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 20;
+            const y = (e.clientY / window.innerHeight - 0.5) * 20;
+            gsap.to(heroPhoto, { x: x, y: y, duration: 1 });
+            gsap.to('.hero-circle', { x: -x/2, y: -y/2, duration: 1 });
+        });
+
+        // 3. 3D Tilt Effect for Cards
+        const cards = document.querySelectorAll('.js-tilt');
+        
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = ((y - centerY) / centerY) * -10; // Max 10deg rotation
+                const rotateY = ((x - centerX) / centerX) * 10;
+
+                gsap.to(card, {
+                    transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`,
+                    duration: 0.2
+                });
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card, {
+                    transform: `perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)`,
+                    duration: 0.5
+                });
+            });
+        });
+
+        // 4. Scroll Animations (Text Reveal)
+        gsap.utils.toArray('.title-lg').forEach(title => {
+            gsap.from(title, {
+                scrollTrigger: {
+                    trigger: title,
+                    start: 'top 80%',
+                },
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                ease: 'power3.out'
+            });
+        });
+
+        // 5. Masonry Items Reveal
+        gsap.utils.toArray('.masonry-item').forEach((item, i) => {
+            gsap.from(item, {
+                scrollTrigger: {
+                    trigger: item,
+                    start: 'top 90%',
+                },
+                y: 50,
+                opacity: 0,
+                duration: 0.8,
+                delay: i % 3 * 0.1 // Stagger effect
+            });
+        });
+
+        // 6. Timeline Animation
+        gsap.to('.timeline-progress', {
+            height: '100%',
+            scrollTrigger: {
+                trigger: '.timeline-wrap',
+                start: 'top 60%',
+                end: 'bottom 60%',
+                scrub: 1
+            }
+        });
+
+        // Active Step Dots
+        const steps = document.querySelectorAll('.timeline-step');
+        steps.forEach(step => {
+            ScrollTrigger.create({
+                trigger: step,
+                start: 'top 60%',
+                onEnter: () => step.classList.add('step-active'),
+                onLeaveBack: () => step.classList.remove('step-active')
+            });
+        });
+
+        // 7. FAQ Accordion
+        const accordions = document.querySelectorAll('.accordion-header');
+        accordions.forEach(acc => {
+            acc.addEventListener('click', () => {
+                const parent = acc.parentElement;
+                parent.classList.toggle('active');
+            });
+        });
+
+        // 8. Mobile Menu
+        const burger = document.querySelector('.burger');
+        const nav = document.querySelector('nav');
+        const navLinks = document.querySelectorAll('nav a');
+
+        burger.addEventListener('click', () => {
+            nav.classList.toggle('open');
+            burger.innerHTML = nav.classList.contains('open') ? '<i class="ph ph-x"></i>' : '<i class="ph ph-list"></i>';
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('open');
+                burger.innerHTML = '<i class="ph ph-list"></i>';
+            });
+        });
+
+    </script>
+</body>
+</html>
