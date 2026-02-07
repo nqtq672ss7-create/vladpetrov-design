@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VP | DESIGN — Продающая инфографика</title>
+    <title>VLAD PETROV | High-End Infographics</title>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,122 +11,147 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@300;400;600;800&display=swap" rel="stylesheet">
     
     <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
     <style>
-        /* --- CORE VARIABLES --- */
+        /* --- CSS VARIABLES & RESET --- */
         :root {
-            --bg-dark: #050505;
-            --bg-card: #0f0f0f;
+            --bg-color: #050505;
             --text-main: #ffffff;
-            --text-muted: #888888;
-            
-            --accent-wb: #cb11ab; /* Wildberries Pink */
-            --accent-ozon: #005bff; /* Ozon Blue */
-            --accent-purple: #7B2CBF;
-            
+            --text-muted: #8b8b8b;
+            --accent-pink: #FF007F;
+            --accent-blue: #00F0FF;
+            --accent-purple: #7000FF;
             --glass-bg: rgba(255, 255, 255, 0.03);
             --glass-border: rgba(255, 255, 255, 0.08);
-            --glass-blur: blur(20px);
-            
+            --card-radius: 20px;
             --font-head: 'Bebas Neue', sans-serif;
             --font-body: 'Manrope', sans-serif;
-            
-            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
-        /* --- RESET & BASE --- */
-        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
-        
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            background-color: var(--bg-dark);
+            background-color: var(--bg-color);
             color: var(--text-main);
             font-family: var(--font-body);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            cursor: default; /* Custom cursor planned? Keep default for accessibility/performance balance in single file */
         }
 
-        html { scroll-behavior: smooth; }
-
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-dark); }
-        ::-webkit-scrollbar-thumb { background: var(--accent-purple); border-radius: 4px; }
-
-        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        a { text-decoration: none; color: inherit; }
         ul { list-style: none; }
+        img { display: block; max-width: 100%; height: auto; }
 
+        /* --- UTILITIES --- */
         .container {
-            max-width: 1240px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* --- TYPOGRAPHY --- */
-        h1, h2, h3, h4 { font-family: var(--font-head); letter-spacing: 1px; text-transform: uppercase; }
-        
-        .section-title {
-            font-size: clamp(3rem, 5vw, 6rem);
-            line-height: 0.9;
-            margin-bottom: 3rem;
-            background: linear-gradient(90deg, #fff, #888);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-align: center;
+            width: 100%;
         }
 
         .gradient-text {
-            background: linear-gradient(45deg, var(--accent-wb), var(--accent-ozon));
+            background: linear-gradient(90deg, #fff, var(--text-muted));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        /* --- UTILS --- */
-        .glass {
-            background: var(--glass-bg);
-            backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
-            border: 1px solid var(--glass-border);
-        }
+        .accent-text-pink { color: var(--accent-pink); }
+        .accent-text-blue { color: var(--accent-blue); }
 
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             padding: 16px 32px;
+            font-family: var(--font-body);
             font-weight: 700;
-            font-size: 14px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.05em;
+            border-radius: 50px;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
             cursor: pointer;
             position: relative;
             overflow: hidden;
-            border-radius: 100px;
-            transition: var(--transition);
         }
 
         .btn-primary {
-            background: linear-gradient(90deg, var(--accent-wb), var(--accent-ozon));
-            color: #fff;
-            border: none;
-            box-shadow: 0 0 20px rgba(203, 17, 171, 0.4);
+            background: var(--text-main);
+            color: #000;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
         }
 
         .btn-primary:hover {
-            box-shadow: 0 0 40px rgba(0, 91, 255, 0.6);
-            transform: translateY(-3px);
+            transform: scale(1.05);
+            box-shadow: 0 0 40px var(--accent-blue);
+            background: var(--accent-blue);
+            color: #000;
         }
 
         .btn-outline {
-            background: transparent;
             border: 1px solid rgba(255,255,255,0.3);
             color: #fff;
+            background: transparent;
         }
 
         .btn-outline:hover {
-            background: #fff;
-            color: #000;
+            border-color: var(--accent-pink);
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.4);
+        }
+
+        .section-title {
+            font-family: var(--font-head);
+            font-size: clamp(40px, 8vw, 120px);
+            line-height: 0.9;
+            text-transform: uppercase;
+            margin-bottom: 60px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* --- BACKGROUND FX --- */
+        .bg-fx {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, var(--accent-purple), transparent); }
+        .blob-2 { bottom: -20%; right: -10%; width: 60vw; height: 60vw; background: radial-gradient(circle, var(--accent-blue), transparent); animation-delay: -5s; }
+        .blob-3 { top: 40%; left: 30%; width: 40vw; height: 40vw; background: radial-gradient(circle, var(--accent-pink), transparent); animation-delay: -10s; }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        .noise-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.05"/%3E%3C/svg%3E');
+            pointer-events: none;
+            z-index: 999;
+            opacity: 0.4;
         }
 
         /* --- PRELOADER --- */
@@ -134,33 +159,33 @@
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: #000;
-            z-index: 9999;
+            z-index: 10000;
             display: flex;
             justify-content: center;
             align-items: center;
         }
-        
-        .loader-logo {
+        .preloader-text {
             font-family: var(--font-head);
-            font-size: 10rem;
+            font-size: 4rem;
             color: transparent;
-            -webkit-text-stroke: 2px #333;
+            -webkit-text-stroke: 1px #fff;
             position: relative;
         }
-        
-        .loader-logo::before {
-            content: "VP";
+        .preloader-text::before {
+            content: attr(data-text);
             position: absolute;
             top: 0; left: 0;
             width: 0%;
             height: 100%;
-            color: #fff;
+            background: var(--text-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; /* Fix for fill */
+            color: white; /* Fallback */
             overflow: hidden;
-            border-right: 2px solid var(--accent-ozon);
-            animation: fillLogo 2s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+            transition: width 1.5s ease-in-out;
         }
-
-        @keyframes fillLogo { to { width: 100%; } }
+        .loaded .preloader-text::before { width: 100%; }
+        .preloader-hide { opacity: 0; pointer-events: none; transition: opacity 0.8s ease; }
 
         /* --- HEADER --- */
         header {
@@ -168,834 +193,870 @@
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            width: 90%;
-            max-width: 1240px;
-            height: 70px;
-            border-radius: 50px;
+            width: 95%;
+            max-width: 1400px;
             z-index: 100;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 24px;
+            padding: 15px 30px;
+            border-radius: 50px;
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
         }
 
-        .logo { font-weight: 800; font-size: 1.2rem; letter-spacing: -0.5px; }
-        .logo span { color: var(--accent-wb); }
+        .logo { font-family: var(--font-head); font-size: 24px; letter-spacing: 1px; }
 
-        nav ul { display: flex; gap: 30px; }
-        nav a { font-size: 14px; color: rgba(255,255,255,0.7); font-weight: 500; }
-        nav a:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a {
+            font-size: 14px;
+            text-transform: uppercase;
+            font-weight: 600;
+            opacity: 0.7;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { opacity: 1; color: var(--accent-blue); }
 
-        .header-cta {
+        .header-btn {
             padding: 10px 24px;
             font-size: 12px;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 30px;
         }
-        
-        .header-cta:hover { background: var(--accent-ozon); border-color: var(--accent-ozon); }
 
-        /* Mobile Menu Trigger */
-        .burger { display: none; font-size: 24px; cursor: pointer; }
+        .burger { display: none; cursor: pointer; color: white; font-size: 24px; }
 
-        /* --- HERO SECTION --- */
+        /* --- HERO --- */
         .hero {
-            height: 100vh;
-            min-height: 800px;
+            min-height: 100vh;
             display: flex;
             align-items: center;
+            padding-top: 100px;
             position: relative;
-            overflow: hidden;
-            padding-top: 80px;
         }
 
-        /* Ambient Glows */
-        .glow-spot {
-            position: absolute;
-            width: 500px; height: 500px;
-            background: radial-gradient(circle, var(--accent-wb) 0%, transparent 70%);
-            opacity: 0.15;
-            filter: blur(80px);
-            z-index: 0;
-            border-radius: 50%;
-        }
-        .glow-1 { top: -10%; left: -10%; }
-        .glow-2 { bottom: 10%; right: -10%; background: radial-gradient(circle, var(--accent-ozon) 0%, transparent 70%); }
-
-        .hero-grid {
+        .hero-content {
             display: grid;
             grid-template-columns: 1.2fr 0.8fr;
-            align-items: center;
             gap: 40px;
+            align-items: center;
         }
 
         .hero-text h1 {
-            font-size: clamp(4rem, 8vw, 9rem);
+            font-family: var(--font-head);
+            font-size: clamp(60px, 10vw, 150px);
             line-height: 0.85;
             margin-bottom: 20px;
-            overflow: hidden; /* For animation reveal */
         }
         
-        .hero-text h1 .line { display: block; }
+        .char { display: inline-block; } /* For GSAP */
 
         .hero-sub {
-            font-size: 1.2rem;
+            font-size: 18px;
             color: var(--text-muted);
-            max-width: 500px;
             margin-bottom: 40px;
+            max-width: 500px;
             display: flex;
             align-items: center;
             gap: 15px;
         }
-        
-        .hero-sub i { color: var(--accent-wb); }
+
+        .badges { display: flex; gap: 10px; }
+        .badge {
+            padding: 5px 10px;
+            font-size: 12px;
+            font-weight: 800;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+        .badge-wb { background: #cb11ab; color: white; }
+        .badge-ozon { background: #005bff; color: white; }
 
         .hero-btns { display: flex; gap: 20px; }
 
-        .hero-img-wrapper {
-            position: relative;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .hero-img-circle {
-            width: 450px;
-            height: 450px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, rgba(203,17,171,0.2), rgba(0,91,255,0.2));
-            position: absolute;
-            z-index: 1;
-            border: 1px solid rgba(255,255,255,0.1);
-            animation: pulseCircle 4s infinite alternate;
-        }
-
-        @keyframes pulseCircle { from { transform: scale(1); } to { transform: scale(1.05); } }
-
-        .hero-photo {
-            position: relative;
-            z-index: 2;
-            width: 110%; /* Slightly larger to pop out */
-            max-width: 600px;
-            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
-            transform-origin: bottom center;
-        }
-
-        .badge {
-            position: absolute;
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-weight: 800;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            z-index: 3;
-            animation: floatBadge 3s infinite ease-in-out;
-        }
-
-        .badge-wb { background: var(--accent-wb); top: 20%; right: 10%; color: #fff; }
-        .badge-ozon { background: var(--accent-ozon); bottom: 20%; left: 0%; color: #fff; animation-delay: 1.5s; }
-
-        @keyframes floatBadge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-
-        /* --- TICKER / BIO --- */
-        .ticker-wrap {
+        /* --- MARQUEE --- */
+        .marquee-wrapper {
             width: 100%;
-            background: var(--bg-card);
+            overflow: hidden;
+            padding: 40px 0;
+            background: rgba(255,255,255,0.02);
             border-top: 1px solid var(--glass-border);
             border-bottom: 1px solid var(--glass-border);
-            overflow: hidden;
+            margin: 60px 0;
+        }
+        .marquee-content {
+            display: flex;
             white-space: nowrap;
-            padding: 30px 0;
-            margin-top: -50px; /* Overlap hero slightly */
-            position: relative;
-            z-index: 3;
+            gap: 60px;
         }
-
-        .ticker {
-            display: inline-block;
-            animation: marquee 20s linear infinite;
-        }
-
-        .ticker-item {
-            display: inline-block;
+        .marquee-item {
             font-family: var(--font-head);
-            font-size: 4rem;
+            font-size: 80px;
             color: rgba(255,255,255,0.1);
-            margin-right: 60px;
-            transition: 0.3s;
+            -webkit-text-stroke: 1px rgba(255,255,255,0.2);
         }
-        
-        .ticker-item.highlight { color: #fff; text-shadow: 0 0 15px rgba(255,255,255,0.5); }
+        .marquee-item span { color: var(--accent-pink); }
 
-        @keyframes marquee { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-50%, 0, 0); } }
+        /* --- ABOUT --- */
+        .about { padding: 100px 0; position: relative; }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .about-img-wrapper {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            margin: 0 auto;
+            border: 2px solid var(--accent-blue);
+            box-shadow: 0 0 50px rgba(0, 240, 255, 0.2);
+            overflow: hidden;
+            background: #111;
+        }
+        .about-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Adjust based on actual image cropping */
+            transform: scale(1.1) translateY(10px); 
+        }
+        .about-text h2 { font-family: var(--font-head); font-size: 60px; margin-bottom: 30px; }
+        .about-text p { font-size: 18px; line-height: 1.6; color: var(--text-muted); margin-bottom: 20px; }
+        .about-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 30px;
+        }
+        .stat-item h3 { font-size: 40px; color: var(--accent-pink); font-family: var(--font-head); }
+        .stat-item p { font-size: 14px; text-transform: uppercase; }
 
         /* --- PORTFOLIO (MASONRY) --- */
-        .portfolio-section { padding: 100px 0; }
-        
+        .portfolio { padding: 100px 0; }
+        .portfolio-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 60px;
+        }
+        .pin-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .pin-link:hover { background: #E60023; color: white; }
+
         .masonry-grid {
             column-count: 3;
             column-gap: 20px;
         }
-        
-        .work-item {
+        .portfolio-item {
             break-inside: avoid;
             margin-bottom: 20px;
-            position: relative;
             border-radius: 12px;
             overflow: hidden;
+            position: relative;
             cursor: pointer;
+            border: 1px solid transparent;
+            transition: all 0.3s;
         }
-
-        .work-item img {
+        .portfolio-item img {
             width: 100%;
             height: auto;
             display: block;
-            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: transform 0.5s ease;
         }
-
-        .work-overlay {
+        .portfolio-overlay {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(5px);
             display: flex;
             justify-content: center;
             align-items: center;
             opacity: 0;
             transition: 0.3s;
         }
-
-        .work-overlay i { font-size: 2rem; color: #fff; transform: scale(0); transition: 0.3s; }
-
-        .work-item:hover img { transform: scale(1.1); }
-        .work-item:hover .work-overlay { opacity: 1; }
-        .work-item:hover .work-overlay i { transform: scale(1); }
-
-        .pin-link {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 1.2rem;
-            text-decoration: underline;
-            color: var(--text-muted);
-        }
+        .portfolio-overlay i { font-size: 32px; color: white; }
+        
+        .portfolio-item:hover img { transform: scale(1.05); }
+        .portfolio-item:hover { border-color: var(--accent-blue); box-shadow: 0 5px 30px rgba(0,240,255,0.1); }
+        .portfolio-item:hover .portfolio-overlay { opacity: 1; }
 
         /* --- SERVICES (TILT CARDS) --- */
-        .services-section { padding: 100px 0; }
-        
-        .cards-grid {
+        .services { padding: 100px 0; }
+        .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
         }
-
-        .card {
+        .service-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--glass-border);
             padding: 40px;
-            border-radius: 20px;
-            transition: transform 0.1s; /* For JS Tilt */
-            transform-style: preserve-3d;
+            border-radius: var(--card-radius);
             position: relative;
+            transition: transform 0.1s;
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
-
-        .card-content {
-            transform: translateZ(20px);
+        .service-card:hover {
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(255,255,255,0.2);
         }
-
-        .card h3 { font-size: 2rem; margin-bottom: 10px; }
-        .price { font-size: 1.5rem; color: var(--accent-purple); font-weight: 800; margin-bottom: 20px; display: block; }
-        .card ul { margin-bottom: 30px; }
-        .card li { margin-bottom: 10px; color: #bbb; font-size: 0.95rem; }
-        .card li i { color: var(--accent-wb); margin-right: 10px; }
-
-        .card.hit {
-            border: 1px solid var(--accent-ozon);
-            background: linear-gradient(160deg, rgba(0,91,255,0.1), transparent);
+        .price-tag {
+            font-size: 32px;
+            font-family: var(--font-head);
+            color: var(--accent-blue);
+            margin: 20px 0;
         }
-
         .hit-badge {
             position: absolute;
-            top: -15px; right: 20px;
-            background: var(--accent-ozon);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-weight: bold;
+            top: 20px; right: 20px;
+            background: var(--accent-pink);
+            color: white;
+            padding: 5px 12px;
             font-size: 12px;
-            transform: translateZ(30px);
+            font-weight: 800;
+            border-radius: 20px;
         }
+        .features-list li {
+            margin-bottom: 10px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .features-list i { color: var(--accent-blue); }
 
         /* --- EDUCATION (Distinct Style) --- */
-        .edu-section {
-            padding: 100px 0;
-            background: radial-gradient(circle at center, rgba(123, 44, 191, 0.15) 0%, #050505 70%);
-            border-top: 1px solid rgba(255,255,255,0.1);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+        .education {
+            padding: 120px 0;
+            background: linear-gradient(180deg, rgba(112,0,255,0.05) 0%, transparent 100%);
+            border-top: 1px solid rgba(112,0,255,0.2);
+            border-bottom: 1px solid rgba(112,0,255,0.2);
         }
-
-        .edu-title { margin-bottom: 60px; }
-        
+        .edu-title { color: white; text-align: center; margin-bottom: 80px; }
         .edu-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            align-items: center; /* Center vertically to pop the middle one */
+            gap: 30px;
         }
-
         .edu-card {
-            background: #0a0a0a;
-            border: 1px solid #222;
+            background: #000;
+            border: 1px solid #333;
             padding: 40px;
-            border-radius: 20px;
-            text-align: center;
+            border-radius: var(--card-radius);
+            position: relative;
+            overflow: hidden;
             transition: 0.3s;
         }
-
-        .edu-card:hover { border-color: var(--accent-wb); }
-
-        .edu-card.featured {
-            transform: scale(1.05);
-            background: linear-gradient(180deg, rgba(203,17,171,0.1), #0a0a0a);
-            border: 1px solid var(--accent-wb);
-            position: relative;
-            z-index: 2;
+        .edu-card.hit {
+            border: 1px solid var(--accent-pink);
+            box-shadow: 0 0 30px rgba(255, 0, 127, 0.1);
         }
-
-        .edu-price { font-size: 2.5rem; font-family: var(--font-head); margin: 20px 0; }
-        .edu-features { text-align: left; margin: 30px 0; padding-left: 20px; }
-        .edu-features li { margin-bottom: 8px; font-size: 14px; list-style-type: disc; }
+        .edu-card:hover { transform: translateY(-10px); }
+        .edu-price {
+            font-size: 48px;
+            font-family: var(--font-head);
+            margin: 20px 0;
+        }
 
         /* --- PROCESS --- */
-        .process-section { padding: 100px 0; }
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
+        .process { padding: 100px 0; display: flex; justify-content: center; }
+        .timeline-container { position: relative; max-width: 800px; width: 100%; }
         .timeline-line {
             position: absolute;
-            left: 50%;
+            left: 20px;
             top: 0;
-            bottom: 0;
             width: 2px;
-            background: #222;
-            transform: translateX(-50%);
-        }
-
-        .timeline-progress {
-            position: absolute;
-            left: 50%;
-            top: 0;
             height: 0%; /* JS will animate */
-            width: 2px;
-            background: var(--accent-wb);
-            transform: translateX(-50%);
-            box-shadow: 0 0 10px var(--accent-wb);
+            background: var(--accent-blue);
+            z-index: 1;
         }
-
-        .step {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .timeline-bg {
+            position: absolute;
+            left: 20px; top: 0; width: 2px; height: 100%;
+            background: #333;
+        }
+        .process-step {
+            margin-left: 60px;
             margin-bottom: 80px;
             position: relative;
+            opacity: 0.3;
+            transition: 0.5s;
         }
-        
-        .step:nth-child(even) { flex-direction: row-reverse; }
-
-        .step-content { width: 45%; background: #111; padding: 30px; border-radius: 15px; border: 1px solid #333; }
-        
+        .process-step.active { opacity: 1; }
         .step-dot {
-            width: 20px; height: 20px;
-            background: #000;
-            border: 2px solid #555;
-            border-radius: 50%;
             position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
+            left: -49px; /* Adjust for line */
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            background: #000;
+            border: 2px solid var(--accent-blue);
+            border-radius: 50%;
             z-index: 2;
         }
+        .process-step h4 { font-family: var(--font-head); font-size: 32px; margin-bottom: 10px; }
 
-        .step.active .step-dot { background: var(--accent-wb); border-color: #fff; box-shadow: 0 0 15px var(--accent-wb); }
-
-        /* --- REVIEWS (MARQUEE) --- */
-        .reviews-wrapper {
+        /* --- REVIEWS --- */
+        .reviews-slider {
+            display: flex;
+            gap: 20px;
             overflow: hidden;
-            display: flex;
-            gap: 30px;
-            padding: 50px 0;
+            padding: 40px 0;
         }
-
-        .review-track {
-            display: flex;
-            gap: 30px;
-            animation: scrollLeft 30s linear infinite;
-        }
-        
         .review-card {
             min-width: 350px;
-            background: #111;
+            background: rgba(255,255,255,0.05);
             padding: 30px;
-            border-radius: 15px;
-            border-left: 4px solid var(--accent-ozon);
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
         }
-        
         .stars { color: #FFD700; margin-bottom: 10px; }
-
-        @keyframes scrollLeft { to { transform: translateX(-50%); } }
+        .review-user {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .user-avatar { width: 40px; height: 40px; background: #333; border-radius: 50%; }
 
         /* --- FAQ --- */
-        .faq-section { padding: 100px 0; max-width: 800px; margin: 0 auto; }
-        
+        .faq { padding: 100px 0; max-width: 800px; margin: 0 auto; }
         .accordion-item {
             border-bottom: 1px solid #333;
-            margin-bottom: 20px;
-        }
-        
-        .accordion-header {
             padding: 20px 0;
-            cursor: pointer;
+        }
+        .accordion-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 1.2rem;
+            cursor: pointer;
+            font-size: 20px;
             font-weight: 600;
         }
-        
         .accordion-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s ease;
-            color: #aaa;
+            transition: 0.5s cubic-bezier(0,1,0,1);
+            color: var(--text-muted);
             line-height: 1.6;
         }
-        
-        .accordion-content p { padding-bottom: 20px; }
-        
+        .accordion-item.active .accordion-content {
+            max-height: 200px; /* Approximate max height */
+            padding-top: 20px;
+            transition: 0.5s ease-in-out;
+        }
         .icon-plus { transition: 0.3s; }
-        .active .icon-plus { transform: rotate(45deg); color: var(--accent-wb); }
+        .accordion-item.active .icon-plus { transform: rotate(45deg); color: var(--accent-pink); }
 
         /* --- FOOTER --- */
-        footer {
-            padding: 100px 0 50px;
-            border-top: 1px solid #222;
-            text-align: center;
-            background: linear-gradient(0deg, #111, #050505);
+        .footer { padding: 80px 0; background: #020202; border-top: 1px solid #222; }
+        .footer-cta h2 { font-size: clamp(40px, 6vw, 80px); line-height: 1; margin-bottom: 40px; font-family: var(--font-head); }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
         }
-
-        .footer-cta h2 { margin-bottom: 40px; font-size: 3rem; }
-        
-        .contact-form {
-            max-width: 500px;
-            margin: 0 auto 60px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+        .contact-info a {
+            display: block;
+            font-size: 24px;
+            margin-bottom: 15px;
+            transition: 0.3s;
         }
+        .contact-info a:hover { color: var(--accent-blue); padding-left: 10px; }
         
-        input {
+        form input, form textarea {
             width: 100%;
-            padding: 20px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: #fff;
-            border-radius: 8px;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #444;
+            padding: 15px 0;
+            color: white;
             font-family: var(--font-body);
+            font-size: 16px;
+            margin-bottom: 30px;
+            transition: 0.3s;
         }
-        
-        input:focus { border-color: var(--accent-ozon); }
+        form input:focus, form textarea:focus {
+            outline: none;
+            border-color: var(--accent-pink);
+        }
 
-        .socials { display: flex; justify-content: center; gap: 30px; margin-bottom: 30px; }
-        .socials a { font-size: 24px; color: #fff; }
-        .socials a:hover { color: var(--accent-wb); }
-
-        /* --- RESPONSIVE --- */
+        /* --- MOBILE ADAPTIVE --- */
         @media (max-width: 1024px) {
+            .hero-content { grid-template-columns: 1fr; text-align: center; }
+            .hero-sub { margin: 0 auto 40px; justify-content: center; }
+            .hero-btns { justify-content: center; }
+            .about-grid { grid-template-columns: 1fr; text-align: center; }
+            .about-stats { justify-content: center; }
             .masonry-grid { column-count: 2; }
-            .edu-grid { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
-            .hero-text h1 { font-size: 5rem; }
-            .hero-img-circle { width: 350px; height: 350px; }
+            .edu-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 768px) {
-            header { top: 0; width: 100%; border-radius: 0; max-width: 100%; background: rgba(5,5,5,0.9); }
-            nav ul { display: none; /* simple hide for demo, normally JS burger toggle */ }
+            .nav-links { display: none; } /* Add JS menu logic later */
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 80px; left: 0; width: 100%;
+                background: #000;
+                padding: 40px;
+                border: 1px solid #333;
+            }
             .burger { display: block; }
-            
-            .hero { padding-top: 120px; height: auto; padding-bottom: 50px; }
-            .hero-grid { grid-template-columns: 1fr; text-align: center; gap: 60px; }
-            .hero-sub { margin: 0 auto 40px; justify-content: center; }
-            .hero-btns { justify-content: center; }
-            .hero-photo { width: 80%; }
-            
             .masonry-grid { column-count: 1; }
-            .ticker-item { font-size: 3rem; }
-            
-            .step { flex-direction: column; align-items: flex-start; margin-left: 30px; }
-            .step:nth-child(even) { flex-direction: column; align-items: flex-start; }
-            .step-content { width: 100%; margin-bottom: 20px; }
-            .timeline-line, .timeline-progress { left: 0; }
-            .step-dot { left: 0; }
+            .about-img-wrapper { width: 300px; height: 300px; }
+            .header-btn { display: none; }
         }
     </style>
 </head>
 <body>
 
+    <!-- NOISE & BG -->
+    <div class="noise-overlay"></div>
+    <div class="bg-fx">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
     <!-- PRELOADER -->
-    <div class="preloader">
-        <div class="loader-logo">VP</div>
+    <div class="preloader" id="preloader">
+        <div class="preloader-text" data-text="VLAD PETROV">VLAD PETROV</div>
     </div>
 
     <!-- HEADER -->
-    <header class="glass">
-        <a href="#" class="logo">VP | <span>DESIGN</span></a>
-        
-        <nav>
-            <ul>
-                <li><a href="#portfolio">Портфолио</a></li>
-                <li><a href="#services">Услуги</a></li>
-                <li><a href="#edu">Обучение</a></li>
-                <li><a href="#reviews">Отзывы</a></li>
-            </ul>
+    <header>
+        <div class="logo">VP-DESIGN</div>
+        <nav class="nav-links">
+            <a href="#portfolio">Портфолио</a>
+            <a href="#services">Услуги</a>
+            <a href="#education">Обучение</a>
+            <a href="#reviews">Отзывы</a>
+            <a href="#contacts">Контакты</a>
         </nav>
-        
-        <div style="display: flex; gap: 20px; align-items: center;">
-            <a href="#contact" class="header-cta">Обсудить проект</a>
-            <i class="fas fa-bars burger"></i>
+        <div class="header-right" style="display:flex; gap:15px; align-items:center;">
+            <a href="#contacts" class="btn btn-primary header-btn">Обсудить проект</a>
+            <div class="burger"><i class="ph ph-list"></i></div>
         </div>
     </header>
 
     <!-- HERO -->
     <section class="hero container">
-        <div class="glow-spot glow-1"></div>
-        <div class="glow-spot glow-2"></div>
-
-        <div class="hero-grid">
+        <div class="hero-content">
             <div class="hero-text">
                 <h1>
-                    <span class="line">ПРОДАЮЩАЯ</span>
-                    <span class="line gradient-text">ИНФОГРАФИКА</span>
+                    <span class="char">ПРОДАЮЩАЯ</span><br>
+                    <span class="char accent-text-pink">ИНФОГРАФИКА</span><br>
+                    <span class="char">ОТ ВЛАДА ПЕТРОВА</span>
                 </h1>
-                <p class="hero-sub">
-                    <i class="fas fa-bolt"></i>
-                    Для Wildberries и Ozon. Повышаю CTR до 7%, а не просто рисую картинки.
-                </p>
+                <div class="hero-sub">
+                    <p>Повышаю CTR, а не просто рисую.</p>
+                    <div class="badges">
+                        <span class="badge badge-wb">WB</span>
+                        <span class="badge badge-ozon">OZON</span>
+                    </div>
+                </div>
                 <div class="hero-btns">
                     <a href="#portfolio" class="btn btn-primary">Смотреть кейсы</a>
                     <a href="#services" class="btn btn-outline">Тарифы</a>
                 </div>
             </div>
+            <!-- Optional: Hero 3D Abstract Image or Empty for minimal look -->
+        </div>
+    </section>
 
-            <div class="hero-img-wrapper">
-                <div class="hero-img-circle"></div>
-                <img src="https://i.ibb.co/zWp1WzTk/1127-20260207204539.png" alt="Vladislav Petrov" class="hero-photo">
-                <div class="badge badge-wb">TOP SELLER</div>
-                <div class="badge badge-ozon">DESIGN PRO</div>
+    <!-- MARQUEE 1 -->
+    <div class="marquee-wrapper">
+        <div class="marquee-content" id="marquee1">
+            <div class="marquee-item">ПОВЫШЕНИЕ <span>ПРОДАЖ</span> ЧЕРЕЗ ДИЗАЙН</div>
+            <div class="marquee-item">+30% <span>CTR</span></div>
+            <div class="marquee-item">ПОВЫШЕНИЕ <span>ПРОДАЖ</span> ЧЕРЕЗ ДИЗАЙН</div>
+            <div class="marquee-item">+30% <span>CTR</span></div>
+        </div>
+    </div>
+
+    <!-- ABOUT -->
+    <section class="about container">
+        <div class="about-grid">
+            <div class="about-text">
+                <h2 class="section-title">Кто я такой?</h2>
+                <p>Меня зовут Влад, мне 19 лет, я из Анапы. Занимаюсь дизайном с 2020 года.</p>
+                <p>Моя специализация — инфографика для маркетплейсов, которая бьет точно в боли целевой аудитории. Я не делаю "просто красиво", я делаю "кликабельно".</p>
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <h3>3+</h3>
+                        <p>Года опыта</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>500+</h3>
+                        <p>Проектов</p>
+                    </div>
+                </div>
+            </div>
+            <div class="about-img-wrapper">
+                <img src="https://i.ibb.co/zWp1WzTk/1127-20260207204539.png" alt="Vlad Petrov" class="about-img">
             </div>
         </div>
     </section>
 
-    <!-- BIO TICKER -->
-    <div class="ticker-wrap">
-        <div class="ticker">
-            <div class="ticker-item highlight">19 ЛЕТ</div>
-            <div class="ticker-item">АНАПА</div>
-            <div class="ticker-item highlight">ТОП СЕЛЛЕР УСЛУГ</div>
-            <div class="ticker-item">С 2020 В ДИЗАЙНЕ</div>
-            <div class="ticker-item highlight">300+ КЕЙСОВ</div>
-            <!-- Duplicate for loop -->
-            <div class="ticker-item highlight">19 ЛЕТ</div>
-            <div class="ticker-item">АНАПА</div>
-            <div class="ticker-item highlight">ТОП СЕЛЛЕР УСЛУГ</div>
-            <div class="ticker-item">С 2020 В ДИЗАЙНЕ</div>
-            <div class="ticker-item highlight">300+ КЕЙСОВ</div>
-        </div>
-    </div>
-
     <!-- PORTFOLIO -->
-    <section id="portfolio" class="portfolio-section container">
-        <h2 class="section-title">МОИ РАБОТЫ</h2>
+    <section class="portfolio container" id="portfolio">
+        <div class="portfolio-header">
+            <h2 class="section-title">Мои работы</h2>
+            <a href="https://pin.it/7jIAFGYmf" target="_blank" class="pin-link">
+                <i class="ph ph-pinterest-logo" style="font-size:20px; color:#E60023;"></i> Смотреть Pinterest
+            </a>
+        </div>
         
         <div class="masonry-grid">
-            <!-- Images from prompt -->
-            <div class="work-item glass"><img src="https://i.ibb.co/FLsCKXYD/579-20251105185725.jpg"><div class="work-overlay"><i class="far fa-eye"></i></div></div>
-            <div class="work-item glass"><img src="https://i.ibb.co/wFh0gByn/IMG-8041.jpg"><div class="work-overlay"><i class="far fa-eye"></i></div></div>
-            <div class="work-item glass"><img src="https://i.ibb.co/k6wSmDBj/IMG-7170.jpg"><div class="work-overlay"><i class="far fa-eye"></i></div></div>
-            <div class="work-item glass"><img src="https://i.ibb.co/JwML7f4g/373-20250817165435.jpg"><div class="work-overlay"><i class="far fa-eye"></i></div></div>
-            <div class="work-item glass"><img src="https://i.ibb.co/p6C8zZLn/969-20251230133150.jpg"><div class="work-overlay"><i class="far fa-eye"></i></div></div>
-            <div class="work-item glass"><img src="https://i.ibb.co/Z6RPgtBs/394-20250921005440.jpg"><div class="work-overlay"><i class="far fa-eye"></i></div></div>
-            <div class="work-item glass"><img src="https://i.ibb.co/ZRTgFQ8r/IMG-7801.jpg"><div class="work-overlay"><i class="far fa-eye"></i></div></div>
-            <div class="work-item glass"><img src="https://i.ibb.co/hR04gy83/1115-20260201215842.png"><div class="work-overlay"><i class="far fa-eye"></i></div></div>
-            <div class="work-item glass"><img src="https://i.ibb.co/6RkgYh1G/IMG-7410.jpg"><div class="work-overlay"><i class="far fa-eye"></i></div></div>
-            <div class="work-item glass"><img src="https://i.ibb.co/6cjb5PS9/601-20251110164430.jpg"><div class="work-overlay"><i class="far fa-eye"></i></div></div>
-            <div class="work-item glass"><img src="https://i.ibb.co/8LX6HLHN/IMG-3641.jpg"><div class="work-overlay"><i class="far fa-eye"></i></div></div>
-            <div class="work-item glass"><img src="https://i.ibb.co/W4FM2HxQ/436-20250929191023.jpg"><div class="work-overlay"><i class="far fa-eye"></i></div></div>
-        </div>
-        
-        <div class="pin-link">
-            <a href="https://pin.it/7jIAFGYmf" target="_blank">Больше работ на Pinterest <i class="fab fa-pinterest"></i></a>
+            <!-- Items generated via JS or hardcoded for SEO -->
+             <!-- Images are mixed portrait/landscape/square -->
+            <div class="portfolio-item"><img src="https://i.ibb.co/FLsCKXYD/579-20251105185725.jpg"><div class="portfolio-overlay"><i class="ph ph-eye"></i></div></div>
+            <div class="portfolio-item"><img src="https://i.ibb.co/wFh0gByn/IMG-8041.jpg"><div class="portfolio-overlay"><i class="ph ph-eye"></i></div></div>
+            <div class="portfolio-item"><img src="https://i.ibb.co/k6wSmDBj/IMG-7170.jpg"><div class="portfolio-overlay"><i class="ph ph-eye"></i></div></div>
+            <div class="portfolio-item"><img src="https://i.ibb.co/JwML7f4g/373-20250817165435.jpg"><div class="portfolio-overlay"><i class="ph ph-eye"></i></div></div>
+            <div class="portfolio-item"><img src="https://i.ibb.co/p6C8zZLn/969-20251230133150.jpg"><div class="portfolio-overlay"><i class="ph ph-eye"></i></div></div>
+            <div class="portfolio-item"><img src="https://i.ibb.co/Z6RPgtBs/394-20250921005440.jpg"><div class="portfolio-overlay"><i class="ph ph-eye"></i></div></div>
+            <div class="portfolio-item"><img src="https://i.ibb.co/ZRTgFQ8r/IMG-7801.jpg"><div class="portfolio-overlay"><i class="ph ph-eye"></i></div></div>
+            <div class="portfolio-item"><img src="https://i.ibb.co/hR04gy83/1115-20260201215842.png"><div class="portfolio-overlay"><i class="ph ph-eye"></i></div></div>
+            <div class="portfolio-item"><img src="https://i.ibb.co/6RkgYh1G/IMG-7410.jpg"><div class="portfolio-overlay"><i class="ph ph-eye"></i></div></div>
+            <div class="portfolio-item"><img src="https://i.ibb.co/6cjb5PS9/601-20251110164430.jpg"><div class="portfolio-overlay"><i class="ph ph-eye"></i></div></div>
+            <div class="portfolio-item"><img src="https://i.ibb.co/8LX6HLHN/IMG-3641.jpg"><div class="portfolio-overlay"><i class="ph ph-eye"></i></div></div>
+            <div class="portfolio-item"><img src="https://i.ibb.co/W4FM2HxQ/436-20250929191023.jpg"><div class="portfolio-overlay"><i class="ph ph-eye"></i></div></div>
         </div>
     </section>
 
     <!-- SERVICES -->
-    <section id="services" class="services-section container">
-        <h2 class="section-title">УСЛУГИ И ПРАЙС</h2>
-        
-        <div class="cards-grid">
-            <!-- Card 1 -->
-            <div class="card glass js-tilt">
-                <div class="card-content">
-                    <h3>Разовые услуги</h3>
-                    <span class="price">от 1500₽</span>
-                    <ul>
-                        <li><i class="fas fa-check"></i>Главный слайд - 1500₽</li>
-                        <li><i class="fas fa-check"></i>Доп. слайды - 800₽</li>
-                        <li><i class="fas fa-check"></i>Видеообложка - 3000₽</li>
-                        <li><i class="fas fa-check"></i>Анализ ниши</li>
-                    </ul>
-                    <a href="#contact" class="btn btn-outline" style="width:100%">Заказать</a>
-                </div>
+    <section class="services container" id="services">
+        <h2 class="section-title">Услуги & Тарифы</h2>
+        <div class="services-grid">
+            <!-- Single Items -->
+            <div class="service-card" data-tilt>
+                <h3>Главный слайд</h3>
+                <div class="price-tag">1 500₽</div>
+                <p style="color:var(--text-muted)">Разработка концепции и дизайна обложки.</p>
             </div>
-
-            <!-- Card 2 (Hit) -->
-            <div class="card glass hit js-tilt">
-                <div class="hit-badge">ХИТ ПРОДАЖ</div>
-                <div class="card-content">
-                    <h3>Пакет "Премиум"</h3>
-                    <span class="price">8 900₽</span>
-                    <ul>
-                        <li><i class="fas fa-check"></i>5-7 слайдов (Воронка)</li>
-                        <li><i class="fas fa-check"></i>Глубокий анализ конкурентов</li>
-                        <li><i class="fas fa-check"></i>Разработка УТП</li>
-                        <li><i class="fas fa-check"></i>2 круга правок бесплатно</li>
-                        <li><i class="fas fa-check"></i>Исходники в подарок</li>
-                    </ul>
-                    <a href="#contact" class="btn btn-primary" style="width:100%">Хочу ТОП</a>
-                </div>
+            <div class="service-card" data-tilt>
+                <h3>Дополнительный слайд</h3>
+                <div class="price-tag">800₽</div>
+                <p style="color:var(--text-muted)">Раскрытие преимуществ товара.</p>
             </div>
-
-            <!-- Card 3 -->
-            <div class="card glass js-tilt">
-                <div class="card-content">
-                    <h3>Пакет "Старт"</h3>
-                    <span class="price">3 900₽</span>
-                    <ul>
-                        <li><i class="fas fa-check"></i>3 слайда (Главный + Преимущества)</li>
-                        <li><i class="fas fa-check"></i>Базовый ресайз</li>
-                        <li><i class="fas fa-check"></i>Быстрый срок (2-3 дня)</li>
-                    </ul>
-                    <a href="#contact" class="btn btn-outline" style="width:100%">Заказать</a>
-                </div>
+            <div class="service-card" data-tilt>
+                <h3>Видеообложка</h3>
+                <div class="price-tag">3 000₽</div>
+                <p style="color:var(--text-muted)">Анимация для повышения удержания.</p>
+            </div>
+            
+            <!-- Packages -->
+            <div class="service-card" data-tilt style="border-color: var(--accent-purple)">
+                <div class="hit-badge">ХИТ</div>
+                <h3>Пакет ПРЕМИУМ</h3>
+                <div class="price-tag">8 900₽</div>
+                <ul class="features-list">
+                    <li><i class="ph ph-check-circle"></i> Полный анализ ниши</li>
+                    <li><i class="ph ph-check-circle"></i> 5-7 слайдов</li>
+                    <li><i class="ph ph-check-circle"></i> Разработка УТП</li>
+                    <li><i class="ph ph-check-circle"></i> Неограниченные правки</li>
+                </ul>
+                <button class="btn btn-primary" style="margin-top:20px; width:100%">Заказать</button>
             </div>
         </div>
     </section>
 
-    <!-- EDUCATION -->
-    <section id="edu" class="edu-section">
+    <!-- EDUCATION (Visually Distinct) -->
+    <section class="education" id="education">
         <div class="container">
-            <h2 class="section-title edu-title">ОБУЧЕНИЕ</h2>
+            <h2 class="section-title edu-title">Стань Топ-Дизайнером</h2>
             <div class="edu-grid">
-                <!-- Basic -->
                 <div class="edu-card">
-                    <h4>Basic</h4>
+                    <h3>БАЗА</h3>
                     <div class="edu-price">9 990₽</div>
-                    <ul class="edu-features">
-                        <li>Вся база знаний</li>
-                        <li>Доступ к урокам навсегда</li>
-                        <li>Без проверки ДЗ</li>
+                    <p style="color:#aaa; margin-bottom:20px;">Для самостоятельных</p>
+                    <ul class="features-list">
+                        <li><i class="ph ph-student"></i> Доступ к урокам</li>
+                        <li><i class="ph ph-x-circle" style="color:#555"></i> Без обратной связи</li>
                     </ul>
-                    <a href="#contact" class="btn btn-outline">Начать</a>
+                    <a href="#" class="btn btn-outline" style="margin-top:20px; width:100%">Начать</a>
                 </div>
 
-                <!-- ДЛЯ ЧАЙНИКОВ -->
-                <div class="edu-card featured">
-                    <div class="badge badge-wb" style="top: -15px; right: unset; left: 50%; transform: translateX(-50%);">MAX РЕЗУЛЬТАТ</div>
-                    <h4>ДЛЯ ЧАЙНИКОВ</h4>
-                    <div class="edu-price gradient-text">39 990₽</div>
-                    <ul class="edu-features">
-                        <li>Личное ведение c Владом</li>
-                        <li>Созвоны и разборы</li>
-                        <li>Помощь с поиском клиентов</li>
-                        <li>Доступ в закрытый чат</li>
-                    </ul>
-                    <a href="#contact" class="btn btn-primary">Записаться</a>
-                </div>
-
-                <!-- Pro -->
                 <div class="edu-card">
-                    <h4>PRO Group</h4>
+                    <h3>ПРО</h3>
                     <div class="edu-price">29 990₽</div>
-                    <ul class="edu-features">
-                        <li>Работа с куратором</li>
-                        <li>Проверка домашек</li>
-                        <li>Общий чат учеников</li>
+                    <p style="color:#aaa; margin-bottom:20px;">Работа с куратором</p>
+                    <ul class="features-list">
+                        <li><i class="ph ph-student"></i> Доступ к урокам</li>
+                        <li><i class="ph ph-chat-circle-dots"></i> Чат с кураторами</li>
+                        <li><i class="ph ph-video-camera"></i> Разборы ДЗ</li>
                     </ul>
-                    <a href="#contact" class="btn btn-outline">Начать</a>
+                    <a href="#" class="btn btn-outline" style="margin-top:20px; width:100%">Начать</a>
+                </div>
+
+                <div class="edu-card hit">
+                    <div class="hit-badge">MENTORSHIP</div>
+                    <h3 class="accent-text-pink">НАСТАВНИЧЕСТВО</h3>
+                    <div class="edu-price">49 990₽</div>
+                    <p style="color:#aaa; margin-bottom:20px;">Личное ведение Владом</p>
+                    <ul class="features-list">
+                        <li><i class="ph ph-crown"></i> Личные созвоны</li>
+                        <li><i class="ph ph-briefcase"></i> Помощь с первыми клиентами</li>
+                        <li><i class="ph ph-star"></i> Доступ навсегда</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary" style="margin-top:20px; width:100%; background:var(--accent-pink); box-shadow:0 0 20px rgba(255,0,127,0.3)">Хочу к Владу</a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- PROCESS -->
-    <section class="process-section container">
-        <h2 class="section-title">КАК МЫ РАБОТАЕМ</h2>
-        <div class="timeline">
+    <section class="process">
+        <div class="timeline-container">
+            <h2 class="section-title" style="margin-bottom:60px;">Этапы работы</h2>
+            <div class="timeline-bg"></div>
             <div class="timeline-line"></div>
-            <div class="timeline-progress"></div>
             
-            <div class="step step-1">
+            <div class="process-step">
                 <div class="step-dot"></div>
-                <div class="step-content glass">
-                    <h3>01. Бриф</h3>
-                    <p>Ты заполняешь анкету, мы обсуждаем цели и боли твоего товара.</p>
-                </div>
+                <h4>01. Бриф</h4>
+                <p>Заполняем анкету, выясняем цели и боли.</p>
             </div>
-            
-            <div class="step step-2">
+            <div class="process-step">
                 <div class="step-dot"></div>
-                <div class="step-content glass">
-                    <h3>02. Анализ</h3>
-                    <p>Я смотрю конкурентов на WB/Ozon, ищу слабые места и создаю стратегию.</p>
-                </div>
+                <h4>02. Анализ</h4>
+                <p>Изучаю конкурентов и ищу точки роста.</p>
             </div>
-
-             <div class="step step-3">
+            <div class="process-step">
                 <div class="step-dot"></div>
-                <div class="step-content glass">
-                    <h3>03. Дизайн</h3>
-                    <p>Магия Photoshop/Figma. Создаю сочную, продающую картинку.</p>
-                </div>
+                <h4>03. Дизайн</h4>
+                <p>Разработка концепции и создание инфографики.</p>
             </div>
-
-             <div class="step step-4">
+            <div class="process-step">
                 <div class="step-dot"></div>
-                <div class="step-content glass">
-                    <h3>04. Финал</h3>
-                    <p>Передача файлов, высокая конверсия, рост продаж.</p>
-                </div>
+                <h4>04. Финал</h4>
+                <p>Согласование и передача исходников.</p>
             </div>
         </div>
     </section>
 
     <!-- REVIEWS -->
-    <section id="reviews">
-        <div class="reviews-wrapper">
-            <div class="review-track">
-                <!-- 8 Cards loop -->
-                <div class="review-card">
-                    <div class="stars">★★★★★</div>
-                    <p>"Влад сделал карточку, CTR вырос с 2% до 5.5% за неделю. Окупилось мгновенно."</p>
-                    <small>— Михаил, селлер одежды</small>
-                </div>
-                 <div class="review-card">
-                    <div class="stars">★★★★★</div>
-                    <p>"Обучение структурировано, без воды. Уже взял первый заказ на 5к."</p>
-                    <small>— Артём, ученик</small>
-                </div>
-                 <div class="review-card">
-                    <div class="stars">★★★★★</div>
-                    <p>"Лучший дизайн для электроники. Строго, стильно, понятно покупателю."</p>
-                    <small>— TechStore, Ozon</small>
-                </div>
-                 <div class="review-card">
-                    <div class="stars">★★★★★</div>
-                    <p>"Менторство того стоит. Влад реально погружается в проблемы."</p>
-                    <small>— Елена, дизайнер</small>
-                </div>
-                <!-- Duplicate for infinite look -->
-                 <div class="review-card">
-                    <div class="stars">★★★★★</div>
-                    <p>"Скорость работы поражает. Утром бриф — вечером макет."</p>
-                    <small>— Дмитрий</small>
-                </div>
-                 <div class="review-card">
-                    <div class="stars">★★★★★</div>
-                    <p>"Обучение окупил со второго клиента. Спасибо за базу!"</p>
-                    <small>— Сергей</small>
+    <section class="container" id="reviews" style="overflow:hidden;">
+        <h2 class="section-title">Отзывы</h2>
+        <div class="reviews-slider" id="reviewsMarquee">
+            <!-- Duplicated content for infinity scroll will be handled by JS or just HTML duplication -->
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p>"Влад поднял нам продажи на 40% за неделю!"</p>
+                <div class="review-user">
+                    <div class="user-avatar" style="background:grey;"></div>
+                    <span>Seller WB</span>
                 </div>
             </div>
-            <!-- Duplicate Track for Seamlessness (Simplified approach via JS cloner preferred but HTML duplicate works for simple marquee) -->
-             <div class="review-track">
-                 <div class="review-card">
-                    <div class="stars">★★★★★</div>
-                    <p>"Влад сделал карточку, CTR вырос с 2% до 5.5% за неделю. Окупилось мгновенно."</p>
-                    <small>— Михаил, селлер одежды</small>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p>"Обучение окупилось с первого заказа."</p>
+                <div class="review-user">
+                    <div class="user-avatar" style="background:grey;"></div>
+                    <span>Алексей, Студент</span>
                 </div>
-                 <div class="review-card">
-                    <div class="stars">★★★★★</div>
-                    <p>"Обучение структурировано, без воды. Уже взял первый заказ на 5к."</p>
-                    <small>— Артём, ученик</small>
+            </div>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p>"Лучшая инфографика в нише электроники."</p>
+                <div class="review-user">
+                    <div class="user-avatar" style="background:grey;"></div>
+                    <span>TechStore</span>
                 </div>
-                 <div class="review-card">
-                    <div class="stars">★★★★★</div>
-                    <p>"Лучший дизайн для электроники. Строго, стильно, понятно покупателю."</p>
-                    <small>— TechStore, Ozon</small>
+            </div>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p>"Спасибо за наставничество, вышел на доход 100к."</p>
+                <div class="review-user">
+                    <div class="user-avatar" style="background:grey;"></div>
+                    <span>Мария Д.</span>
                 </div>
+            </div>
+             <!-- Duplicates for loop -->
+             <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p>"Влад поднял нам продажи на 40% за неделю!"</p>
+                <div class="review-user"><div class="user-avatar" style="background:grey;"></div><span>Seller WB</span></div>
             </div>
         </div>
     </section>
 
     <!-- FAQ -->
-    <section class="faq-section container">
-        <h2 class="section-title" style="font-size: 3rem;">FAQ</h2>
+    <section class="faq">
+        <h2 class="section-title">FAQ</h2>
         <div class="accordion-item">
-            <div class="accordion-header">
-                Нужно ли мне ТЗ? <i class="fas fa-plus icon-plus"></i>
-            </div>
-            <div class="accordion-content">
-                <p>Желательно, но если его нет — я помогу составить на этапе брифинга. Главное — фото товара.</p>
-            </div>
+            <div class="accordion-header">Какие сроки выполнения? <i class="ph ph-plus icon-plus"></i></div>
+            <div class="accordion-content">Обычно 1-3 дня в зависимости от загрузки и объема пакета.</div>
         </div>
-         <div class="accordion-item">
-            <div class="accordion-header">
-                Как проходит обучение? <i class="fas fa-plus icon-plus"></i>
-            </div>
-            <div class="accordion-content">
-                <p>На закрытой платформе. Уроки в записи, д/з проверяю лично или кураторы (зависит от тарифа).</p>
-            </div>
+        <div class="accordion-item">
+            <div class="accordion-header">Работаете с юр. лицами? <i class="ph ph-plus icon-plus"></i></div>
+            <div class="accordion-content">Да, возможна оплата по счету (Самозанятость/ИП).</div>
         </div>
-         <div class="accordion-item">
-            <div class="accordion-header">
-                Работаете с юр. лицами? <i class="fas fa-plus icon-plus"></i>
-            </div>
-            <div class="accordion-content">
-                <p>Да, я оформлен как самозанятый, могу выдать чек и акт выполненных работ.</p>
-            </div>
+        <div class="accordion-item">
+            <div class="accordion-header">Что если мне не понравится? <i class="ph ph-plus icon-plus"></i></div>
+            <div class="accordion-content">Мы обсуждаем все детали на этапе брифа. В пакеты включены правки.</div>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer id="contact">
-        <div class="container footer-cta">
-            <h2>ГОТОВЫ <span class="gradient-text">ВЗОРВАТЬ</span> ПРОДАЖИ?</h2>
-            
-            <form class="contact-form glass">
-                <input type="text" placeholder="Ваше имя">
-                <input type="tel" placeholder="+7 (999) 000-00-00">
-                <button type="button" class="btn btn-primary">Оставить заявку</button>
-            </form>
-
-            <div class="socials">
-                <a href="https://t.me/vladpetroov"><i class="fab fa-telegram-plane"></i></a>
-                <a href="https://vk.com/vladpetrovagency"><i class="fab fa-vk"></i></a>
-                <a href="#"><i class="fab fa-whatsapp"></i></a>
+    <footer class="footer" id="contacts">
+        <div class="container">
+            <div class="footer-cta">
+                <h2>ГОТОВЫ ВЗОРВАТЬ<br><span class="accent-text-blue">ПРОДАЖИ?</span></h2>
             </div>
-            
-            <p style="color: #555;">&copy; 2024 Vladislav Petrov. All Rights Reserved.</p>
+            <div class="footer-grid">
+                <div class="contact-info">
+                    <a href="tel:+79196301067">+7 919 630-10-67</a>
+                    <a href="https://t.me/vladpetroov" target="_blank">TG: @vladpetroov</a>
+                    <a href="https://vk.com/vladpetrovagency" target="_blank">VK: vladpetrovagency</a>
+                </div>
+                <form onsubmit="event.preventDefault(); alert('Заявка отправлена!');">
+                    <input type="text" placeholder="Ваше имя" required>
+                    <input type="tel" placeholder="Телефон" required>
+                    <button type="submit" class="btn btn-primary">Оставить заявку</button>
+                </form>
+            </div>
         </div>
     </footer>
 
     <!-- SCRIPTS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <script>
+        // --- SETUP ---
         gsap.registerPlugin(ScrollTrigger);
-
-        // --- MOUSE TILT EFFECT (Vanilla JS) ---
-        const tiltCards = document.querySelectorAll('.js-tilt');
         
-        tiltCards.forEach(card => {
+        // Smooth Scroll (Lenis) - Critical for "Luxury" feel
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // --- PRELOADER ---
+        window.addEventListener('load', () => {
+            const preloaderText = document.querySelector('.preloader-text');
+            preloaderText.classList.add('loaded');
+            
+            setTimeout(() => {
+                document.getElementById('preloader').classList.add('preloader-hide');
+                initAnimations();
+            }, 1500);
+        });
+
+        function initAnimations() {
+            // Hero Text Stagger
+            gsap.from(".char", {
+                y: 100,
+                opacity: 0,
+                duration: 1,
+                stagger: 0.1,
+                ease: "power4.out"
+            });
+
+            gsap.from(".hero-sub, .hero-btns", {
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                delay: 0.8,
+                ease: "power3.out"
+            });
+
+            // Marquee Animation
+            gsap.to("#marquee1", {
+                xPercent: -50,
+                repeat: -1,
+                duration: 20,
+                ease: "linear"
+            });
+            
+            gsap.to("#reviewsMarquee", {
+                xPercent: -30,
+                repeat: -1,
+                duration: 30,
+                ease: "linear",
+                yoyo: true
+            });
+
+            // About Image Scale
+            gsap.from(".about-img-wrapper", {
+                scrollTrigger: {
+                    trigger: ".about",
+                    start: "top 80%",
+                },
+                scale: 0.8,
+                opacity: 0,
+                duration: 1
+            });
+
+            // Portfolio Items Fade Up
+            gsap.utils.toArray(".portfolio-item").forEach((item, i) => {
+                gsap.from(item, {
+                    scrollTrigger: {
+                        trigger: item,
+                        start: "top 90%",
+                    },
+                    y: 50,
+                    opacity: 0,
+                    duration: 0.6,
+                    delay: i % 3 * 0.1 // Stagger effect based on column
+                });
+            });
+
+            // Process Line
+            gsap.to(".timeline-line", {
+                height: "100%",
+                scrollTrigger: {
+                    trigger: ".process",
+                    start: "top center",
+                    end: "bottom center",
+                    scrub: 1
+                }
+            });
+
+            // Process Steps active class
+            gsap.utils.toArray(".process-step").forEach(step => {
+                ScrollTrigger.create({
+                    trigger: step,
+                    start: "top 70%",
+                    onEnter: () => step.classList.add("active"),
+                    onLeaveBack: () => step.classList.remove("active")
+                });
+            });
+        }
+
+        // --- TILT EFFECT FOR CARDS ---
+        const cards = document.querySelectorAll('.service-card, .edu-card');
+        
+        cards.forEach(card => {
             card.addEventListener('mousemove', (e) => {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
@@ -1004,9 +1065,9 @@
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
                 
-                const rotateX = ((y - centerY) / centerY) * -10; // Max rotation deg
+                const rotateX = ((y - centerY) / centerY) * -10; // Max 10deg
                 const rotateY = ((x - centerX) / centerX) * 10;
-                
+
                 card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
             });
 
@@ -1015,104 +1076,28 @@
             });
         });
 
-        // --- ANIMATIONS ---
+        // --- FAQ ACCORDION ---
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+
+        // --- MOBILE MENU ---
+        const burger = document.querySelector('.burger');
+        const nav = document.querySelector('.nav-links');
         
-        // Hero Text Stagger
-        gsap.from(".hero-text h1 .line", {
-            y: 100,
-            opacity: 0,
-            duration: 1.2,
-            stagger: 0.2,
-            ease: "power4.out",
-            delay: 2.2 // wait for preloader
+        burger.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            const isOpen = nav.classList.contains('active');
+            burger.innerHTML = isOpen ? '<i class="ph ph-x"></i>' : '<i class="ph ph-list"></i>';
         });
 
-        gsap.from(".hero-sub", { opacity: 0, y: 20, delay: 3, duration: 1 });
-        gsap.from(".hero-img-wrapper", { opacity: 0, scale: 0.9, delay: 2.5, duration: 1.5, ease: "back.out(1.7)" });
-
-        // Scroll Animations (Sections)
-        gsap.utils.toArray('.section-title').forEach(title => {
-            gsap.from(title, {
-                scrollTrigger: {
-                    trigger: title,
-                    start: "top 80%",
-                },
-                y: 50,
-                opacity: 0,
-                duration: 1
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
             });
-        });
-
-        // Masonry Fade In
-        gsap.from(".work-item", {
-            scrollTrigger: {
-                trigger: ".masonry-grid",
-                start: "top 70%",
-            },
-            y: 50,
-            opacity: 0,
-            stagger: 0.1,
-            duration: 0.8
-        });
-
-        // Timeline Draw
-        gsap.to(".timeline-progress", {
-            height: "100%",
-            scrollTrigger: {
-                trigger: ".timeline",
-                start: "top 60%",
-                end: "bottom 60%",
-                scrub: 1
-            }
-        });
-
-        // Timeline Steps Active State
-        gsap.utils.toArray('.step').forEach(step => {
-            ScrollTrigger.create({
-                trigger: step,
-                start: "top 60%",
-                onEnter: () => step.classList.add('active'),
-                onLeaveBack: () => step.classList.remove('active')
-            });
-        });
-
-        // Pricing/Cards Float in
-        gsap.from(".cards-grid .card", {
-            scrollTrigger: {
-                trigger: ".cards-grid",
-                start: "top 75%",
-            },
-            y: 100,
-            opacity: 0,
-            stagger: 0.2,
-            duration: 0.8,
-            ease: "power2.out"
-        });
-
-        // FAQ Accordion
-        const accItems = document.querySelectorAll('.accordion-header');
-        accItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const parent = item.parentElement;
-                parent.classList.toggle('active');
-                const content = item.nextElementSibling;
-                if (parent.classList.contains('active')) {
-                    content.style.maxHeight = content.scrollHeight + "px";
-                } else {
-                    content.style.maxHeight = 0;
-                }
-            });
-        });
-        
-        // Remove Preloader after load
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                gsap.to(".preloader", {
-                    opacity: 0,
-                    duration: 0.5,
-                    onComplete: () => document.querySelector(".preloader").style.display = "none"
-                });
-            }, 2000); // Allow logo fill animation to finish
         });
 
     </script>
