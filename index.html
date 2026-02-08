@@ -1,576 +1,695 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Star, Check, Send, Menu, X, Instagram, ExternalLink, ChevronRight, Zap, BarChart, Clock, Layers, MousePointer2 } from 'lucide-react';
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VP.DESIGN | Инфографика для Маркетплейсов</title>
+    <meta name="description" content="Премиальный дизайн инфографики для Wildberries и Ozon. Увеличиваю CTR и продажи.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Icons (Phosphor) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
-// --- Assets & Data Configuration ---
+    <!-- Tailwind Config for Custom Colors/Fonts -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        deep: '#050505',
+                        secondary: '#0a0a0a',
+                        lime: '#CCFF00',
+                        'lime-dim': '#b3e600',
+                        glass: 'rgba(255, 255, 255, 0.03)',
+                        'glass-border': 'rgba(255, 255, 255, 0.08)',
+                    },
+                    fontFamily: {
+                        bebas: ['"Bebas Neue"', 'sans-serif'],
+                        inter: ['"Inter"', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'noise': "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.05%22/%3E%3C/svg%3E')",
+                    }
+                }
+            }
+        }
+    </script>
 
-const PORTFOLIO_ITEMS = [
-  "https://i.ibb.co/FLsCKXYD/579-20251105185725.jpg",
-  "https://i.ibb.co/wFh0gByn/IMG-8041.jpg",
-  "https://i.ibb.co/k6wSmDBj/IMG-7170.jpg",
-  "https://i.ibb.co/JwML7f4g/373-20250817165435.jpg",
-  "https://i.ibb.co/p6C8zZLn/969-20251230133150.jpg",
-  "https://i.ibb.co/Z6RPgtBs/394-20250921005440.jpg",
-  "https://i.ibb.co/ZRTgFQ8r/IMG-7801.jpg",
-  "https://i.ibb.co/hR04gy83/1115-20260201215842.png",
-  "https://i.ibb.co/6RkgYh1G/IMG-7410.jpg",
-  "https://i.ibb.co/6cjb5PS9/601-20251110164430.jpg",
-  "https://i.ibb.co/8LX6HLHN/IMG-3641.jpg",
-  "https://i.ibb.co/W4FM2HxQ/436-20250929191023.jpg"
-];
-
-const REVIEWS = [
-  { name: "Алексей М.", role: "Seller WB", text: "Инфографика подняла CTR на 40% за неделю. Влад чувствует рынок.", type: "design" },
-  { name: "Мария К.", role: "Brand Manager", text: "Стильно, дорого, быстро. Именно то, что мы искали для премиум сегмента.", type: "design" },
-  { name: "Дмитрий В.", role: "Student", text: "Курс PRO перевернул мое понимание дизайна. Окупил обучение за 2 заказа.", type: "edu" },
-  { name: "Елена С.", role: "Seller Ozon", text: "Работаем уже год. Стабильное качество и всегда свежие идеи.", type: "design" },
-  { name: "Игорь П.", role: "Entrepreneur", text: "Влад делает не просто картинки, а инструменты продаж. Рекомендую.", type: "design" },
-  { name: "Анна Л.", role: "Student", text: "Все четко, без воды. Влад объясняет сложные вещи простым языком.", type: "edu" },
-  { name: "Сергей Т.", role: "Seller WB", text: "После редизайна карточки вышли в топ-10 категории.", type: "design" },
-  { name: "Ольга Р.", role: "Marketing Lead", text: "Отличная коммуникация и соблюдение дедлайнов. Редкое качество.", type: "design" },
-  { name: "Павел К.", role: "Student", text: "Личный разбор от Влада дал мощный буст. Теперь беру заказы х3 дороже.", type: "edu" },
-  { name: "Виктория Н.", role: "Shop Owner", text: "Вау-эффект обеспечен. Клиенты пишут, что карточки выглядят космически.", type: "design" },
-];
-
-const COURSES = [
-  { title: "Инфографика: Старт", level: "Base", desc: "Базовый курс для новичков. Простая инфографика и основы подачи товара на маркетплейсах.", price: "Start" },
-  { title: "Инфографика PRO", level: "Middle", desc: "Продвинутый курс. Креативные концепции, улучшение визуала и продаж.", price: "Pro" },
-  { title: "Инфографика TOP", level: "High-End", desc: "Премиальный курс, веду лично я. Полное погружение, индивидуальные разборы.", price: "Premium" },
-];
-
-const CASES = [
-  { task: "Повысить видимость товара", solution: "Яркая инфографика и улучшенная подача", result: "+45% кликов", metric: "+30% продаж" },
-  { task: "Отстройка от конкурентов", solution: "Премиальный темный стиль", result: "TOP-3 в выдаче", metric: "x2 конверсия" },
-  { task: "Запуск нового бренда", solution: "Единая стилистика и Rich-контент", result: "Успешный старт", metric: "ROI 300%" },
-];
-
-const PROCESS_STEPS = [
-  { num: "01", title: "Консультация", desc: "Обсуждаем цели и задачи клиента." },
-  { num: "02", title: "Анализ", desc: "Изучаем продукт и рынок." },
-  { num: "03", title: "Дизайн", desc: "Создаем яркую и продающую инфографику." },
-  { num: "04", title: "Проверка", desc: "Согласование и корректировка." },
-  { num: "05", title: "Результат", desc: "Готовый продукт, выделяющий товар." },
-];
-
-// --- Shared Components ---
-
-const LimeButton = ({ children, href, className = "", onClick }) => (
-  <a
-    href={href}
-    onClick={onClick}
-    target="_blank"
-    rel="noopener noreferrer"
-    className={`relative group inline-flex items-center justify-center px-8 py-4 font-bold text-black uppercase tracking-wider transition-all duration-300 bg-[#CCFF00] rounded-full hover:shadow-[0_0_30px_rgba(204,255,0,0.6)] hover:scale-105 active:scale-95 overflow-hidden ${className}`}
-  >
-    <span className="relative z-10 flex items-center gap-2">
-      {children} <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-    </span>
-    <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
-  </a>
-);
-
-const SectionTitle = ({ title, subtitle }) => (
-  <div className="mb-12 md:mb-20 space-y-4">
-    <motion.h2 
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-white font-display"
-    >
-      {title} <span className="text-[#CCFF00]">.</span>
-    </motion.h2>
-    {subtitle && (
-      <motion.p 
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.2 }}
-        className="text-gray-400 text-lg md:text-xl max-w-2xl"
-      >
-        {subtitle}
-      </motion.p>
-    )}
-  </div>
-);
-
-const GlassCard = ({ children, className = "", hoverEffect = true }) => (
-  <div className={`relative overflow-hidden bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 ${hoverEffect ? 'transition-all duration-500 hover:border-[#CCFF00]/50 hover:bg-white/10 hover:shadow-[0_0_30px_rgba(204,255,0,0.1)] group' : ''} ${className}`}>
-    {children}
-  </div>
-);
-
-// --- Main Application ---
-
-export default function PortfolioApp() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { scrollY } = useScroll();
-  const heroY = useTransform(scrollY, [0, 500], [0, 150]);
-  const heroOpacity = useTransform(scrollY, [0, 400], [1, 0]);
-
-  const scrollToSection = (id) => {
-    setIsMenuOpen(false);
-    const element = document.getElementById(id);
-    if (element) element.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  return (
-    <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-[#CCFF00] selection:text-black overflow-x-hidden">
-      
-      {/* Global CSS & Fonts */}
-      <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Oswald:wght@400;500;700&display=swap');
-        
-        body { font-family: 'Inter', sans-serif; }
-        .font-display { font-family: 'Oswald', sans-serif; }
-        
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0a0a0a; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #CCFF00; }
-
-        /* Noise Filter */
-        .noise-overlay {
-          position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50; opacity: 0.04;
-          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    <style>
+        /* Global & Reset */
+        body {
+            background-color: #050505;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
         }
 
-        .hide-scroll::-webkit-scrollbar { display: none; }
-        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
-      `}</style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #CCFF00;
+        }
 
-      <div className="noise-overlay" />
+        /* Selection Color */
+        ::selection {
+            background-color: #CCFF00;
+            color: #000;
+        }
 
-      {/* --- Navigation --- */}
-      <nav className="fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-6 transition-all duration-300">
-        <div className="max-w-7xl mx-auto">
-          <motion.div 
-            initial={{ y: -100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-full px-6 py-4 flex items-center justify-between shadow-2xl shadow-black/50"
-          >
-            <div className="text-2xl font-bold font-display tracking-tight flex items-center gap-1 cursor-pointer" onClick={() => window.scrollTo({top:0, behavior:'smooth'})}>
-              VP<span className="text-[#CCFF00]">.DESIGN</span>
+        /* Glassmorphism Utilities */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .glass-nav {
+            background: rgba(5, 5, 5, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Text Effects */
+        .text-glow {
+            text-shadow: 0 0 20px rgba(204, 255, 0, 0.3);
+        }
+        
+        .stroke-text {
+            -webkit-text-stroke: 1px rgba(255,255,255,0.1);
+            color: transparent;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        .animate-float-delay {
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 10px rgba(204, 255, 0, 0.1); }
+            50% { box-shadow: 0 0 25px rgba(204, 255, 0, 0.4); }
+        }
+        .hover-glow:hover {
+            animation: pulse-glow 2s infinite;
+        }
+
+        /* Fade In Logic */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Swipe Container */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Abstract shapes */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="antialiased relative">
+
+    <!-- Noise Texture Overlay -->
+    <div class="fixed inset-0 w-full h-full pointer-events-none z-50 bg-noise opacity-30 mix-blend-overlay"></div>
+
+    <!-- Background Orbs -->
+    <div class="orb w-[500px] h-[500px] bg-lime/20 top-[-100px] left-[-100px] animate-float"></div>
+    <div class="orb w-[400px] h-[400px] bg-blue-900/20 bottom-[10%] right-[-100px] animate-float-delay"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-[100] px-4 py-4 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto glass-nav rounded-2xl px-6 py-4 flex justify-between items-center border border-white/10">
+            <a href="#" class="text-2xl font-bebas tracking-widest text-white hover:text-lime transition-colors">
+                VP<span class="text-lime">.</span>DESIGN
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 text-sm uppercase tracking-wider font-medium text-gray-400">
+                <a href="#about" class="hover:text-lime transition-colors">Обо мне</a>
+                <a href="#portfolio" class="hover:text-lime transition-colors">Портфолио</a>
+                <a href="#cases" class="hover:text-lime transition-colors">Результат</a>
+                <a href="#education" class="hover:text-lime transition-colors">Обучение</a>
+                <a href="#reviews" class="hover:text-lime transition-colors">Отзывы</a>
             </div>
 
-            <div className="hidden lg:flex items-center gap-8">
-              {['Обо мне', 'Портфолио', 'Почему я', 'Обучение', 'Отзывы'].map((item) => (
-                <button 
-                  key={item}
-                  onClick={() => scrollToSection(item === 'Обо мне' ? 'about' : item === 'Портфолио' ? 'portfolio' : item === 'Почему я' ? 'why' : item === 'Обучение' ? 'education' : 'reviews')}
-                  className="text-sm uppercase tracking-widest text-gray-400 hover:text-[#CCFF00] transition-colors relative group font-medium"
-                >
-                  {item}
-                  <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-[#CCFF00] transition-all group-hover:w-full"></span>
-                </button>
-              ))}
-            </div>
+            <!-- Mobile Menu Button -->
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none">
+                <i class="ph ph-list text-2xl"></i>
+            </button>
 
-            <div className="flex items-center gap-4">
-               <a href="https://t.me/vladpetroov" target="_blank" className="hidden md:flex items-center gap-2 text-sm font-bold bg-white/10 hover:bg-[#CCFF00] hover:text-black px-6 py-3 rounded-full transition-all duration-300 border border-white/10 hover:border-transparent group">
-                 <Send size={16} className="group-hover:-rotate-12 transition-transform" /> Написать
-               </a>
-               <button onClick={() => setIsMenuOpen(true)} className="lg:hidden text-white hover:text-[#CCFF00] transition-colors">
-                 <Menu size={28} />
-               </button>
-            </div>
-          </motion.div>
+            <a href="#contact" class="hidden md:inline-flex items-center gap-2 bg-lime text-black px-5 py-2 rounded-full font-bold text-sm hover:bg-white transition-all transform hover:scale-105 hover:shadow-[0_0_20px_rgba(204,255,0,0.4)]">
+                <i class="ph-bold ph-telegram-logo"></i> Написать
+            </a>
         </div>
-      </nav>
 
-      {/* Mobile Menu Overlay */}
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div 
-            initial={{ opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
-            transition={{ type: "spring", bounce: 0, duration: 0.4 }}
-            className="fixed inset-0 z-[60] bg-black/95 backdrop-blur-2xl p-6 lg:hidden flex flex-col"
-          >
-            <div className="flex justify-between items-center mb-12">
-              <div className="text-2xl font-bold font-display">VP<span className="text-[#CCFF00]">.DESIGN</span></div>
-              <button onClick={() => setIsMenuOpen(false)} className="p-2 bg-white/10 rounded-full text-white"><X size={24}/></button>
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="fixed inset-0 bg-black/95 backdrop-blur-xl z-[90] flex flex-col justify-center items-center space-y-8 transform translate-x-full transition-transform duration-300 md:hidden">
+            <button id="close-menu" class="absolute top-8 right-8 text-white"><i class="ph ph-x text-3xl"></i></button>
+            <a href="#about" class="text-3xl font-bebas text-white hover:text-lime mobile-link">Обо мне</a>
+            <a href="#portfolio" class="text-3xl font-bebas text-white hover:text-lime mobile-link">Портфолио</a>
+            <a href="#cases" class="text-3xl font-bebas text-white hover:text-lime mobile-link">Результат</a>
+            <a href="#education" class="text-3xl font-bebas text-white hover:text-lime mobile-link">Обучение</a>
+            <a href="#contact" class="text-3xl font-bebas text-lime mobile-link">Связаться</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center relative pt-20 overflow-hidden">
+        <div class="max-w-7xl w-full mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
+            <div class="z-10 text-center md:text-left">
+                <div class="inline-block px-3 py-1 border border-lime/30 rounded-full bg-lime/5 mb-6 reveal">
+                    <span class="text-lime text-xs font-bold tracking-widest uppercase">Premium Design Studio</span>
+                </div>
+                <h1 class="text-6xl md:text-8xl lg:text-9xl font-bebas leading-[0.9] mb-6 reveal delay-100">
+                    Твой товар <br> 
+                    <span class="text-lime text-glow">Мой Дизайн</span> <br>
+                    <span class="stroke-text text-white">= Рост</span>
+                </h1>
+                <p class="text-gray-400 text-lg md:text-xl max-w-lg mx-auto md:mx-0 mb-10 reveal delay-200 font-light leading-relaxed">
+                    Создаю визуальные решения для маркетплейсов, которые поднимают ваш бренд на космический уровень.
+                </p>
+                <div class="reveal delay-300">
+                    <a href="https://t.me/vladpetroov" target="_blank" class="inline-flex items-center justify-center w-full md:w-auto px-8 py-4 bg-lime text-black font-bold text-lg rounded-full hover:bg-white hover:shadow-[0_0_30px_rgba(204,255,0,0.6)] transition-all duration-300 transform hover:-translate-y-1">
+                        <i class="ph-bold ph-paper-plane-tilt mr-2"></i> Связаться в Telegram
+                    </a>
+                </div>
             </div>
-             <div className="flex flex-col gap-6">
-               {['Обо мне', 'Портфолио', 'Почему я', 'Обучение', 'Отзывы', 'Написать'].map((item) => (
-                  <button 
-                    key={item}
-                    onClick={() => scrollToSection(item === 'Обо мне' ? 'about' : item === 'Портфолио' ? 'portfolio' : item === 'Почему я' ? 'why' : item === 'Обучение' ? 'education' : item === 'Отзывы' ? 'reviews' : 'contact')}
-                    className="text-3xl font-display uppercase font-bold text-white hover:text-[#CCFF00] text-left"
-                  >
-                    {item}
-                  </button>
-                ))}
-             </div>
-             <div className="mt-auto">
-                <a href="https://t.me/vladpetroov" className="flex items-center justify-center w-full py-4 bg-[#CCFF00] text-black font-bold uppercase rounded-xl">
-                  Связаться в Telegram
+
+            <!-- 3D Graphic Placeholder -->
+            <div class="relative h-[400px] md:h-[600px] w-full flex items-center justify-center reveal delay-500 hidden md:flex">
+                <!-- Abstract Glass Cards Composition -->
+                <div class="absolute w-64 h-80 bg-gradient-to-br from-white/10 to-transparent border border-white/20 backdrop-blur-md rounded-3xl transform -rotate-12 translate-x-[-50px] animate-float z-10"></div>
+                <div class="absolute w-64 h-80 bg-gradient-to-br from-lime/20 to-transparent border border-lime/20 backdrop-blur-md rounded-3xl transform rotate-6 translate-x-[50px] animate-float-delay z-20 flex items-center justify-center">
+                    <div class="text-center">
+                        <span class="block text-5xl font-bebas text-lime">+45%</span>
+                        <span class="text-sm text-gray-300 uppercase tracking-widest">Продаж</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Down Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-gray-500">
+            <i class="ph ph-arrow-down text-2xl"></i>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 relative">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="glass-panel p-8 md:p-12 rounded-[2rem] flex flex-col md:flex-row items-center gap-12 reveal">
+                <!-- Photo -->
+                <div class="relative w-48 h-48 md:w-64 md:h-64 flex-shrink-0 group">
+                    <div class="absolute inset-0 bg-lime rounded-full blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
+                    <img src="https://i.ibb.co/zWp1WzTk/1127-20260207204539.png" alt="Влад Петров" class="relative w-full h-full object-cover rounded-full border-2 border-lime/30 group-hover:scale-105 transition-transform duration-500">
+                </div>
+                
+                <!-- Text -->
+                <div class="text-center md:text-left">
+                    <h2 class="text-4xl md:text-5xl font-bebas mb-6">Обо мне</h2>
+                    <p class="text-gray-300 text-lg leading-relaxed mb-6">
+                        Я Влад из Анапы, 19 лет. В дизайне с 2020 года. Я не просто "рисую картинки", я создаю <span class="text-lime font-semibold">визуальные инструменты продаж</span>. Моя задача — сделать так, чтобы ваш товар захотели купить за 3 секунды.
+                    </p>
+                    <div class="flex flex-wrap justify-center md:justify-start gap-4">
+                        <span class="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-sm text-lime">5+ лет опыта</span>
+                        <span class="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-sm text-lime">5000+ проектов</span>
+                        <span class="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-sm text-lime">PRO Инфографика</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-24 bg-secondary/50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-end mb-12 px-2">
+                <div>
+                    <h2 class="text-5xl md:text-7xl font-bebas text-white reveal">Портфолио</h2>
+                    <p class="text-gray-400 mt-2 reveal delay-100">Лучшие работы, которые приносят деньги</p>
+                </div>
+                <!-- Swipe hint for mobile -->
+                <div class="md:hidden text-lime text-sm animate-pulse">
+                    <i class="ph ph-hand-swipe-left"></i> Листай
+                </div>
+            </div>
+
+            <!-- Grid/Carousel Container -->
+            <!-- Mobile: Horizontal Scroll with Snap | Desktop: Grid -->
+            <div class="flex overflow-x-auto snap-x snap-mandatory gap-6 md:grid md:grid-cols-2 lg:grid-cols-3 md:overflow-visible pb-8 hide-scrollbar reveal delay-200">
+                
+                <!-- Portfolio Items (Generated dynamically via JS usually, but hardcoded here as requested) -->
+                <!-- Item 1 -->
+                <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4] cursor-pointer">
+                    <img src="https://i.ibb.co/FLsCKXYD/579-20251105185725.jpg" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 1">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <span class="text-lime font-bebas text-2xl tracking-wide transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Смотреть кейс</span>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4]">
+                    <img src="https://i.ibb.co/wFh0gByn/IMG-8041.jpg" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 2">
+                </div>
+
+                <!-- Item 3 -->
+                <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4]">
+                    <img src="https://i.ibb.co/k6wSmDBj/IMG-7170.jpg" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 3">
+                </div>
+
+                <!-- Item 4 -->
+                <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4]">
+                    <img src="https://i.ibb.co/JwML7f4g/373-20250817165435.jpg" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 4">
+                </div>
+                 <!-- Item 5 -->
+                 <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4]">
+                    <img src="https://i.ibb.co/p6C8zZLn/969-20251230133150.jpg" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 5">
+                </div>
+                 <!-- Item 6 -->
+                 <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4]">
+                    <img src="https://i.ibb.co/Z6RPgtBs/394-20250921005440.jpg" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 6">
+                </div>
+                 <!-- Item 7 -->
+                 <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4]">
+                    <img src="https://i.ibb.co/ZRTgFQ8r/IMG-7801.jpg" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 7">
+                </div>
+                 <!-- Item 8 -->
+                 <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4]">
+                    <img src="https://i.ibb.co/hR04gy83/1115-20260201215842.png" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 8">
+                </div>
+                <!-- Item 9 -->
+                <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4]">
+                    <img src="https://i.ibb.co/6RkgYh1G/IMG-7410.jpg" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 9">
+                </div>
+                <!-- Item 10 -->
+                <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4]">
+                    <img src="https://i.ibb.co/6cjb5PS9/601-20251110164430.jpg" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 10">
+                </div>
+                <!-- Item 11 -->
+                <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4]">
+                    <img src="https://i.ibb.co/8LX6HLHN/IMG-3641.jpg" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 11">
+                </div>
+                <!-- Item 12 -->
+                <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4]">
+                    <img src="https://i.ibb.co/W4FM2HxQ/436-20250929191023.jpg" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 12">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cases / Results Section -->
+    <section id="cases" class="py-24 relative overflow-hidden">
+        <!-- Decoration Line -->
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-lime to-transparent opacity-30"></div>
+
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-5xl md:text-7xl font-bebas text-center mb-16 reveal">Результаты <span class="text-lime">Клиентов</span></h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Case 1 -->
+                <div class="glass-panel p-8 rounded-2xl hover:border-lime/50 transition-colors duration-300 group reveal delay-100">
+                    <div class="text-4xl text-lime mb-4"><i class="ph-bold ph-trend-up"></i></div>
+                    <h3 class="text-xl font-bold mb-2">Задача: Видимость</h3>
+                    <p class="text-gray-400 text-sm mb-6">Товар терялся среди конкурентов с яркими плашками.</p>
+                    <div class="border-t border-white/10 pt-4">
+                        <div class="text-3xl font-bebas text-white group-hover:text-lime transition-colors">+45%</div>
+                        <div class="text-xs uppercase tracking-widest text-gray-500">Кликов (CTR)</div>
+                    </div>
+                </div>
+
+                <!-- Case 2 -->
+                <div class="glass-panel p-8 rounded-2xl hover:border-lime/50 transition-colors duration-300 group reveal delay-200">
+                    <div class="text-4xl text-lime mb-4"><i class="ph-bold ph-shopping-cart"></i></div>
+                    <h3 class="text-xl font-bold mb-2">Задача: Конверсия</h3>
+                    <p class="text-gray-400 text-sm mb-6">Клики были, но покупок мало. Дизайн не закрывал возражения.</p>
+                    <div class="border-t border-white/10 pt-4">
+                        <div class="text-3xl font-bebas text-white group-hover:text-lime transition-colors">+30%</div>
+                        <div class="text-xs uppercase tracking-widest text-gray-500">К продажам</div>
+                    </div>
+                </div>
+
+                <!-- Case 3 -->
+                <div class="glass-panel p-8 rounded-2xl hover:border-lime/50 transition-colors duration-300 group reveal delay-300">
+                    <div class="text-4xl text-lime mb-4"><i class="ph-bold ph-star"></i></div>
+                    <h3 class="text-xl font-bold mb-2">Задача: Брендинг</h3>
+                    <p class="text-gray-400 text-sm mb-6">Нужно было создать ощущение премиального товара.</p>
+                    <div class="border-t border-white/10 pt-4">
+                        <div class="text-3xl font-bebas text-white group-hover:text-lime transition-colors">TOP 3</div>
+                        <div class="text-xs uppercase tracking-widest text-gray-500">В категории</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Me / Process Section Combined -->
+    <section class="py-24 bg-secondary/30">
+        <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-16">
+            
+            <!-- Why Me -->
+            <div class="reveal">
+                <h2 class="text-5xl font-bebas mb-8">Почему <span class="text-lime">Я?</span></h2>
+                <div class="space-y-6">
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-full bg-lime/10 flex items-center justify-center text-lime flex-shrink-0">
+                            <i class="ph-bold ph-lightning"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg">Креатив + Аналитика</h4>
+                            <p class="text-gray-400 text-sm">Не просто красиво, а продающе. Знаю боли ЦА.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-full bg-lime/10 flex items-center justify-center text-lime flex-shrink-0">
+                            <i class="ph-bold ph-clock-countdown"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg">Соблюдение сроков</h4>
+                            <p class="text-gray-400 text-sm">Ваш товар не будет простаивать. Сдаю вовремя.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-full bg-lime/10 flex items-center justify-center text-lime flex-shrink-0">
+                            <i class="ph-bold ph-paint-brush-broad"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg">Индивидуальный стиль</h4>
+                            <p class="text-gray-400 text-sm">Никаких шаблонов. Уникальная упаковка бренда.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process -->
+            <div class="reveal delay-200">
+                <h2 class="text-5xl font-bebas mb-8">Процесс</h2>
+                <div class="relative border-l border-white/10 ml-3 space-y-8 pl-8">
+                    <div class="relative">
+                        <span class="absolute -left-[39px] top-1 w-5 h-5 bg-lime rounded-full border-4 border-[#050505]"></span>
+                        <h4 class="font-bold text-lg">01. Консультация</h4>
+                        <p class="text-gray-400 text-sm">Бриф, обсуждение целей и ТЗ.</p>
+                    </div>
+                    <div class="relative">
+                        <span class="absolute -left-[39px] top-1 w-5 h-5 bg-lime rounded-full border-4 border-[#050505]"></span>
+                        <h4 class="font-bold text-lg">02. Анализ</h4>
+                        <p class="text-gray-400 text-sm">Изучение конкурентов и воронки продаж.</p>
+                    </div>
+                    <div class="relative">
+                        <span class="absolute -left-[39px] top-1 w-5 h-5 bg-lime rounded-full border-4 border-[#050505]"></span>
+                        <h4 class="font-bold text-lg">03. Дизайн</h4>
+                        <p class="text-gray-400 text-sm">Создание макетов, магия Photoshop.</p>
+                    </div>
+                    <div class="relative">
+                        <span class="absolute -left-[39px] top-1 w-5 h-5 bg-lime rounded-full border-4 border-[#050505]"></span>
+                        <h4 class="font-bold text-lg">04. Результат</h4>
+                        <p class="text-gray-400 text-sm">Готовые файлы для загрузки на WB/Ozon.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Services / Pricing -->
+    <section id="services" class="py-24">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-5xl md:text-7xl font-bebas text-center mb-16 reveal">Услуги</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                <!-- Package Start -->
+                <div class="glass-panel rounded-3xl p-8 reveal delay-100">
+                    <h3 class="text-2xl font-bebas text-gray-300">Пакет Старт</h3>
+                    <div class="text-3xl font-bold mt-2 mb-6">3 900₽</div>
+                    <ul class="space-y-3 text-sm text-gray-400 mb-8">
+                        <li class="flex items-center gap-2"><i class="ph ph-check text-lime"></i> Анализ ниши</li>
+                        <li class="flex items-center gap-2"><i class="ph ph-check text-lime"></i> 3 Слайда</li>
+                        <li class="flex items-center gap-2"><i class="ph ph-check text-lime"></i> Базовая ретушь</li>
+                    </ul>
+                    <a href="https://t.me/vladpetroov" class="block w-full py-3 border border-white/20 rounded-xl text-center hover:bg-white hover:text-black transition-colors font-semibold">Заказать</a>
+                </div>
+
+                <!-- Package Standard (HIT) -->
+                <div class="glass-panel rounded-3xl p-8 border-lime/50 relative transform md:scale-110 z-10 bg-lime/5 reveal delay-200">
+                    <div class="absolute top-0 right-0 bg-lime text-black text-xs font-bold px-3 py-1 rounded-bl-xl rounded-tr-xl">ХИТ ПРОДАЖ</div>
+                    <h3 class="text-3xl font-bebas text-white">Пакет Стандарт</h3>
+                    <div class="text-4xl font-bold mt-2 mb-6 text-lime">6 900₽</div>
+                    <ul class="space-y-3 text-sm text-gray-300 mb-8">
+                        <li class="flex items-center gap-2"><i class="ph-bold ph-check text-lime"></i> Глубокий анализ</li>
+                        <li class="flex items-center gap-2"><i class="ph-bold ph-check text-lime"></i> 5-7 Слайдов</li>
+                        <li class="flex items-center gap-2"><i class="ph-bold ph-check text-lime"></i> Сложная ретушь</li>
+                        <li class="flex items-center gap-2"><i class="ph-bold ph-check text-lime"></i> SEO-заголовки</li>
+                    </ul>
+                    <a href="https://t.me/vladpetroov" class="block w-full py-3 bg-lime text-black rounded-xl text-center hover:bg-white transition-colors font-bold shadow-[0_0_20px_rgba(204,255,0,0.3)]">Хочу этот пакет</a>
+                </div>
+
+                <!-- Package Premium -->
+                <div class="glass-panel rounded-3xl p-8 reveal delay-300">
+                    <h3 class="text-2xl font-bebas text-gray-300">Пакет Премиум</h3>
+                    <div class="text-3xl font-bold mt-2 mb-6">8 900₽</div>
+                    <ul class="space-y-3 text-sm text-gray-400 mb-8">
+                        <li class="flex items-center gap-2"><i class="ph ph-check text-lime"></i> Всё включено</li>
+                        <li class="flex items-center gap-2"><i class="ph ph-check text-lime"></i> До 10 слайдов</li>
+                        <li class="flex items-center gap-2"><i class="ph ph-check text-lime"></i> Видеообложка</li>
+                        <li class="flex items-center gap-2"><i class="ph ph-check text-lime"></i> Приоритетная поддержка</li>
+                    </ul>
+                    <a href="https://t.me/vladpetroov" class="block w-full py-3 border border-white/20 rounded-xl text-center hover:bg-white hover:text-black transition-colors font-semibold">Заказать</a>
+                </div>
+            </div>
+
+            <!-- Single Services List -->
+            <div class="mt-12 text-center text-sm text-gray-500 reveal">
+                <p>Главный слайд — 1500₽ • Доп. слайд — 800₽ • Видеообложка — 3000₽</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="py-24 bg-gradient-to-b from-transparent to-lime/5">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-5xl md:text-7xl font-bebas text-center mb-16 reveal">Обучение</h2>
+            
+            <div class="space-y-4">
+                <!-- Course 1 -->
+                <div class="glass-panel p-6 md:p-8 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 group hover:border-lime/30 transition-all reveal">
+                    <div>
+                        <h3 class="text-2xl font-bold text-white group-hover:text-lime transition-colors">Инфографика: Старт</h3>
+                        <p class="text-gray-400 mt-2 text-sm">База для новичков. Основы подачи и инструменты.</p>
+                    </div>
+                    <a href="https://t.me/vladpetroov" class="px-6 py-3 border border-white/20 rounded-full hover:bg-white hover:text-black transition-all">Записаться</a>
+                </div>
+
+                <!-- Course 2 -->
+                <div class="glass-panel p-6 md:p-8 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 group hover:border-lime/30 transition-all reveal delay-100">
+                    <div>
+                        <h3 class="text-2xl font-bold text-white group-hover:text-lime transition-colors">Инфографика PRO</h3>
+                        <p class="text-gray-400 mt-2 text-sm">Продвинутые техники. Креатив, свет, композиция.</p>
+                    </div>
+                    <a href="https://t.me/vladpetroov" class="px-6 py-3 border border-white/20 rounded-full hover:bg-white hover:text-black transition-all">Записаться</a>
+                </div>
+
+                <!-- Course 3 (Top) -->
+                <div class="glass-panel p-6 md:p-8 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 border-lime/20 bg-lime/5 relative overflow-hidden reveal delay-200">
+                    <div class="absolute inset-0 bg-lime/10 blur-xl"></div>
+                    <div class="relative z-10">
+                        <div class="inline-block px-2 py-0.5 bg-lime text-black text-[10px] font-bold rounded mb-2">MENTORSHIP</div>
+                        <h3 class="text-3xl font-bold text-white">Инфографика с Владом — TOP</h3>
+                        <p class="text-gray-300 mt-2 text-sm max-w-md">Личное наставничество. Разборы, практика, доведение до результата.</p>
+                    </div>
+                    <a href="https://t.me/vladpetroov" class="relative z-10 px-8 py-4 bg-lime text-black font-bold rounded-full hover:shadow-[0_0_20px_rgba(204,255,0,0.4)] transition-all">Записаться</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews -->
+    <section id="reviews" class="py-24 overflow-hidden">
+        <h2 class="text-5xl font-bebas text-center mb-12 reveal">Отзывы</h2>
+        <!-- Marquee / Scroll Container -->
+        <div class="flex overflow-x-auto gap-6 px-4 pb-8 hide-scrollbar snap-x reveal delay-100 max-w-7xl mx-auto">
+            
+            <!-- Repeatable Review Card Block -->
+            <!-- Generating 6 cards for demo -->
+            <script>
+                // Simulating repeating review structure to save code space
+                const reviews = [
+                    {name: "Алексей", text: "Продажи выросли на 40% после редизайна!"},
+                    {name: "Марина", text: "Очень стильно и быстро. Влад профи."},
+                    {name: "Сергей", text: "Обучение окупилось с первого заказа."},
+                    {name: "Елена", text: "Лучшая инфографика в нише электроники."},
+                    {name: "Дмитрий", text: "Четко по ТЗ, даже лучше чем ожидал."},
+                    {name: "Ольга", text: "Спасибо за менторство, вышла на доход!"}
+                ];
+                
+                reviews.forEach((review, i) => {
+                    document.write(`
+                        <div class="min-w-[300px] glass-panel p-6 rounded-2xl snap-center flex-shrink-0">
+                            <div class="flex items-center gap-1 mb-4 text-lime text-sm">
+                                <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                            </div>
+                            <p class="text-gray-300 text-sm mb-6 leading-relaxed">"${review.text}"</p>
+                            <div class="flex items-center gap-3">
+                                <img src="https://i.pravatar.cc/150?img=${i+10}" class="w-10 h-10 rounded-full border border-white/20" alt="${review.name}">
+                                <div class="font-bold text-sm">${review.name}</div>
+                            </div>
+                        </div>
+                    `);
+                });
+            </script>
+        </div>
+    </section>
+
+    <!-- Contact / Footer -->
+    <section id="contact" class="py-24 relative">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-6xl md:text-8xl font-bebas mb-8 reveal">Давай <span class="text-lime">Начнем</span></h2>
+            <p class="text-gray-400 mb-12 reveal delay-100">Готов вывести свой бренд в топ? Выбери удобный способ связи.</p>
+            
+            <div class="flex flex-col md:flex-row justify-center gap-6 mb-16 reveal delay-200">
+                <a href="https://t.me/vladpetroov" target="_blank" class="flex items-center justify-center gap-3 px-8 py-4 bg-[#0088cc]/20 border border-[#0088cc]/50 hover:bg-[#0088cc] text-white rounded-xl transition-all group">
+                    <i class="ph-bold ph-telegram-logo text-2xl"></i> 
+                    <span class="font-bold">Telegram</span>
                 </a>
-             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* --- Hero Section --- */}
-      <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-        {/* Abstract Background Elements */}
-        <div className="absolute top-1/4 left-1/4 w-[60vw] h-[60vw] bg-[#CCFF00] rounded-full mix-blend-screen filter blur-[150px] opacity-[0.15] animate-pulse" />
-        <div className="absolute bottom-0 right-0 w-[50vw] h-[50vw] bg-blue-600 rounded-full mix-blend-screen filter blur-[180px] opacity-[0.1]" />
-
-        <motion.div style={{ y: heroY, opacity: heroOpacity }} className="container mx-auto px-4 z-10 text-center flex flex-col items-center">
-          
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#CCFF00]/30 bg-[#CCFF00]/5 text-[#CCFF00] text-sm font-mono tracking-widest uppercase mb-8 backdrop-blur-md"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#CCFF00] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#CCFF00]"></span>
-            </span>
-            Open for new projects
-          </motion.div>
-
-          <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] leading-[0.9] font-black font-display text-white mb-8 tracking-tighter uppercase text-center max-w-6xl mx-auto drop-shadow-2xl">
-            Ваш товар + моя <br/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#CCFF00] to-[#aaff00] glow-text drop-shadow-[0_0_30px_rgba(204,255,0,0.4)]">Инфографика</span> <br/>
-            = <span className="text-white">Рост</span>
-          </h1>
-
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed font-light"
-          >
-            Создаю визуальные решения для маркетплейсов, которые поднимают ваш бренд на новый уровень.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-          >
-            <LimeButton href="https://t.me/vladpetroov">Связаться в Telegram</LimeButton>
-          </motion.div>
-
-          {/* Floating Geometric Elements (Parallax) */}
-          <motion.div animate={{ y: [0, -20, 0], rotate: [0, 5, 0] }} transition={{ repeat: Infinity, duration: 6 }} className="absolute top-1/4 left-[10%] w-24 h-24 border border-white/10 bg-white/5 backdrop-blur-sm rounded-xl hidden lg:block -z-10" />
-          <motion.div animate={{ y: [0, 30, 0], rotate: [0, -10, 0] }} transition={{ repeat: Infinity, duration: 8 }} className="absolute bottom-1/4 right-[10%] w-32 h-32 border border-[#CCFF00]/20 bg-[#CCFF00]/5 backdrop-blur-sm rounded-full hidden lg:block -z-10" />
-
-        </motion.div>
-      </section>
-
-      {/* --- About Me --- */}
-      <section id="about" className="py-24 md:py-32 relative">
-        <div className="container mx-auto px-4 md:px-8">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
-            <motion.div 
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="relative order-2 md:order-1 flex justify-center md:justify-start"
-            >
-              <div className="relative z-10 w-64 h-64 md:w-96 md:h-96">
-                <div className="absolute inset-0 bg-[#CCFF00] rounded-full blur-[60px] opacity-20 animate-pulse"></div>
-                <img 
-                  src="https://i.ibb.co/zWp1WzTk/1127-20260207204539.png" 
-                  alt="Влад Петров" 
-                  className="w-full h-full object-cover rounded-full border-2 border-[#CCFF00]/30 relative z-10 shadow-2xl" 
-                />
-                
-                {/* Stats Badge */}
-                <div className="absolute top-4 -right-4 md:right-0 bg-black/80 backdrop-blur-md border border-white/20 p-4 rounded-xl shadow-xl z-20">
-                  <div className="text-[#CCFF00] font-bold text-2xl font-display">5+ лет</div>
-                  <div className="text-xs text-gray-400 uppercase tracking-wider">в дизайне</div>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div 
-               initial={{ opacity: 0, x: 50 }}
-               whileInView={{ opacity: 1, x: 0 }}
-               viewport={{ once: true }}
-               className="order-1 md:order-2"
-            >
-              <div className="text-[#CCFF00] font-mono text-sm mb-4 tracking-widest uppercase">// Обо мне</div>
-              <h2 className="text-4xl md:text-5xl font-display font-bold mb-6 leading-tight uppercase text-white">
-                Креатив, который <br/><span className="text-gray-500">продаёт</span>
-              </h2>
-              <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-                Я Влад из Анапы, 19 лет. В дизайне с 2020 года и каждый день учусь делать инфографику <span className="text-white font-bold">яркой, понятной и продающей</span>. Люблю сочетать креатив и эффективность, чтобы товары выделялись на маркетплейсах.
-              </p>
-              
-              <div className="grid grid-cols-2 gap-4 mb-8">
-                {['5000+ проектов', 'Figma & PS Master', 'Знаю алгоритмы MP', 'Маркетинг-дизайн'].map((item, i) => (
-                  <div key={i} className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-[#CCFF00] rounded-full shadow-[0_0_10px_#CCFF00]" />
-                    <span className="text-sm text-gray-400 uppercase tracking-wider">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* --- Portfolio --- */}
-      <section id="portfolio" className="py-24 relative bg-black">
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#CCFF00]/50 to-transparent"></div>
-        
-        <div className="container mx-auto px-4 md:px-8">
-          <SectionTitle 
-            title="Портфолио" 
-            subtitle="Работы, которые приносят деньги моим клиентам. Листайте, чтобы увидеть уровень." 
-          />
-
-          {/* Mobile Carousel (Horizontal Scroll) */}
-          <div className="md:hidden flex overflow-x-auto snap-x snap-mandatory gap-4 pb-8 -mx-4 px-4 hide-scroll">
-            {PORTFOLIO_ITEMS.map((src, index) => (
-              <div key={index} className="snap-center shrink-0 w-[85vw] relative aspect-[3/4] rounded-2xl overflow-hidden border border-white/10">
-                 <img src={src} alt={`Portfolio ${index}`} className="w-full h-full object-cover" />
-                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-6">
-                    <div>
-                      <p className="text-[#CCFF00] text-xs font-bold uppercase tracking-wider mb-1">Кейс #{index + 1}</p>
-                      <p className="text-white font-display text-xl uppercase">Инфографика WB</p>
-                    </div>
-                 </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Desktop Grid */}
-          <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {PORTFOLIO_ITEMS.map((src, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
-                className="group relative aspect-[3/4] rounded-xl overflow-hidden cursor-pointer border border-white/5 hover:border-[#CCFF00]/50 transition-colors"
-              >
-                <img src={src} alt={`Portfolio ${index}`} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 backdrop-blur-[2px]">
-                   <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                     <p className="text-[#CCFF00] font-bold uppercase tracking-widest text-xs mb-2">Wildberries / Ozon</p>
-                     <h3 className="text-white font-display text-xl uppercase">Проект #{index + 1}</h3>
-                   </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* --- Cases / Results --- */}
-      <section id="cases" className="py-24 relative">
-        <div className="container mx-auto px-4 md:px-8">
-           <SectionTitle title="Кейсы и Цифры" subtitle="Дизайн — это не про красоту, это про деньги." />
-           
-           <div className="grid md:grid-cols-3 gap-6 relative z-10">
-             {CASES.map((item, idx) => (
-               <GlassCard key={idx} className="flex flex-col h-full group">
-                  <div className="mb-6 flex justify-between items-start">
-                    <div className="w-12 h-12 rounded-full bg-[#CCFF00]/10 flex items-center justify-center text-[#CCFF00] group-hover:scale-110 transition-transform border border-[#CCFF00]/20">
-                      <BarChart size={24} />
-                    </div>
-                    <div className="text-[#CCFF00] font-mono text-sm">{idx + 1}/3</div>
-                  </div>
-                  <h3 className="text-xl font-bold mb-2 text-white font-display uppercase">{item.task}</h3>
-                  <div className="w-full h-px bg-white/10 my-4"></div>
-                  <div className="space-y-2 mb-6 flex-grow">
-                    <p className="text-gray-400 text-sm"><span className="text-gray-500">Решение:</span> {item.solution}</p>
-                  </div>
-                  <div className="bg-[#CCFF00]/10 p-4 rounded-xl border border-[#CCFF00]/20 text-center">
-                    <p className="text-3xl font-display font-bold text-[#CCFF00]">{item.result}</p>
-                    <p className="text-xs text-white/70 uppercase tracking-widest mt-1">{item.metric}</p>
-                  </div>
-               </GlassCard>
-             ))}
-           </div>
-        </div>
-      </section>
-
-      {/* --- Why Me --- */}
-      <section id="why" className="py-24 bg-[#080808]">
-        <div className="container mx-auto px-4 md:px-8">
-          <div className="grid lg:grid-cols-2 gap-16">
-            <div>
-              <div className="text-[#CCFF00] font-mono text-sm mb-4 tracking-widest uppercase">// Преимущества</div>
-              <h2 className="text-4xl md:text-5xl font-display font-bold mb-8 uppercase text-white leading-none">Почему выбирают <br/> <span className="text-[#CCFF00]">VP.DESIGN</span></h2>
-              <div className="space-y-6">
-                {[
-                  { title: "Креатив и эффективность", desc: "Создаю инфографику, которая продаёт, а не просто висит.", icon: Zap },
-                  { title: "Быстрое выполнение", desc: "Соблюдаю сроки без потери качества. Ваше время — деньги.", icon: Clock },
-                  { title: "Актуальные тренды", desc: "Всегда использую современные методы дизайна 2024-2025.", icon: Star },
-                  { title: "Индивидуальный подход", desc: "Каждый проект уникален. Никаких шаблонов.", icon: MousePointer2 }
-                ].map((benefit, i) => (
-                  <motion.div 
-                    key={i}
-                    whileHover={{ x: 10 }}
-                    className="flex gap-5 p-5 rounded-2xl hover:bg-white/5 transition-all border border-transparent hover:border-white/10"
-                  >
-                    <div className="shrink-0 text-[#CCFF00] bg-[#CCFF00]/10 w-12 h-12 rounded-full flex items-center justify-center">
-                      <benefit.icon size={24} />
-                    </div>
-                    <div>
-                      <h4 className="text-xl font-bold text-white mb-1 font-display uppercase">{benefit.title}</h4>
-                      <p className="text-gray-400 text-sm leading-relaxed">{benefit.desc}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
+                <a href="https://vk.com/vladpetrovagency" target="_blank" class="flex items-center justify-center gap-3 px-8 py-4 bg-white/5 border border-white/20 hover:bg-white/20 text-white rounded-xl transition-all">
+                    <i class="ph-bold ph-vk-logo text-2xl"></i>
+                    <span class="font-bold">ВКонтакте</span>
+                </a>
+                <a href="https://ru.pinterest.com/vladpetroov" target="_blank" class="flex items-center justify-center gap-3 px-8 py-4 bg-[#E60023]/20 border border-[#E60023]/50 hover:bg-[#E60023] text-white rounded-xl transition-all">
+                    <i class="ph-bold ph-pinterest-logo text-2xl"></i>
+                    <span class="font-bold">Pinterest</span>
+                </a>
             </div>
 
-            {/* Work Process */}
-            <div className="relative pt-12 lg:pt-0">
-               <h3 className="text-2xl font-display font-bold text-white mb-8 uppercase">Процесс работы</h3>
-               <div className="relative border-l border-white/10 ml-4 space-y-12">
-                  {PROCESS_STEPS.map((step, idx) => (
-                    <motion.div 
-                      key={idx}
-                      initial={{ opacity: 0, x: 20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: idx * 0.1 }}
-                      className="relative pl-12 group"
-                    >
-                      <div className="absolute -left-[17px] top-0 w-9 h-9 flex items-center justify-center bg-[#0a0a0a] border border-[#CCFF00] text-[#CCFF00] font-bold rounded-full text-xs transition-all group-hover:scale-125 group-hover:bg-[#CCFF00] group-hover:text-black z-10 shadow-[0_0_15px_rgba(204,255,0,0.2)]">
-                        {step.num}
-                      </div>
-                      <h4 className="text-xl font-bold text-white mb-2 uppercase font-display">{step.title}</h4>
-                      <p className="text-gray-400 text-sm">{step.desc}</p>
-                    </motion.div>
-                  ))}
-               </div>
+            <!-- Simple Form -->
+            <form class="max-w-md mx-auto glass-panel p-8 rounded-2xl reveal delay-300">
+                <div class="space-y-4">
+                    <input type="text" placeholder="Ваше имя" class="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-lime transition-colors text-white">
+                    <input type="tel" placeholder="Телефон / Telegram" class="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-lime transition-colors text-white">
+                    <button type="submit" class="w-full bg-lime text-black font-bold py-3 rounded-lg hover:bg-white transition-colors">Отправить заявку</button>
+                </div>
+            </form>
+            
+            <div class="mt-20 text-gray-600 text-xs">
+                &copy; 2026 VP.DESIGN. Все права защищены. <br> Дизайн, который продает.
             </div>
-          </div>
         </div>
-      </section>
+    </section>
 
-      {/* --- Education --- */}
-      <section id="education" className="py-24 relative overflow-hidden">
-        <div className="absolute right-0 top-1/2 w-[600px] h-[600px] bg-[#CCFF00] opacity-5 blur-[150px] rounded-full -translate-y-1/2 pointer-events-none" />
+    <script>
+        // --- 1. Reveal on Scroll (Intersection Observer) ---
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // Only animate once
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // --- 2. Mobile Menu Toggle ---
+        const menuBtn = document.getElementById('menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMenu() {
+            const isClosed = mobileMenu.classList.contains('translate-x-full');
+            if (isClosed) {
+                mobileMenu.classList.remove('translate-x-full');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            } else {
+                mobileMenu.classList.add('translate-x-full');
+                document.body.style.overflow = '';
+            }
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        closeMenuBtn.addEventListener('click', toggleMenu);
         
-        <div className="container mx-auto px-4 md:px-8 relative z-10">
-          <SectionTitle title="Обучение" subtitle="Передаю свой опыт. От новичка до профи, который зарабатывает на дизайне." />
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            {COURSES.map((course, idx) => (
-              <GlassCard key={idx} className={`flex flex-col h-full ${idx === 2 ? 'border-[#CCFF00]/50 shadow-[0_0_40px_rgba(204,255,0,0.1)]' : ''}`}>
-                <div className="mb-6 flex justify-between items-center">
-                  <span className={`px-3 py-1 rounded text-xs font-bold uppercase tracking-wider ${idx === 2 ? 'bg-[#CCFF00] text-black' : 'bg-white/10 text-white'}`}>
-                    {course.level}
-                  </span>
-                  {idx === 2 && <Star size={16} className="text-[#CCFF00] fill-[#CCFF00]" />}
-                </div>
-                
-                <h3 className="text-3xl font-display font-bold text-white mb-4 uppercase leading-none">{course.title}</h3>
-                <p className="text-gray-400 mb-8 flex-grow text-sm leading-relaxed">{course.desc}</p>
-                
-                <div className="mt-auto">
-                   <div className="w-full h-px bg-white/10 mb-6" />
-                   <a href="https://t.me/vladpetroov" target="_blank" className={`w-full flex items-center justify-center py-4 rounded-xl font-bold text-center transition-all uppercase tracking-wider text-sm ${idx === 2 ? 'bg-[#CCFF00] text-black hover:bg-white' : 'bg-white/5 text-white hover:bg-[#CCFF00] hover:text-black'}`}>
-                     Записаться
-                   </a>
-                </div>
-              </GlassCard>
-            ))}
-          </div>
-        </div>
-      </section>
+        // Close menu when a link is clicked
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
 
-      {/* --- Reviews --- */}
-      <section id="reviews" className="py-24 bg-[#0a0a0a]">
-        <div className="container mx-auto px-4 md:px-8">
-           <SectionTitle title="Отзывы клиентов" />
-           
-           <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 overflow-x-auto snap-x snap-mandatory pb-8 md:pb-0 hide-scroll -mx-4 px-4 md:mx-0 md:px-0">
-             {REVIEWS.map((review, idx) => (
-               <GlassCard key={idx} className="snap-center shrink-0 w-[85vw] md:w-auto flex flex-col justify-between min-h-[220px]">
-                 <div>
-                   <div className="flex gap-1 mb-4 text-[#CCFF00]">
-                     {[...Array(5)].map((_, i) => <Star key={i} size={14} fill="#CCFF00" />)}
-                   </div>
-                   <p className="text-gray-300 mb-6 leading-relaxed italic text-sm">"{review.text}"</p>
-                 </div>
-                 <div className="flex items-center gap-4 mt-auto border-t border-white/5 pt-4">
-                   <div className="w-10 h-10 rounded-full bg-gray-800 overflow-hidden border border-white/10">
-                     <img src={`https://i.pravatar.cc/150?img=${idx + 10}`} alt="Avatar" className="w-full h-full object-cover grayscale opacity-70" />
-                   </div>
-                   <div>
-                     <p className="font-bold text-white text-sm uppercase">{review.name}</p>
-                     <p className="text-[10px] text-[#CCFF00] uppercase tracking-wider">{review.role}</p>
-                   </div>
-                 </div>
-               </GlassCard>
-             ))}
-           </div>
-        </div>
-      </section>
+        // --- 3. Simple Form Handler (Mock) ---
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerText;
+            
+            btn.innerText = 'Отправлено!';
+            btn.style.backgroundColor = 'white';
+            
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.style.backgroundColor = '#CCFF00';
+                e.target.reset();
+            }, 3000);
+            
+            // In real life, send data to Telegram API here
+            // window.open('https://t.me/vladpetroov', '_blank');
+        });
 
-      {/* --- Contact & Footer --- */}
-      <section id="contact" className="py-24 relative overflow-hidden bg-black">
-        <div className="container mx-auto px-4 md:px-8">
-          <div className="bg-[#111] border border-white/10 rounded-[2rem] p-8 md:p-16 relative overflow-hidden">
-             
-             {/* Glow Effect */}
-             <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#CCFF00] rounded-full blur-[150px] opacity-10 pointer-events-none" />
+        // --- 4. Navbar Blur on Scroll ---
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('py-2');
+                nav.classList.remove('py-4');
+            } else {
+                nav.classList.add('py-4');
+                nav.classList.remove('py-2');
+            }
+        });
 
-             <div className="grid lg:grid-cols-2 gap-12 items-center relative z-10">
-               <div>
-                 <h2 className="text-4xl md:text-6xl font-display font-black text-white uppercase mb-6 leading-none">Готовы к <br/> <span className="text-[#CCFF00]">Взрывному</span> Росту?</h2>
-                 <p className="text-gray-400 text-lg mb-8 max-w-md">Свяжитесь со мной любым удобным способом. Отвечаю быстро, работаю четко.</p>
-                 
-                 <div className="flex flex-col sm:flex-row gap-4">
-                    <a href="https://t.me/vladpetroov" target="_blank" className="flex items-center justify-center gap-3 bg-[#24A1DE] hover:bg-[#208YbC] text-white px-8 py-4 rounded-xl font-bold transition-transform hover:-translate-y-1 w-full sm:w-auto">
-                      <Send size={20} /> Telegram
-                    </a>
-                    <a href="https://vk.com/vladpetrovagency" target="_blank" className="flex items-center justify-center gap-3 bg-[#0077FF] text-white px-8 py-4 rounded-xl font-bold transition-transform hover:-translate-y-1 w-full sm:w-auto">
-                      VKontakte
-                    </a>
-                 </div>
-                 <div className="mt-4">
-                   <a href="https://ru.pinterest.com/vladpetroov" target="_blank" className="text-gray-500 hover:text-white transition-colors text-sm flex items-center gap-2">
-                     <ExternalLink size={14}/> Также смотрите мой Pinterest
-                   </a>
-                 </div>
-               </div>
-
-               <div className="bg-white/5 backdrop-blur-sm p-6 md:p-8 rounded-3xl border border-white/10">
-                 <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-                   <div className="grid grid-cols-2 gap-4">
-                     <div>
-                       <label className="text-[10px] uppercase text-gray-500 tracking-wider mb-2 block font-bold">Имя</label>
-                       <input type="text" className="w-full bg-black/50 border border-white/10 rounded-xl p-4 text-white focus:border-[#CCFF00] focus:outline-none transition-colors" placeholder="Иван" />
-                     </div>
-                     <div>
-                       <label className="text-[10px] uppercase text-gray-500 tracking-wider mb-2 block font-bold">Телефон</label>
-                       <input type="tel" className="w-full bg-black/50 border border-white/10 rounded-xl p-4 text-white focus:border-[#CCFF00] focus:outline-none transition-colors" placeholder="+7..." />
-                     </div>
-                   </div>
-                   <button className="w-full bg-[#CCFF00] text-black font-bold uppercase tracking-wider p-5 rounded-xl hover:bg-[#d4ff33] hover:shadow-[0_0_20px_rgba(204,255,0,0.4)] transition-all mt-4 flex justify-center items-center gap-2">
-                     Отправить заявку <ChevronRight size={18}/>
-                   </button>
-                   <p className="text-center text-gray-600 text-xs mt-2">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности</p>
-                 </form>
-               </div>
-             </div>
-          </div>
-
-          <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-gray-600 text-sm gap-4">
-             <div className="font-display font-bold text-white text-xl">VP.DESIGN</div>
-             <div className="flex gap-6">
-               <a href="#" className="hover:text-[#CCFF00] transition-colors">Политика</a>
-               <a href="#" className="hover:text-[#CCFF00] transition-colors">Оферта</a>
-             </div>
-             <div>© 2024-2026 Vlad Petrov</div>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
-}
+    </script>
+</body>
+</html>
