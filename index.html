@@ -1,623 +1,1090 @@
 <!DOCTYPE html>
-<html lang="ru" class="scroll-smooth">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VP.DESIGN | Инфографика для Маркетплейсов</title>
-    <meta name="description" content="Премиальный дизайн инфографики для Wildberries и Ozon. Увеличиваю CTR и продажи.">
+    <title>VP.DESIGN | Инфографика для маркетплейсов</title>
+    <meta name="description" content="Премиальная инфографика для Wildberries и Ozon. Дизайн, который поднимает продажи.">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Icons (Phosphor) -->
+    <!-- Icons (Phosphor Icons for lightweight modern look) -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
-    <!-- Tailwind Config for Custom Colors/Fonts -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        deep: '#050505',
-                        secondary: '#0a0a0a',
-                        lime: '#CCFF00',
-                        'lime-dim': '#b3e600',
-                        glass: 'rgba(255, 255, 255, 0.03)',
-                        'glass-border': 'rgba(255, 255, 255, 0.08)',
-                    },
-                    fontFamily: {
-                        bebas: ['"Bebas Neue"', 'sans-serif'],
-                        inter: ['"Inter"', 'sans-serif'],
-                    },
-                    backgroundImage: {
-                        'noise': "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.05%22/%3E%3C/svg%3E')",
-                    }
-                }
-            }
-        }
-    </script>
-
     <style>
-        /* Global & Reset */
+        /* --- 1. RESET & VARIABLES --- */
+        :root {
+            --bg-dark: #050505;
+            --bg-card: rgba(20, 20, 20, 0.6);
+            --lime: #CCFF00;
+            --lime-glow: rgba(204, 255, 0, 0.4);
+            --white: #FFFFFF;
+            --grey: #888888;
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --font-head: 'Bebas Neue', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --container: 1320px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
         body {
-            background-color: #050505;
-            color: white;
-            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--white);
+            font-family: var(--font-body);
             overflow-x: hidden;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #050505;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #333;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #CCFF00;
+        /* Noise Texture Overlay */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
-        /* Selection Color */
-        ::selection {
-            background-color: #CCFF00;
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+
+        /* --- 2. TYPOGRAPHY & UTILS --- */
+        h1, h2, h3, h4 {
+            font-family: var(--font-head);
+            text-transform: uppercase;
+            line-height: 0.95;
+            letter-spacing: 0.5px;
+        }
+
+        .text-lime { color: var(--lime); }
+        .text-gradient {
+            background: linear-gradient(90deg, #FFFFFF, #999);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .container {
+            max-width: var(--container);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-padding { padding: 100px 0; }
+        
+        @media (max-width: 768px) {
+            .section-padding { padding: 60px 0; }
+        }
+
+        /* --- 3. UI ELEMENTS --- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 32px;
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 100px;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-lime {
+            background: var(--lime);
+            color: #000;
+            box-shadow: 0 0 20px var(--lime-glow);
+        }
+
+        .btn-lime:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 0 40px var(--lime-glow);
+        }
+
+        .btn-glass {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid var(--glass-border);
+            color: var(--white);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-glass:hover {
+            background: var(--white);
             color: #000;
         }
 
-        /* Glassmorphism Utilities */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.02);
+        .card-glass {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
             backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-        }
-        
-        .glass-nav {
-            background: rgba(5, 5, 5, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 30px;
+            transition: var(--transition);
         }
 
-        /* Text Effects */
-        .text-glow {
-            text-shadow: 0 0 20px rgba(204, 255, 0, 0.3);
-        }
-        
-        .stroke-text {
-            -webkit-text-stroke: 1px rgba(255,255,255,0.1);
-            color: transparent;
+        .card-glass:hover {
+            border-color: rgba(204, 255, 0, 0.3);
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+            transform: translateY(-5px);
         }
 
-        /* Animations */
-        @keyframes float {
-            0% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(2deg); }
-            100% { transform: translateY(0px) rotate(0deg); }
-        }
-        .animate-float {
-            animation: float 6s ease-in-out infinite;
-        }
-        .animate-float-delay {
-            animation: float 8s ease-in-out infinite reverse;
-        }
-
-        @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 10px rgba(204, 255, 0, 0.1); }
-            50% { box-shadow: 0 0 25px rgba(204, 255, 0, 0.4); }
-        }
-        .hover-glow:hover {
-            animation: pulse-glow 2s infinite;
-        }
-
-        /* Fade In Logic */
+        /* --- 4. ANIMATIONS --- */
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(40px);
             transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
         }
+
         .reveal.active {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* Mobile Swipe Container */
-        .hide-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .hide-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+        /* Staggered delays */
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+
+        /* --- 5. HEADER --- */
+        header {
+            position: fixed;
+            top: 20px;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 0 20px;
         }
 
-        /* Abstract shapes */
+        .nav-box {
+            max-width: var(--container);
+            margin: 0 auto;
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-head);
+            font-size: 28px;
+            color: var(--white);
+            letter-spacing: 1px;
+        }
+        
+        .logo span { color: var(--lime); }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            text-transform: uppercase;
+            font-weight: 500;
+            color: var(--grey);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--lime);
+            text-shadow: 0 0 10px var(--lime-glow);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            color: var(--white);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* --- 6. HERO SECTION --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 100px;
+        }
+
+        /* Abstract glowing orbs background */
         .orb {
             position: absolute;
             border-radius: 50%;
-            filter: blur(80px);
+            filter: blur(100px);
             opacity: 0.4;
             z-index: -1;
+            animation: orbFloat 10s infinite ease-in-out alternate;
         }
+
+        .orb-1 { width: 400px; height: 400px; background: #ccff00; top: -50px; left: -100px; }
+        .orb-2 { width: 500px; height: 500px; background: #0055ff; bottom: -100px; right: -150px; animation-delay: -2s; }
+        .orb-3 { width: 200px; height: 200px; background: #ccff00; top: 50%; left: 50%; opacity: 0.15; transform: translate(-50%, -50%); }
+
+        @keyframes orbFloat {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(30px, 50px); }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 900px;
+        }
+
+        .hero-title {
+            font-size: clamp(60px, 10vw, 140px);
+            margin-bottom: 20px;
+            color: var(--white);
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(16px, 2vw, 20px);
+            color: #ccc;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* --- 7. ABOUT SECTION --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-img-wrapper {
+            position: relative;
+            border-radius: 500px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+        }
+        
+        .about-img-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 500px;
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.8);
+            z-index: 1;
+        }
+
+        .about-img {
+            width: 100%;
+            height: auto;
+            transform: scale(1.1);
+            transition: var(--transition);
+        }
+
+        .about-img-wrapper:hover .about-img { transform: scale(1); }
+
+        .about-text h2 {
+            font-size: clamp(40px, 5vw, 60px);
+            margin-bottom: 30px;
+        }
+
+        .about-text p {
+            font-size: 18px;
+            color: #ccc;
+            margin-bottom: 30px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .stat-item h4 {
+            font-size: 32px;
+            color: var(--lime);
+        }
+        .stat-item span { font-size: 14px; color: var(--grey); }
+
+        /* --- 8. PORTFOLIO --- */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .portfolio-item {
+            position: relative;
+            aspect-ratio: 3/4; /* Vertical marketplace format */
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            cursor: pointer;
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .portfolio-item:hover img { transform: scale(1.1); }
+        .portfolio-item:hover .portfolio-overlay { opacity: 1; }
+        .portfolio-item:hover { border-color: var(--lime); box-shadow: 0 5px 20px rgba(204, 255, 0, 0.1); }
+
+        /* --- 9. CASES (Text Only) --- */
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .case-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 300px;
+        }
+
+        .case-result {
+            font-family: var(--font-head);
+            font-size: 50px;
+            color: var(--lime);
+            margin-top: 20px;
+        }
+
+        /* --- 10. WHY ME & PROCESS --- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .process-wrapper {
+            position: relative;
+            padding: 40px 0;
+        }
+
+        .process-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(255,255,255,0.1);
+            z-index: -1;
+        }
+
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .step-card {
+            background: var(--bg-dark);
+            border: 1px solid var(--glass-border);
+            padding: 30px;
+            border-radius: 20px;
+            flex: 1;
+            text-align: center;
+        }
+
+        .step-num {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--lime);
+            color: #000;
+            font-weight: 700;
+            line-height: 40px;
+            margin-bottom: 20px;
+        }
+
+        /* --- 11. PRICING --- */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            align-items: center; /* Center vertically to allow HIT to be bigger */
+        }
+
+        .price-card {
+            padding: 40px;
+            border-radius: 30px;
+            position: relative;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(12px);
+        }
+
+        .price-card.hit {
+            background: rgba(204, 255, 0, 0.05);
+            border-color: var(--lime);
+            transform: scale(1.05);
+            z-index: 2;
+            box-shadow: 0 0 30px rgba(204, 255, 0, 0.1);
+        }
+
+        .price-tag {
+            font-family: var(--font-head);
+            font-size: 48px;
+            margin: 20px 0;
+        }
+
+        .price-features li {
+            margin-bottom: 12px;
+            color: #ccc;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .price-features i { color: var(--lime); }
+
+        .hit-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--lime);
+            color: black;
+            padding: 5px 15px;
+            font-weight: bold;
+            border-radius: 20px;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        /* --- 12. EDUCATION --- */
+        .edu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .edu-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            min-height: 350px;
+        }
+        
+        .edu-level {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--lime);
+            margin-bottom: 10px;
+        }
+
+        /* --- 13. TESTIMONIALS --- */
+        .reviews-wrapper {
+            overflow: hidden; /* Hide scrollbar for desktop look */
+            width: 100%;
+            position: relative;
+        }
+
+        .reviews-track {
+            display: flex;
+            gap: 20px;
+            padding-bottom: 20px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        .reviews-track::-webkit-scrollbar { display: none; }
+
+        .review-card {
+            min-width: 350px;
+            scroll-snap-align: center;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 25px;
+        }
+
+        .stars { color: var(--lime); margin-bottom: 15px; }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #333; /* Placeholder for fake avatars */
+            background-size: cover;
+        }
+
+        /* --- 14. CONTACTS --- */
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .social-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .social-btn {
+            padding: 20px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .tg-btn { background: rgba(0, 136, 204, 0.2); border: 1px solid rgba(0, 136, 204, 0.4); }
+        .tg-btn:hover { background: #0088cc; }
+        
+        .vk-btn { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); }
+        .vk-btn:hover { background: #0077FF; }
+
+        .pin-btn { background: rgba(230, 0, 35, 0.2); border: 1px solid rgba(230, 0, 35, 0.4); }
+        .pin-btn:hover { background: #E60023; }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-input {
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--glass-border);
+            padding: 20px;
+            border-radius: 12px;
+            color: var(--white);
+            font-family: var(--font-body);
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-input:focus {
+            border-color: var(--lime);
+            box-shadow: 0 0 15px rgba(204, 255, 0, 0.1);
+        }
+
+        /* --- MEDIA QUERIES (ADAPTIVITY) --- */
+        @media (max-width: 1024px) {
+            .nav-links { display: none; } /* Hide desktop menu */
+            .mobile-menu-btn { display: block; } /* Show burger */
+            
+            .portfolio-grid, .cases-grid, .pricing-grid, .edu-grid, .features-grid, .process-steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .process-line { display: none; }
+            .process-steps { flex-wrap: wrap; }
+            .step-card { flex: 1 1 45%; }
+        }
+
+        @media (max-width: 768px) {
+            .about-grid, .contact-layout { grid-template-columns: 1fr; }
+            
+            /* Turn Grids into Scrollers/Stacked for Mobile */
+            .portfolio-grid {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                padding-bottom: 20px;
+                gap: 15px;
+            }
+            
+            .portfolio-item {
+                min-width: 80vw;
+                scroll-snap-align: center;
+            }
+
+            .cases-grid, .pricing-grid, .edu-grid, .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .price-card.hit { transform: none; }
+            
+            .hero-title { font-size: 56px; }
+            
+            .step-card { flex: 1 1 100%; }
+        }
+
+        /* Mobile Menu Overlay */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: black;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            transform: translateY(-100%);
+            transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        
+        .mobile-menu-overlay.open { transform: translateY(0); }
+        
+        .mobile-link {
+            font-family: var(--font-head);
+            font-size: 32px;
+            color: var(--white);
+            text-transform: uppercase;
+        }
+        
+        .mobile-link:hover { color: var(--lime); }
+        .close-menu { position: absolute; top: 30px; right: 30px; font-size: 30px; cursor: pointer; }
+
     </style>
 </head>
-<body class="antialiased relative">
+<body>
 
-    <!-- Noise Texture Overlay -->
-    <div class="fixed inset-0 w-full h-full pointer-events-none z-50 bg-noise opacity-30 mix-blend-overlay"></div>
-
-    <!-- Background Orbs -->
-    <div class="orb w-[500px] h-[500px] bg-lime/20 top-[-100px] left-[-100px] animate-float"></div>
-    <div class="orb w-[400px] h-[400px] bg-blue-900/20 bottom-[10%] right-[-100px] animate-float-delay"></div>
+    <!-- Noise Texture -->
+    <div class="noise-overlay"></div>
 
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 w-full z-[100] px-4 py-4 transition-all duration-300" id="navbar">
-        <div class="max-w-7xl mx-auto glass-nav rounded-2xl px-6 py-4 flex justify-between items-center border border-white/10">
-            <a href="#" class="text-2xl font-bebas tracking-widest text-white hover:text-lime transition-colors">
-                VP<span class="text-lime">.</span>DESIGN
-            </a>
-
-            <!-- Desktop Menu -->
-            <div class="hidden md:flex space-x-8 text-sm uppercase tracking-wider font-medium text-gray-400">
-                <a href="#about" class="hover:text-lime transition-colors">Обо мне</a>
-                <a href="#portfolio" class="hover:text-lime transition-colors">Портфолио</a>
-                <a href="#cases" class="hover:text-lime transition-colors">Результат</a>
-                <a href="#education" class="hover:text-lime transition-colors">Обучение</a>
-                <a href="#reviews" class="hover:text-lime transition-colors">Отзывы</a>
+    <header>
+        <div class="nav-box">
+            <a href="#" class="logo">VP.<span>DESIGN</span></a>
+            <nav class="nav-links">
+                <a href="#about">Обо мне</a>
+                <a href="#portfolio">Портфолио</a>
+                <a href="#cases">Кейсы</a>
+                <a href="#education">Обучение</a>
+                <a href="#contact">Контакты</a>
+            </nav>
+            <div class="mobile-menu-btn" onclick="toggleMenu()">
+                <i class="ph ph-list"></i>
             </div>
-
-            <!-- Mobile Menu Button -->
-            <button id="menu-btn" class="md:hidden text-white focus:outline-none">
-                <i class="ph ph-list text-2xl"></i>
-            </button>
-
-            <a href="#contact" class="hidden md:inline-flex items-center gap-2 bg-lime text-black px-5 py-2 rounded-full font-bold text-sm hover:bg-white transition-all transform hover:scale-105 hover:shadow-[0_0_20px_rgba(204,255,0,0.4)]">
-                <i class="ph-bold ph-telegram-logo"></i> Написать
-            </a>
+            <!-- Desktop CTA visible in nav? Kept simple to just menu as per prompt top bar spec, main CTA in hero -->
         </div>
+    </header>
 
-        <!-- Mobile Menu Dropdown -->
-        <div id="mobile-menu" class="fixed inset-0 bg-black/95 backdrop-blur-xl z-[90] flex flex-col justify-center items-center space-y-8 transform translate-x-full transition-transform duration-300 md:hidden">
-            <button id="close-menu" class="absolute top-8 right-8 text-white"><i class="ph ph-x text-3xl"></i></button>
-            <a href="#about" class="text-3xl font-bebas text-white hover:text-lime mobile-link">Обо мне</a>
-            <a href="#portfolio" class="text-3xl font-bebas text-white hover:text-lime mobile-link">Портфолио</a>
-            <a href="#cases" class="text-3xl font-bebas text-white hover:text-lime mobile-link">Результат</a>
-            <a href="#education" class="text-3xl font-bebas text-white hover:text-lime mobile-link">Обучение</a>
-            <a href="#contact" class="text-3xl font-bebas text-lime mobile-link">Связаться</a>
-        </div>
-    </nav>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay" id="mobileMenu">
+        <div class="close-menu" onclick="toggleMenu()"><i class="ph ph-x"></i></div>
+        <a href="#about" class="mobile-link" onclick="toggleMenu()">Обо мне</a>
+        <a href="#portfolio" class="mobile-link" onclick="toggleMenu()">Портфолио</a>
+        <a href="#pricing" class="mobile-link" onclick="toggleMenu()">Услуги</a>
+        <a href="#education" class="mobile-link" onclick="toggleMenu()">Обучение</a>
+        <a href="#contact" class="mobile-link" onclick="toggleMenu()">Контакты</a>
+    </div>
 
     <!-- Hero Section -->
-    <section class="min-h-screen flex items-center justify-center relative pt-20 overflow-hidden">
-        <div class="max-w-7xl w-full mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
-            <div class="z-10 text-center md:text-left">
-                <div class="inline-block px-3 py-1 border border-lime/30 rounded-full bg-lime/5 mb-6 reveal">
-                    <span class="text-lime text-xs font-bold tracking-widest uppercase">Premium Design Studio</span>
-                </div>
-                <h1 class="text-6xl md:text-8xl lg:text-9xl font-bebas leading-[0.9] mb-6 reveal delay-100">
-                    Твой товар <br> 
-                    <span class="text-lime text-glow">Мой Дизайн</span> <br>
-                    <span class="stroke-text text-white">= Рост</span>
-                </h1>
-                <p class="text-gray-400 text-lg md:text-xl max-w-lg mx-auto md:mx-0 mb-10 reveal delay-200 font-light leading-relaxed">
-                    Создаю визуальные решения для маркетплейсов, которые поднимают ваш бренд на космический уровень.
-                </p>
-                <div class="reveal delay-300">
-                    <a href="https://t.me/vladpetroov" target="_blank" class="inline-flex items-center justify-center w-full md:w-auto px-8 py-4 bg-lime text-black font-bold text-lg rounded-full hover:bg-white hover:shadow-[0_0_30px_rgba(204,255,0,0.6)] transition-all duration-300 transform hover:-translate-y-1">
-                        <i class="ph-bold ph-paper-plane-tilt mr-2"></i> Связаться в Telegram
-                    </a>
-                </div>
-            </div>
-
-            <!-- 3D Graphic Placeholder -->
-            <div class="relative h-[400px] md:h-[600px] w-full flex items-center justify-center reveal delay-500 hidden md:flex">
-                <!-- Abstract Glass Cards Composition -->
-                <div class="absolute w-64 h-80 bg-gradient-to-br from-white/10 to-transparent border border-white/20 backdrop-blur-md rounded-3xl transform -rotate-12 translate-x-[-50px] animate-float z-10"></div>
-                <div class="absolute w-64 h-80 bg-gradient-to-br from-lime/20 to-transparent border border-lime/20 backdrop-blur-md rounded-3xl transform rotate-6 translate-x-[50px] animate-float-delay z-20 flex items-center justify-center">
-                    <div class="text-center">
-                        <span class="block text-5xl font-bebas text-lime">+45%</span>
-                        <span class="text-sm text-gray-300 uppercase tracking-widest">Продаж</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <section class="hero">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
         
-        <!-- Scroll Down Indicator -->
-        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-gray-500">
-            <i class="ph ph-arrow-down text-2xl"></i>
+        <div class="hero-content">
+            <h1 class="hero-title reveal active">
+                Ваш Товар + Моя <br><span class="text-lime">Инфографика</span> = Рост
+            </h1>
+            <p class="hero-subtitle reveal delay-1">
+                Создаю визуальные решения для маркетплейсов, которые поднимают ваш бренд на новый уровень и увеличивают CTR.
+            </p>
+            <a href="https://t.me/vladpetroov" target="_blank" class="btn btn-lime reveal delay-2">
+                Связаться в Telegram <i class="ph ph-telegram-logo" style="margin-left:8px; font-size:18px;"></i>
+            </a>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-24 relative">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="glass-panel p-8 md:p-12 rounded-[2rem] flex flex-col md:flex-row items-center gap-12 reveal">
-                <!-- Photo -->
-                <div class="relative w-48 h-48 md:w-64 md:h-64 flex-shrink-0 group">
-                    <div class="absolute inset-0 bg-lime rounded-full blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
-                    <img src="https://i.ibb.co/zWp1WzTk/1127-20260207204539.png" alt="Влад Петров" class="relative w-full h-full object-cover rounded-full border-2 border-lime/30 group-hover:scale-105 transition-transform duration-500">
-                </div>
-                
-                <!-- Text -->
-                <div class="text-center md:text-left">
-                    <h2 class="text-4xl md:text-5xl font-bebas mb-6">Обо мне</h2>
-                    <p class="text-gray-300 text-lg leading-relaxed mb-6">
-                        Я Влад из Анапы, 19 лет. В дизайне с 2020 года. Я не просто "рисую картинки", я создаю <span class="text-lime font-semibold">визуальные инструменты продаж</span>. Моя задача — сделать так, чтобы ваш товар захотели купить за 3 секунды.
+    <section id="about" class="section-padding">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text reveal">
+                    <h2>Креатив, который <br><span class="text-lime">Продает</span></h2>
+                    <p>
+                        Я Влад из Анапы, 19 лет. В дизайне с 2020 года и каждый день учусь делать инфографику яркой, понятной и продающей. Люблю сочетать <span class="text-lime">креатив</span> и <span class="text-lime">эффективность</span>, чтобы товары выделялись на маркетплейсах среди тысяч конкурентов.
                     </p>
-                    <div class="flex flex-wrap justify-center md:justify-start gap-4">
-                        <span class="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-sm text-lime">5+ лет опыта</span>
-                        <span class="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-sm text-lime">5000+ проектов</span>
-                        <span class="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-sm text-lime">PRO Инфографика</span>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <h4>5+</h4>
+                            <span>Лет опыта</span>
+                        </div>
+                        <div class="stat-item">
+                            <h4>5k+</h4>
+                            <span>Проектов</span>
+                        </div>
+                        <div class="stat-item">
+                            <h4>TOP</h4>
+                            <span>Качество</span>
+                        </div>
                     </div>
+                </div>
+                <div class="about-img-wrapper reveal delay-2">
+                    <!-- Using the provided image -->
+                    <img src="https://i.ibb.co/zWp1WzTk/1127-20260207204539.png" alt="Влад Петров" class="about-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advantages / Why Me -->
+    <section class="section-padding">
+        <div class="container">
+            <h2 class="reveal" style="margin-bottom: 50px;">Почему <span class="text-lime">Я?</span></h2>
+            <div class="features-grid">
+                <div class="card-glass reveal delay-1">
+                    <i class="ph ph-paint-brush-broad text-lime" style="font-size: 32px; margin-bottom: 15px;"></i>
+                    <h3>Креатив</h3>
+                    <p style="color:#aaa; font-size: 14px; margin-top:10px;">Создаю инфографику, которая продаёт, а не просто украшает.</p>
+                </div>
+                <div class="card-glass reveal delay-2">
+                    <i class="ph ph-lightning text-lime" style="font-size: 32px; margin-bottom: 15px;"></i>
+                    <h3>Скорость</h3>
+                    <p style="color:#aaa; font-size: 14px; margin-top:10px;">Соблюдаю сроки без потери качества. Ваш бизнес не ждет.</p>
+                </div>
+                <div class="card-glass reveal delay-3">
+                    <i class="ph ph-trend-up text-lime" style="font-size: 32px; margin-bottom: 15px;"></i>
+                    <h3>Тренды</h3>
+                    <p style="color:#aaa; font-size: 14px; margin-top:10px;">Использую современные методы дизайна 2026 года.</p>
+                </div>
+                <div class="card-glass reveal delay-1">
+                    <i class="ph ph-user-focus text-lime" style="font-size: 32px; margin-bottom: 15px;"></i>
+                    <h3>Подход</h3>
+                    <p style="color:#aaa; font-size: 14px; margin-top:10px;">Каждый проект уникален. Никаких шаблонов.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Portfolio Section -->
-    <section id="portfolio" class="py-24 bg-secondary/50">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-between items-end mb-12 px-2">
-                <div>
-                    <h2 class="text-5xl md:text-7xl font-bebas text-white reveal">Портфолио</h2>
-                    <p class="text-gray-400 mt-2 reveal delay-100">Лучшие работы, которые приносят деньги</p>
-                </div>
-                <!-- Swipe hint for mobile -->
-                <div class="md:hidden text-lime text-sm animate-pulse">
-                    <i class="ph ph-hand-swipe-left"></i> Листай
-                </div>
-            </div>
-
-            <!-- Grid/Carousel Container -->
-            <!-- Mobile: Horizontal Scroll with Snap | Desktop: Grid -->
-            <div class="flex overflow-x-auto snap-x snap-mandatory gap-6 md:grid md:grid-cols-2 lg:grid-cols-3 md:overflow-visible pb-8 hide-scrollbar reveal delay-200">
-                
-                <!-- Portfolio Items (Generated dynamically via JS usually, but hardcoded here as requested) -->
-                <!-- Item 1 -->
-                <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4] cursor-pointer">
-                    <img src="https://i.ibb.co/FLsCKXYD/579-20251105185725.jpg" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 1">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                        <span class="text-lime font-bebas text-2xl tracking-wide transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Смотреть кейс</span>
-                    </div>
-                </div>
-
-                <!-- Item 2 -->
-                <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4]">
-                    <img src="https://i.ibb.co/wFh0gByn/IMG-8041.jpg" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 2">
-                </div>
-
-                <!-- Item 3 -->
-                <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4]">
-                    <img src="https://i.ibb.co/k6wSmDBj/IMG-7170.jpg" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 3">
-                </div>
-
-                <!-- Item 4 -->
-                <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4]">
-                    <img src="https://i.ibb.co/JwML7f4g/373-20250817165435.jpg" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 4">
-                </div>
-                 <!-- Item 5 -->
-                 <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4]">
-                    <img src="https://i.ibb.co/p6C8zZLn/969-20251230133150.jpg" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 5">
-                </div>
-                 <!-- Item 6 -->
-                 <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4]">
-                    <img src="https://i.ibb.co/Z6RPgtBs/394-20250921005440.jpg" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 6">
-                </div>
-                 <!-- Item 7 -->
-                 <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4]">
-                    <img src="https://i.ibb.co/ZRTgFQ8r/IMG-7801.jpg" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 7">
-                </div>
-                 <!-- Item 8 -->
-                 <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4]">
-                    <img src="https://i.ibb.co/hR04gy83/1115-20260201215842.png" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 8">
-                </div>
-                <!-- Item 9 -->
-                <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4]">
-                    <img src="https://i.ibb.co/6RkgYh1G/IMG-7410.jpg" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 9">
-                </div>
-                <!-- Item 10 -->
-                <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4]">
-                    <img src="https://i.ibb.co/6cjb5PS9/601-20251110164430.jpg" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 10">
-                </div>
-                <!-- Item 11 -->
-                <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4]">
-                    <img src="https://i.ibb.co/8LX6HLHN/IMG-3641.jpg" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 11">
-                </div>
-                <!-- Item 12 -->
-                <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4]">
-                    <img src="https://i.ibb.co/W4FM2HxQ/436-20250929191023.jpg" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 12">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Cases / Results Section -->
-    <section id="cases" class="py-24 relative overflow-hidden">
-        <!-- Decoration Line -->
-        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-lime to-transparent opacity-30"></div>
-
-        <div class="max-w-7xl mx-auto px-4">
-            <h2 class="text-5xl md:text-7xl font-bebas text-center mb-16 reveal">Результаты <span class="text-lime">Клиентов</span></h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Case 1 -->
-                <div class="glass-panel p-8 rounded-2xl hover:border-lime/50 transition-colors duration-300 group reveal delay-100">
-                    <div class="text-4xl text-lime mb-4"><i class="ph-bold ph-trend-up"></i></div>
-                    <h3 class="text-xl font-bold mb-2">Задача: Видимость</h3>
-                    <p class="text-gray-400 text-sm mb-6">Товар терялся среди конкурентов с яркими плашками.</p>
-                    <div class="border-t border-white/10 pt-4">
-                        <div class="text-3xl font-bebas text-white group-hover:text-lime transition-colors">+45%</div>
-                        <div class="text-xs uppercase tracking-widest text-gray-500">Кликов (CTR)</div>
-                    </div>
-                </div>
-
-                <!-- Case 2 -->
-                <div class="glass-panel p-8 rounded-2xl hover:border-lime/50 transition-colors duration-300 group reveal delay-200">
-                    <div class="text-4xl text-lime mb-4"><i class="ph-bold ph-shopping-cart"></i></div>
-                    <h3 class="text-xl font-bold mb-2">Задача: Конверсия</h3>
-                    <p class="text-gray-400 text-sm mb-6">Клики были, но покупок мало. Дизайн не закрывал возражения.</p>
-                    <div class="border-t border-white/10 pt-4">
-                        <div class="text-3xl font-bebas text-white group-hover:text-lime transition-colors">+30%</div>
-                        <div class="text-xs uppercase tracking-widest text-gray-500">К продажам</div>
-                    </div>
-                </div>
-
-                <!-- Case 3 -->
-                <div class="glass-panel p-8 rounded-2xl hover:border-lime/50 transition-colors duration-300 group reveal delay-300">
-                    <div class="text-4xl text-lime mb-4"><i class="ph-bold ph-star"></i></div>
-                    <h3 class="text-xl font-bold mb-2">Задача: Брендинг</h3>
-                    <p class="text-gray-400 text-sm mb-6">Нужно было создать ощущение премиального товара.</p>
-                    <div class="border-t border-white/10 pt-4">
-                        <div class="text-3xl font-bebas text-white group-hover:text-lime transition-colors">TOP 3</div>
-                        <div class="text-xs uppercase tracking-widest text-gray-500">В категории</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Why Me / Process Section Combined -->
-    <section class="py-24 bg-secondary/30">
-        <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-16">
+    <section id="portfolio" class="section-padding">
+        <div class="container">
+            <h2 class="reveal" style="margin-bottom: 50px; text-align: center;">Лучшие <span class="text-lime">Работы</span></h2>
             
-            <!-- Why Me -->
-            <div class="reveal">
-                <h2 class="text-5xl font-bebas mb-8">Почему <span class="text-lime">Я?</span></h2>
-                <div class="space-y-6">
-                    <div class="flex items-start gap-4">
-                        <div class="w-10 h-10 rounded-full bg-lime/10 flex items-center justify-center text-lime flex-shrink-0">
-                            <i class="ph-bold ph-lightning"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-lg">Креатив + Аналитика</h4>
-                            <p class="text-gray-400 text-sm">Не просто красиво, а продающе. Знаю боли ЦА.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-4">
-                        <div class="w-10 h-10 rounded-full bg-lime/10 flex items-center justify-center text-lime flex-shrink-0">
-                            <i class="ph-bold ph-clock-countdown"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-lg">Соблюдение сроков</h4>
-                            <p class="text-gray-400 text-sm">Ваш товар не будет простаивать. Сдаю вовремя.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-4">
-                        <div class="w-10 h-10 rounded-full bg-lime/10 flex items-center justify-center text-lime flex-shrink-0">
-                            <i class="ph-bold ph-paint-brush-broad"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-lg">Индивидуальный стиль</h4>
-                            <p class="text-gray-400 text-sm">Никаких шаблонов. Уникальная упаковка бренда.</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="portfolio-grid">
+                <!-- 12 Items as requested -->
+                <div class="portfolio-item reveal"><img src="https://i.ibb.co/FLsCKXYD/579-20251105185725.jpg" alt="Work 1"><div class="portfolio-overlay"><h4>Электроника</h4></div></div>
+                <div class="portfolio-item reveal delay-1"><img src="https://i.ibb.co/wFh0gByn/IMG-8041.jpg" alt="Work 2"><div class="portfolio-overlay"><h4>Красота</h4></div></div>
+                <div class="portfolio-item reveal delay-2"><img src="https://i.ibb.co/k6wSmDBj/IMG-7170.jpg" alt="Work 3"><div class="portfolio-overlay"><h4>Дом</h4></div></div>
+                <div class="portfolio-item reveal"><img src="https://i.ibb.co/JwML7f4g/373-20250817165435.jpg" alt="Work 4"><div class="portfolio-overlay"><h4>Спорт</h4></div></div>
+                <div class="portfolio-item reveal delay-1"><img src="https://i.ibb.co/p6C8zZLn/969-20251230133150.jpg" alt="Work 5"><div class="portfolio-overlay"><h4>Гаджеты</h4></div></div>
+                <div class="portfolio-item reveal delay-2"><img src="https://i.ibb.co/Z6RPgtBs/394-20250921005440.jpg" alt="Work 6"><div class="portfolio-overlay"><h4>Одежда</h4></div></div>
+                <div class="portfolio-item reveal"><img src="https://i.ibb.co/ZRTgFQ8r/IMG-7801.jpg" alt="Work 7"><div class="portfolio-overlay"><h4>Аксессуары</h4></div></div>
+                <div class="portfolio-item reveal delay-1"><img src="https://i.ibb.co/hR04gy83/1115-20260201215842.png" alt="Work 8"><div class="portfolio-overlay"><h4>Авто</h4></div></div>
+                <div class="portfolio-item reveal delay-2"><img src="https://i.ibb.co/6RkgYh1G/IMG-7410.jpg" alt="Work 9"><div class="portfolio-overlay"><h4>Здоровье</h4></div></div>
+                <div class="portfolio-item reveal"><img src="https://i.ibb.co/6cjb5PS9/601-20251110164430.jpg" alt="Work 10"><div class="portfolio-overlay"><h4>Детям</h4></div></div>
+                <div class="portfolio-item reveal delay-1"><img src="https://i.ibb.co/8LX6HLHN/IMG-3641.jpg" alt="Work 11"><div class="portfolio-overlay"><h4>Кухня</h4></div></div>
+                <div class="portfolio-item reveal delay-2"><img src="https://i.ibb.co/W4FM2HxQ/436-20250929191023.jpg" alt="Work 12"><div class="portfolio-overlay"><h4>Зоотовары</h4></div></div>
             </div>
-
-            <!-- Process -->
-            <div class="reveal delay-200">
-                <h2 class="text-5xl font-bebas mb-8">Процесс</h2>
-                <div class="relative border-l border-white/10 ml-3 space-y-8 pl-8">
-                    <div class="relative">
-                        <span class="absolute -left-[39px] top-1 w-5 h-5 bg-lime rounded-full border-4 border-[#050505]"></span>
-                        <h4 class="font-bold text-lg">01. Консультация</h4>
-                        <p class="text-gray-400 text-sm">Бриф, обсуждение целей и ТЗ.</p>
-                    </div>
-                    <div class="relative">
-                        <span class="absolute -left-[39px] top-1 w-5 h-5 bg-lime rounded-full border-4 border-[#050505]"></span>
-                        <h4 class="font-bold text-lg">02. Анализ</h4>
-                        <p class="text-gray-400 text-sm">Изучение конкурентов и воронки продаж.</p>
-                    </div>
-                    <div class="relative">
-                        <span class="absolute -left-[39px] top-1 w-5 h-5 bg-lime rounded-full border-4 border-[#050505]"></span>
-                        <h4 class="font-bold text-lg">03. Дизайн</h4>
-                        <p class="text-gray-400 text-sm">Создание макетов, магия Photoshop.</p>
-                    </div>
-                    <div class="relative">
-                        <span class="absolute -left-[39px] top-1 w-5 h-5 bg-lime rounded-full border-4 border-[#050505]"></span>
-                        <h4 class="font-bold text-lg">04. Результат</h4>
-                        <p class="text-gray-400 text-sm">Готовые файлы для загрузки на WB/Ozon.</p>
-                    </div>
-                </div>
+            
+            <!-- Mobile hint -->
+            <div style="text-align: center; margin-top: 20px; font-size: 12px; color: #666; display: none;" id="swipeHint">
+                <i class="ph ph-hand-swipe-left"></i> Свайпайте для просмотра
             </div>
-
         </div>
     </section>
 
-    <!-- Services / Pricing -->
-    <section id="services" class="py-24">
-        <div class="max-w-7xl mx-auto px-4">
-            <h2 class="text-5xl md:text-7xl font-bebas text-center mb-16 reveal">Услуги</h2>
+    <!-- Cases Section -->
+    <section id="cases" class="section-padding">
+        <div class="container">
+            <h2 class="reveal" style="margin-bottom: 50px;">Кейсы с <span class="text-lime">Результатами</span></h2>
+            <div class="cases-grid">
+                <div class="card-glass case-card reveal">
+                    <div>
+                        <h4 style="margin-bottom:10px;">Электроника для дома</h4>
+                        <p style="color:#aaa; font-size:14px;">Задача: Повысить кликабельность в выдаче</p>
+                        <hr style="border-color:rgba(255,255,255,0.1); margin:15px 0;">
+                        <p style="color:#ccc;">Решение: Неоновая стилистика и акцент на УТП</p>
+                    </div>
+                    <div class="case-result">+45% CTR</div>
+                </div>
+                <div class="card-glass case-card reveal delay-1">
+                    <div>
+                        <h4 style="margin-bottom:10px;">Косметический бренд</h4>
+                        <p style="color:#aaa; font-size:14px;">Задача: Отстройка от конкурентов</p>
+                        <hr style="border-color:rgba(255,255,255,0.1); margin:15px 0;">
+                        <p style="color:#ccc;">Решение: Премиальный минимализм и 3D элементы</p>
+                    </div>
+                    <div class="case-result">+30% Продаж</div>
+                </div>
+                <div class="card-glass case-card reveal delay-2">
+                    <div>
+                        <h4 style="margin-bottom:10px;">Спортивное питание</h4>
+                        <p style="color:#aaa; font-size:14px;">Задача: Показать состав наглядно</p>
+                        <hr style="border-color:rgba(255,255,255,0.1); margin:15px 0;">
+                        <p style="color:#ccc;">Решение: Структурированная инфографика</p>
+                    </div>
+                    <div class="case-result">X2 Заказов</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="section-padding" style="background: rgba(255,255,255,0.02);">
+        <div class="container">
+            <h2 class="reveal" style="text-align: center; margin-bottom: 60px;">Процесс <span class="text-lime">Работы</span></h2>
+            <div class="process-wrapper reveal">
+                <div class="process-line"></div>
+                <div class="process-steps">
+                    <div class="step-card">
+                        <span class="step-num">01</span>
+                        <h4>Консультация</h4>
+                        <p style="color:#aaa; font-size:14px; margin-top:10px;">Обсуждаем цели и задачи</p>
+                    </div>
+                    <div class="step-card">
+                        <span class="step-num">02</span>
+                        <h4>Анализ</h4>
+                        <p style="color:#aaa; font-size:14px; margin-top:10px;">Изучаем продукт и рынок</p>
+                    </div>
+                    <div class="step-card">
+                        <span class="step-num">03</span>
+                        <h4>Дизайн</h4>
+                        <p style="color:#aaa; font-size:14px; margin-top:10px;">Создаем яркую графику</p>
+                    </div>
+                    <div class="step-card">
+                        <span class="step-num">04</span>
+                        <h4>Результат</h4>
+                        <p style="color:#aaa; font-size:14px; margin-top:10px;">Выделяем товар в ТОП</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-padding">
+        <div class="container">
+            <h2 class="reveal" style="text-align: center; margin-bottom: 60px;">Прайс <span class="text-lime">Лист</span></h2>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+            <div class="pricing-grid">
                 <!-- Package Start -->
-                <div class="glass-panel rounded-3xl p-8 reveal delay-100">
-                    <h3 class="text-2xl font-bebas text-gray-300">Пакет Старт</h3>
-                    <div class="text-3xl font-bold mt-2 mb-6">3 900₽</div>
-                    <ul class="space-y-3 text-sm text-gray-400 mb-8">
-                        <li class="flex items-center gap-2"><i class="ph ph-check text-lime"></i> Анализ ниши</li>
-                        <li class="flex items-center gap-2"><i class="ph ph-check text-lime"></i> 3 Слайда</li>
-                        <li class="flex items-center gap-2"><i class="ph ph-check text-lime"></i> Базовая ретушь</li>
+                <div class="price-card reveal">
+                    <h4>Пакет Старт</h4>
+                    <div class="price-tag">3900₽</div>
+                    <ul class="price-features">
+                        <li><i class="ph ph-check-circle"></i> Анализ ниши</li>
+                        <li><i class="ph ph-check-circle"></i> УТП разработка</li>
+                        <li><i class="ph ph-check-circle"></i> 3 Слайда</li>
                     </ul>
-                    <a href="https://t.me/vladpetroov" class="block w-full py-3 border border-white/20 rounded-xl text-center hover:bg-white hover:text-black transition-colors font-semibold">Заказать</a>
+                    <a href="https://t.me/vladpetroov" class="btn btn-glass" style="width:100%; margin-top:20px;">Заказать</a>
                 </div>
 
                 <!-- Package Standard (HIT) -->
-                <div class="glass-panel rounded-3xl p-8 border-lime/50 relative transform md:scale-110 z-10 bg-lime/5 reveal delay-200">
-                    <div class="absolute top-0 right-0 bg-lime text-black text-xs font-bold px-3 py-1 rounded-bl-xl rounded-tr-xl">ХИТ ПРОДАЖ</div>
-                    <h3 class="text-3xl font-bebas text-white">Пакет Стандарт</h3>
-                    <div class="text-4xl font-bold mt-2 mb-6 text-lime">6 900₽</div>
-                    <ul class="space-y-3 text-sm text-gray-300 mb-8">
-                        <li class="flex items-center gap-2"><i class="ph-bold ph-check text-lime"></i> Глубокий анализ</li>
-                        <li class="flex items-center gap-2"><i class="ph-bold ph-check text-lime"></i> 5-7 Слайдов</li>
-                        <li class="flex items-center gap-2"><i class="ph-bold ph-check text-lime"></i> Сложная ретушь</li>
-                        <li class="flex items-center gap-2"><i class="ph-bold ph-check text-lime"></i> SEO-заголовки</li>
+                <div class="price-card hit reveal delay-1">
+                    <div class="hit-badge">ХИТ ПРОДАЖ</div>
+                    <h4 class="text-lime">Пакет Стандарт</h4>
+                    <div class="price-tag text-lime">6900₽</div>
+                    <ul class="price-features">
+                        <li><i class="ph ph-check-circle"></i> Глубокий анализ</li>
+                        <li><i class="ph ph-check-circle"></i> 5 Слайдов</li>
+                        <li><i class="ph ph-check-circle"></i> SEO оптимизация текста</li>
+                        <li><i class="ph ph-check-circle"></i> Исходники</li>
                     </ul>
-                    <a href="https://t.me/vladpetroov" class="block w-full py-3 bg-lime text-black rounded-xl text-center hover:bg-white transition-colors font-bold shadow-[0_0_20px_rgba(204,255,0,0.3)]">Хочу этот пакет</a>
+                    <a href="https://t.me/vladpetroov" class="btn btn-lime" style="width:100%; margin-top:20px;">Заказать</a>
                 </div>
 
                 <!-- Package Premium -->
-                <div class="glass-panel rounded-3xl p-8 reveal delay-300">
-                    <h3 class="text-2xl font-bebas text-gray-300">Пакет Премиум</h3>
-                    <div class="text-3xl font-bold mt-2 mb-6">8 900₽</div>
-                    <ul class="space-y-3 text-sm text-gray-400 mb-8">
-                        <li class="flex items-center gap-2"><i class="ph ph-check text-lime"></i> Всё включено</li>
-                        <li class="flex items-center gap-2"><i class="ph ph-check text-lime"></i> До 10 слайдов</li>
-                        <li class="flex items-center gap-2"><i class="ph ph-check text-lime"></i> Видеообложка</li>
-                        <li class="flex items-center gap-2"><i class="ph ph-check text-lime"></i> Приоритетная поддержка</li>
+                <div class="price-card reveal delay-2">
+                    <h4>Пакет Премиум</h4>
+                    <div class="price-tag">8900₽</div>
+                    <ul class="price-features">
+                        <li><i class="ph ph-check-circle"></i> Всё из стандарта</li>
+                        <li><i class="ph ph-check-circle"></i> 7+ Слайдов</li>
+                        <li><i class="ph ph-check-circle"></i> Rich-контент</li>
+                        <li><i class="ph ph-check-circle"></i> Приоритетная сдача</li>
                     </ul>
-                    <a href="https://t.me/vladpetroov" class="block w-full py-3 border border-white/20 rounded-xl text-center hover:bg-white hover:text-black transition-colors font-semibold">Заказать</a>
+                    <a href="https://t.me/vladpetroov" class="btn btn-glass" style="width:100%; margin-top:20px;">Заказать</a>
                 </div>
             </div>
 
-            <!-- Single Services List -->
-            <div class="mt-12 text-center text-sm text-gray-500 reveal">
-                <p>Главный слайд — 1500₽ • Доп. слайд — 800₽ • Видеообложка — 3000₽</p>
+            <!-- Single Services -->
+            <div class="card-glass reveal" style="margin-top: 40px; text-align: center; padding: 20px;">
+                <p style="color: #ccc;">
+                    Отдельные услуги: 
+                    <span style="color:white; margin: 0 10px;">Главный слайд — 1500₽</span> | 
+                    <span style="color:white; margin: 0 10px;">Доп. слайд — 800₽</span> | 
+                    <span style="color:white; margin: 0 10px;">Видеообложка — 3000₽</span>
+                </p>
             </div>
         </div>
     </section>
 
     <!-- Education Section -->
-    <section id="education" class="py-24 bg-gradient-to-b from-transparent to-lime/5">
-        <div class="max-w-6xl mx-auto px-4">
-            <h2 class="text-5xl md:text-7xl font-bebas text-center mb-16 reveal">Обучение</h2>
-            
-            <div class="space-y-4">
-                <!-- Course 1 -->
-                <div class="glass-panel p-6 md:p-8 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 group hover:border-lime/30 transition-all reveal">
+    <section id="education" class="section-padding">
+        <div class="container">
+            <h2 class="reveal" style="margin-bottom: 50px;">Обучение <span class="text-lime">Design</span></h2>
+            <div class="edu-grid">
+                <div class="card-glass edu-card reveal">
                     <div>
-                        <h3 class="text-2xl font-bold text-white group-hover:text-lime transition-colors">Инфографика: Старт</h3>
-                        <p class="text-gray-400 mt-2 text-sm">База для новичков. Основы подачи и инструменты.</p>
+                        <div class="edu-level">Новичок</div>
+                        <h3>Инфографика: Старт</h3>
+                        <p style="color:#aaa; margin-top:15px;">Базовый курс. Простая инфографика и основы подачи товара на маркетплейсах.</p>
                     </div>
-                    <a href="https://t.me/vladpetroov" class="px-6 py-3 border border-white/20 rounded-full hover:bg-white hover:text-black transition-all">Записаться</a>
+                    <a href="https://t.me/vladpetroov" class="btn btn-glass" style="margin-top:30px;">Записаться <i class="ph ph-arrow-right" style="margin-left:5px"></i></a>
                 </div>
-
-                <!-- Course 2 -->
-                <div class="glass-panel p-6 md:p-8 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 group hover:border-lime/30 transition-all reveal delay-100">
-                    <div>
-                        <h3 class="text-2xl font-bold text-white group-hover:text-lime transition-colors">Инфографика PRO</h3>
-                        <p class="text-gray-400 mt-2 text-sm">Продвинутые техники. Креатив, свет, композиция.</p>
-                    </div>
-                    <a href="https://t.me/vladpetroov" class="px-6 py-3 border border-white/20 rounded-full hover:bg-white hover:text-black transition-all">Записаться</a>
-                </div>
-
-                <!-- Course 3 (Top) -->
-                <div class="glass-panel p-6 md:p-8 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 border-lime/20 bg-lime/5 relative overflow-hidden reveal delay-200">
-                    <div class="absolute inset-0 bg-lime/10 blur-xl"></div>
-                    <div class="relative z-10">
-                        <div class="inline-block px-2 py-0.5 bg-lime text-black text-[10px] font-bold rounded mb-2">MENTORSHIP</div>
-                        <h3 class="text-3xl font-bold text-white">Инфографика с Владом — TOP</h3>
-                        <p class="text-gray-300 mt-2 text-sm max-w-md">Личное наставничество. Разборы, практика, доведение до результата.</p>
-                    </div>
-                    <a href="https://t.me/vladpetroov" class="relative z-10 px-8 py-4 bg-lime text-black font-bold rounded-full hover:shadow-[0_0_20px_rgba(204,255,0,0.4)] transition-all">Записаться</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Reviews -->
-    <section id="reviews" class="py-24 overflow-hidden">
-        <h2 class="text-5xl font-bebas text-center mb-12 reveal">Отзывы</h2>
-        <!-- Marquee / Scroll Container -->
-        <div class="flex overflow-x-auto gap-6 px-4 pb-8 hide-scrollbar snap-x reveal delay-100 max-w-7xl mx-auto">
-            
-            <!-- Repeatable Review Card Block -->
-            <!-- Generating 6 cards for demo -->
-            <script>
-                // Simulating repeating review structure to save code space
-                const reviews = [
-                    {name: "Алексей", text: "Продажи выросли на 40% после редизайна!"},
-                    {name: "Марина", text: "Очень стильно и быстро. Влад профи."},
-                    {name: "Сергей", text: "Обучение окупилось с первого заказа."},
-                    {name: "Елена", text: "Лучшая инфографика в нише электроники."},
-                    {name: "Дмитрий", text: "Четко по ТЗ, даже лучше чем ожидал."},
-                    {name: "Ольга", text: "Спасибо за менторство, вышла на доход!"}
-                ];
                 
-                reviews.forEach((review, i) => {
-                    document.write(`
-                        <div class="min-w-[300px] glass-panel p-6 rounded-2xl snap-center flex-shrink-0">
-                            <div class="flex items-center gap-1 mb-4 text-lime text-sm">
-                                <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
-                            </div>
-                            <p class="text-gray-300 text-sm mb-6 leading-relaxed">"${review.text}"</p>
-                            <div class="flex items-center gap-3">
-                                <img src="https://i.pravatar.cc/150?img=${i+10}" class="w-10 h-10 rounded-full border border-white/20" alt="${review.name}">
-                                <div class="font-bold text-sm">${review.name}</div>
-                            </div>
-                        </div>
-                    `);
-                });
-            </script>
-        </div>
-    </section>
-
-    <!-- Contact / Footer -->
-    <section id="contact" class="py-24 relative">
-        <div class="max-w-4xl mx-auto px-4 text-center">
-            <h2 class="text-6xl md:text-8xl font-bebas mb-8 reveal">Давай <span class="text-lime">Начнем</span></h2>
-            <p class="text-gray-400 mb-12 reveal delay-100">Готов вывести свой бренд в топ? Выбери удобный способ связи.</p>
-            
-            <div class="flex flex-col md:flex-row justify-center gap-6 mb-16 reveal delay-200">
-                <a href="https://t.me/vladpetroov" target="_blank" class="flex items-center justify-center gap-3 px-8 py-4 bg-[#0088cc]/20 border border-[#0088cc]/50 hover:bg-[#0088cc] text-white rounded-xl transition-all group">
-                    <i class="ph-bold ph-telegram-logo text-2xl"></i> 
-                    <span class="font-bold">Telegram</span>
-                </a>
-                <a href="https://vk.com/vladpetrovagency" target="_blank" class="flex items-center justify-center gap-3 px-8 py-4 bg-white/5 border border-white/20 hover:bg-white/20 text-white rounded-xl transition-all">
-                    <i class="ph-bold ph-vk-logo text-2xl"></i>
-                    <span class="font-bold">ВКонтакте</span>
-                </a>
-                <a href="https://ru.pinterest.com/vladpetroov" target="_blank" class="flex items-center justify-center gap-3 px-8 py-4 bg-[#E60023]/20 border border-[#E60023]/50 hover:bg-[#E60023] text-white rounded-xl transition-all">
-                    <i class="ph-bold ph-pinterest-logo text-2xl"></i>
-                    <span class="font-bold">Pinterest</span>
-                </a>
-            </div>
-
-            <!-- Simple Form -->
-            <form class="max-w-md mx-auto glass-panel p-8 rounded-2xl reveal delay-300">
-                <div class="space-y-4">
-                    <input type="text" placeholder="Ваше имя" class="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-lime transition-colors text-white">
-                    <input type="tel" placeholder="Телефон / Telegram" class="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-lime transition-colors text-white">
-                    <button type="submit" class="w-full bg-lime text-black font-bold py-3 rounded-lg hover:bg-white transition-colors">Отправить заявку</button>
+                <div class="card-glass edu-card reveal delay-1">
+                    <div>
+                        <div class="edu-level">Продвинутый</div>
+                        <h3>Инфографика PRO</h3>
+                        <p style="color:#aaa; margin-top:15px;">Креативные концепции, сложная ретушь, 3D эффекты и улучшение конверсии.</p>
+                    </div>
+                    <a href="https://t.me/vladpetroov" class="btn btn-glass" style="margin-top:30px;">Записаться <i class="ph ph-arrow-right" style="margin-left:5px"></i></a>
                 </div>
-            </form>
-            
-            <div class="mt-20 text-gray-600 text-xs">
-                &copy; 2026 VP.DESIGN. Все права защищены. <br> Дизайн, который продает.
+                
+                <div class="card-glass edu-card reveal delay-2" style="border-color: var(--lime);">
+                    <div>
+                        <div class="edu-level">Личное ведение</div>
+                        <h3 class="text-lime">Mentorship TOP</h3>
+                        <p style="color:#aaa; margin-top:15px;">Премиальный курс, веду лично я. Полное погружение и индивидуальные разборы.</p>
+                    </div>
+                    <a href="https://t.me/vladpetroov" class="btn btn-lime" style="margin-top:30px;">Записаться <i class="ph ph-crown" style="margin-left:5px"></i></a>
+                </div>
             </div>
         </div>
     </section>
+
+    <!-- Reviews Section -->
+    <section class="section-padding" style="background: rgba(0,0,0,0.3);">
+        <div class="container">
+            <h2 class="reveal" style="margin-bottom: 40px;">Отзывы <span class="text-lime">Клиентов</span></h2>
+            <div class="reviews-wrapper reveal">
+                <div class="reviews-track">
+                    <!-- Review 1 -->
+                    <div class="review-card">
+                        <div class="stars">★★★★★</div>
+                        <p>"Влад сделал инфографику за 2 дня. Продажи выросли на 30% сразу после обновления карточки. Рекомендую!"</p>
+                        <div class="user-info">
+                            <div class="avatar" style="background-image: url('https://randomuser.me/api/portraits/men/32.jpg')"></div>
+                            <div><strong>Алексей М.</strong><br><span style="font-size:12px; color:#666">Селлер Ozon</span></div>
+                        </div>
+                    </div>
+                    <!-- Review 2 -->
+                    <div class="review-card">
+                        <div class="stars">★★★★★</div>
+                        <p>"Проходила курс PRO. Очень много практики, никакой воды. Теперь делаю дизайн в 2 раза быстрее."</p>
+                        <div class="user-info">
+                            <div class="avatar" style="background-image: url('https://randomuser.me/api/portraits/women/44.jpg')"></div>
+                            <div><strong>Марина К.</strong><br><span style="font-size:12px; color:#666">Дизайнер</span></div>
+                        </div>
+                    </div>
+                    <!-- Review 3 -->
+                    <div class="review-card">
+                        <div class="stars">★★★★★</div>
+                        <p>"Отличный вкус и чувство стиля. Инфографика выглядит дорого и премиально."</p>
+                        <div class="user-info">
+                            <div class="avatar" style="background-image: url('https://randomuser.me/api/portraits/men/85.jpg')"></div>
+                            <div><strong>Дмитрий В.</strong><br><span style="font-size:12px; color:#666">Селлер WB</span></div>
+                        </div>
+                    </div>
+                     <!-- Review 4 -->
+                     <div class="review-card">
+                        <div class="stars">★★★★★</div>
+                        <p>"Работаем с Владом уже полгода. Всегда в срок и креативно. Лучший подрядчик."</p>
+                        <div class="user-info">
+                            <div class="avatar" style="background-image: url('https://randomuser.me/api/portraits/women/65.jpg')"></div>
+                            <div><strong>Елена С.</strong><br><span style="font-size:12px; color:#666">Бренд менеджер</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section-padding">
+        <div class="container">
+            <div class="contact-layout">
+                <div class="reveal">
+                    <h2 style="margin-bottom: 20px;">Напиши <span class="text-lime">Мне</span></h2>
+                    <p style="color:#aaa; margin-bottom: 40px;">Готов обсудить проект? Оставь заявку или напиши в соцсети.</p>
+                    
+                    <div class="social-grid">
+                        <a href="https://t.me/vladpetroov" target="_blank" class="social-btn tg-btn">
+                            <i class="ph ph-telegram-logo" style="font-size:24px;"></i> Telegram
+                        </a>
+                        <a href="https://vk.com/vladpetrovagency" target="_blank" class="social-btn vk-btn">
+                            <i class="ph ph-globe" style="font-size:24px;"></i> VKontakte
+                        </a>
+                        <a href="https://ru.pinterest.com/vladpetroov" target="_blank" class="social-btn pin-btn">
+                            <i class="ph ph-pinterest-logo" style="font-size:24px;"></i> Pinterest
+                        </a>
+                    </div>
+                </div>
+
+                <form class="contact-form reveal delay-1" onsubmit="event.preventDefault(); window.location.href='https://t.me/vladpetroov';">
+                    <div class="card-glass" style="padding: 40px;">
+                        <h3 style="margin-bottom: 20px;">Заявка</h3>
+                        <input type="text" placeholder="Ваше Имя" class="form-input" style="margin-bottom: 15px;" required>
+                        <input type="tel" placeholder="Ваш Телефон" class="form-input" style="margin-bottom: 25px;" required>
+                        <button type="submit" class="btn btn-lime" style="width: 100%;">Отправить</button>
+                        <p style="font-size: 12px; color: #555; text-align: center; margin-top: 15px;">Нажимая кнопку, вы соглашаетесь с обработкой персональных данных</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="padding: 50px 0; border-top: 1px solid var(--glass-border); text-align: center; color: #555;">
+        <div class="container">
+            <p style="font-family: var(--font-head); font-size: 24px; color: white;">VP.DESIGN</p>
+            <p style="margin-top: 10px;">&copy; 2026 Все права защищены.</p>
+        </div>
+    </footer>
 
     <script>
-        // --- 1. Reveal on Scroll (Intersection Observer) ---
+        // 1. Reveal Animations on Scroll
         const observerOptions = {
             threshold: 0.1,
             rootMargin: "0px 0px -50px 0px"
@@ -627,69 +1094,36 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
-                    observer.unobserve(entry.target); // Only animate once
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
 
-        // --- 2. Mobile Menu Toggle ---
-        const menuBtn = document.getElementById('menu-btn');
-        const closeMenuBtn = document.getElementById('close-menu');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
-
+        // 2. Mobile Menu Toggle
         function toggleMenu() {
-            const isClosed = mobileMenu.classList.contains('translate-x-full');
-            if (isClosed) {
-                mobileMenu.classList.remove('translate-x-full');
-                document.body.style.overflow = 'hidden'; // Prevent scrolling
-            } else {
-                mobileMenu.classList.add('translate-x-full');
-                document.body.style.overflow = '';
-            }
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('open');
         }
 
-        menuBtn.addEventListener('click', toggleMenu);
-        closeMenuBtn.addEventListener('click', toggleMenu);
-        
-        // Close menu when a link is clicked
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', toggleMenu);
-        });
-
-        // --- 3. Simple Form Handler (Mock) ---
-        document.querySelector('form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const btn = e.target.querySelector('button');
-            const originalText = btn.innerText;
-            
-            btn.innerText = 'Отправлено!';
-            btn.style.backgroundColor = 'white';
-            
-            setTimeout(() => {
-                btn.innerText = originalText;
-                btn.style.backgroundColor = '#CCFF00';
-                e.target.reset();
-            }, 3000);
-            
-            // In real life, send data to Telegram API here
-            // window.open('https://t.me/vladpetroov', '_blank');
-        });
-
-        // --- 4. Navbar Blur on Scroll ---
+        // 3. Parallax Effect for Orbs (Subtle)
         window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                nav.classList.add('py-2');
-                nav.classList.remove('py-4');
-            } else {
-                nav.classList.add('py-4');
-                nav.classList.remove('py-2');
+            const scrolled = window.scrollY;
+            const orbs = document.querySelectorAll('.orb');
+            
+            // Simple parallax logic: move orbs slightly based on scroll
+            if(window.innerWidth > 768) {
+                orbs[0].style.transform = `translate(0, ${scrolled * 0.2}px)`;
+                orbs[1].style.transform = `translate(0, ${scrolled * -0.1}px)`;
             }
         });
 
+        // 4. Show swipe hint on mobile for portfolio
+        if (window.innerWidth < 768) {
+            document.getElementById('swipeHint').style.display = 'block';
+        }
     </script>
 </body>
 </html>
