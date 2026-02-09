@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VP.DESIGN | Инфографика для маркетплейсов</title>
+    <title>VP.DESIGN | Инфографика и Дизайн</title>
     <meta name="description" content="Премиальный дизайн инфографики для маркетплейсов. Влад Петров.">
     
     <!-- Google Fonts -->
@@ -11,39 +11,44 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Font Awesome -->
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS (via CDN for single file requirement) -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Config -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        dark: '#050505',
-                        'dark-card': '#0f0f0f',
-                        lime: {
-                            400: '#a3e635',
-                            500: '#84cc16',
-                            glow: '#ccff00',
-                        }
+                        deepBlack: '#050505',
+                        darkGray: '#0F0F0F',
+                        limeAccent: '#CCFF00', // Яркий лайм
+                        limeDim: 'rgba(204, 255, 0, 0.1)',
+                        glass: 'rgba(255, 255, 255, 0.03)',
+                        glassBorder: 'rgba(255, 255, 255, 0.08)',
                     },
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Bebas Neue', 'sans-serif'],
+                        display: ['"Bebas Neue"', 'sans-serif'],
+                        body: ['"Inter"', 'sans-serif'],
                     },
                     backgroundImage: {
                         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
                     },
                     animation: {
                         'float': 'float 6s ease-in-out infinite',
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'pulse-glow': 'pulseGlow 3s infinite',
                     },
                     keyframes: {
                         float: {
                             '0%, 100%': { transform: 'translateY(0)' },
                             '50%': { transform: 'translateY(-20px)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { boxShadow: '0 0 10px #CCFF00' },
+                            '50%': { boxShadow: '0 0 25px #CCFF00' },
                         }
                     }
                 }
@@ -52,14 +57,19 @@
     </script>
 
     <style>
-        /* Custom Styles for Glassmorphism and Glows */
+        /* Custom CSS for Advanced Effects */
+        :root {
+            --cursor-size: 20px;
+        }
+
         body {
             background-color: #050505;
             color: #ffffff;
             overflow-x: hidden;
+            cursor: default; /* Can be replaced with custom cursor logic if needed */
         }
 
-        /* Custom Scrollbar */
+        /* Scrollbar Styling */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -67,666 +77,708 @@
             background: #050505;
         }
         ::-webkit-scrollbar-thumb {
-            background: #3f3f46;
+            background: #333;
             border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #a3e635;
+            background: #CCFF00;
         }
 
-        /* Glassmorphism Classes */
-        .glass {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+        /* Canvas Background */
+        #canvas-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Typography Utilities */
+        .text-glow {
+            text-shadow: 0 0 20px rgba(204, 255, 0, 0.3);
         }
         
-        .glass-nav {
-            background: rgba(5, 5, 5, 0.7);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        /* Glassmorphism Classes */
+        .glass-panel {
+            background: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
 
-        /* Typography Glow */
-        .text-glow {
-            text-shadow: 0 0 20px rgba(163, 230, 53, 0.3);
+        .glass-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* Gradient Orbs Background */
-        .orb {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(100px);
-            z-index: -1;
-            opacity: 0.4;
-            animation: float 10s ease-in-out infinite;
+        .glass-card:hover {
+            border-color: #CCFF00;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(204, 255, 0, 0.15);
         }
-        .orb-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(163,230,53,0.15) 0%, rgba(0,0,0,0) 70%); }
-        .orb-2 { bottom: -10%; right: -10%; width: 40vw; height: 40vw; background: radial-gradient(circle, rgba(59,130,246,0.1) 0%, rgba(0,0,0,0) 70%); animation-delay: -5s; }
 
-        /* Animation Utilities */
-        .reveal {
+        /* Nav Link Hover */
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #CCFF00;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile Portfolio Carousel */
+        @media (max-width: 768px) {
+            .mobile-carousel {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                gap: 1rem;
+                padding-bottom: 1rem;
+                -webkit-overflow-scrolling: touch;
+            }
+            .mobile-carousel > * {
+                scroll-snap-align: center;
+                flex: 0 0 85%; /* Shows part of the next slide */
+                min-width: 85%;
+            }
+        }
+
+        /* Animations */
+        .reveal-on-scroll {
             opacity: 0;
             transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+            transition: all 0.8s ease-out;
         }
-        .reveal.active {
+        .reveal-on-scroll.active {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* Mobile Swipe Container */
-        .snap-x-mandatory {
-            scroll-snap-type: x mandatory;
+        /* 3D Decor Elements */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.4;
         }
-        .snap-center {
-            scroll-snap-align: center;
-        }
-        .hide-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .hide-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+
+        /* Input Autofill Fix for Dark Mode */
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover, 
+        input:-webkit-autofill:focus, 
+        textarea:-webkit-autofill,
+        textarea:-webkit-autofill:hover,
+        textarea:-webkit-autofill:focus {
+            -webkit-text-fill-color: white;
+            -webkit-box-shadow: 0 0 0px 1000px #0F0F0F inset;
+            transition: background-color 5000s ease-in-out 0s;
         }
     </style>
 </head>
-<body class="antialiased selection:bg-lime-400 selection:text-black">
+<body class="font-body selection:bg-limeAccent selection:text-black">
 
-    <!-- Background Ambience -->
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
+    <!-- Interactive Background -->
+    <canvas id="canvas-bg"></canvas>
+
+    <!-- Background Orbs -->
+    <div class="orb bg-limeAccent w-64 h-64 top-0 left-0 -translate-x-1/2 -translate-y-1/2 animate-pulse-glow"></div>
+    <div class="orb bg-blue-600 w-96 h-96 bottom-0 right-0 translate-x-1/3 translate-y-1/3 opacity-20"></div>
 
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 glass-nav transition-all duration-300" id="navbar">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+    <nav class="fixed top-0 left-0 w-full z-50 px-4 py-4 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto glass-panel rounded-full px-6 py-3 flex justify-between items-center">
             <!-- Logo -->
-            <a href="#" class="text-2xl font-display font-bold tracking-wider hover:text-lime-400 transition-colors">
-                VP<span class="text-lime-400">.DESIGN</span>
+            <a href="#" class="text-2xl font-display font-bold tracking-wider text-white hover:text-limeAccent transition-colors">
+                VP.<span class="text-limeAccent">DESIGN</span>
             </a>
 
             <!-- Desktop Menu -->
-            <div class="hidden md:flex space-x-8 text-sm font-medium tracking-wide text-gray-300">
-                <a href="#about" class="hover:text-lime-400 transition-colors">Обо мне</a>
-                <a href="#portfolio" class="hover:text-lime-400 transition-colors">Портфолио</a>
-                <a href="#advantages" class="hover:text-lime-400 transition-colors">Почему я</a>
-                <a href="#education" class="hover:text-lime-400 transition-colors">Обучение</a>
-                <a href="#reviews" class="hover:text-lime-400 transition-colors">Отзывы</a>
+            <div class="hidden md:flex space-x-8 text-sm font-light tracking-wide">
+                <a href="#about" class="nav-link hover:text-limeAccent transition-colors">Обо мне</a>
+                <a href="#portfolio" class="nav-link hover:text-limeAccent transition-colors">Портфолио</a>
+                <a href="#why" class="nav-link hover:text-limeAccent transition-colors">Почему я</a>
+                <a href="#pricing" class="nav-link hover:text-limeAccent transition-colors">Услуги</a>
+                <a href="#education" class="nav-link hover:text-limeAccent transition-colors">Обучение</a>
+                <a href="#contact" class="nav-link hover:text-limeAccent transition-colors">Контакты</a>
             </div>
 
-            <!-- CTA & Mobile Toggle -->
-            <div class="flex items-center gap-4">
-                <a href="https://t.me/vladpetroov" target="_blank" class="hidden md:inline-flex items-center gap-2 bg-lime-400 text-black px-6 py-2 rounded-full font-bold text-sm hover:bg-white hover:shadow-[0_0_20px_rgba(163,230,53,0.6)] transition-all transform hover:-translate-y-1">
-                    <i class="fa-brands fa-telegram"></i> Написать
-                </a>
-                <button class="md:hidden text-2xl text-white focus:outline-none" id="mobile-menu-btn">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-            </div>
+            <!-- Mobile Menu Button -->
+            <button id="menu-btn" class="md:hidden text-white hover:text-limeAccent focus:outline-none">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
         </div>
 
-        <!-- Mobile Menu Overlay -->
-        <div class="md:hidden absolute top-full left-0 w-full bg-black/95 border-b border-white/10 overflow-hidden h-0 transition-all duration-300" id="mobile-menu">
-            <div class="flex flex-col items-center py-8 space-y-6 text-lg">
-                <a href="#about" class="mobile-link">Обо мне</a>
-                <a href="#portfolio" class="mobile-link">Портфолио</a>
-                <a href="#advantages" class="mobile-link">Почему я</a>
-                <a href="#education" class="mobile-link">Обучение</a>
-                <a href="#reviews" class="mobile-link">Отзывы</a>
-                <a href="https://t.me/vladpetroov" class="text-lime-400 font-bold">Связаться в TG</a>
-            </div>
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden absolute top-20 left-4 right-4 glass-panel rounded-2xl p-6 flex-col space-y-4 text-center md:hidden">
+            <a href="#about" class="block hover:text-limeAccent">Обо мне</a>
+            <a href="#portfolio" class="block hover:text-limeAccent">Портфолио</a>
+            <a href="#why" class="block hover:text-limeAccent">Почему я</a>
+            <a href="#pricing" class="block hover:text-limeAccent">Услуги</a>
+            <a href="#education" class="block hover:text-limeAccent">Обучение</a>
+            <a href="#contact" class="block hover:text-limeAccent">Контакты</a>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header class="min-h-screen flex items-center justify-center relative pt-20 overflow-hidden">
-        <!-- Decor Elements -->
-        <div class="absolute top-1/4 left-10 w-24 h-24 border border-lime-400/20 rounded-full animate-float"></div>
-        <div class="absolute bottom-1/4 right-10 w-64 h-64 border border-white/5 rounded-full animate-float" style="animation-delay: 1s;"></div>
-        
-        <div class="container mx-auto px-4 text-center z-10">
-            <h1 class="font-display text-6xl md:text-8xl lg:text-9xl leading-tight mb-6 reveal">
-                ВАШ ТОВАР <br> 
-                <span class="text-lime-400 text-glow">+ МОЯ ИНФОГРАФИКА</span> <br>
-                = РОСТ
-            </h1>
-            <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 reveal" style="transition-delay: 100ms;">
-                Создаю визуальные решения для маркетплейсов, которые поднимают ваш бренд на космический уровень.
-            </p>
-            <div class="reveal" style="transition-delay: 200ms;">
-                <a href="https://t.me/vladpetroov" target="_blank" class="inline-flex items-center gap-3 bg-lime-400 text-black px-10 py-4 rounded-full font-bold text-lg hover:bg-white hover:scale-105 hover:shadow-[0_0_30px_rgba(163,230,53,0.8)] transition-all duration-300 group">
-                    <span>Связаться в Telegram</span>
-                    <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
-                </a>
+    <header class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 w-full grid md:grid-cols-2 gap-12 items-center">
+            
+            <!-- Text Content -->
+            <div class="space-y-6 z-10 reveal-on-scroll">
+                <h1 class="font-display text-6xl md:text-8xl lg:text-9xl leading-none text-white uppercase">
+                    Ваш товар <br> 
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">+ моя</span> <br>
+                    <span class="text-limeAccent text-glow">Инфографика</span> <br>
+                    = Рост
+                </h1>
+                <p class="font-body text-gray-400 text-lg md:text-xl max-w-md border-l-2 border-limeAccent pl-4">
+                    Создаю визуальные решения для маркетплейсов, которые поднимают ваш бренд на новый уровень.
+                </p>
+                
+                <div class="pt-4">
+                    <a href="https://t.me/vladpetroov" target="_blank" class="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-black transition-all duration-200 bg-limeAccent font-display uppercase tracking-wider hover:bg-white hover:shadow-[0_0_20px_rgba(204,255,0,0.6)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-limeAccent rounded-lg overflow-hidden">
+                        <span class="relative z-10 flex items-center gap-2">
+                            Написать
+                            <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Graphic/Visual Content -->
+            <div class="relative z-0 flex justify-center items-center reveal-on-scroll delay-200">
+                <!-- Abstract 3D composition simulation with CSS -->
+                <div class="relative w-64 h-64 md:w-96 md:h-96">
+                    <div class="absolute inset-0 border-2 border-limeAccent/30 rounded-full animate-[spin_10s_linear_infinite]"></div>
+                    <div class="absolute inset-4 border border-white/20 rounded-full animate-[spin_15s_linear_infinite_reverse]"></div>
+                    <div class="absolute inset-0 flex items-center justify-center animate-float">
+                        <div class="w-48 h-48 bg-gradient-to-tr from-limeAccent/20 to-transparent rounded-2xl backdrop-blur-md border border-white/10 rotate-12 shadow-2xl"></div>
+                        <div class="w-48 h-48 bg-gradient-to-bl from-white/10 to-transparent rounded-2xl backdrop-blur-md border border-white/10 -rotate-6 absolute shadow-2xl"></div>
+                    </div>
+                </div>
             </div>
         </div>
-        
+
         <!-- Scroll Indicator -->
         <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-gray-500">
-            <i class="fa-solid fa-chevron-down"></i>
+            <i class="fas fa-chevron-down text-xl"></i>
         </div>
     </header>
 
-    <!-- About Section -->
-    <section id="about" class="py-24 relative">
-        <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <!-- Image -->
-                <div class="relative reveal group">
-                    <div class="absolute inset-0 bg-lime-400/20 rounded-2xl blur-2xl group-hover:bg-lime-400/30 transition-all duration-500"></div>
-                    <div class="relative rounded-2xl overflow-hidden glass p-2 border border-lime-400/30">
-                        <img src="https://i.ibb.co/zWp1WzTk/1127-20260207204539.png" alt="Влад Петров" class="w-full h-auto rounded-xl grayscale group-hover:grayscale-0 transition-all duration-500 transform group-hover:scale-105">
+    <!-- About Me -->
+    <section id="about" class="py-20 bg-deepBlack relative">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="glass-panel rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-12 reveal-on-scroll">
+                <!-- Photo -->
+                <div class="relative group shrink-0">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-limeAccent to-blue-600 rounded-full opacity-75 blur group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+                    <div class="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-2 border-black">
+                        <img src="https://i.ibb.co/zWp1WzTk/1127-20260207204539.png" alt="Vlad Petrov" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500">
                     </div>
                 </div>
                 
                 <!-- Text -->
-                <div class="reveal" style="transition-delay: 200ms;">
-                    <span class="text-lime-400 uppercase tracking-widest text-sm font-bold mb-2 block">Кто я</span>
-                    <h2 class="font-display text-5xl md:text-6xl mb-6">Влад. <span class="text-gray-500">19 лет.</span><br>Дизайнер из Анапы.</h2>
-                    <p class="text-gray-400 text-lg leading-relaxed mb-6">
-                        В дизайне с <span class="text-white font-bold">2020 года</span>. Каждый день я учусь делать инфографику не просто красивой, а <span class="text-lime-400">продающей</span>. Я сочетаю креативный хаос с маркетинговой эффективностью, чтобы ваши товары уничтожали конкурентов в выдаче.
+                <div class="space-y-6 text-center md:text-left">
+                    <h2 class="font-display text-4xl md:text-5xl text-white">Обо мне</h2>
+                    <p class="text-gray-300 text-lg leading-relaxed">
+                        Я Влад из Анапы, <span class="text-limeAccent">19 лет</span>. В дизайне с 2020 года и каждый день учусь делать инфографику яркой, понятной и <span class="text-limeAccent">продающей</span>. Люблю сочетать креатив и эффективность, чтобы товары выделялись на маркетплейсах.
                     </p>
-                    
-                    <!-- Stats -->
-                    <div class="grid grid-cols-3 gap-4 border-t border-white/10 pt-6">
-                        <div>
-                            <span class="block font-display text-3xl text-white">5+</span>
-                            <span class="text-xs text-gray-500 uppercase">Лет опыта</span>
-                        </div>
-                        <div>
-                            <span class="block font-display text-3xl text-white">5к+</span>
-                            <span class="text-xs text-gray-500 uppercase">Проектов</span>
-                        </div>
-                        <div>
-                            <span class="block font-display text-3xl text-lime-400">TOP</span>
-                            <span class="text-xs text-gray-500 uppercase">Уровень</span>
-                        </div>
+                    <div class="flex flex-wrap justify-center md:justify-start gap-4 pt-4">
+                        <span class="px-4 py-2 border border-white/10 rounded-full text-sm hover:border-limeAccent transition-colors">🚀 5000+ Проектов</span>
+                        <span class="px-4 py-2 border border-white/10 rounded-full text-sm hover:border-limeAccent transition-colors">⭐️ 5+ Лет опыта</span>
+                        <span class="px-4 py-2 border border-white/10 rounded-full text-sm hover:border-limeAccent transition-colors">🎨 Figma & PS Master</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="py-24 bg-black/50">
-        <div class="container mx-auto px-4 mb-12 flex justify-between items-end reveal">
-            <div>
-                <span class="text-lime-400 uppercase tracking-widest text-sm font-bold block mb-2">Галерея</span>
-                <h2 class="font-display text-5xl md:text-6xl">Лучшие работы</h2>
+    <!-- Portfolio -->
+    <section id="portfolio" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16 reveal-on-scroll">
+                <h2 class="font-display text-5xl md:text-7xl text-white mb-4">Лучшие <span class="text-limeAccent">Работы</span></h2>
+                <p class="text-gray-400">Свайпайте, чтобы увидеть больше на мобильных</p>
             </div>
-            <div class="hidden md:block text-gray-500 text-sm">
-                Скролльте вниз <i class="fa-solid fa-arrow-down ml-2"></i>
-            </div>
-        </div>
 
-        <!-- Desktop Grid / Mobile Scroll -->
-        <div class="container mx-auto px-4">
-            <!-- Mobile: Horizontal Scroll | Desktop: Grid -->
-            <div class="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory hide-scrollbar pb-8 md:pb-0">
-                
+            <!-- Grid container for Desktop, Flex for Mobile -->
+            <div class="mobile-carousel md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-6 lg:gap-8 pb-8">
                 <!-- Portfolio Items Generation -->
                 <!-- Item 1 -->
-                <div class="min-w-[85vw] md:min-w-0 snap-center reveal group cursor-pointer">
-                    <div class="glass p-2 rounded-xl relative overflow-hidden h-[400px] md:h-[500px]">
-                        <img src="https://i.ibb.co/FLsCKXYD/579-20251105185725.jpg" class="w-full h-full object-cover rounded-lg transform group-hover:scale-110 transition-transform duration-700" alt="Portfolio 1">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
-                        <div class="absolute bottom-4 left-4 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                            <span class="text-lime-400 font-bold">Инфографика</span>
-                        </div>
+                <div class="glass-card rounded-xl overflow-hidden group relative aspect-[3/4] reveal-on-scroll">
+                    <img src="https://i.ibb.co/FLsCKXYD/579-20251105185725.jpg" alt="Portfolio Work" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <p class="text-limeAccent font-display text-2xl">Инфографика</p>
                     </div>
                 </div>
-
-                <!-- Item 2 -->
-                <div class="min-w-[85vw] md:min-w-0 snap-center reveal group cursor-pointer" style="transition-delay: 100ms;">
-                    <div class="glass p-2 rounded-xl relative overflow-hidden h-[400px] md:h-[500px]">
-                        <img src="https://i.ibb.co/wFh0gByn/IMG-8041.jpg" class="w-full h-full object-cover rounded-lg transform group-hover:scale-110 transition-transform duration-700" alt="Portfolio 2">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
+                 <!-- Item 2 -->
+                 <div class="glass-card rounded-xl overflow-hidden group relative aspect-[3/4] reveal-on-scroll">
+                    <img src="https://i.ibb.co/wFh0gByn/IMG-8041.jpg" alt="Portfolio Work" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <p class="text-limeAccent font-display text-2xl">Инфографика</p>
                     </div>
                 </div>
-
-                <!-- Item 3 -->
-                <div class="min-w-[85vw] md:min-w-0 snap-center reveal group cursor-pointer" style="transition-delay: 200ms;">
-                    <div class="glass p-2 rounded-xl relative overflow-hidden h-[400px] md:h-[500px]">
-                        <img src="https://i.ibb.co/k6wSmDBj/IMG-7170.jpg" class="w-full h-full object-cover rounded-lg transform group-hover:scale-110 transition-transform duration-700" alt="Portfolio 3">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
+                 <!-- Item 3 -->
+                 <div class="glass-card rounded-xl overflow-hidden group relative aspect-[3/4] reveal-on-scroll">
+                    <img src="https://i.ibb.co/k6wSmDBj/IMG-7170.jpg" alt="Portfolio Work" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <p class="text-limeAccent font-display text-2xl">Инфографика</p>
                     </div>
                 </div>
-
-                <!-- Item 4 -->
-                <div class="min-w-[85vw] md:min-w-0 snap-center reveal group cursor-pointer">
-                    <div class="glass p-2 rounded-xl relative overflow-hidden h-[400px] md:h-[500px]">
-                        <img src="https://i.ibb.co/JwML7f4g/373-20250817165435.jpg" class="w-full h-full object-cover rounded-lg transform group-hover:scale-110 transition-transform duration-700" alt="Portfolio 4">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
-                    </div>
+                 <!-- Item 4 -->
+                 <div class="glass-card rounded-xl overflow-hidden group relative aspect-[3/4] reveal-on-scroll">
+                    <img src="https://i.ibb.co/JwML7f4g/373-20250817165435.jpg" alt="Portfolio Work" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                 </div>
-
-                <!-- Item 5 -->
-                <div class="min-w-[85vw] md:min-w-0 snap-center reveal group cursor-pointer" style="transition-delay: 100ms;">
-                    <div class="glass p-2 rounded-xl relative overflow-hidden h-[400px] md:h-[500px]">
-                        <img src="https://i.ibb.co/p6C8zZLn/969-20251230133150.jpg" class="w-full h-full object-cover rounded-lg transform group-hover:scale-110 transition-transform duration-700" alt="Portfolio 5">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
-                    </div>
+                 <!-- Item 5 -->
+                 <div class="glass-card rounded-xl overflow-hidden group relative aspect-[3/4] reveal-on-scroll">
+                    <img src="https://i.ibb.co/p6C8zZLn/969-20251230133150.jpg" alt="Portfolio Work" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                 </div>
-
-                <!-- Item 6 -->
-                <div class="min-w-[85vw] md:min-w-0 snap-center reveal group cursor-pointer" style="transition-delay: 200ms;">
-                    <div class="glass p-2 rounded-xl relative overflow-hidden h-[400px] md:h-[500px]">
-                        <img src="https://i.ibb.co/Z6RPgtBs/394-20250921005440.jpg" class="w-full h-full object-cover rounded-lg transform group-hover:scale-110 transition-transform duration-700" alt="Portfolio 6">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
-                    </div>
+                 <!-- Item 6 -->
+                 <div class="glass-card rounded-xl overflow-hidden group relative aspect-[3/4] reveal-on-scroll">
+                    <img src="https://i.ibb.co/Z6RPgtBs/394-20250921005440.jpg" alt="Portfolio Work" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                 </div>
-                
                  <!-- Item 7 -->
-                 <div class="min-w-[85vw] md:min-w-0 snap-center reveal group cursor-pointer">
-                    <div class="glass p-2 rounded-xl relative overflow-hidden h-[400px] md:h-[500px]">
-                        <img src="https://i.ibb.co/ZRTgFQ8r/IMG-7801.jpg" class="w-full h-full object-cover rounded-lg transform group-hover:scale-110 transition-transform duration-700" alt="Portfolio 7">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
-                    </div>
+                 <div class="glass-card rounded-xl overflow-hidden group relative aspect-[3/4] reveal-on-scroll">
+                    <img src="https://i.ibb.co/ZRTgFQ8r/IMG-7801.jpg" alt="Portfolio Work" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                 </div>
-
                  <!-- Item 8 -->
-                 <div class="min-w-[85vw] md:min-w-0 snap-center reveal group cursor-pointer" style="transition-delay: 100ms;">
-                    <div class="glass p-2 rounded-xl relative overflow-hidden h-[400px] md:h-[500px]">
-                        <img src="https://i.ibb.co/hR04gy83/1115-20260201215842.png" class="w-full h-full object-cover rounded-lg transform group-hover:scale-110 transition-transform duration-700" alt="Portfolio 8">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
-                    </div>
+                 <div class="glass-card rounded-xl overflow-hidden group relative aspect-[3/4] reveal-on-scroll">
+                    <img src="https://i.ibb.co/hR04gy83/1115-20260201215842.png" alt="Portfolio Work" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                 </div>
-
                  <!-- Item 9 -->
-                 <div class="min-w-[85vw] md:min-w-0 snap-center reveal group cursor-pointer" style="transition-delay: 200ms;">
-                    <div class="glass p-2 rounded-xl relative overflow-hidden h-[400px] md:h-[500px]">
-                        <img src="https://i.ibb.co/6RkgYh1G/IMG-7410.jpg" class="w-full h-full object-cover rounded-lg transform group-hover:scale-110 transition-transform duration-700" alt="Portfolio 9">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
-                    </div>
+                 <div class="glass-card rounded-xl overflow-hidden group relative aspect-[3/4] reveal-on-scroll">
+                    <img src="https://i.ibb.co/6RkgYh1G/IMG-7410.jpg" alt="Portfolio Work" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                 </div>
-
-            </div>
-            
-            <div class="md:hidden flex justify-center mt-4 text-gray-500 text-sm animate-pulse">
-                <i class="fa-solid fa-arrows-left-right mr-2"></i> Листай влево
+                 <!-- Item 10 -->
+                 <div class="glass-card rounded-xl overflow-hidden group relative aspect-[3/4] reveal-on-scroll">
+                    <img src="https://i.ibb.co/6cjb5PS9/601-20251110164430.jpg" alt="Portfolio Work" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                </div>
+                 <!-- Item 11 -->
+                 <div class="glass-card rounded-xl overflow-hidden group relative aspect-[3/4] reveal-on-scroll">
+                    <img src="https://i.ibb.co/8LX6HLHN/IMG-3641.jpg" alt="Portfolio Work" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                </div>
+                 <!-- Item 12 -->
+                 <div class="glass-card rounded-xl overflow-hidden group relative aspect-[3/4] reveal-on-scroll">
+                    <img src="https://i.ibb.co/W4FM2HxQ/436-20250929191023.jpg" alt="Portfolio Work" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Cases Section -->
-    <section class="py-20 relative overflow-hidden">
-        <div class="container mx-auto px-4">
-            <h2 class="font-display text-4xl mb-12 text-center reveal">Результаты в <span class="text-lime-400">Цифрах</span></h2>
+    <!-- Cases (Results) -->
+    <section class="py-20 bg-darkGray relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-limeAccent/5 blur-[100px]"></div>
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <h2 class="font-display text-4xl text-white mb-10 text-center">Кейсы & <span class="text-limeAccent">Результаты</span></h2>
             
-            <div class="grid md:grid-cols-3 gap-6">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Case 1 -->
-                <div class="glass p-8 rounded-2xl reveal hover:border-lime-400/50 transition-colors group">
-                    <h3 class="text-xl font-bold mb-4 text-gray-300">Товары для дома</h3>
-                    <div class="space-y-4">
-                        <div class="flex justify-between items-center border-b border-white/10 pb-2">
-                            <span class="text-gray-500 text-sm">Задача</span>
-                            <span class="text-white text-sm">Поднять CTR</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-gray-500 text-sm">Результат</span>
-                            <span class="text-lime-400 font-display text-2xl group-hover:text-glow transition-all">+45% CTR</span>
-                        </div>
+                <div class="glass-card p-8 rounded-2xl reveal-on-scroll">
+                    <div class="text-4xl font-display text-limeAccent mb-4">+45%</div>
+                    <h3 class="text-xl font-bold mb-2">Рост кликабельности (CTR)</h3>
+                    <div class="space-y-2 text-sm text-gray-400">
+                        <p><span class="text-white">Задача:</span> Выделить товар среди конкурентов</p>
+                        <p><span class="text-white">Решение:</span> Neon-стилистика и крупная типографика</p>
                     </div>
                 </div>
 
                 <!-- Case 2 -->
-                <div class="glass p-8 rounded-2xl reveal hover:border-lime-400/50 transition-colors group" style="transition-delay: 100ms;">
-                    <h3 class="text-xl font-bold mb-4 text-gray-300">Электроника</h3>
-                    <div class="space-y-4">
-                        <div class="flex justify-between items-center border-b border-white/10 pb-2">
-                            <span class="text-gray-500 text-sm">Задача</span>
-                            <span class="text-white text-sm">Увеличить продажи</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-gray-500 text-sm">Результат</span>
-                            <span class="text-lime-400 font-display text-2xl group-hover:text-glow transition-all">+30% Продаж</span>
-                        </div>
+                <div class="glass-card p-8 rounded-2xl reveal-on-scroll delay-100">
+                    <div class="text-4xl font-display text-limeAccent mb-4">x2.5</div>
+                    <h3 class="text-xl font-bold mb-2">Рост продаж</h3>
+                    <div class="space-y-2 text-sm text-gray-400">
+                        <p><span class="text-white">Задача:</span> Поднять карточку в топ выдачи</p>
+                        <p><span class="text-white">Решение:</span> Воронка продаж через слайды</p>
                     </div>
                 </div>
 
                 <!-- Case 3 -->
-                <div class="glass p-8 rounded-2xl reveal hover:border-lime-400/50 transition-colors group" style="transition-delay: 200ms;">
-                    <h3 class="text-xl font-bold mb-4 text-gray-300">Одежда</h3>
-                    <div class="space-y-4">
-                        <div class="flex justify-between items-center border-b border-white/10 pb-2">
-                            <span class="text-gray-500 text-sm">Задача</span>
-                            <span class="text-white text-sm">Выход в ТОП</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-gray-500 text-sm">Результат</span>
-                            <span class="text-lime-400 font-display text-2xl group-hover:text-glow transition-all">ТОП-3 Категории</span>
-                        </div>
+                <div class="glass-card p-8 rounded-2xl reveal-on-scroll delay-200">
+                    <div class="text-4xl font-display text-limeAccent mb-4">-30%</div>
+                    <h3 class="text-xl font-bold mb-2">Снижение возвратов</h3>
+                    <div class="space-y-2 text-sm text-gray-400">
+                        <p><span class="text-white">Задача:</span> Показать реальные характеристики</p>
+                        <p><span class="text-white">Решение:</span> Детальная размерная сетка</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Why Me Section -->
-    <section id="advantages" class="py-24 bg-dark-card/50">
-        <div class="container mx-auto px-4">
-            <h2 class="font-display text-5xl mb-16 text-center reveal">Почему выбирают <span class="text-lime-400">Меня</span></h2>
+    <!-- Why Me -->
+    <section id="why" class="py-20">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="font-display text-5xl text-center mb-12">Почему <span class="text-limeAccent">Я?</span></h2>
             
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Adv 1 -->
-                <div class="text-center reveal">
-                    <div class="w-16 h-16 mx-auto bg-lime-400/10 rounded-full flex items-center justify-center mb-6 text-lime-400 text-2xl shadow-[0_0_15px_rgba(163,230,53,0.2)]">
-                        <i class="fa-solid fa-brain"></i>
-                    </div>
-                    <h3 class="font-bold text-xl mb-3">Креатив + Логика</h3>
-                    <p class="text-gray-400 text-sm">Создаю не просто картинки, а инструменты продаж.</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="glass-card p-6 rounded-xl border-t-2 border-transparent hover:border-limeAccent reveal-on-scroll">
+                    <i class="fas fa-brain text-3xl text-limeAccent mb-4"></i>
+                    <h3 class="font-bold text-lg mb-2">Креатив + Эффективность</h3>
+                    <p class="text-sm text-gray-400">Создаю не просто картинки, а инструменты продаж.</p>
                 </div>
-
-                <!-- Adv 2 -->
-                <div class="text-center reveal" style="transition-delay: 100ms;">
-                    <div class="w-16 h-16 mx-auto bg-lime-400/10 rounded-full flex items-center justify-center mb-6 text-lime-400 text-2xl shadow-[0_0_15px_rgba(163,230,53,0.2)]">
-                        <i class="fa-solid fa-bolt"></i>
-                    </div>
-                    <h3 class="font-bold text-xl mb-3">Скорость</h3>
-                    <p class="text-gray-400 text-sm">Соблюдаю сроки. Ваше время — деньги.</p>
+                <div class="glass-card p-6 rounded-xl border-t-2 border-transparent hover:border-limeAccent reveal-on-scroll delay-100">
+                    <i class="fas fa-bolt text-3xl text-limeAccent mb-4"></i>
+                    <h3 class="font-bold text-lg mb-2">Скорость</h3>
+                    <p class="text-sm text-gray-400">Соблюдаю дедлайны. Первый драфт уже через 24 часа.</p>
                 </div>
-
-                <!-- Adv 3 -->
-                <div class="text-center reveal" style="transition-delay: 200ms;">
-                    <div class="w-16 h-16 mx-auto bg-lime-400/10 rounded-full flex items-center justify-center mb-6 text-lime-400 text-2xl shadow-[0_0_15px_rgba(163,230,53,0.2)]">
-                        <i class="fa-solid fa-fire"></i>
-                    </div>
-                    <h3 class="font-bold text-xl mb-3">Тренды</h3>
-                    <p class="text-gray-400 text-sm">Слежу за рынком и внедряю самые свежие фишки.</p>
+                <div class="glass-card p-6 rounded-xl border-t-2 border-transparent hover:border-limeAccent reveal-on-scroll delay-200">
+                    <i class="fas fa-fire text-3xl text-limeAccent mb-4"></i>
+                    <h3 class="font-bold text-lg mb-2">Тренды</h3>
+                    <p class="text-sm text-gray-400">Слежу за визуалом топов Wildberries и Ozon.</p>
                 </div>
-
-                <!-- Adv 4 -->
-                <div class="text-center reveal" style="transition-delay: 300ms;">
-                    <div class="w-16 h-16 mx-auto bg-lime-400/10 rounded-full flex items-center justify-center mb-6 text-lime-400 text-2xl shadow-[0_0_15px_rgba(163,230,53,0.2)]">
-                        <i class="fa-solid fa-user-astronaut"></i>
-                    </div>
-                    <h3 class="font-bold text-xl mb-3">Подход</h3>
-                    <p class="text-gray-400 text-sm">Погружаюсь в нишу, а не делаю шаблонно.</p>
+                <div class="glass-card p-6 rounded-xl border-t-2 border-transparent hover:border-limeAccent reveal-on-scroll delay-300">
+                    <i class="fas fa-fingerprint text-3xl text-limeAccent mb-4"></i>
+                    <h3 class="font-bold text-lg mb-2">Индивидуальность</h3>
+                    <p class="text-sm text-gray-400">Никаких шаблонов, только уникальный дизайн.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Process Section -->
-    <section class="py-20">
-        <div class="container mx-auto px-4">
-            <h2 class="font-display text-4xl mb-12 text-center reveal">Процесс <span class="text-white/50">Работы</span></h2>
+    <!-- Process -->
+    <section class="py-20 bg-deepBlack">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="font-display text-4xl text-white mb-16 text-center">Процесс <span class="text-limeAccent">Работы</span></h2>
             
             <div class="relative">
-                <!-- Connecting Line (Desktop) -->
-                <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-lime-400/50 to-transparent -translate-y-1/2 z-0"></div>
-
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
-                    <!-- Step 1 -->
-                    <div class="glass p-6 rounded-xl text-center reveal border-t-2 border-lime-400/0 hover:border-lime-400 transition-all">
-                        <div class="text-4xl font-display text-lime-400/50 mb-2">01</div>
-                        <h4 class="font-bold mb-2">Консультация</h4>
-                        <p class="text-xs text-gray-400">Обсуждаем цели</p>
-                    </div>
-
-                    <!-- Step 2 -->
-                    <div class="glass p-6 rounded-xl text-center reveal border-t-2 border-lime-400/0 hover:border-lime-400 transition-all" style="transition-delay: 100ms;">
-                        <div class="text-4xl font-display text-lime-400/50 mb-2">02</div>
-                        <h4 class="font-bold mb-2">Анализ</h4>
-                        <p class="text-xs text-gray-400">Изучаем конкурентов</p>
-                    </div>
-
-                    <!-- Step 3 -->
-                    <div class="glass p-6 rounded-xl text-center reveal border-t-2 border-lime-400/0 hover:border-lime-400 transition-all" style="transition-delay: 200ms;">
-                        <div class="text-4xl font-display text-lime-400/50 mb-2">03</div>
-                        <h4 class="font-bold mb-2">Дизайн</h4>
-                        <p class="text-xs text-gray-400">Создаем магию</p>
-                    </div>
-
-                    <!-- Step 4 -->
-                    <div class="glass p-6 rounded-xl text-center reveal border-t-2 border-lime-400/0 hover:border-lime-400 transition-all" style="transition-delay: 300ms;">
-                        <div class="text-4xl font-display text-lime-400/50 mb-2">04</div>
-                        <h4 class="font-bold mb-2">Результат</h4>
-                        <p class="text-xs text-gray-400">Рост продаж</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Pricing Section -->
-    <section class="py-24 relative">
-        <div class="container mx-auto px-4">
-            <h2 class="font-display text-5xl mb-16 text-center reveal">Услуги</h2>
-            
-            <div class="grid md:grid-cols-3 gap-8 items-center max-w-5xl mx-auto">
+                <!-- Line connecting steps (Desktop) -->
+                <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-gray-800 -z-1"></div>
                 
-                <!-- Package Start -->
-                <div class="glass p-8 rounded-2xl reveal hover:bg-white/5 transition-all">
-                    <h3 class="font-bold text-xl mb-2">Старт</h3>
-                    <div class="text-3xl font-display text-white mb-6">3 900₽</div>
-                    <ul class="space-y-3 text-sm text-gray-400 mb-8">
-                        <li><i class="fa-solid fa-check text-lime-400 mr-2"></i> Анализ ниши</li>
-                        <li><i class="fa-solid fa-check text-lime-400 mr-2"></i> 2 правки</li>
-                        <li><i class="fa-solid fa-check text-lime-400 mr-2"></i> Главный слайд</li>
-                    </ul>
-                    <a href="https://t.me/vladpetroov" class="block text-center py-3 rounded-lg border border-white/20 hover:bg-white hover:text-black transition-colors font-medium">Заказать</a>
+                <div class="grid md:grid-cols-4 gap-8">
+                    <!-- Step 1 -->
+                    <div class="relative bg-deepBlack p-4 reveal-on-scroll">
+                        <div class="w-12 h-12 rounded-full bg-limeAccent text-black flex items-center justify-center font-bold text-xl mb-4 mx-auto md:mx-0 shadow-[0_0_15px_#CCFF00]">1</div>
+                        <h3 class="font-bold text-xl mb-2 text-center md:text-left">Консультация</h3>
+                        <p class="text-sm text-gray-400 text-center md:text-left">Обсуждаем ваши цели, товар и пожелания по стилю.</p>
+                    </div>
+                     <!-- Step 2 -->
+                     <div class="relative bg-deepBlack p-4 reveal-on-scroll delay-100">
+                        <div class="w-12 h-12 rounded-full bg-gray-800 border border-limeAccent text-white flex items-center justify-center font-bold text-xl mb-4 mx-auto md:mx-0">2</div>
+                        <h3 class="font-bold text-xl mb-2 text-center md:text-left">Анализ</h3>
+                        <p class="text-sm text-gray-400 text-center md:text-left">Изучаю конкурентов и выделяю ваши преимущества.</p>
+                    </div>
+                     <!-- Step 3 -->
+                     <div class="relative bg-deepBlack p-4 reveal-on-scroll delay-200">
+                        <div class="w-12 h-12 rounded-full bg-gray-800 border border-limeAccent text-white flex items-center justify-center font-bold text-xl mb-4 mx-auto md:mx-0">3</div>
+                        <h3 class="font-bold text-xl mb-2 text-center md:text-left">Дизайн</h3>
+                        <p class="text-sm text-gray-400 text-center md:text-left">Создаю яркую и продающую инфографику.</p>
+                    </div>
+                     <!-- Step 4 -->
+                     <div class="relative bg-deepBlack p-4 reveal-on-scroll delay-300">
+                        <div class="w-12 h-12 rounded-full bg-limeAccent text-black flex items-center justify-center font-bold text-xl mb-4 mx-auto md:mx-0 shadow-[0_0_15px_#CCFF00]">4</div>
+                        <h3 class="font-bold text-xl mb-2 text-center md:text-left">Результат</h3>
+                        <p class="text-sm text-gray-400 text-center md:text-left">Готовые файлы, которые повышают конверсию.</p>
+                    </div>
                 </div>
-
-                <!-- Package Premium (HIT) -->
-                <div class="glass p-8 rounded-2xl reveal transform scale-105 border-lime-400 border relative shadow-[0_0_30px_rgba(163,230,53,0.1)]">
-                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-lime-400 text-black px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest">ХИТ</div>
-                    <h3 class="font-bold text-xl mb-2 text-lime-400">Премиум</h3>
-                    <div class="text-4xl font-display text-white mb-6">8 900₽</div>
-                    <ul class="space-y-3 text-sm text-gray-300 mb-8">
-                        <li><i class="fa-solid fa-check text-lime-400 mr-2"></i> Полный анализ</li>
-                        <li><i class="fa-solid fa-check text-lime-400 mr-2"></i> Безлимитные правки</li>
-                        <li><i class="fa-solid fa-check text-lime-400 mr-2"></i> Инфографика под ключ</li>
-                        <li><i class="fa-solid fa-check text-lime-400 mr-2"></i> Приоритет в очереди</li>
-                    </ul>
-                    <a href="https://t.me/vladpetroov" class="block text-center py-3 rounded-lg bg-lime-400 text-black hover:bg-white hover:shadow-lg transition-all font-bold">Заказать сейчас</a>
-                </div>
-
-                <!-- Package Standard -->
-                <div class="glass p-8 rounded-2xl reveal hover:bg-white/5 transition-all">
-                    <h3 class="font-bold text-xl mb-2">Стандарт</h3>
-                    <div class="text-3xl font-display text-white mb-6">6 900₽</div>
-                    <ul class="space-y-3 text-sm text-gray-400 mb-8">
-                        <li><i class="fa-solid fa-check text-lime-400 mr-2"></i> Анализ ниши</li>
-                        <li><i class="fa-solid fa-check text-lime-400 mr-2"></i> 5 правок</li>
-                        <li><i class="fa-solid fa-check text-lime-400 mr-2"></i> Серия слайдов</li>
-                    </ul>
-                    <a href="https://t.me/vladpetroov" class="block text-center py-3 rounded-lg border border-white/20 hover:bg-white hover:text-black transition-colors font-medium">Заказать</a>
-                </div>
-
-            </div>
-            
-            <!-- Ala Carte -->
-            <div class="text-center mt-12 text-gray-400 text-sm reveal">
-                Отдельно: Главный слайд — 1500₽ / Видеообложка — 3000₽
             </div>
         </div>
     </section>
 
-    <!-- Education Section -->
-    <section id="education" class="py-24 bg-gradient-to-b from-transparent to-black">
-        <div class="container mx-auto px-4">
-            <h2 class="font-display text-5xl mb-16 text-center reveal">Обучение</h2>
+    <!-- Pricing -->
+    <section id="pricing" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="font-display text-5xl text-center mb-12">Прайс <span class="text-limeAccent">Лист</span></h2>
             
-            <div class="grid md:grid-cols-3 gap-6">
+            <div class="grid md:grid-cols-3 gap-8 items-center">
+                <!-- Start -->
+                <div class="glass-card rounded-2xl p-8 flex flex-col h-full reveal-on-scroll">
+                    <h3 class="text-2xl font-display mb-2">Старт</h3>
+                    <div class="text-3xl font-bold text-white mb-6">3 900₽</div>
+                    <ul class="space-y-3 mb-8 text-gray-300 flex-grow">
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-limeAccent"></i> 1 Товар</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-limeAccent"></i> 3-4 Слайда</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-limeAccent"></i> Анализ ниши</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-limeAccent"></i> Базовая ретушь</li>
+                    </ul>
+                    <a href="https://t.me/vladpetroov" class="w-full py-3 rounded-lg border border-white/20 hover:bg-white hover:text-black transition-all text-center">Заказать</a>
+                </div>
+
+                <!-- HIT -->
+                <div class="glass-card rounded-2xl p-8 border-limeAccent shadow-[0_0_30px_rgba(204,255,0,0.1)] transform md:-translate-y-4 relative reveal-on-scroll delay-100">
+                    <div class="absolute top-0 right-0 bg-limeAccent text-black font-bold text-xs px-3 py-1 rounded-bl-lg rounded-tr-lg">ХИТ</div>
+                    <h3 class="text-3xl font-display mb-2 text-limeAccent">Премиум</h3>
+                    <div class="text-4xl font-bold text-white mb-6">8 900₽</div>
+                    <ul class="space-y-3 mb-8 text-gray-300">
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-limeAccent"></i> 1 Товар</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-limeAccent"></i> До 10 слайдов</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-limeAccent"></i> Глубокий анализ</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-limeAccent"></i> SEO описание</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-limeAccent"></i> Исходники (PSD)</li>
+                    </ul>
+                    <a href="https://t.me/vladpetroov" class="w-full py-3 rounded-lg bg-limeAccent text-black font-bold hover:shadow-[0_0_20px_#CCFF00] transition-all text-center block">Заказать</a>
+                </div>
+
+                <!-- Standard -->
+                <div class="glass-card rounded-2xl p-8 flex flex-col h-full reveal-on-scroll delay-200">
+                    <h3 class="text-2xl font-display mb-2">Стандарт</h3>
+                    <div class="text-3xl font-bold text-white mb-6">6 900₽</div>
+                    <ul class="space-y-3 mb-8 text-gray-300 flex-grow">
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-limeAccent"></i> 1 Товар</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-limeAccent"></i> 5-7 Слайдов</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-limeAccent"></i> Конкурентный анализ</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-limeAccent"></i> 2 Круга правок</li>
+                    </ul>
+                    <a href="https://t.me/vladpetroov" class="w-full py-3 rounded-lg border border-white/20 hover:bg-white hover:text-black transition-all text-center">Заказать</a>
+                </div>
+            </div>
+
+            <!-- Single Services -->
+            <div class="mt-12 text-center text-gray-400">
+                <p>Главный слайд: <span class="text-white">1500₽</span> • Доп. слайд: <span class="text-white">800₽</span> • Видеообложка: <span class="text-white">3000₽</span></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education -->
+    <section id="education" class="py-20 bg-darkGray">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="font-display text-5xl text-center mb-12">Мое <span class="text-limeAccent">Обучение</span></h2>
+            
+            <div class="space-y-6">
                 <!-- Course 1 -->
-                <div class="glass p-6 rounded-xl flex flex-col reveal group hover:border-lime-400/30 transition-all">
-                    <div class="flex-1">
-                        <h3 class="text-2xl font-display mb-2 text-white group-hover:text-lime-400 transition-colors">Инфографика: Старт</h3>
-                        <p class="text-gray-400 text-sm mb-4">Для новичков. База, основы, первые деньги.</p>
+                <div class="glass-card p-6 md:p-8 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 reveal-on-scroll">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2">Инфографика: Старт</h3>
+                        <p class="text-gray-400">Базовый курс для новичков. Простая инфографика и основы.</p>
                     </div>
-                    <a href="https://t.me/vladpetroov" class="mt-4 flex items-center justify-between text-sm font-bold uppercase tracking-wider text-white border-t border-white/10 pt-4 group-hover:text-lime-400">
-                        Записаться <i class="fa-solid fa-arrow-right"></i>
-                    </a>
+                    <a href="https://t.me/vladpetroov" class="px-8 py-3 rounded-full border border-limeAccent text-limeAccent hover:bg-limeAccent hover:text-black transition-all whitespace-nowrap">Записаться</a>
                 </div>
 
                 <!-- Course 2 -->
-                <div class="glass p-6 rounded-xl flex flex-col reveal group hover:border-lime-400/30 transition-all" style="transition-delay: 100ms;">
-                    <div class="flex-1">
-                        <h3 class="text-2xl font-display mb-2 text-white group-hover:text-lime-400 transition-colors">Инфографика PRO</h3>
-                        <p class="text-gray-400 text-sm mb-4">Креативные концепции и повышение чека.</p>
+                <div class="glass-card p-6 md:p-8 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 reveal-on-scroll">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2">Инфографика PRO</h3>
+                        <p class="text-gray-400">Продвинутый курс. Креативные концепции и рост продаж.</p>
                     </div>
-                    <a href="https://t.me/vladpetroov" class="mt-4 flex items-center justify-between text-sm font-bold uppercase tracking-wider text-white border-t border-white/10 pt-4 group-hover:text-lime-400">
-                        Записаться <i class="fa-solid fa-arrow-right"></i>
-                    </a>
+                    <a href="https://t.me/vladpetroov" class="px-8 py-3 rounded-full border border-limeAccent text-limeAccent hover:bg-limeAccent hover:text-black transition-all whitespace-nowrap">Записаться</a>
                 </div>
 
                 <!-- Course 3 -->
-                <div class="glass p-6 rounded-xl flex flex-col reveal group hover:border-lime-400/30 transition-all relative overflow-hidden" style="transition-delay: 200ms;">
-                    <div class="absolute top-0 right-0 w-20 h-20 bg-lime-400/20 blur-2xl rounded-full"></div>
-                    <div class="flex-1 relative z-10">
-                        <h3 class="text-2xl font-display mb-2 text-lime-400">Личное наставничество</h3>
-                        <p class="text-gray-400 text-sm mb-4">Полное погружение с Владом. Выход на TOP уровень.</p>
+                <div class="glass-card p-6 md:p-8 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 border-limeAccent relative overflow-hidden reveal-on-scroll">
+                    <div class="absolute -right-10 -top-10 w-32 h-32 bg-limeAccent blur-[60px] opacity-20"></div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2 flex items-center gap-3">Инфографика с Владом — TOP <span class="text-xs bg-limeAccent text-black px-2 py-1 rounded">VIP</span></h3>
+                        <p class="text-gray-400">Личное наставничество. Полное погружение и разборы.</p>
                     </div>
-                    <a href="https://t.me/vladpetroov" class="mt-4 relative z-10 flex items-center justify-between text-sm font-bold uppercase tracking-wider text-white border-t border-white/10 pt-4 group-hover:text-lime-400">
-                        Записаться <i class="fa-solid fa-arrow-right"></i>
-                    </a>
+                    <a href="https://t.me/vladpetroov" class="px-8 py-3 rounded-full bg-limeAccent text-black hover:shadow-[0_0_20px_#CCFF00] transition-all whitespace-nowrap font-bold">Записаться</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Reviews Section -->
-    <section id="reviews" class="py-24">
-        <div class="container mx-auto px-4">
-            <h2 class="font-display text-5xl mb-12 text-center reveal">Отзывы</h2>
-            
-            <div class="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 hide-scrollbar">
-                <!-- Generated Reviews (Loop logic simulation for HTML) -->
-                <!-- Review 1 -->
-                <div class="min-w-[300px] md:min-w-[350px] snap-center glass p-6 rounded-xl reveal">
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="w-10 h-10 rounded-full bg-gray-700 overflow-hidden">
-                            <img src="https://i.pravatar.cc/150?img=1" alt="Avatar" class="w-full h-full object-cover">
-                        </div>
-                        <div>
-                            <div class="font-bold text-sm">Алексей М.</div>
-                            <div class="text-lime-400 text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                        </div>
+    <!-- Testimonials -->
+    <section class="py-20 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 mb-10">
+            <h2 class="font-display text-4xl text-center">Отзывы <span class="text-limeAccent">Клиентов</span></h2>
+        </div>
+        
+        <!-- Marquee / Scroll Container -->
+        <div class="mobile-carousel md:flex md:flex-wrap md:justify-center gap-6 px-4">
+            <!-- Review 1 -->
+            <div class="glass-card p-6 rounded-xl w-full md:w-80 shrink-0 reveal-on-scroll">
+                <div class="flex items-center gap-4 mb-4">
+                    <img src="https://i.pravatar.cc/150?img=1" alt="Client" class="w-12 h-12 rounded-full border border-limeAccent">
+                    <div>
+                        <h4 class="font-bold">Алексей М.</h4>
+                        <div class="text-limeAccent text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                     </div>
-                    <p class="text-gray-400 text-sm">"Продажи выросли на 40% после смены инфографики. Влад знает свое дело!"</p>
                 </div>
+                <p class="text-sm text-gray-300">"Влад сделал пушку! CTR вырос в 2 раза за неделю. Рекомендую."</p>
+            </div>
 
-                 <!-- Review 2 -->
-                 <div class="min-w-[300px] md:min-w-[350px] snap-center glass p-6 rounded-xl reveal">
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="w-10 h-10 rounded-full bg-gray-700 overflow-hidden">
-                            <img src="https://i.pravatar.cc/150?img=5" alt="Avatar" class="w-full h-full object-cover">
-                        </div>
-                        <div>
-                            <div class="font-bold text-sm">Мария К.</div>
-                            <div class="text-lime-400 text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                        </div>
+            <!-- Review 2 -->
+            <div class="glass-card p-6 rounded-xl w-full md:w-80 shrink-0 reveal-on-scroll delay-100">
+                <div class="flex items-center gap-4 mb-4">
+                    <img src="https://i.pravatar.cc/150?img=5" alt="Client" class="w-12 h-12 rounded-full border border-limeAccent">
+                    <div>
+                        <h4 class="font-bold">Мария К.</h4>
+                        <div class="text-limeAccent text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                     </div>
-                    <p class="text-gray-400 text-sm">"Проходила курс 'Старт'. Все четко, без воды. Уже взяла первый заказ."</p>
                 </div>
+                <p class="text-sm text-gray-300">"Прошла курс PRO. Очень много практики, окупила за первый заказ."</p>
+            </div>
 
-                 <!-- Review 3 -->
-                 <div class="min-w-[300px] md:min-w-[350px] snap-center glass p-6 rounded-xl reveal">
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="w-10 h-10 rounded-full bg-gray-700 overflow-hidden">
-                            <img src="https://i.pravatar.cc/150?img=8" alt="Avatar" class="w-full h-full object-cover">
-                        </div>
-                        <div>
-                            <div class="font-bold text-sm">Дмитрий С.</div>
-                            <div class="text-lime-400 text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                        </div>
+            <!-- Review 3 -->
+            <div class="glass-card p-6 rounded-xl w-full md:w-80 shrink-0 reveal-on-scroll delay-200">
+                <div class="flex items-center gap-4 mb-4">
+                    <img src="https://i.pravatar.cc/150?img=8" alt="Client" class="w-12 h-12 rounded-full border border-limeAccent">
+                    <div>
+                        <h4 class="font-bold">Дмитрий С.</h4>
+                        <div class="text-limeAccent text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                     </div>
-                    <p class="text-gray-400 text-sm">"Креатив на высоте. Сделали карточку для пылесоса - кликабельность бешеная."</p>
                 </div>
-                 <!-- Review 4 -->
-                 <div class="min-w-[300px] md:min-w-[350px] snap-center glass p-6 rounded-xl reveal">
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="w-10 h-10 rounded-full bg-gray-700 overflow-hidden">
-                            <img src="https://i.pravatar.cc/150?img=12" alt="Avatar" class="w-full h-full object-cover">
-                        </div>
-                        <div>
-                            <div class="font-bold text-sm">Елена В.</div>
-                            <div class="text-lime-400 text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                        </div>
+                <p class="text-sm text-gray-300">"Быстро, четко, стильно. Лучший дизайнер, с кем работал."</p>
+            </div>
+             <!-- Review 4 -->
+             <div class="glass-card p-6 rounded-xl w-full md:w-80 shrink-0 reveal-on-scroll delay-200">
+                <div class="flex items-center gap-4 mb-4">
+                    <img src="https://i.pravatar.cc/150?img=12" alt="Client" class="w-12 h-12 rounded-full border border-limeAccent">
+                    <div>
+                        <h4 class="font-bold">Анна П.</h4>
+                        <div class="text-limeAccent text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                     </div>
-                    <p class="text-gray-400 text-sm">"Влад очень ответственный. Все правки вносились моментально. Рекомендую!"</p>
                 </div>
+                <p class="text-sm text-gray-300">"Инфографика просто космос. Спасибо за подход!"</p>
             </div>
         </div>
     </section>
 
-    <!-- Footer / Contacts -->
-    <footer class="py-20 bg-black relative border-t border-white/5">
-        <div class="container mx-auto px-4 grid md:grid-cols-2 gap-12">
-            
-            <!-- Contact Info -->
-            <div class="reveal">
-                <h2 class="font-display text-4xl mb-6">Готовы к <span class="text-lime-400">Росту?</span></h2>
-                <p class="text-gray-400 mb-8 max-w-sm">Напишите мне, и мы обсудим, как выделить ваш бренд среди тысяч конкурентов.</p>
-                
-                <div class="flex flex-col gap-4">
-                    <a href="https://t.me/vladpetroov" target="_blank" class="flex items-center gap-4 glass p-4 rounded-xl hover:bg-white/5 transition-all group">
-                        <div class="w-10 h-10 rounded-full bg-[#0088cc] flex items-center justify-center text-white"><i class="fa-brands fa-telegram"></i></div>
-                        <span class="font-bold group-hover:text-lime-400 transition-colors">Telegram</span>
+    <!-- Contacts -->
+    <section id="contact" class="py-20 relative bg-black">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="font-display text-5xl text-center mb-12">Связаться <span class="text-limeAccent">Со мной</span></h2>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Socials -->
+                <div class="space-y-4">
+                    <a href="https://t.me/vladpetroov" target="_blank" class="glass-card p-4 rounded-xl flex items-center gap-4 hover:bg-blue-600/20 transition-all group">
+                        <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white"><i class="fab fa-telegram-plane"></i></div>
+                        <span class="font-bold group-hover:text-blue-400 transition-colors">Telegram</span>
                     </a>
-                    <a href="https://vk.com/vladpetrovagency" target="_blank" class="flex items-center gap-4 glass p-4 rounded-xl hover:bg-white/5 transition-all group">
-                        <div class="w-10 h-10 rounded-full bg-[#0077FF] flex items-center justify-center text-white"><i class="fa-brands fa-vk"></i></div>
-                        <span class="font-bold group-hover:text-lime-400 transition-colors">VKontakte</span>
+                    <a href="https://vk.com/vladpetrovagency" target="_blank" class="glass-card p-4 rounded-xl flex items-center gap-4 hover:bg-blue-800/20 transition-all group">
+                        <div class="w-10 h-10 rounded-full bg-blue-800 flex items-center justify-center text-white"><i class="fab fa-vk"></i></div>
+                        <span class="font-bold group-hover:text-blue-600 transition-colors">VKontakte</span>
                     </a>
-                    <a href="https://ru.pinterest.com/vladpetroov" target="_blank" class="flex items-center gap-4 glass p-4 rounded-xl hover:bg-white/5 transition-all group">
-                        <div class="w-10 h-10 rounded-full bg-[#E60023] flex items-center justify-center text-white"><i class="fa-brands fa-pinterest"></i></div>
-                        <span class="font-bold group-hover:text-lime-400 transition-colors">Pinterest</span>
+                    <a href="https://ru.pinterest.com/vladpetroov" target="_blank" class="glass-card p-4 rounded-xl flex items-center gap-4 hover:bg-red-600/20 transition-all group">
+                        <div class="w-10 h-10 rounded-full bg-red-600 flex items-center justify-center text-white"><i class="fab fa-pinterest-p"></i></div>
+                        <span class="font-bold group-hover:text-red-500 transition-colors">Pinterest</span>
                     </a>
                 </div>
-            </div>
 
-            <!-- Form -->
-            <div class="glass p-8 rounded-2xl reveal" style="transition-delay: 100ms;">
-                <form action="#" onsubmit="event.preventDefault(); alert('Заявка отправлена (Демо)!');">
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-xs text-gray-500 uppercase font-bold mb-2">Имя</label>
-                            <input type="text" placeholder="Как к вам обращаться?" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-lime-400 transition-colors">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-500 uppercase font-bold mb-2">Телефон / Telegram</label>
-                            <input type="text" placeholder="@username или номер" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-lime-400 transition-colors">
-                        </div>
-                        <button type="submit" class="w-full bg-lime-400 text-black font-bold py-4 rounded-lg hover:bg-white hover:shadow-[0_0_20px_rgba(163,230,53,0.5)] transition-all mt-4">
-                            Отправить заявку
-                        </button>
+                <!-- Form -->
+                <form class="glass-panel p-8 rounded-2xl space-y-4">
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1 uppercase tracking-wider">Имя</label>
+                        <input type="text" class="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:outline-none focus:border-limeAccent text-white" placeholder="Как вас зовут?">
                     </div>
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1 uppercase tracking-wider">Телефон / Telegram</label>
+                        <input type="text" class="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:outline-none focus:border-limeAccent text-white" placeholder="@username">
+                    </div>
+                    <button type="button" onclick="window.open('https://t.me/vladpetroov', '_blank')" class="w-full py-3 bg-limeAccent text-black font-bold uppercase tracking-widest rounded-lg hover:shadow-[0_0_20px_#CCFF00] transition-all transform active:scale-95">Отправить</button>
                 </form>
             </div>
         </div>
-        
-        <div class="container mx-auto px-4 mt-20 pt-8 border-t border-white/5 text-center text-gray-600 text-xs">
-            © 2026 VP.DESIGN. Все права защищены. Дизайн, который продает.
-        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-white/10 text-center text-gray-600 text-sm">
+        <p>© 2026 VP.DESIGN. All rights reserved.</p>
     </footer>
 
     <!-- Scripts -->
     <script>
-        // Mobile Menu Toggle
-        const btn = document.getElementById('mobile-menu-btn');
-        const menu = document.getElementById('mobile-menu');
-        const links = document.querySelectorAll('.mobile-link');
+        // 1. Interactive Canvas Background (Constellation Effect)
+        const canvas = document.getElementById('canvas-bg');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
 
-        btn.addEventListener('click', () => {
-            if (menu.classList.contains('h-0')) {
-                menu.classList.remove('h-0');
-                menu.classList.add('h-screen');
-            } else {
-                menu.classList.add('h-0');
-                menu.classList.remove('h-screen');
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2;
             }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 50; i++) particles.push(new Particle());
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            
+            // Draw connections
+            particles.forEach((p, index) => {
+                p.update();
+                p.draw();
+                
+                // Connect particles close to each other
+                for (let j = index + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dx = p.x - p2.x;
+                    const dy = p.y - p2.y;
+                    const dist = Math.sqrt(dx*dx + dy*dy);
+                    
+                    if (dist < 150) {
+                        ctx.strokeStyle = `rgba(204, 255, 0, ${0.1 - dist/1500})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // 2. Mobile Menu Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
         });
 
-        links.forEach(link => {
+        // Close menu when clicking a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
             link.addEventListener('click', () => {
-                menu.classList.add('h-0');
-                menu.classList.remove('h-screen');
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
             });
         });
 
-        // Intersection Observer for Animations
+        // 3. Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('py-2');
+                navbar.classList.remove('py-4');
+            } else {
+                navbar.classList.add('py-4');
+                navbar.classList.remove('py-2');
+            }
+        });
+
+        // 4. Scroll Reveal Animation (Intersection Observer)
         const observerOptions = {
             threshold: 0.1,
             rootMargin: "0px 0px -50px 0px"
@@ -736,35 +788,15 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
-                    // Optional: stop observing once revealed
-                    // observer.unobserve(entry.target); 
+                    observer.unobserve(entry.target); // Only animate once
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('.reveal').forEach(el => {
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => {
             observer.observe(el);
         });
 
-        // Parallax Effect for Orbs (Simple)
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const orbs = document.querySelectorAll('.orb');
-            orbs.forEach((orb, index) => {
-                const speed = index === 0 ? 0.2 : 0.1;
-                orb.style.transform = `translateY(${scrolled * speed}px)`;
-            });
-        });
-
-        // Smooth Scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
     </script>
 </body>
 </html>
