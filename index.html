@@ -1,136 +1,76 @@
 <!DOCTYPE html>
-<html lang="ru" class="scroll-smooth">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VP-DESIGN | Premium Digital Studio</title>
-    <meta name="description" content="Дизайн, который продает. Инфографика, сайты, брендинг.">
+    <title>VP-DESIGN | Дизайн, который продает</title>
+    <meta name="description" content="Премиальный дизайн для брендов: инфографика, сайты, соцсети. Студия VP-DESIGN.">
     
-    <!-- Fonts -->
+    <!-- Fonts: Unbounded (Substitute for Soyuz Grotesk) & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Config -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        dark: '#050505',
-                        'dark-card': '#0A0A0A',
-                        brand: {
-                            purple: '#b026ff',
-                            pink: '#ff267e',
-                            gradient: 'linear-gradient(135deg, #b026ff 0%, #ff267e 100%)'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Space Grotesk', 'sans-serif'],
-                    },
-                    backgroundImage: {
-                        'hero-glow': 'radial-gradient(circle at center, rgba(176, 38, 255, 0.15) 0%, rgba(5, 5, 5, 0) 70%)',
-                        'glass': 'linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%)',
-                        'glass-hover': 'linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%)',
-                    },
-                    boxShadow: {
-                        'neon': '0 0 20px rgba(176, 38, 255, 0.3)',
-                        'neon-hover': '0 0 40px rgba(176, 38, 255, 0.5)',
-                    }
-                }
-            }
-        }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Unbounded:wght@400;600;800&display=swap" rel="stylesheet">
 
-    <!-- Custom Styles -->
     <style>
-        body {
-            background-color: #050505;
-            color: #ffffff;
-            overflow-x: hidden;
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --bg-dark: #050505;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --bg-card-hover: rgba(255, 255, 255, 0.07);
+            --accent-primary: #b026ff;
+            --accent-secondary: #ff26b9;
+            --accent-glow: rgba(176, 38, 255, 0.5);
+            --text-main: #ffffff;
+            --text-muted: #9ca3af;
+            --border-glass: rgba(255, 255, 255, 0.1);
+            --font-heading: 'Unbounded', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        /* Noise Texture Overlay */
-        .noise-overlay {
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background-color: var(--bg-dark);
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text-main);
+            background-color: var(--bg-dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+            cursor: none; /* Custom cursor */
+        }
+
+        /* --- CUSTOM CURSOR --- */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 1px solid var(--text-main);
+            border-radius: 50%;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
             pointer-events: none;
             z-index: 9999;
-            opacity: 0.07;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background-color 0.3s;
+            mix-blend-mode: difference;
+        }
+        .cursor.hovered {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-secondary);
+            backdrop-filter: blur(2px);
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #050505;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #333;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #b026ff;
-        }
-
-        /* Gradient Text */
-        .text-gradient {
-            background: linear-gradient(135deg, #b026ff, #ff267e, #fff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-size: 200% 200%;
-            animation: gradientMove 5s ease infinite;
-        }
-
-        @keyframes gradientMove {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Glass Card Utility */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-        .glass-card:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(176, 38, 255, 0.3);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 40px -10px rgba(176, 38, 255, 0.15);
-        }
-
-        /* Button Glow */
-        .btn-glow {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        .btn-glow::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s ease;
-        }
-        .btn-glow:hover::before {
-            left: 100%;
-        }
-
-        /* Canvas Background */
+        /* --- BACKGROUND CANVAS --- */
         #bg-canvas {
             position: fixed;
             top: 0;
@@ -140,937 +80,1262 @@
             z-index: -1;
             opacity: 0.6;
         }
-
-        /* Loader */
-        .loader {
+        
+        .noise-overlay {
             position: fixed;
-            inset: 0;
-            background: #000;
-            z-index: 10000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998; /* Just below cursor */
+            opacity: 0.05;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyMDAnIGhlaWdodD0nMjAwJz48ZmlsdGVyIGlkPSdub2lzZSc+PGZlVHVyYnVsZW5jZSB0eXBlPSdmcmFjdGFsTm9pc2UnIGJhc2VGcmVxdWVuY3k9JzAuNjUnIG51bW9jdGF2ZXM9JzMnIHN0aXRjaFRpbGVzPSdzdGl0Y2gnLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0nMTAwJScgaGVpZ2h0PScxMDAlJyBmaWx0ZXI9J3VybCgjbm9pc2UpJyBvcGFjaXR5PScxJy8+PC9zdmc+');
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #fff 30%, var(--accent-primary) 70%, var(--accent-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 4rem);
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        /* --- UTILITIES --- */
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .glass-panel {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glass);
+            border-radius: 24px;
+            padding: 2rem;
+            transition: var(--transition);
+        }
+        
+        .glass-panel:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(176, 38, 255, 0.3);
+            box-shadow: 0 0 30px rgba(176, 38, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2.5rem;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid var(--accent-primary);
+            color: var(--accent-secondary);
+            font-family: var(--font-heading);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 25px var(--accent-glow);
+            color: #fff;
+            border-color: #fff;
+            transform: scale(1.05);
+        }
+
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 1.5rem 0;
+            transition: var(--transition);
+        }
+        
+        header.scrolled {
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(15px);
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-glass);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: white;
+            text-decoration: none;
+            letter-spacing: -1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent-secondary);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        /* Mobile Menu */
+        .burger {
+            display: none;
+            cursor: pointer;
+            z-index: 101;
+        }
+        .burger div {
+            width: 25px;
+            height: 2px;
+            background-color: white;
+            margin: 5px;
+            transition: var(--transition);
+        }
+        
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding-top: 80px;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 6rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            /* Glitch effect base */
+            animation: text-shudder 2s infinite linear;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* 3D Shapes Decoration */
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            z-index: 1;
+            opacity: 0.5;
+            animation: float 10s infinite ease-in-out;
+        }
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--accent-primary);
+            top: 20%;
+            left: 10%;
+        }
+        .shape-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--accent-secondary);
+            bottom: 10%;
+            right: 5%;
+            animation-delay: -5s;
+        }
+
+        /* --- ABOUT --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .about-photo {
+            position: relative;
+            width: 350px;
+            height: 350px;
+            margin: 0 auto;
+        }
+        .about-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid var(--border-glass);
+            box-shadow: 0 0 50px rgba(176, 38, 255, 0.2);
+            filter: grayscale(20%);
+            transition: var(--transition);
+        }
+        .about-img:hover {
+            filter: grayscale(0%);
+            transform: scale(1.02);
+        }
+        .about-circle-text {
+            position: absolute;
+            width: 120%;
+            height: 120%;
+            top: -10%;
+            left: -10%;
+            animation: rotate 20s linear infinite;
+        }
+
+        /* --- WHY ME --- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .feature-card {
+            padding: 2.5rem;
+            text-align: left;
+        }
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--accent-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- SERVICES & PRICING --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-secondary);
+        }
+        .service-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 0.5rem;
+        }
+        .price {
+            font-weight: 600;
+            color: var(--accent-primary);
+        }
+
+        /* --- PORTFOLIO --- */
+        .portfolio-tabs {
             display: flex;
             justify-content: center;
-            align-items: center;
-            transition: opacity 0.5s ease;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+        .tab-btn {
+            background: transparent;
+            border: 1px solid var(--border-glass);
+            color: var(--text-muted);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: var(--font-body);
+            transition: var(--transition);
+        }
+        .tab-btn.active, .tab-btn:hover {
+            background: rgba(176, 38, 255, 0.1);
+            border-color: var(--accent-primary);
+            color: white;
+            box-shadow: 0 0 15px rgba(176, 38, 255, 0.2);
         }
         
-        .gsap-reveal { opacity: 0; transform: translateY(30px); }
-        
-        /* Smooth Accordion */
-        .accordion-content {
-            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
-            max-height: 0;
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .gallery-item {
+            border-radius: 12px;
             overflow: hidden;
+            aspect-ratio: 3/4; /* Vertical standard for WB */
+            position: relative;
             opacity: 0;
+            transform: translateY(20px);
+            display: none; /* JS handles display */
         }
-        .accordion-content.active {
-            opacity: 1;
+        .gallery-item.visible {
+            display: block;
+            animation: fadeInUp 0.5s forwards;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.1);
         }
 
-        /* Tabs Animation */
-        .tab-btn.active {
-            background: rgba(255,255,255,0.1);
-            color: #b026ff;
-            border-color: #b026ff;
+        /* --- PROCESS --- */
+        .process-container {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        .process-container::before {
+            content: '';
+            position: absolute;
+            top: 50px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-primary), transparent);
+            z-index: 0;
+            display: none; /* Hidden on mobile */
+        }
+        .process-step {
+            flex: 1;
+            min-width: 200px;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: #000;
+            border: 2px solid var(--accent-secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 1.5rem;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        /* --- PROMO --- */
+        .promo-block {
+            text-align: center;
+            border: 2px solid var(--accent-primary);
+            background: radial-gradient(circle at center, rgba(176, 38, 255, 0.1) 0%, rgba(0,0,0,0) 70%);
+        }
+
+        /* --- TRAINING & PRICES --- */
+        .training-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+        }
+        .course-card {
+            flex: 1;
+            min-width: 300px;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+        }
+        .course-card.highlight {
+            border-color: var(--accent-secondary);
+            transform: scale(1.05);
+            z-index: 2;
+        }
+        .card-badge {
+            background: var(--accent-secondary);
+            color: white;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            border-radius: 4px;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-weight: bold;
+        }
+
+        /* --- RESULTS --- */
+        .results-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+        .result-box {
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+        }
+        .big-num {
+            font-size: 3rem;
+            font-family: var(--font-heading);
+            color: var(--accent-secondary);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- REVIEWS --- */
+        .reviews-slider {
+            display: flex;
+            overflow-x: auto;
+            gap: 2rem;
+            padding-bottom: 2rem;
+            scroll-snap-type: x mandatory;
+        }
+        .review-card {
+            min-width: 300px;
+            max-width: 350px;
+            scroll-snap-align: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #333, #666);
+        }
+        .stars {
+            color: var(--accent-primary);
+        }
+
+        /* --- FAQ --- */
+        .faq-item {
+            margin-bottom: 1rem;
+        }
+        .faq-question {
+            width: 100%;
+            text-align: left;
+            padding: 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            color: white;
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+        .faq-question:hover {
+            background: var(--bg-card-hover);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            background: rgba(255,255,255,0.02);
+            padding: 0 1.5rem;
+            color: var(--text-muted);
+        }
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+            padding: 1.5rem;
+        }
+        .faq-item.active .faq-question {
+            border-color: var(--accent-primary);
+        }
+
+        /* --- CONTACTS --- */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        .social-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+        .tg-btn { background: rgba(0, 136, 204, 0.2); border-color: rgba(0, 136, 204, 0.5); width: 100%; justify-content: center; max-width: 400px; font-size: 1.2rem; }
+        .tg-btn:hover { background: rgba(0, 136, 204, 0.4); box-shadow: 0 0 20px rgba(0, 136, 204, 0.3); }
+        
+        .vk-btn { background: rgba(255,255,255,0.05); }
+        .vk-btn:hover { background: rgba(255,255,255,0.1); }
+        
+        .pin-btn { background: rgba(230, 0, 35, 0.1); border-color: rgba(230, 0, 35, 0.3); }
+        .pin-btn:hover { background: rgba(230, 0, 35, 0.2); }
+
+        footer {
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border-glass);
+            margin-top: 5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-20px, 30px); }
+        }
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (min-width: 768px) {
+            .process-container::before { display: block; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: rgba(0,0,0,0.95);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: 0.5s;
+                z-index: 99;
+            }
+            .nav-links.nav-active {
+                right: 0;
+            }
+            .burger { display: block; }
+            
+            .about-grid { grid-template-columns: 1fr; text-align: center; }
+            .about-photo { width: 250px; height: 250px; margin-bottom: 2rem; }
+            
+            .course-card.highlight { transform: scale(1); }
+            
+            .hero h1 { font-size: 2.5rem; }
         }
     </style>
 </head>
-<body class="antialiased selection:bg-brand-purple selection:text-white">
+<body>
 
-    <!-- Noise Texture -->
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
     <div class="noise-overlay"></div>
-
-    <!-- 3D Background -->
     <canvas id="bg-canvas"></canvas>
 
-    <!-- Preloader -->
-    <div class="loader" id="loader">
-        <div class="flex flex-col items-center">
-            <h1 class="font-display text-4xl font-bold tracking-tighter mb-2">VP<span class="text-brand-purple">-DESIGN</span></h1>
-            <div class="w-32 h-0.5 bg-gray-800 rounded-full overflow-hidden">
-                <div class="h-full bg-brand-purple w-0" id="progress-bar"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Navigation -->
-    <header class="fixed top-0 w-full z-50 transition-all duration-300 py-6" id="navbar">
-        <div class="container mx-auto px-4 md:px-8 flex justify-between items-center">
-            <a href="#" class="font-display text-2xl font-bold tracking-tighter z-50 relative group">
-                VP<span class="text-brand-purple transition-colors duration-300 group-hover:text-white">-DESIGN</span>
-            </a>
-
-            <!-- Mobile Menu Toggle -->
-            <button id="menu-toggle" class="md:hidden z-50 text-white focus:outline-none">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            </button>
-
-            <!-- Desktop Nav -->
-            <nav class="hidden md:flex items-center gap-8 backdrop-blur-md bg-black/30 px-8 py-3 rounded-full border border-white/5">
-                <a href="#about" class="text-sm font-medium text-gray-300 hover:text-brand-purple transition-colors">Обо мне</a>
-                <a href="#services" class="text-sm font-medium text-gray-300 hover:text-brand-purple transition-colors">Услуги</a>
-                <a href="#portfolio" class="text-sm font-medium text-gray-300 hover:text-brand-purple transition-colors">Портфолио</a>
-                <a href="#education" class="text-sm font-medium text-gray-300 hover:text-brand-purple transition-colors">Обучение</a>
-                <a href="#reviews" class="text-sm font-medium text-gray-300 hover:text-brand-purple transition-colors">Отзывы</a>
-                <a href="#contacts" class="text-sm font-medium text-gray-300 hover:text-brand-purple transition-colors">Контакты</a>
+    <!-- Header -->
+    <header id="header">
+        <div class="container nav-container">
+            <a href="#" class="logo">VP-DESIGN</a>
+            <nav>
+                <div class="nav-links">
+                    <a href="#about" class="nav-link">Обо мне</a>
+                    <a href="#portfolio" class="nav-link">Портфолио</a>
+                    <a href="#services" class="nav-link">Услуги</a>
+                    <a href="#process" class="nav-link">Процесс</a>
+                    <a href="#training" class="nav-link">Обучение</a>
+                    <a href="#contacts" class="nav-link">Контакты</a>
+                </div>
             </nav>
-
-            <!-- Desktop CTA -->
-            <a href="https://t.me/vladpetroov" target="_blank" class="hidden md:inline-flex items-center justify-center px-6 py-2.5 rounded-full border border-white/20 hover:border-brand-purple bg-white/5 hover:bg-brand-purple/10 text-white text-sm font-medium transition-all duration-300 btn-glow">
-                Связаться
-            </a>
-        </div>
-
-        <!-- Mobile Menu Overlay -->
-        <div id="mobile-menu" class="fixed inset-0 bg-black/95 backdrop-blur-xl z-40 transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center gap-8 md:hidden">
-            <a href="#about" class="text-2xl font-display font-bold mobile-link">Обо мне</a>
-            <a href="#services" class="text-2xl font-display font-bold mobile-link">Услуги</a>
-            <a href="#portfolio" class="text-2xl font-display font-bold mobile-link">Портфолио</a>
-            <a href="#education" class="text-2xl font-display font-bold mobile-link">Обучение</a>
-            <a href="#contacts" class="text-2xl font-display font-bold mobile-link text-brand-purple">Контакты</a>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
         </div>
     </header>
 
-    <main>
-        <!-- Hero Section -->
-        <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-            <!-- Background Glow -->
-            <div class="absolute inset-0 bg-hero-glow pointer-events-none"></div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="container hero-content">
+            <h1>VP-DESIGN<br><span class="gradient-text">Дизайн, который продает</span></h1>
+            <p>Создаем визуальные решения для брендов: соцсети, рекламные креативы, полиграфия, digital-продукты и premium дизайн</p>
+            <a href="https://t.me/vladpetroov" target="_blank" class="btn-primary hover-trigger">Связаться в Telegram</a>
+        </div>
+    </section>
 
-            <div class="container mx-auto px-4 text-center z-10">
-                <h1 class="font-display text-5xl md:text-7xl lg:text-9xl font-bold tracking-tighter mb-6 leading-none perspective-text">
-                    <div class="overflow-hidden"><span class="block gsap-hero-text">VP-DESIGN</span></div>
-                    <div class="overflow-hidden"><span class="block text-gradient gsap-hero-text mt-2">ДИЗАЙН, КОТОРЫЙ</span></div>
-                    <div class="overflow-hidden"><span class="block text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500 gsap-hero-text">ПРОДАЕТ</span></div>
-                </h1>
-
-                <p class="font-sans text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 opacity-0 gsap-hero-fade">
-                    Создаем визуальные решения для брендов: соцсети, рекламные креативы, полиграфия, digital-продукты и premium дизайн.
+    <!-- About Section -->
+    <section id="about" class="reveal" style="padding: 100px 0;">
+        <div class="container about-grid">
+            <div class="about-photo">
+                <img src="https://i.ibb.co/zWp1WzTk/1127-20260207204539.png" alt="Влад VP-DESIGN" class="about-img">
+                <!-- SVG Circle Text effect would go here, simplified with CSS for now -->
+            </div>
+            <div class="about-text">
+                <h2 class="section-title" style="text-align: left;">Обо мне</h2>
+                <p style="font-size: 1.1rem; color: #ccc; margin-bottom: 1.5rem;">
+                    Я Влад, основатель VP-DESIGN. Создаю дизайн, который <span class="gradient-text">продаёт</span>: инфографику, рекламные креативы, дизайн для соцсетей и полиграфию. Работаю с 2020 года и каждый проект довожу до максимальной <span class="gradient-text">эффективности</span> и визуального wow-эффекта.
                 </p>
-
-                <div class="flex flex-col md:flex-row gap-4 justify-center items-center opacity-0 gsap-hero-fade">
-                    <a href="https://t.me/vladpetroov" target="_blank" class="px-8 py-4 rounded-full bg-white text-black font-bold hover:bg-brand-purple hover:text-white transition-all duration-300 transform hover:scale-105 btn-glow shadow-neon">
-                        Обсудить проект
-                    </a>
-                    <a href="#portfolio" class="px-8 py-4 rounded-full border border-white/20 text-white font-medium hover:border-white/50 transition-all duration-300 backdrop-blur-sm">
-                        Смотреть работы
-                    </a>
-                </div>
-            </div>
-
-            <!-- Floating 3D Elements (Simulated via CSS for simplicity alongside ThreeJS) -->
-            <div class="absolute top-1/4 left-10 w-24 h-24 rounded-full border border-brand-purple/20 blur-md animate-pulse hidden lg:block"></div>
-            <div class="absolute bottom-1/4 right-10 w-32 h-32 rounded-full border border-brand-pink/20 blur-xl animate-pulse hidden lg:block" style="animation-delay: 1s;"></div>
-        </section>
-
-        <!-- About Section -->
-        <section id="about" class="py-20 md:py-32 relative">
-            <div class="container mx-auto px-4">
-                <div class="flex flex-col lg:flex-row items-center gap-16">
-                    <!-- Image -->
-                    <div class="w-full lg:w-1/2 flex justify-center gsap-reveal">
-                        <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full p-1 bg-gradient-to-tr from-brand-purple to-brand-pink">
-                            <div class="absolute inset-0 rounded-full blur-2xl bg-brand-purple/30 -z-10"></div>
-                            <img src="https://i.ibb.co/zWp1WzTk/1127-20260207204539.png" alt="Vlad VP-DESIGN" class="w-full h-full object-cover rounded-full border-4 border-black">
-                            
-                            <!-- Floating Stat -->
-                            <div class="absolute -right-4 top-10 glass-card px-4 py-2 rounded-xl text-sm font-bold animate-bounce" style="animation-duration: 3s;">
-                                5+ лет опыта
-                            </div>
-                            <div class="absolute -left-4 bottom-10 glass-card px-4 py-2 rounded-xl text-sm font-bold animate-bounce" style="animation-duration: 4s;">
-                                5000+ проектов
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Content -->
-                    <div class="w-full lg:w-1/2 text-center lg:text-left">
-                        <span class="text-brand-purple font-mono text-sm tracking-widest uppercase mb-4 block gsap-reveal">Обо мне</span>
-                        <h2 class="font-display text-4xl md:text-5xl font-bold mb-6 gsap-reveal">Я Влад, основатель <span class="text-brand-purple">VP-DESIGN</span></h2>
-                        <p class="text-gray-400 text-lg leading-relaxed mb-8 gsap-reveal">
-                            Создаю дизайн, который <span class="text-white font-medium">продаёт</span>: инфографику, рекламные креативы, дизайн для соцсетей и полиграфию. Работаю с 2020 года и каждый проект довожу до максимальной эффективности и визуального <span class="text-white font-medium">wow-эффекта</span>.
-                        </p>
-                        <div class="grid grid-cols-2 gap-4 gsap-reveal">
-                            <div class="p-4 border-l-2 border-brand-purple/50 bg-white/5">
-                                <h3 class="font-display text-2xl font-bold">5000+</h3>
-                                <p class="text-sm text-gray-400">Реализованных проектов</p>
-                            </div>
-                            <div class="p-4 border-l-2 border-brand-pink/50 bg-white/5">
-                                <h3 class="font-display text-2xl font-bold">TOP</h3>
-                                <p class="text-sm text-gray-400">Качество и сервис</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Why Me Section -->
-        <section class="py-20 relative bg-dark-card/30">
-            <div class="container mx-auto px-4">
-                <h2 class="font-display text-3xl md:text-5xl font-bold text-center mb-16 gsap-reveal">Почему выбирают <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-purple to-brand-pink">Меня?</span></h2>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <!-- Feature 1 -->
-                    <div class="glass-card p-8 rounded-2xl gsap-reveal">
-                        <div class="w-12 h-12 mb-6 rounded-lg bg-brand-purple/20 flex items-center justify-center text-brand-purple">
-                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3 font-display">Эффективность</h3>
-                        <p class="text-gray-400 text-sm">Создаю дизайн, который не просто красив, а реально продаёт ваш продукт.</p>
-                    </div>
-                    <!-- Feature 2 -->
-                    <div class="glass-card p-8 rounded-2xl gsap-reveal" style="transition-delay: 100ms;">
-                        <div class="w-12 h-12 mb-6 rounded-lg bg-brand-pink/20 flex items-center justify-center text-brand-pink">
-                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3 font-display">Скорость</h3>
-                        <p class="text-gray-400 text-sm">Соблюдаю сроки без потери качества. Быстрый старт работы.</p>
-                    </div>
-                    <!-- Feature 3 -->
-                    <div class="glass-card p-8 rounded-2xl gsap-reveal" style="transition-delay: 200ms;">
-                        <div class="w-12 h-12 mb-6 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-500">
-                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" /></svg>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3 font-display">Тренды</h3>
-                        <p class="text-gray-400 text-sm">Использую актуальные визуальные приемы и modern-эстетику.</p>
-                    </div>
-                    <!-- Feature 4 -->
-                    <div class="glass-card p-8 rounded-2xl gsap-reveal" style="transition-delay: 300ms;">
-                        <div class="w-12 h-12 mb-6 rounded-lg bg-green-500/20 flex items-center justify-center text-green-500">
-                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3 font-display">Подход</h3>
-                        <p class="text-gray-400 text-sm">Индивидуальный разбор задачи. Каждый проект уникален.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Services & Prices -->
-        <section id="services" class="py-24">
-            <div class="container mx-auto px-4">
-                <h2 class="font-display text-4xl md:text-6xl font-bold mb-16 gsap-reveal">Услуги & <span class="text-gray-600">Цены</span></h2>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Service Group 1 -->
-                    <div class="col-span-1 md:col-span-2 lg:col-span-2 glass-card p-8 rounded-3xl relative overflow-hidden group gsap-reveal">
-                        <div class="absolute top-0 right-0 p-32 bg-brand-purple/10 rounded-full blur-3xl -mr-16 -mt-16 transition-all group-hover:bg-brand-purple/20"></div>
-                        <h3 class="text-2xl font-bold mb-6 font-display flex items-center gap-3">
-                            <span class="w-2 h-8 bg-brand-purple rounded-full"></span>
-                            Маркетплейсы
-                        </h3>
-                        <div class="space-y-6">
-                            <div class="flex justify-between items-end border-b border-white/10 pb-4">
-                                <div>
-                                    <h4 class="font-bold text-lg">Инфографика</h4>
-                                    <p class="text-xs text-gray-400 mt-1">Повышает CTR и продажи</p>
-                                </div>
-                                <div class="text-right">
-                                    <span class="block text-brand-purple font-bold text-xl">от 1 490 ₽</span>
-                                    <span class="text-xs text-gray-500">3-7 дней</span>
-                                </div>
-                            </div>
-                            <div class="flex justify-between items-end border-b border-white/10 pb-4">
-                                <div>
-                                    <h4 class="font-bold text-lg">Rich-контент</h4>
-                                    <p class="text-xs text-gray-400 mt-1">Имиджевая подача товара</p>
-                                </div>
-                                <div class="text-right">
-                                    <span class="block text-brand-purple font-bold text-xl">от 1 990 ₽</span>
-                                    <span class="text-xs text-gray-500">3-7 дней</span>
-                                </div>
-                            </div>
-                            <div class="flex justify-between items-end">
-                                <div>
-                                    <h4 class="font-bold text-lg">Анимированная обложка</h4>
-                                    <p class="text-xs text-gray-400 mt-1">Динамика в ленте</p>
-                                </div>
-                                <div class="text-right">
-                                    <span class="block text-brand-purple font-bold text-xl">от 2 990 ₽</span>
-                                    <span class="text-xs text-gray-500">3-7 дней</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Service Group 2 -->
-                    <div class="glass-card p-8 rounded-3xl gsap-reveal">
-                        <h3 class="text-2xl font-bold mb-6 font-display flex items-center gap-3">
-                            <span class="w-2 h-8 bg-brand-pink rounded-full"></span>
-                            Соцсети
-                        </h3>
-                        <div class="space-y-6">
-                             <div class="flex justify-between items-end border-b border-white/10 pb-4">
-                                <div>
-                                    <h4 class="font-bold text-lg">Оформление ВК</h4>
-                                </div>
-                                <div class="text-right">
-                                    <span class="block text-brand-pink font-bold text-xl">6 490 ₽</span>
-                                </div>
-                            </div>
-                            <div class="flex justify-between items-end border-b border-white/10 pb-4">
-                                <div>
-                                    <h4 class="font-bold text-lg">Посты / Stories</h4>
-                                </div>
-                                <div class="text-right">
-                                    <span class="block text-brand-pink font-bold text-xl">1 490 ₽</span>
-                                </div>
-                            </div>
-                             <div class="flex justify-between items-end">
-                                <div>
-                                    <h4 class="font-bold text-lg">Превью YouTube</h4>
-                                </div>
-                                <div class="text-right">
-                                    <span class="block text-brand-pink font-bold text-xl">1 490 ₽</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Service Group 3 -->
-                    <div class="glass-card p-8 rounded-3xl gsap-reveal">
-                         <h3 class="text-2xl font-bold mb-6 font-display flex items-center gap-3">
-                            <span class="w-2 h-8 bg-blue-500 rounded-full"></span>
-                            Брендинг
-                        </h3>
-                        <div class="space-y-6">
-                            <div class="flex justify-between items-end border-b border-white/10 pb-4">
-                                <div>
-                                    <h4 class="font-bold text-lg">Логотип</h4>
-                                    <p class="text-xs text-gray-400">3 варианта</p>
-                                </div>
-                                <div class="text-right">
-                                    <span class="block text-blue-400 font-bold text-xl">4 990 ₽</span>
-                                </div>
-                            </div>
-                             <div class="flex justify-between items-end">
-                                <div>
-                                    <h4 class="font-bold text-lg">Логотип-маскот</h4>
-                                    <p class="text-xs text-gray-400">Персонаж</p>
-                                </div>
-                                <div class="text-right">
-                                    <span class="block text-blue-400 font-bold text-xl">7 990 ₽</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Service Group 4 -->
-                    <div class="col-span-1 md:col-span-2 lg:col-span-2 glass-card p-8 rounded-3xl gsap-reveal">
-                        <h3 class="text-2xl font-bold mb-6 font-display flex items-center gap-3">
-                            <span class="w-2 h-8 bg-white rounded-full"></span>
-                            Web & Полиграфия
-                        </h3>
-                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div class="space-y-4">
-                                <h4 class="text-gray-400 uppercase tracking-widest text-xs mb-2">Web</h4>
-                                <div class="flex justify-between items-center">
-                                    <span class="font-bold text-lg">Сайты (Landing)</span>
-                                    <span class="font-bold text-brand-purple">от 15 000 ₽</span>
-                                </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="font-bold text-lg">Баннеры (Web)</span>
-                                    <span class="font-bold text-brand-purple">от 1 490 ₽</span>
-                                </div>
-                            </div>
-                            <div class="space-y-4">
-                                <h4 class="text-gray-400 uppercase tracking-widest text-xs mb-2">Print</h4>
-                                <div class="flex justify-between items-center">
-                                    <span class="font-bold text-lg">Визитки / Буклеты</span>
-                                    <span class="font-bold text-brand-purple">от 1 990 ₽</span>
-                                </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="font-bold text-lg">Упаковка</span>
-                                    <span class="font-bold text-brand-purple">от 3 990 ₽</span>
-                                </div>
-                            </div>
-                         </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Portfolio Section -->
-        <section id="portfolio" class="py-20">
-            <div class="container mx-auto px-4">
-                <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6 gsap-reveal">
+                <div style="display: flex; gap: 20px;">
                     <div>
-                        <h2 class="font-display text-4xl md:text-6xl font-bold">Портфолио</h2>
-                        <p class="text-gray-400 mt-2">Избранные проекты по категориям</p>
+                        <h3 class="gradient-text" style="font-size: 2rem;">5+</h3>
+                        <p style="font-size: 0.9rem;">Лет опыта</p>
+                    </div>
+                    <div>
+                        <h3 class="gradient-text" style="font-size: 2rem;">5000+</h3>
+                        <p style="font-size: 0.9rem;">Проектов</p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
 
-                <!-- Tabs -->
-                <div class="flex flex-wrap gap-2 mb-10 gsap-reveal">
-                    <button class="tab-btn active px-5 py-2 rounded-full border border-white/10 text-sm font-medium hover:bg-white/5 transition-all" data-category="all">Все</button>
-                    <button class="tab-btn px-5 py-2 rounded-full border border-white/10 text-sm font-medium hover:bg-white/5 transition-all" data-category="infographic">Инфографика</button>
-                    <button class="tab-btn px-5 py-2 rounded-full border border-white/10 text-sm font-medium hover:bg-white/5 transition-all" data-category="rich">Rich-контент</button>
-                    <button class="tab-btn px-5 py-2 rounded-full border border-white/10 text-sm font-medium hover:bg-white/5 transition-all" data-category="cards">Визитки</button>
-                    <button class="tab-btn px-5 py-2 rounded-full border border-white/10 text-sm font-medium hover:bg-white/5 transition-all" data-category="banners">Баннеры</button>
-                    <button class="tab-btn px-5 py-2 rounded-full border border-white/10 text-sm font-medium hover:bg-white/5 transition-all" data-category="vk">Оформление ВК</button>
+    <!-- Why Me -->
+    <section class="reveal" style="padding: 80px 0;">
+        <div class="container">
+            <h2 class="section-title">Почему я?</h2>
+            <div class="features-grid">
+                <div class="glass-panel feature-card hover-trigger">
+                    <div class="feature-icon">✦</div>
+                    <h4>Креатив и эффективность</h4>
+                    <p style="margin-top: 10px; color: var(--text-muted);">Создаю дизайн, который продаёт, а не просто выглядит красиво.</p>
                 </div>
-
-                <!-- Grid -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" id="portfolio-grid">
-                    <!-- Javascript will populate this -->
+                <div class="glass-panel feature-card hover-trigger">
+                    <div class="feature-icon">⚡</div>
+                    <h4>Быстрое выполнение</h4>
+                    <p style="margin-top: 10px; color: var(--text-muted);">Соблюдаю сроки без потери качества. Ваш бизнес не будет ждать.</p>
+                </div>
+                <div class="glass-panel feature-card hover-trigger">
+                    <div class="feature-icon">🔥</div>
+                    <h4>Актуальные тренды</h4>
+                    <p style="margin-top: 10px; color: var(--text-muted);">Использую современные методы дизайна и нейросети.</p>
+                </div>
+                <div class="glass-panel feature-card hover-trigger">
+                    <div class="feature-icon">💎</div>
+                    <h4>Индивидуальный подход</h4>
+                    <p style="margin-top: 10px; color: var(--text-muted);">Каждый проект уникален. Полное погружение в нишу.</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Process Section -->
-        <section class="py-20 bg-dark-card/20 border-y border-white/5 overflow-hidden">
-            <div class="container mx-auto px-4">
-                <h2 class="font-display text-3xl md:text-5xl font-bold text-center mb-16 gsap-reveal">Процесс <span class="italic font-serif text-brand-purple">работы</span></h2>
+    <!-- Services -->
+    <section id="services" class="reveal" style="padding: 100px 0;">
+        <div class="container">
+            <h2 class="section-title">Услуги и Прайс</h2>
+            <div class="services-grid">
+                <!-- Cat 1 -->
+                <div class="glass-panel service-card hover-trigger">
+                    <h3>Инфографика</h3>
+                    <div class="service-item">
+                        <span>Инфографика (1-3 дня)</span>
+                        <span class="price">от 1490 ₽</span>
+                    </div>
+                    <div class="service-item">
+                        <span>Rich-контент</span>
+                        <span class="price">от 1990 ₽</span>
+                    </div>
+                    <div class="service-item">
+                        <span>Анимированная обложка</span>
+                        <span class="price">от 2990 ₽</span>
+                    </div>
+                </div>
                 
-                <div class="relative grid grid-cols-1 md:grid-cols-5 gap-8">
-                    <!-- Connecting Line (Desktop) -->
-                    <div class="hidden md:block absolute top-8 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-brand-purple/50 to-transparent z-0"></div>
-
-                    <!-- Steps -->
-                    <div class="relative z-10 flex flex-col items-center text-center gsap-reveal group">
-                        <div class="w-16 h-16 rounded-full bg-black border border-brand-purple text-xl font-bold flex items-center justify-center mb-4 transition-transform group-hover:scale-110 shadow-neon">1</div>
-                        <h3 class="font-bold text-lg mb-2">Заявка</h3>
-                        <p class="text-xs text-gray-400">Обсуждение задачи и целей</p>
+                <!-- Cat 2 -->
+                <div class="glass-panel service-card hover-trigger">
+                    <h3>Полиграфия</h3>
+                    <div class="service-item">
+                        <span>Визитки, буклеты</span>
+                        <span class="price">от 1990 ₽</span>
                     </div>
-
-                    <div class="relative z-10 flex flex-col items-center text-center gsap-reveal group" style="transition-delay: 100ms;">
-                        <div class="w-16 h-16 rounded-full bg-black border border-white/20 text-xl font-bold flex items-center justify-center mb-4 transition-transform group-hover:scale-110 group-hover:border-brand-purple group-hover:shadow-neon">2</div>
-                        <h3 class="font-bold text-lg mb-2">Анализ</h3>
-                        <p class="text-xs text-gray-400">Изучение ниши и конкурентов</p>
+                    <div class="service-item">
+                        <span>Плакаты, баннеры</span>
+                        <span class="price">от 3990 ₽</span>
                     </div>
-
-                    <div class="relative z-10 flex flex-col items-center text-center gsap-reveal group" style="transition-delay: 200ms;">
-                        <div class="w-16 h-16 rounded-full bg-black border border-white/20 text-xl font-bold flex items-center justify-center mb-4 transition-transform group-hover:scale-110 group-hover:border-brand-purple group-hover:shadow-neon">3</div>
-                        <h3 class="font-bold text-lg mb-2">Дизайн</h3>
-                        <p class="text-xs text-gray-400">Разработка концепции</p>
+                    <div class="service-item">
+                        <span>Упаковка, этикетки</span>
+                        <span class="price">от 3990 ₽</span>
                     </div>
+                </div>
 
-                    <div class="relative z-10 flex flex-col items-center text-center gsap-reveal group" style="transition-delay: 300ms;">
-                        <div class="w-16 h-16 rounded-full bg-black border border-white/20 text-xl font-bold flex items-center justify-center mb-4 transition-transform group-hover:scale-110 group-hover:border-brand-purple group-hover:shadow-neon">4</div>
-                        <h3 class="font-bold text-lg mb-2">Правки</h3>
-                        <p class="text-xs text-gray-400">Доведение до идеала</p>
+                <!-- Cat 3 -->
+                <div class="glass-panel service-card hover-trigger">
+                    <h3>Реклама</h3>
+                    <div class="service-item">
+                        <span>Статичные баннеры</span>
+                        <span class="price">от 1490 ₽</span>
                     </div>
+                    <div class="service-item">
+                        <span>2D анимация</span>
+                        <span class="price">от 3490 ₽</span>
+                    </div>
+                </div>
 
-                    <div class="relative z-10 flex flex-col items-center text-center gsap-reveal group" style="transition-delay: 400ms;">
-                        <div class="w-16 h-16 rounded-full bg-black border border-white/20 text-xl font-bold flex items-center justify-center mb-4 transition-transform group-hover:scale-110 group-hover:border-brand-purple group-hover:shadow-neon">5</div>
-                        <h3 class="font-bold text-lg mb-2">Финал</h3>
-                        <p class="text-xs text-gray-400">Передача готовых файлов</p>
+                <!-- Cat 4 -->
+                <div class="glass-panel service-card hover-trigger">
+                    <h3>Соцсети</h3>
+                    <div class="service-item">
+                        <span>Оформление ВК</span>
+                        <span class="price">от 6490 ₽</span>
+                    </div>
+                    <div class="service-item">
+                        <span>Посты</span>
+                        <span class="price">от 1490 ₽</span>
+                    </div>
+                    <div class="service-item">
+                        <span>Превью YouTube</span>
+                        <span class="price">от 1490 ₽</span>
+                    </div>
+                </div>
+                
+                 <!-- Cat 5 & 6 Mixed -->
+                 <div class="glass-panel service-card hover-trigger">
+                    <h3>Сайты & Лого</h3>
+                    <div class="service-item">
+                        <span>Сайт (Tilda/Code)</span>
+                        <span class="price">от 15 000 ₽</span>
+                    </div>
+                    <div class="service-item">
+                        <span>Логотип (3 варианта)</span>
+                        <span class="price">от 4990 ₽</span>
+                    </div>
+                    <div class="service-item">
+                        <span>Лого-маскот</span>
+                        <span class="price">от 7990 ₽</span>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Offer Section -->
-        <section class="py-20">
-            <div class="container mx-auto px-4">
-                <div class="glass-card rounded-3xl p-8 md:p-16 relative overflow-hidden text-center gsap-reveal">
-                    <!-- Decorations -->
-                    <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-brand-purple/10 to-transparent pointer-events-none"></div>
-                    <div class="absolute -top-24 -right-24 w-64 h-64 bg-brand-pink/30 rounded-full blur-3xl"></div>
-                    
-                    <span class="inline-block px-4 py-1 rounded-full bg-brand-purple/20 text-brand-purple text-xs font-bold uppercase tracking-wider mb-6 border border-brand-purple/30">Акция</span>
-                    <h2 class="font-display text-4xl md:text-6xl font-bold mb-6">Скидка для новых клиентов</h2>
-                    <p class="text-gray-300 max-w-2xl mx-auto text-lg mb-8">
-                        Получите <span class="text-white font-bold">скидку до 20%</span> на первый проект или бесплатный бонусный слайд. Отличный повод проверить качество.
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="reveal" style="padding: 100px 0;">
+        <div class="container">
+            <h2 class="section-title">Портфолио</h2>
+            
+            <div class="portfolio-tabs">
+                <button class="tab-btn active hover-trigger" data-filter="infographic">Инфографика</button>
+                <button class="tab-btn hover-trigger" data-filter="rich">Rich-контент</button>
+                <button class="tab-btn hover-trigger" data-filter="business-card">Визитки</button>
+                <button class="tab-btn hover-trigger" data-filter="banners">Баннеры</button>
+                <button class="tab-btn hover-trigger" data-filter="labels">Этикетки</button>
+                <button class="tab-btn hover-trigger" data-filter="creative">Креативы</button>
+                <button class="tab-btn hover-trigger" data-filter="vk">Оформление ВК</button>
+            </div>
+
+            <div class="gallery-grid">
+                <!-- Infographics -->
+                <div class="gallery-item hover-trigger" data-category="infographic"><img src="https://i.ibb.co/FLsCKXYD/579-20251105185725.jpg" alt="Work" loading="lazy"></div>
+                <div class="gallery-item hover-trigger" data-category="infographic"><img src="https://i.ibb.co/wFh0gByn/IMG-8041.jpg" alt="Work" loading="lazy"></div>
+                <div class="gallery-item hover-trigger" data-category="infographic"><img src="https://i.ibb.co/k6wSmDBj/IMG-7170.jpg" alt="Work" loading="lazy"></div>
+                <div class="gallery-item hover-trigger" data-category="infographic"><img src="https://i.ibb.co/JwML7f4g/373-20250817165435.jpg" alt="Work" loading="lazy"></div>
+                <div class="gallery-item hover-trigger" data-category="infographic"><img src="https://i.ibb.co/p6C8zZLn/969-20251230133150.jpg" alt="Work" loading="lazy"></div>
+                <div class="gallery-item hover-trigger" data-category="infographic"><img src="https://i.ibb.co/Z6RPgtBs/394-20250921005440.jpg" alt="Work" loading="lazy"></div>
+
+                <!-- Rich Content -->
+                <div class="gallery-item hover-trigger" data-category="rich"><img src="https://i.ibb.co/8HHXJ0B/IMG-9007.jpg" alt="Rich" loading="lazy"></div>
+                <div class="gallery-item hover-trigger" data-category="rich"><img src="https://i.ibb.co/jZbFs3Ky/IMG-9008.jpg" alt="Rich" loading="lazy"></div>
+                
+                <!-- Business Cards -->
+                <div class="gallery-item hover-trigger" data-category="business-card"><img src="https://i.ibb.co/7twpLLn7/IMG-9022.jpg" alt="Card" loading="lazy"></div>
+                <div class="gallery-item hover-trigger" data-category="business-card"><img src="https://i.ibb.co/TMqPnWFt/IMG-9023.jpg" alt="Card" loading="lazy"></div>
+
+                <!-- Banners -->
+                <div class="gallery-item hover-trigger" data-category="banners"><img src="https://i.ibb.co/HLDvBpNQ/IMG-9027.jpg" alt="Banner" loading="lazy"></div>
+                <div class="gallery-item hover-trigger" data-category="banners"><img src="https://i.ibb.co/4rWPbYG/IMG-9028.jpg" alt="Banner" loading="lazy"></div>
+
+                <!-- Labels -->
+                <div class="gallery-item hover-trigger" data-category="labels"><img src="https://i.ibb.co/k28j2D1X/IMG-9035.jpg" alt="Label" loading="lazy"></div>
+                <div class="gallery-item hover-trigger" data-category="labels"><img src="https://i.ibb.co/DH6c5vR6/IMG-9036.jpg" alt="Label" loading="lazy"></div>
+
+                <!-- Creatives -->
+                <div class="gallery-item hover-trigger" data-category="creative"><img src="https://i.ibb.co/mCwt9S7m/IMG-9038.jpg" alt="Creative" loading="lazy"></div>
+                <div class="gallery-item hover-trigger" data-category="creative"><img src="https://i.ibb.co/kgdk8WHP/IMG-9039.jpg" alt="Creative" loading="lazy"></div>
+
+                 <!-- VK -->
+                <div class="gallery-item hover-trigger" data-category="vk"><img src="https://i.ibb.co/HTMwMzwK/IMG-9042.jpg" alt="VK" loading="lazy"></div>
+                <div class="gallery-item hover-trigger" data-category="vk"><img src="https://i.ibb.co/gMgcyT0q/IMG-9043.jpg" alt="VK" loading="lazy"></div>
+            </div>
+            
+            <div style="text-align:center; margin-top: 3rem;">
+                <p style="color: var(--text-muted); font-size: 0.9rem;">И еще более 500+ работ в архиве</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process -->
+    <section id="process" class="reveal" style="padding: 100px 0;">
+        <div class="container">
+            <h2 class="section-title">Процесс работы</h2>
+            <div class="process-container">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h4>Заявка</h4>
+                    <p style="font-size: 0.9rem; color: #aaa;">Обсуждение задачи в Telegram</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h4>Анализ</h4>
+                    <p style="font-size: 0.9rem; color: #aaa;">Изучение ниши и конкурентов</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h4>Дизайн</h4>
+                    <p style="font-size: 0.9rem; color: #aaa;">Создание продающего визуала</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h4>Правки</h4>
+                    <p style="font-size: 0.9rem; color: #aaa;">Доводим до идеала</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">5</div>
+                    <h4>Финал</h4>
+                    <p style="font-size: 0.9rem; color: #aaa;">Передача готовых материалов</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Offer Block -->
+    <section class="reveal" style="padding: 50px 0;">
+        <div class="container">
+            <div class="glass-panel promo-block hover-trigger">
+                <h3 style="font-size: 2rem; margin-bottom: 1rem;">Скидка для новых клиентов</h3>
+                <p style="max-width: 600px; margin: 0 auto 2rem; color: #ddd;">
+                    Получите специальное предложение при первом заказе. <strong>Скидка до 20%</strong> на первый проект или бесплатный бонусный слайд.
+                </p>
+                <a href="https://t.me/vladpetroov" class="btn-primary">Получить предложение</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Training -->
+    <section id="training" class="reveal" style="padding: 100px 0;">
+        <div class="container">
+            <h2 class="section-title">Обучение дизайну</h2>
+            <p style="text-align:center; margin-bottom: 3rem; color: #aaa;">Научись создавать дорогой дизайн и зарабатывать на этом</p>
+            
+            <div class="training-grid">
+                <!-- Course 1 -->
+                <div class="glass-panel course-card hover-trigger">
+                    <h3>Инфографика: Старт</h3>
+                    <p style="margin: 1rem 0; color: #ccc; flex-grow: 1;">
+                        Для новичков. Освой создание инфографики с нуля.<br><br>
+                        • Основы продаж через визуал<br>
+                        • Работа со слайдами<br>
+                        • Первые работы в портфолио
                     </p>
-                    
-                    <a href="https://t.me/vladpetroov" target="_blank" class="inline-flex items-center gap-2 px-8 py-4 bg-brand-purple rounded-full font-bold text-white hover:bg-brand-pink transition-all duration-300 transform hover:-translate-y-1 shadow-neon">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
-                        Получить предложение
-                    </a>
+                    <h4 style="margin: 1rem 0; color: var(--accent-primary);">19 990 ₽</h4>
+                    <a href="https://t.me/vladpetroov" class="btn-primary" style="width:100%">Записаться</a>
+                </div>
+
+                <!-- Course 2 (TOP) -->
+                <div class="glass-panel course-card highlight hover-trigger">
+                    <div class="card-badge">ХИТ</div>
+                    <h3 class="gradient-text">Инфографика: TOP</h3>
+                    <p style="margin: 1rem 0; color: #ccc; flex-grow: 1;">
+                        Личный формат. Работаем до результата.<br><br>
+                        • Всё из тарифов PRO<br>
+                        • Личные разборы и созвоны<br>
+                        • Стратегия выхода на 100к+<br>
+                        • Помощь с первыми заказами
+                    </p>
+                    <h4 style="margin: 1rem 0; color: var(--accent-secondary); font-size: 1.5rem;">59 990 ₽</h4>
+                    <a href="https://t.me/vladpetroov" class="btn-primary" style="width:100%; border-color: var(--accent-secondary);">Хочу на наставничество</a>
+                </div>
+
+                <!-- Course 3 -->
+                <div class="glass-panel course-card hover-trigger">
+                    <h3>Инфографика: PRO</h3>
+                    <p style="margin: 1rem 0; color: #ccc; flex-grow: 1;">
+                        Для тех, кто хочет масштаба.<br><br>
+                        • Сильные концепции<br>
+                        • Работа с брендами<br>
+                        • Как повысить чек
+                    </p>
+                    <h4 style="margin: 1rem 0; color: var(--accent-primary);">29 990 ₽</h4>
+                    <a href="https://t.me/vladpetroov" class="btn-primary" style="width:100%">Записаться</a>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Education Section -->
-        <section id="education" class="py-20 relative">
-            <div class="container mx-auto px-4">
-                <div class="flex flex-col md:flex-row justify-between items-end mb-12">
-                    <h2 class="font-display text-4xl md:text-6xl font-bold gsap-reveal">Обучение <span class="text-brand-purple">.</span></h2>
-                    <p class="text-gray-400 gsap-reveal">Стань профи в дизайне инфографики</p>
+    <!-- Results -->
+    <section class="reveal" style="padding: 50px 0; background: rgba(255,255,255,0.02);">
+        <div class="container">
+            <div class="results-flex">
+                <div class="result-box hover-trigger">
+                    <div class="big-num">100к+</div>
+                    <p>Доход учеников в месяц</p>
                 </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- Course 1 -->
-                    <div class="glass-card p-8 rounded-2xl flex flex-col gsap-reveal">
-                        <h3 class="text-2xl font-bold font-display mb-2">Старт</h3>
-                        <p class="text-sm text-gray-400 mb-6">Для новичков с нуля</p>
-                        <ul class="space-y-3 mb-8 text-sm text-gray-300 flex-grow">
-                            <li class="flex gap-2"><span class="text-brand-purple">•</span> Основы инфографики</li>
-                            <li class="flex gap-2"><span class="text-brand-purple">•</span> Работа со слайдами</li>
-                            <li class="flex gap-2"><span class="text-brand-purple">•</span> Первые заказы</li>
-                        </ul>
-                        <div class="mt-auto">
-                            <div class="text-2xl font-bold mb-4">19 990 ₽</div>
-                            <a href="https://t.me/vladpetroov" class="block w-full text-center py-3 rounded-xl border border-white/20 hover:bg-white hover:text-black transition-all">Записаться</a>
-                        </div>
-                    </div>
-
-                    <!-- Course 2 (Hit) -->
-                    <div class="glass-card p-8 rounded-2xl flex flex-col border-brand-purple/50 relative transform md:-translate-y-4 shadow-neon gsap-reveal" style="transition-delay: 100ms;">
-                        <div class="absolute top-0 right-0 bg-brand-purple text-xs font-bold px-3 py-1 rounded-bl-xl rounded-tr-xl">POPULAR</div>
-                        <h3 class="text-2xl font-bold font-display mb-2 text-brand-purple">PRO</h3>
-                        <p class="text-sm text-gray-400 mb-6">Для выхода на доход</p>
-                        <ul class="space-y-3 mb-8 text-sm text-gray-300 flex-grow">
-                            <li class="flex gap-2"><span class="text-brand-purple">•</span> Сильные концепции</li>
-                            <li class="flex gap-2"><span class="text-brand-purple">•</span> Работа с брендами</li>
-                            <li class="flex gap-2"><span class="text-brand-purple">•</span> Разборы работ</li>
-                            <li class="flex gap-2"><span class="text-brand-purple">•</span> Поиск клиентов</li>
-                        </ul>
-                        <div class="mt-auto">
-                            <div class="text-2xl font-bold mb-4">29 990 ₽</div>
-                            <a href="https://t.me/vladpetroov" class="block w-full text-center py-3 rounded-xl bg-brand-purple hover:bg-brand-pink text-white transition-all shadow-lg">Записаться</a>
-                        </div>
-                    </div>
-
-                    <!-- Course 3 -->
-                    <div class="glass-card p-8 rounded-2xl flex flex-col gsap-reveal" style="transition-delay: 200ms;">
-                        <h3 class="text-2xl font-bold font-display mb-2">VIP</h3>
-                        <p class="text-sm text-gray-400 mb-6">Личное наставничество</p>
-                        <ul class="space-y-3 mb-8 text-sm text-gray-300 flex-grow">
-                            <li class="flex gap-2"><span class="text-brand-purple">•</span> Личная работа</li>
-                            <li class="flex gap-2"><span class="text-brand-purple">•</span> Стратегия дохода</li>
-                            <li class="flex gap-2"><span class="text-brand-purple">•</span> VIP чат поддержки</li>
-                        </ul>
-                        <div class="mt-auto">
-                            <div class="text-2xl font-bold mb-4">59 990 ₽</div>
-                            <a href="https://t.me/vladpetroov" class="block w-full text-center py-3 rounded-xl border border-white/20 hover:bg-white hover:text-black transition-all">Записаться</a>
-                        </div>
-                    </div>
+                <div class="result-box hover-trigger">
+                    <div class="big-num">7 дней</div>
+                    <p>До первых заказов</p>
                 </div>
-
-                <!-- Results -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 border-t border-white/10 pt-12">
-                    <div class="text-center gsap-reveal">
-                        <div class="text-3xl font-bold text-brand-purple font-display">100к+</div>
-                        <div class="text-xs text-gray-500 mt-1">Доход учеников</div>
-                    </div>
-                    <div class="text-center gsap-reveal">
-                        <div class="text-3xl font-bold text-brand-pink font-display">14 дн</div>
-                        <div class="text-xs text-gray-500 mt-1">До первых денег</div>
-                    </div>
-                    <div class="text-center gsap-reveal">
-                        <div class="text-3xl font-bold text-blue-500 font-display">PRO</div>
-                        <div class="text-xs text-gray-500 mt-1">Портфолио</div>
-                    </div>
-                    <div class="text-center gsap-reveal">
-                        <div class="text-3xl font-bold text-white font-display">Online</div>
-                        <div class="text-xs text-gray-500 mt-1">Удаленная работа</div>
-                    </div>
+                <div class="result-box hover-trigger">
+                    <div class="big-num">Portfolio</div>
+                    <p>Готовые кейсы после курса</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Reviews Section -->
-        <section id="reviews" class="py-20 overflow-hidden bg-black">
-            <div class="container mx-auto px-4 mb-12">
-                <h2 class="font-display text-4xl font-bold text-center gsap-reveal">Что говорят <span class="text-gray-500">клиенты</span></h2>
+    <!-- Reviews -->
+    <section class="reveal" style="padding: 100px 0;">
+        <div class="container">
+            <h2 class="section-title">Отзывы</h2>
+            <div class="reviews-slider">
+                <!-- Review 1 -->
+                <div class="review-card hover-trigger">
+                    <div class="review-header">
+                        <div class="avatar"></div>
+                        <div>
+                            <h4>Алексей</h4>
+                            <span style="font-size: 0.8rem; color: #aaa;">Москва, Seller WB</span>
+                        </div>
+                    </div>
+                    <div class="stars">★★★★★</div>
+                    <p style="margin-top: 10px; font-size: 0.9rem;">Карточка стала выглядеть в разы дороже, продажи выросли уже в первую неделю. Уровень агентства.</p>
+                </div>
+                <!-- Review 2 -->
+                <div class="review-card hover-trigger">
+                    <div class="review-header">
+                        <div class="avatar"></div>
+                        <div>
+                            <h4>Марина</h4>
+                            <span style="font-size: 0.8rem; color: #aaa;">Краснодар</span>
+                        </div>
+                    </div>
+                    <div class="stars">★★★★★</div>
+                    <p style="margin-top: 10px; font-size: 0.9rem;">Очень быстро понял задачу и сделал дизайн лучше, чем мы ожидали. Работаем постоянно.</p>
+                </div>
+                <!-- Review 3 -->
+                <div class="review-card hover-trigger">
+                    <div class="review-header">
+                        <div class="avatar"></div>
+                        <div>
+                            <h4>Кирилл</h4>
+                            <span style="font-size: 0.8rem; color: #aaa;">Ученик курса</span>
+                        </div>
+                    </div>
+                    <div class="stars">★★★★★</div>
+                    <p style="margin-top: 10px; font-size: 0.9rem;">До курса вообще не понимал, как делать инфографику. Сейчас уже беру первые заказы.</p>
+                </div>
+                <!-- Review 4 -->
+                <div class="review-card hover-trigger">
+                    <div class="review-header">
+                        <div class="avatar"></div>
+                        <div>
+                            <h4>Игорь</h4>
+                            <span style="font-size: 0.8rem; color: #aaa;">СПб</span>
+                        </div>
+                    </div>
+                    <div class="stars">★★★★★</div>
+                    <p style="margin-top: 10px; font-size: 0.9rem;">Слайды выглядят как у крупных брендов. Конверсия реально выросла.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="reveal" style="padding: 50px 0;">
+        <div class="container" style="max-width: 800px;">
+            <h2 class="section-title">Частые вопросы</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">Сколько времени занимает выполнение заказа? <span style="font-size: 1.5rem;">+</span></div>
+                <div class="faq-answer">
+                    В среднем от 3 до 7 дней в зависимости от сложности задачи и количества слайдов или материалов.
+                </div>
             </div>
             
-            <!-- Infinite Slider Container -->
-            <div class="relative w-full overflow-hidden">
-                <div class="flex gap-6 animate-scroll whitespace-nowrap px-4" id="reviews-track" style="width: max-content;">
-                    <!-- JS will populate -->
+            <div class="faq-item">
+                <div class="faq-question">Сколько правок можно внести? <span style="font-size: 1.5rem;">+</span></div>
+                <div class="faq-answer">
+                    В процессе работы вносятся разумные правки, чтобы довести дизайн до идеального результата без лишних ограничений.
                 </div>
             </div>
-        </section>
 
-        <!-- FAQ Section -->
-        <section class="py-20 bg-dark-card/20">
-            <div class="container mx-auto px-4 max-w-3xl">
-                <h2 class="font-display text-3xl font-bold mb-10 text-center gsap-reveal">FAQ</h2>
-                
-                <div class="space-y-4">
-                    <div class="glass-card rounded-xl overflow-hidden gsap-reveal group cursor-pointer" onclick="toggleAccordion(this)">
-                        <div class="p-6 flex justify-between items-center">
-                            <h3 class="font-bold text-lg">Сколько времени занимает заказ?</h3>
-                            <svg class="w-6 h-6 transform transition-transform group-hover:text-brand-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </div>
-                        <div class="accordion-content px-6 pb-0">
-                            <p class="text-gray-400 pb-6">В среднем от 3 до 7 дней в зависимости от сложности задачи и количества слайдов или материалов.</p>
-                        </div>
-                    </div>
-
-                    <div class="glass-card rounded-xl overflow-hidden gsap-reveal group cursor-pointer" onclick="toggleAccordion(this)">
-                        <div class="p-6 flex justify-between items-center">
-                            <h3 class="font-bold text-lg">Сколько правок можно внести?</h3>
-                            <svg class="w-6 h-6 transform transition-transform group-hover:text-brand-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </div>
-                        <div class="accordion-content px-6 pb-0">
-                            <p class="text-gray-400 pb-6">В процессе работы вносятся разумные правки, чтобы довести дизайн до идеального результата без лишних ограничений.</p>
-                        </div>
-                    </div>
-
-                    <div class="glass-card rounded-xl overflow-hidden gsap-reveal group cursor-pointer" onclick="toggleAccordion(this)">
-                        <div class="p-6 flex justify-between items-center">
-                            <h3 class="font-bold text-lg">Как происходит оплата?</h3>
-                            <svg class="w-6 h-6 transform transition-transform group-hover:text-brand-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </div>
-                        <div class="accordion-content px-6 pb-0">
-                            <p class="text-gray-400 pb-6">Обычно работа начинается после предоплаты 50%, остальная часть оплачивается после согласования готового результата.</p>
-                        </div>
-                    </div>
+            <div class="faq-item">
+                <div class="faq-question">Что нужно для начала работы? <span style="font-size: 1.5rem;">+</span></div>
+                <div class="faq-answer">
+                    Фото товара или материалы, текст, пожелания по стилю и примеры (референсы), если они есть.
                 </div>
             </div>
-        </section>
 
-        <!-- Footer / Contacts -->
-        <footer id="contacts" class="py-20 relative overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-t from-brand-purple/20 to-transparent pointer-events-none"></div>
+            <div class="faq-item">
+                <div class="faq-question">Как происходит оплата? <span style="font-size: 1.5rem;">+</span></div>
+                <div class="faq-answer">
+                    Обычно работа начинается после предоплаты (50%), остальная часть оплачивается после согласования готового результата.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacts -->
+    <section id="contacts" class="reveal" style="padding: 100px 0; text-align: center;">
+        <div class="container">
+            <h2 class="section-title">Связаться со мной</h2>
+            <p style="margin-bottom: 3rem; color: #aaa;">Обсудим ваш проект или обучение прямо сейчас</p>
             
-            <div class="container mx-auto px-4 text-center relative z-10">
-                <h2 class="font-display text-5xl md:text-8xl font-bold mb-8 tracking-tighter">Готовы начать?</h2>
-                <p class="text-xl text-gray-400 mb-12 max-w-xl mx-auto">Давайте обсудим ваш проект и сделаем дизайн, который выведет ваш бизнес на новый уровень.</p>
-                
-                <a href="https://t.me/vladpetroov" target="_blank" class="inline-flex items-center gap-3 px-10 py-5 bg-white text-black rounded-full font-bold text-xl hover:bg-brand-purple hover:text-white transition-all duration-300 transform hover:scale-105 shadow-neon mb-16">
-                    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.93 1.23-5.46 3.62-.51.35-.98.52-1.4.51-.46-.01-1.35-.26-2.01-.48-.81-.27-1.46-.42-1.4-.88.03-.24.38-.49 1.03-.75 4.06-1.77 6.77-2.94 8.13-3.52 3.87-1.64 4.67-1.93 5.19-1.93.11 0 .37.03.54.17.14.12.18.28.2.4.02.12.03.36.02.47z"/></svg>
+            <div style="display: flex; justify-content: center; margin-bottom: 2rem;">
+                <a href="https://t.me/vladpetroov" class="btn-primary tg-btn hover-trigger">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.93 1.23-5.46 3.62-.51.35-.98.52-1.4.51-.46-.01-1.35-.26-2.01-.48-.81-.27-1.46-.42-1.4-.88.03-.24.38-.49 1.03-.75 4.06-1.77 6.77-2.94 8.13-3.51 3.87-1.6 4.67-1.88 5.2-1.88.11 0 .37.03.54.17.14.12.18.28.2.45-.02.07-.02.13-.03.2z"/></svg>
                     Написать в Telegram
                 </a>
-
-                <div class="flex justify-center gap-6 mb-12">
-                     <a href="https://vk.com/vladpetrovagency" target="_blank" class="w-12 h-12 rounded-full glass-card flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all text-gray-400">
-                        <span class="font-bold">VK</span>
-                    </a>
-                    <a href="https://ru.pinterest.com/vladpetroov" target="_blank" class="w-12 h-12 rounded-full glass-card flex items-center justify-center hover:bg-red-600 hover:text-white transition-all text-gray-400">
-                        <span class="font-bold">Pin</span>
-                    </a>
-                </div>
-
-                <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600">
-                    <p>&copy; 2024-2026 VP-DESIGN. All rights reserved.</p>
-                    <p>Designed by World Class AI</p>
-                </div>
             </div>
-        </footer>
-    </main>
 
-    <!-- Scripts -->
-    <!-- GSAP & ScrollTrigger -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <!-- Three.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <!-- Lenis Scroll -->
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+            <div class="social-links">
+                <a href="https://vk.com/vladpetrovagency" class="social-btn vk-btn hover-trigger">VKontakte</a>
+                <a href="https://ru.pinterest.com/vladpetroov" class="social-btn pin-btn hover-trigger">Pinterest</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 VP-DESIGN. Все права защищены.</p>
+            <p style="margin-top: 10px; font-size: 0.8rem; color: #555;">Design by VP-DESIGN</p>
+        </div>
+    </footer>
 
     <script>
-        // --- 1. DATA & CONTENT POPULATION ---
-        const portfolioItems = [
-            { category: 'infographic', img: 'https://i.ibb.co/FLsCKXYD/579-20251105185725.jpg' },
-            { category: 'infographic', img: 'https://i.ibb.co/wFh0gByn/IMG-8041.jpg' },
-            { category: 'infographic', img: 'https://i.ibb.co/k6wSmDBj/IMG-7170.jpg' },
-            { category: 'infographic', img: 'https://i.ibb.co/JwML7f4g/373-20250817165435.jpg' },
-            { category: 'rich', img: 'https://i.ibb.co/8HHXJ0B/IMG-9007.jpg' },
-            { category: 'rich', img: 'https://i.ibb.co/jZbFs3Ky/IMG-9008.jpg' },
-            { category: 'cards', img: 'https://i.ibb.co/7twpLLn7/IMG-9022.jpg' },
-            { category: 'cards', img: 'https://i.ibb.co/TMqPnWFt/IMG-9023.jpg' },
-            { category: 'banners', img: 'https://i.ibb.co/HLDvBpNQ/IMG-9027.jpg' },
-            { category: 'banners', img: 'https://i.ibb.co/4rWPbYG/IMG-9028.jpg' },
-             { category: 'vk', img: 'https://i.ibb.co/HTMwMzwK/IMG-9042.jpg' },
-            { category: 'vk', img: 'https://i.ibb.co/gMgcyT0q/IMG-9043.jpg' }
-            // Add more from the prompt as needed, keeping it balanced for the demo
-        ];
-
-        const reviews = [
-            { name: "Алексей, Москва", text: "Карточка стала выглядеть в разы дороже, продажи выросли в первую неделю.", stars: 5 },
-            { name: "Марина, Краснодар", text: "Быстро понял задачу. Теперь работаем на постоянной основе.", stars: 5 },
-            { name: "Игорь, СПб", text: "Слайды как у крупных брендов. Конверсия выросла.", stars: 5 },
-            { name: "Анна, Екб", text: "Конкуренты рядом просто теряются. Премиальный вид.", stars: 5 },
-            { name: "Кирилл, ученик", text: "До курса не понимал инфографику. Сейчас уже беру заказы.", stars: 5 }
-        ];
-
-        // Populate Portfolio
-        const portfolioGrid = document.getElementById('portfolio-grid');
+        // --- CURSOR LOGIC ---
+        const cursor = document.querySelector('.cursor');
         
-        function renderPortfolio(filter) {
-            portfolioGrid.innerHTML = '';
-            const filtered = filter === 'all' ? portfolioItems : portfolioItems.filter(i => i.category === filter);
-            
-            filtered.forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'group relative overflow-hidden rounded-xl aspect-[4/5] cursor-pointer gsap-portfolio-item';
-                div.innerHTML = `
-                    <div class="absolute inset-0 bg-gray-800 animate-pulse"></div>
-                    <img src="${item.img}" loading="lazy" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-0 onload-fade" onload="this.classList.remove('opacity-0')">
-                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <div class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                            <span class="inline-block px-4 py-2 border border-white rounded-full text-white text-sm font-medium">Смотреть</span>
-                        </div>
-                    </div>
-                `;
-                portfolioGrid.appendChild(div);
-            });
-            
-            // Re-trigger animation for new items
-            gsap.fromTo('.gsap-portfolio-item', 
-                { opacity: 0, y: 20 },
-                { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 }
-            );
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        const hoverTriggers = document.querySelectorAll('.hover-trigger, a, button');
+        hoverTriggers.forEach(trigger => {
+            trigger.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+            trigger.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+        });
+
+        // --- BACKGROUND CANVAS (Cosmic/Tech Mesh) ---
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        let width, height;
+        let particles = [];
+        
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
         }
         
-        // Initial Render
-        renderPortfolio('all');
-
-        // Tab Filtering Logic
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                renderPortfolio(btn.dataset.category);
-            });
-        });
-
-        // Populate Reviews (Infinite Loop)
-        const reviewsTrack = document.getElementById('reviews-track');
-        // Duplicate array to ensure infinite feel
-        const allReviews = [...reviews, ...reviews, ...reviews];
-        
-        allReviews.forEach(review => {
-            const card = document.createElement('div');
-            card.className = 'inline-block w-80 glass-card p-6 rounded-2xl whitespace-normal align-top mx-2';
-            card.innerHTML = `
-                <div class="flex text-brand-purple mb-3">
-                    ${'★'.repeat(review.stars)}
-                </div>
-                <p class="text-gray-300 text-sm mb-4 leading-relaxed">"${review.text}"</p>
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-gray-700 to-gray-600"></div>
-                    <div>
-                        <div class="font-bold text-sm text-white">${review.name.split(',')[0]}</div>
-                        <div class="text-xs text-gray-500">${review.name.split(',')[1] || ''}</div>
-                    </div>
-                </div>
-            `;
-            reviewsTrack.appendChild(card);
-        });
-
-        // Animation for Reviews
-        gsap.to(reviewsTrack, {
-            x: - (reviewsTrack.scrollWidth / 3),
-            duration: 40,
-            ease: "none",
-            repeat: -1
-        });
-
-        // --- 2. THREE.JS BACKGROUND ---
-        const initThreeJS = () => {
-            const canvas = document.getElementById('bg-canvas');
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-            
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setPixelRatio(window.devicePixelRatio);
-
-            // Particles
-            const particlesGeometry = new THREE.BufferGeometry();
-            const particlesCount = 700;
-            const posArray = new Float32Array(particlesCount * 3);
-
-            for(let i = 0; i < particlesCount * 3; i++) {
-                posArray[i] = (Math.random() - 0.5) * 15; // Spread
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2;
             }
-
-            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-
-            const material = new THREE.PointsMaterial({
-                size: 0.02,
-                color: 0xb026ff,
-                transparent: true,
-                opacity: 0.8,
-            });
-
-            const particlesMesh = new THREE.Points(particlesGeometry, material);
-            scene.add(particlesMesh);
-
-            // Add some larger floating geometric shapes (Glass effect simulation in ThreeJS is heavy, using wireframe/points for style)
-            const geometry = new THREE.IcosahedronGeometry(1, 0);
-            const geoMaterial = new THREE.MeshBasicMaterial({ color: 0xff267e, wireframe: true, transparent: true, opacity: 0.1 });
-            const shape = new THREE.Mesh(geometry, geoMaterial);
-            shape.position.set(3, 2, -2);
-            scene.add(shape);
-
-            camera.position.z = 3;
-
-            // Mouse Interaction
-            let mouseX = 0;
-            let mouseY = 0;
-
-            document.addEventListener('mousemove', (event) => {
-                mouseX = event.clientX / window.innerWidth - 0.5;
-                mouseY = event.clientY / window.innerHeight - 0.5;
-            });
-
-            // Animation Loop
-            const clock = new THREE.Clock();
-
-            const animate = () => {
-                const elapsedTime = clock.getElapsedTime();
-
-                // Gentle Rotation
-                particlesMesh.rotation.y = elapsedTime * 0.05;
-                particlesMesh.rotation.x = mouseY * 0.2;
-                particlesMesh.rotation.y += mouseX * 0.2;
-
-                shape.rotation.x += 0.005;
-                shape.rotation.y += 0.005;
-
-                // Parallax on scroll (basic)
-                const scrollY = window.scrollY;
-                camera.position.y = -scrollY * 0.001;
-
-                renderer.render(scene, camera);
-                requestAnimationFrame(animate);
-            };
-
-            animate();
-
-            // Resize Handle
-            window.addEventListener('resize', () => {
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-            });
-        };
-
-        // --- 3. ANIMATIONS & LOADER ---
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(176, 38, 255, 0.3)'; // Purple particles
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
         
-        // Wait for page load
-        window.addEventListener('load', () => {
-            initThreeJS();
-
-            // Loader Animation
-            const loader = document.getElementById('loader');
-            const progress = document.getElementById('progress-bar');
+        function initParticles() {
+            particles = [];
+            const count = window.innerWidth < 768 ? 40 : 80;
+            for (let i = 0; i < count; i++) particles.push(new Particle());
+        }
+        
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
             
-            gsap.to(progress, {
-                width: '100%',
-                duration: 1.5,
-                ease: 'power2.inOut',
-                onComplete: () => {
-                    gsap.to(loader, {
-                        opacity: 0,
-                        duration: 0.5,
-                        onComplete: () => {
-                            loader.style.display = 'none';
-                            startSiteAnimations();
-                        }
-                    });
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                
+                // Draw connections
+                for (let j = i; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (dist < 150) {
+                        ctx.strokeStyle = `rgba(176, 38, 255, ${0.1 - dist/1500})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        
+        window.addEventListener('resize', () => { resize(); initParticles(); });
+        resize();
+        initParticles();
+        animate();
+
+        // --- SCROLL REVEAL ANIMATION ---
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
                 }
             });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // --- PORTFOLIO FILTER ---
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        // Show Infographic by default
+        filterGallery('infographic');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                tabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                filterGallery(btn.dataset.filter);
+            });
         });
 
-        // Initialize Lenis Smooth Scroll
-        const lenis = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            direction: 'vertical',
-            gestureDirection: 'vertical',
-            smooth: true,
-            mouseMultiplier: 1,
-            smoothTouch: false,
-            touchMultiplier: 2,
-        });
-
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
-
-        // GSAP Scroll Animations
-        function startSiteAnimations() {
-            gsap.registerPlugin(ScrollTrigger);
-
-            // Hero Animations
-            gsap.to('.gsap-hero-text', {
-                y: 0,
-                opacity: 1,
-                duration: 1,
-                stagger: 0.2,
-                ease: 'power4.out',
-                delay: 0.2
-            });
-
-            gsap.to('.gsap-hero-fade', {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                delay: 1,
-                stagger: 0.2
-            });
-
-            // Reveal Sections
-            const revealElements = document.querySelectorAll('.gsap-reveal');
-            revealElements.forEach(elem => {
-                gsap.fromTo(elem, 
-                    { opacity: 0, y: 50 },
-                    {
-                        opacity: 1, 
-                        y: 0, 
-                        duration: 0.8, 
-                        ease: 'power2.out',
-                        scrollTrigger: {
-                            trigger: elem,
-                            start: 'top 85%',
-                        }
+        function filterGallery(category) {
+            galleryItems.forEach(item => {
+                item.classList.remove('visible');
+                setTimeout(() => {
+                    if (item.dataset.category === category || category === 'all') {
+                        item.style.display = 'block';
+                        setTimeout(() => item.classList.add('visible'), 50);
+                    } else {
+                        item.style.display = 'none';
                     }
-                );
+                }, 100); // Small delay for exit animation if we added one
             });
+        }
 
-            // Parallax Images
-            gsap.utils.toArray('.parallax-container').forEach(container => {
-                gsap.to(container.querySelector('img'), {
-                    yPercent: 20,
-                    ease: "none",
-                    scrollTrigger: {
-                        trigger: container,
-                        scrub: true
-                    } 
+        // --- FAQ ACCORDION ---
+        document.querySelectorAll('.faq-question').forEach(item => {
+            item.addEventListener('click', () => {
+                const parent = item.parentElement;
+                parent.classList.toggle('active');
+                
+                // Close others
+                document.querySelectorAll('.faq-item').forEach(other => {
+                    if (other !== parent) other.classList.remove('active');
                 });
             });
-        }
-
-        // --- 4. UI INTERACTION UTILS ---
-        
-        // Mobile Menu
-        const menuToggle = document.getElementById('menu-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
-        let isMenuOpen = false;
-
-        menuToggle.addEventListener('click', () => {
-            isMenuOpen = !isMenuOpen;
-            if(isMenuOpen) {
-                mobileMenu.classList.remove('translate-x-full');
-            } else {
-                mobileMenu.classList.add('translate-x-full');
-            }
         });
 
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('translate-x-full');
-                isMenuOpen = false;
-            });
-        });
+        // --- MOBILE MENU ---
+        const burger = document.querySelector('.burger');
+        const nav = document.querySelector('.nav-links');
+        const navLinks = document.querySelectorAll('.nav-links a');
 
-        // FAQ Accordion
-        function toggleAccordion(element) {
-            const content = element.querySelector('.accordion-content');
-            const isOpen = content.style.maxHeight;
+        burger.addEventListener('click', () => {
+            nav.classList.toggle('nav-active');
             
-            // Close all
-            document.querySelectorAll('.accordion-content').forEach(c => {
-                c.style.maxHeight = null;
-                c.classList.remove('active');
+            // Animate Links
+            navLinks.forEach((link, index) => {
+                if (link.style.animation) {
+                    link.style.animation = '';
+                } else {
+                    link.style.animation = `fadeInUp 0.5s ease forwards ${index / 7 + 0.3}s`;
+                }
+                // Close menu on click
+                link.addEventListener('click', () => {
+                    nav.classList.remove('nav-active');
+                });
             });
+            
+            // Burger Animation
+            burger.classList.toggle('toggle');
+        });
 
-            if (!isOpen) {
-                content.style.maxHeight = content.scrollHeight + "px";
-                content.classList.add('active');
-            }
-        }
+        // Header Background on Scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        });
 
     </script>
 </body>
