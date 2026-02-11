@@ -1,653 +1,127 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VP-DESIGN | Дизайн, который продает</title>
-    <meta name="description" content="Премиальный дизайн для брендов: инфографика, сайты, соцсети. Студия VP-DESIGN.">
+    <meta name="description" content="Ультра-премиальный дизайн для брендов: инфографика, сайты, реклама. Студия Влада Петрова.">
     
-    <!-- Fonts: Unbounded (Substitute for Soyuz Grotesk) & Inter -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Unbounded:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#050505',
+                            dark: '#0A0A0A',
+                            lime: '#D4F238',
+                            limeHover: '#bce014',
+                            gray: '#1F1F22',
+                            text: '#A1A1AA'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'marquee': 'marquee 40s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        marquee: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 
     <style>
-        /* --- CSS VARIABLES & RESET --- */
+        /* Custom Premium Styles */
         :root {
-            --bg-dark: #050505;
-            --bg-card: rgba(255, 255, 255, 0.03);
-            --bg-card-hover: rgba(255, 255, 255, 0.07);
-            --accent-primary: #b026ff;
-            --accent-secondary: #ff26b9;
-            --accent-glow: rgba(176, 38, 255, 0.5);
-            --text-main: #ffffff;
-            --text-muted: #9ca3af;
-            --border-glass: rgba(255, 255, 255, 0.1);
-            --font-heading: 'Unbounded', sans-serif;
-            --font-body: 'Inter', sans-serif;
-            --transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            background-color: var(--bg-dark);
+            --cursor-size: 20px;
         }
 
         body {
-            font-family: var(--font-body);
-            color: var(--text-main);
-            background-color: var(--bg-dark);
+            background-color: #050505;
+            color: #ffffff;
             overflow-x: hidden;
-            line-height: 1.6;
-            cursor: none; /* Custom cursor */
+            cursor: default;
         }
 
-        /* --- CUSTOM CURSOR --- */
-        .cursor {
-            width: 20px;
-            height: 20px;
-            border: 1px solid var(--text-main);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            transition: width 0.3s, height 0.3s, background-color 0.3s;
-            mix-blend-mode: difference;
-        }
-        .cursor.hovered {
-            width: 50px;
-            height: 50px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-color: var(--accent-secondary);
-            backdrop-filter: blur(2px);
+        /* Selection Color */
+        ::selection {
+            background: #D4F238;
+            color: #000;
         }
 
-        /* --- BACKGROUND CANVAS --- */
-        #bg-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.6;
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-        
-        .noise-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 9998; /* Just below cursor */
-            opacity: 0.05;
-            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyMDAnIGhlaWdodD0nMjAwJz48ZmlsdGVyIGlkPSdub2lzZSc+PGZlVHVyYnVsZW5jZSB0eXBlPSdmcmFjdGFsTm9pc2UnIGJhc2VGcmVxdWVuY3k9JzAuNjUnIG51bW9jdGF2ZXM9JzMnIHN0aXRjaFRpbGVzPSdzdGl0Y2gnLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0nMTAwJScgaGVpZ2h0PScxMDAlJyBmaWx0ZXI9J3VybCgjbm9pc2UpJyBvcGFjaXR5PScxJy8+PC9zdmc+');
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
         }
-
-        /* --- TYPOGRAPHY --- */
-        h1, h2, h3, h4 {
-            font-family: var(--font-heading);
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            text-transform: uppercase;
-        }
-
-        .gradient-text {
-            background: linear-gradient(135deg, #fff 30%, var(--accent-primary) 70%, var(--accent-secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
-        }
-
-        .section-title {
-            font-size: clamp(2rem, 5vw, 4rem);
-            margin-bottom: 3rem;
-            text-align: center;
-            position: relative;
-        }
-        
-        /* --- UTILITIES --- */
-        .container {
-            width: 90%;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        
-        .glass-panel {
-            background: var(--bg-card);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--border-glass);
-            border-radius: 24px;
-            padding: 2rem;
-            transition: var(--transition);
-        }
-        
-        .glass-panel:hover {
-            background: var(--bg-card-hover);
-            border-color: rgba(176, 38, 255, 0.3);
-            box-shadow: 0 0 30px rgba(176, 38, 255, 0.1);
-            transform: translateY(-5px);
-        }
-
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem 2.5rem;
-            background: rgba(0,0,0,0.4);
-            border: 1px solid var(--accent-primary);
-            color: var(--accent-secondary);
-            font-family: var(--font-heading);
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            border-radius: 50px;
-            text-decoration: none;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(5px);
-        }
-
-        .btn-primary:hover {
-            box-shadow: 0 0 25px var(--accent-glow);
-            color: #fff;
-            border-color: #fff;
-            transform: scale(1.05);
-        }
-
-        /* --- HEADER --- */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 100;
-            padding: 1.5rem 0;
-            transition: var(--transition);
-        }
-        
-        header.scrolled {
-            background: rgba(5, 5, 5, 0.8);
-            backdrop-filter: blur(15px);
-            padding: 1rem 0;
-            border-bottom: 1px solid var(--border-glass);
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-family: var(--font-heading);
-            font-weight: 800;
-            font-size: 1.5rem;
-            color: white;
-            text-decoration: none;
-            letter-spacing: -1px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: var(--text-main);
-            text-decoration: none;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            font-weight: 500;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .nav-links a:hover, .nav-links a.active {
-            color: var(--accent-secondary);
-            text-shadow: 0 0 10px var(--accent-glow);
-        }
-
-        /* Mobile Menu */
-        .burger {
-            display: none;
-            cursor: pointer;
-            z-index: 101;
-        }
-        .burger div {
-            width: 25px;
-            height: 2px;
-            background-color: white;
-            margin: 5px;
-            transition: var(--transition);
-        }
-        
-        /* --- HERO SECTION --- */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            padding-top: 80px;
-            overflow: hidden;
-        }
-
-        .hero-content {
-            text-align: center;
-            max-width: 900px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 8vw, 6rem);
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            /* Glitch effect base */
-            animation: text-shudder 2s infinite linear;
-        }
-
-        .hero p {
-            font-size: clamp(1rem, 2vw, 1.25rem);
-            color: var(--text-muted);
-            margin-bottom: 3rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* 3D Shapes Decoration */
-        .shape {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(60px);
-            z-index: 1;
-            opacity: 0.5;
-            animation: float 10s infinite ease-in-out;
-        }
-        .shape-1 {
-            width: 300px;
-            height: 300px;
-            background: var(--accent-primary);
-            top: 20%;
-            left: 10%;
-        }
-        .shape-2 {
-            width: 400px;
-            height: 400px;
-            background: var(--accent-secondary);
-            bottom: 10%;
-            right: 5%;
-            animation-delay: -5s;
-        }
-
-        /* --- ABOUT --- */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-        .about-photo {
-            position: relative;
-            width: 350px;
-            height: 350px;
-            margin: 0 auto;
-        }
-        .about-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 2px solid var(--border-glass);
-            box-shadow: 0 0 50px rgba(176, 38, 255, 0.2);
-            filter: grayscale(20%);
-            transition: var(--transition);
-        }
-        .about-img:hover {
-            filter: grayscale(0%);
-            transform: scale(1.02);
-        }
-        .about-circle-text {
-            position: absolute;
-            width: 120%;
-            height: 120%;
-            top: -10%;
-            left: -10%;
-            animation: rotate 20s linear infinite;
-        }
-
-        /* --- WHY ME --- */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-        .feature-card {
-            padding: 2.5rem;
-            text-align: left;
-        }
-        .feature-icon {
-            font-size: 2rem;
-            color: var(--accent-primary);
-            margin-bottom: 1.5rem;
-        }
-
-        /* --- SERVICES & PRICING --- */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-        .service-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--accent-secondary);
-        }
-        .service-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.8rem;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            padding-bottom: 0.5rem;
-        }
-        .price {
-            font-weight: 600;
-            color: var(--accent-primary);
-        }
-
-        /* --- PORTFOLIO --- */
-        .portfolio-tabs {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-bottom: 3rem;
-        }
-        .tab-btn {
-            background: transparent;
-            border: 1px solid var(--border-glass);
-            color: var(--text-muted);
-            padding: 0.8rem 1.5rem;
-            border-radius: 50px;
-            cursor: pointer;
-            font-family: var(--font-body);
-            transition: var(--transition);
-        }
-        .tab-btn.active, .tab-btn:hover {
-            background: rgba(176, 38, 255, 0.1);
-            border-color: var(--accent-primary);
-            color: white;
-            box-shadow: 0 0 15px rgba(176, 38, 255, 0.2);
-        }
-        
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-        .gallery-item {
-            border-radius: 12px;
-            overflow: hidden;
-            aspect-ratio: 3/4; /* Vertical standard for WB */
-            position: relative;
-            opacity: 0;
-            transform: translateY(20px);
-            display: none; /* JS handles display */
-        }
-        .gallery-item.visible {
-            display: block;
-            animation: fadeInUp 0.5s forwards;
-        }
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
-
-        /* --- PROCESS --- */
-        .process-container {
-            display: flex;
-            justify-content: space-between;
-            position: relative;
-            flex-wrap: wrap;
-            gap: 2rem;
-        }
-        .process-container::before {
-            content: '';
-            position: absolute;
-            top: 50px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--accent-primary), transparent);
-            z-index: 0;
-            display: none; /* Hidden on mobile */
-        }
-        .process-step {
-            flex: 1;
-            min-width: 200px;
-            position: relative;
-            z-index: 1;
-            text-align: center;
-        }
-        .step-number {
-            width: 60px;
-            height: 60px;
-            background: #000;
-            border: 2px solid var(--accent-secondary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: var(--font-heading);
-            font-weight: 800;
-            font-size: 1.5rem;
-            margin: 0 auto 1.5rem;
-            box-shadow: 0 0 20px var(--accent-glow);
-        }
-
-        /* --- PROMO --- */
-        .promo-block {
-            text-align: center;
-            border: 2px solid var(--accent-primary);
-            background: radial-gradient(circle at center, rgba(176, 38, 255, 0.1) 0%, rgba(0,0,0,0) 70%);
-        }
-
-        /* --- TRAINING & PRICES --- */
-        .training-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            justify-content: center;
-        }
-        .course-card {
-            flex: 1;
-            min-width: 300px;
-            max-width: 400px;
-            display: flex;
-            flex-direction: column;
-        }
-        .course-card.highlight {
-            border-color: var(--accent-secondary);
-            transform: scale(1.05);
-            z-index: 2;
-        }
-        .card-badge {
-            background: var(--accent-secondary);
-            color: white;
-            padding: 5px 10px;
-            font-size: 0.8rem;
+        ::-webkit-scrollbar-thumb {
+            background: #333;
             border-radius: 4px;
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-weight: bold;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D4F238;
         }
 
-        /* --- RESULTS --- */
-        .results-flex {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            justify-content: center;
+        /* Glassmorphism Utilities */
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
-        .result-box {
-            text-align: center;
-            flex: 1;
-            min-width: 200px;
-        }
-        .big-num {
-            font-size: 3rem;
-            font-family: var(--font-heading);
-            color: var(--accent-secondary);
-            line-height: 1;
-            margin-bottom: 0.5rem;
-        }
-
-        /* --- REVIEWS --- */
-        .reviews-slider {
-            display: flex;
-            overflow-x: auto;
-            gap: 2rem;
-            padding-bottom: 2rem;
-            scroll-snap-type: x mandatory;
-        }
-        .review-card {
-            min-width: 300px;
-            max-width: 350px;
-            scroll-snap-align: center;
-            background: var(--bg-card);
-            border: 1px solid var(--border-glass);
-            border-radius: 16px;
-            padding: 2rem;
-        }
-        .review-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-        .avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #333, #666);
-        }
-        .stars {
-            color: var(--accent-primary);
-        }
-
-        /* --- FAQ --- */
-        .faq-item {
-            margin-bottom: 1rem;
-        }
-        .faq-question {
-            width: 100%;
-            text-align: left;
-            padding: 1.5rem;
-            background: var(--bg-card);
-            border: 1px solid var(--border-glass);
-            color: white;
-            font-family: var(--font-heading);
-            font-size: 1.1rem;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: var(--transition);
-        }
-        .faq-question:hover {
-            background: var(--bg-card-hover);
-        }
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease;
-            background: rgba(255,255,255,0.02);
-            padding: 0 1.5rem;
-            color: var(--text-muted);
-        }
-        .faq-item.active .faq-answer {
-            max-height: 200px;
-            padding: 1.5rem;
-        }
-        .faq-item.active .faq-question {
-            border-color: var(--accent-primary);
-        }
-
-        /* --- CONTACTS --- */
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            margin-top: 2rem;
-        }
-        .social-btn {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            text-decoration: none;
-            color: white;
-            font-weight: 600;
-            transition: var(--transition);
-            border: 1px solid transparent;
-        }
-        .tg-btn { background: rgba(0, 136, 204, 0.2); border-color: rgba(0, 136, 204, 0.5); width: 100%; justify-content: center; max-width: 400px; font-size: 1.2rem; }
-        .tg-btn:hover { background: rgba(0, 136, 204, 0.4); box-shadow: 0 0 20px rgba(0, 136, 204, 0.3); }
         
-        .vk-btn { background: rgba(255,255,255,0.05); }
-        .vk-btn:hover { background: rgba(255,255,255,0.1); }
-        
-        .pin-btn { background: rgba(230, 0, 35, 0.1); border-color: rgba(230, 0, 35, 0.3); }
-        .pin-btn:hover { background: rgba(230, 0, 35, 0.2); }
-
-        footer {
-            padding: 3rem 0;
-            text-align: center;
-            border-top: 1px solid var(--border-glass);
-            margin-top: 5rem;
-            color: var(--text-muted);
-            font-size: 0.9rem;
+        .glass-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* --- ANIMATIONS --- */
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(-20px, 30px); }
-        }
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        .glass-card:hover {
+            border-color: rgba(212, 242, 56, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px -10px rgba(212, 242, 56, 0.1);
         }
 
+        /* Text Glow */
+        .text-glow {
+            text-shadow: 0 0 20px rgba(212, 242, 56, 0.3);
+        }
+
+        /* Utilities */
         .reveal {
             opacity: 0;
-            transform: translateY(50px);
+            transform: translateY(30px);
             transition: all 0.8s ease-out;
         }
         .reveal.active {
@@ -655,100 +129,167 @@
             transform: translateY(0);
         }
 
-        /* --- RESPONSIVE --- */
-        @media (min-width: 768px) {
-            .process-container::before { display: block; }
+        .grid-masonry {
+            columns: 1; 
+            column-gap: 1.5rem;
+        }
+        @media (min-width: 640px) { .grid-masonry { columns: 2; } }
+        @media (min-width: 1024px) { .grid-masonry { columns: 3; } }
+
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1.5rem;
         }
 
-        @media (max-width: 768px) {
-            .nav-links {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 70%;
-                height: 100vh;
-                background: rgba(0,0,0,0.95);
-                backdrop-filter: blur(10px);
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                transition: 0.5s;
-                z-index: 99;
-            }
-            .nav-links.nav-active {
-                right: 0;
-            }
-            .burger { display: block; }
-            
-            .about-grid { grid-template-columns: 1fr; text-align: center; }
-            .about-photo { width: 250px; height: 250px; margin-bottom: 2rem; }
-            
-            .course-card.highlight { transform: scale(1); }
-            
-            .hero h1 { font-size: 2.5rem; }
+        /* Canvas Background */
+        #canvas-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-enter {
+            transform: translateX(100%);
+        }
+        .mobile-menu-active {
+            transform: translateX(0);
         }
     </style>
 </head>
-<body>
+<body class="antialiased">
 
-    <!-- Custom Cursor -->
-    <div class="cursor"></div>
-    <div class="noise-overlay"></div>
-    <canvas id="bg-canvas"></canvas>
+    <!-- Background Canvas -->
+    <canvas id="canvas-bg"></canvas>
 
-    <!-- Header -->
-    <header id="header">
-        <div class="container nav-container">
-            <a href="#" class="logo">VP-DESIGN</a>
-            <nav>
-                <div class="nav-links">
-                    <a href="#about" class="nav-link">Обо мне</a>
-                    <a href="#portfolio" class="nav-link">Портфолио</a>
-                    <a href="#services" class="nav-link">Услуги</a>
-                    <a href="#process" class="nav-link">Процесс</a>
-                    <a href="#training" class="nav-link">Обучение</a>
-                    <a href="#contacts" class="nav-link">Контакты</a>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300 top-0" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 cursor-pointer group">
+                    <span class="font-display font-bold text-2xl tracking-tighter text-white group-hover:text-brand-lime transition-colors duration-300">VP-DESIGN</span>
                 </div>
-            </nav>
-            <div class="burger">
-                <div class="line1"></div>
-                <div class="line2"></div>
-                <div class="line3"></div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8 font-sans text-sm font-medium">
+                        <a href="#about" class="text-gray-300 hover:text-brand-lime transition-all hover:scale-105">Обо мне</a>
+                        <a href="#portfolio" class="text-gray-300 hover:text-brand-lime transition-all hover:scale-105">Портфолио</a>
+                        <a href="#prices" class="text-gray-300 hover:text-brand-lime transition-all hover:scale-105">Прайс</a>
+                        <a href="#education" class="text-gray-300 hover:text-brand-lime transition-all hover:scale-105">Обучение</a>
+                        <a href="#contacts" class="px-5 py-2 rounded-full border border-brand-lime/30 text-brand-lime hover:bg-brand-lime hover:text-black transition-all shadow-[0_0_15px_rgba(212,242,56,0.1)] hover:shadow-[0_0_25px_rgba(212,242,56,0.4)]">Связаться</a>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-white hover:text-brand-lime focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
             </div>
+        </div>
+        
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 bg-black/95 backdrop-blur-xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col items-center justify-center space-y-8 md:hidden">
+            <button id="close-menu-btn" class="absolute top-6 right-6 text-white hover:text-brand-lime">
+                <i class="fas fa-times text-3xl"></i>
+            </button>
+            <a href="#about" class="text-2xl font-display font-bold text-white hover:text-brand-lime mobile-link">Обо мне</a>
+            <a href="#portfolio" class="text-2xl font-display font-bold text-white hover:text-brand-lime mobile-link">Портфолио</a>
+            <a href="#prices" class="text-2xl font-display font-bold text-white hover:text-brand-lime mobile-link">Прайс</a>
+            <a href="#education" class="text-2xl font-display font-bold text-white hover:text-brand-lime mobile-link">Обучение</a>
+            <a href="#contacts" class="text-2xl font-display font-bold text-brand-lime mobile-link">Контакты</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <!-- Abstract 3D Elements (CSS) -->
+        <div class="absolute top-1/4 left-10 w-32 h-32 bg-brand-lime/10 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div class="absolute bottom-1/4 right-10 w-64 h-64 bg-blue-500/10 rounded-full blur-[100px]"></div>
+        
+        <!-- Floating shapes -->
+        <div class="absolute top-32 right-[15%] w-16 h-16 border border-brand-lime/20 rounded-full animate-float hidden lg:block backdrop-blur-sm"></div>
+        <div class="absolute bottom-32 left-[10%] w-24 h-24 border border-white/10 rotate-45 animate-float hidden lg:block backdrop-blur-sm" style="animation-delay: 1s;"></div>
+
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <h1 class="font-display font-bold text-5xl md:text-7xl lg:text-8xl tracking-tight mb-6 leading-tight reveal active">
+                VP-DESIGN <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-500">Дизайн, который</span>
+                <span class="text-brand-lime relative inline-block">
+                    продает
+                    <span class="absolute -inset-1 bg-brand-lime/20 blur-lg -z-10"></span>
+                </span>
+            </h1>
+            
+            <p class="font-sans text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed reveal" style="transition-delay: 0.2s;">
+                Создаем визуальные решения для брендов: соцсети, рекламные креативы, полиграфия, digital-продукты и premium дизайн.
+            </p>
+            
+            <div class="flex flex-col md:flex-row items-center justify-center gap-6 reveal" style="transition-delay: 0.4s;">
+                <a href="https://t.me/vladpetroov" target="_blank" class="group relative px-8 py-4 bg-brand-black border border-brand-lime/50 rounded-full text-brand-lime font-bold overflow-hidden transition-all hover:border-brand-lime hover:shadow-[0_0_30px_rgba(212,242,56,0.3)]">
+                    <span class="relative z-10 flex items-center gap-2">
+                        Связаться
+                        <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i>
+                    </span>
+                    <div class="absolute inset-0 bg-brand-lime/10 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500"></div>
+                </a>
+                <a href="#portfolio" class="text-white hover:text-brand-lime transition-colors underline-offset-4 hover:underline">Смотреть работы</a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce opacity-50">
+            <i class="fas fa-chevron-down text-brand-lime"></i>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="shape shape-1"></div>
-        <div class="shape shape-2"></div>
-        <div class="container hero-content">
-            <h1>VP-DESIGN<br><span class="gradient-text">Дизайн, который продает</span></h1>
-            <p>Создаем визуальные решения для брендов: соцсети, рекламные креативы, полиграфия, digital-продукты и premium дизайн</p>
-            <a href="https://t.me/vladpetroov" target="_blank" class="btn-primary hover-trigger">Связаться в Telegram</a>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="reveal" style="padding: 100px 0;">
-        <div class="container about-grid">
-            <div class="about-photo">
-                <img src="https://i.ibb.co/zWp1WzTk/1127-20260207204539.png" alt="Влад VP-DESIGN" class="about-img">
-                <!-- SVG Circle Text effect would go here, simplified with CSS for now -->
-            </div>
-            <div class="about-text">
-                <h2 class="section-title" style="text-align: left;">Обо мне</h2>
-                <p style="font-size: 1.1rem; color: #ccc; margin-bottom: 1.5rem;">
-                    Я Влад, основатель VP-DESIGN. Создаю дизайн, который <span class="gradient-text">продаёт</span>: инфографику, рекламные креативы, дизайн для соцсетей и полиграфию. Работаю с 2020 года и каждый проект довожу до максимальной <span class="gradient-text">эффективности</span> и визуального wow-эффекта.
-                </p>
-                <div style="display: flex; gap: 20px;">
-                    <div>
-                        <h3 class="gradient-text" style="font-size: 2rem;">5+</h3>
-                        <p style="font-size: 0.9rem;">Лет опыта</p>
+    <!-- About Me -->
+    <section id="about" class="py-24 relative">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <div class="relative order-2 md:order-1 reveal">
+                    <div class="absolute -inset-4 bg-gradient-to-r from-brand-lime/20 to-blue-500/20 rounded-full blur-2xl opacity-50"></div>
+                    <div class="relative rounded-full overflow-hidden border border-white/10 w-64 h-64 md:w-80 md:h-80 mx-auto glass shadow-2xl">
+                        <img src="https://i.ibb.co/zWp1WzTk/1127-20260207204539.png" alt="Vlad Petrov" class="w-full h-full object-cover object-center transform transition-transform hover:scale-110 duration-700">
                     </div>
-                    <div>
-                        <h3 class="gradient-text" style="font-size: 2rem;">5000+</h3>
-                        <p style="font-size: 0.9rem;">Проектов</p>
+                    
+                    <!-- Floating Badge -->
+                    <div class="absolute -right-4 top-10 glass px-4 py-2 rounded-lg border-l-4 border-brand-lime animate-float">
+                        <span class="text-xs text-gray-400 block">Опыт работы</span>
+                        <span class="font-display font-bold text-white">c 2020 года</span>
+                    </div>
+                </div>
+
+                <div class="order-1 md:order-2 reveal">
+                    <h2 class="font-display text-4xl font-bold mb-6">Обо мне</h2>
+                    <p class="text-gray-300 text-lg leading-relaxed mb-6">
+                        Я Влад, основатель <span class="text-brand-lime font-bold">VP-DESIGN</span>. Создаю дизайн, который <span class="text-white border-b border-brand-lime/50 pb-0.5">продаёт</span>: инфографику, рекламные креативы, дизайн для соцсетей и полиграфию.
+                    </p>
+                    <p class="text-gray-400 mb-8">
+                        Каждый проект довожу до максимальной эффективности и визуального <span class="text-brand-lime">wow-эффекта</span>. Не просто рисую картинки, а решаю задачи бизнеса через визуал.
+                    </p>
+                    
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="text-center p-4 glass rounded-xl">
+                            <h3 class="font-display text-2xl font-bold text-white">5000+</h3>
+                            <p class="text-xs text-gray-500 uppercase tracking-wide mt-1">Проектов</p>
+                        </div>
+                        <div class="text-center p-4 glass rounded-xl">
+                            <h3 class="font-display text-2xl font-bold text-brand-lime">5+</h3>
+                            <p class="text-xs text-gray-500 uppercase tracking-wide mt-1">Лет опыта</p>
+                        </div>
+                        <div class="text-center p-4 glass rounded-xl">
+                            <h3 class="font-display text-2xl font-bold text-white">Top</h3>
+                            <p class="text-xs text-gray-500 uppercase tracking-wide mt-1">Качество</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -756,586 +297,685 @@
     </section>
 
     <!-- Why Me -->
-    <section class="reveal" style="padding: 80px 0;">
-        <div class="container">
-            <h2 class="section-title">Почему я?</h2>
-            <div class="features-grid">
-                <div class="glass-panel feature-card hover-trigger">
-                    <div class="feature-icon">✦</div>
-                    <h4>Креатив и эффективность</h4>
-                    <p style="margin-top: 10px; color: var(--text-muted);">Создаю дизайн, который продаёт, а не просто выглядит красиво.</p>
+    <section class="py-24 bg-brand-dark/50">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="font-display text-4xl md:text-5xl font-bold text-center mb-16 reveal">Почему выбирают <span class="text-brand-lime">VP-DESIGN?</span></h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Items -->
+                <div class="glass-card p-8 rounded-2xl reveal">
+                    <div class="w-12 h-12 bg-brand-lime/10 rounded-full flex items-center justify-center text-brand-lime mb-6">
+                        <i class="fas fa-rocket text-xl"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-bold mb-3">Креатив и эффективность</h3>
+                    <p class="text-gray-400 text-sm">Создаю не просто красивую картинку, а инструмент, который реально продает ваш продукт.</p>
                 </div>
-                <div class="glass-panel feature-card hover-trigger">
-                    <div class="feature-icon">⚡</div>
-                    <h4>Быстрое выполнение</h4>
-                    <p style="margin-top: 10px; color: var(--text-muted);">Соблюдаю сроки без потери качества. Ваш бизнес не будет ждать.</p>
+
+                <div class="glass-card p-8 rounded-2xl reveal" style="transition-delay: 0.1s;">
+                    <div class="w-12 h-12 bg-brand-lime/10 rounded-full flex items-center justify-center text-brand-lime mb-6">
+                        <i class="fas fa-clock text-xl"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-bold mb-3">Быстрое выполнение</h3>
+                    <p class="text-gray-400 text-sm">Соблюдаю сроки без потери качества. Ваше время — деньги, и я это ценю.</p>
                 </div>
-                <div class="glass-panel feature-card hover-trigger">
-                    <div class="feature-icon">🔥</div>
-                    <h4>Актуальные тренды</h4>
-                    <p style="margin-top: 10px; color: var(--text-muted);">Использую современные методы дизайна и нейросети.</p>
+
+                <div class="glass-card p-8 rounded-2xl reveal" style="transition-delay: 0.2s;">
+                    <div class="w-12 h-12 bg-brand-lime/10 rounded-full flex items-center justify-center text-brand-lime mb-6">
+                        <i class="fas fa-fire text-xl"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-bold mb-3">Актуальные тренды</h3>
+                    <p class="text-gray-400 text-sm">Использую самые современные методы дизайна, чтобы ваш бренд выглядел свежо.</p>
                 </div>
-                <div class="glass-panel feature-card hover-trigger">
-                    <div class="feature-icon">💎</div>
-                    <h4>Индивидуальный подход</h4>
-                    <p style="margin-top: 10px; color: var(--text-muted);">Каждый проект уникален. Полное погружение в нишу.</p>
+
+                <div class="glass-card p-8 rounded-2xl reveal" style="transition-delay: 0.3s;">
+                    <div class="w-12 h-12 bg-brand-lime/10 rounded-full flex items-center justify-center text-brand-lime mb-6">
+                        <i class="fas fa-fingerprint text-xl"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-bold mb-3">Индивидуальный подход</h3>
+                    <p class="text-gray-400 text-sm">Никаких шаблонов. Каждый проект уникален и разрабатывается под ваши задачи.</p>
+                </div>
+
+                <div class="glass-card p-8 rounded-2xl reveal md:col-span-2 lg:col-span-2 relative overflow-hidden" style="transition-delay: 0.4s;">
+                    <div class="absolute right-0 top-0 w-32 h-32 bg-brand-lime/5 blur-3xl rounded-full"></div>
+                    <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center gap-6">
+                        <div class="w-12 h-12 bg-brand-lime/10 rounded-full flex items-center justify-center text-brand-lime flex-shrink-0">
+                            <i class="fas fa-brain text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-display text-xl font-bold mb-3">Использование нейросетей</h3>
+                            <p class="text-gray-400 text-sm">Активно внедряю AI-технологии для создания уникальных визуалов, которые невозможно повторить обычными методами. Это ускоряет работу и повышает качество.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Services -->
-    <section id="services" class="reveal" style="padding: 100px 0;">
-        <div class="container">
-            <h2 class="section-title">Услуги и Прайс</h2>
-            <div class="services-grid">
-                <!-- Cat 1 -->
-                <div class="glass-panel service-card hover-trigger">
-                    <h3>Инфографика</h3>
-                    <div class="service-item">
-                        <span>Инфографика (1-3 дня)</span>
-                        <span class="price">от 1490 ₽</span>
-                    </div>
-                    <div class="service-item">
-                        <span>Rich-контент</span>
-                        <span class="price">от 1990 ₽</span>
-                    </div>
-                    <div class="service-item">
-                        <span>Анимированная обложка</span>
-                        <span class="price">от 2990 ₽</span>
-                    </div>
+    <!-- Services & Prices -->
+    <section id="prices" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="font-display text-4xl md:text-5xl font-bold text-center mb-4 reveal">Услуги и решения</h2>
+            <p class="text-center text-gray-400 mb-16 reveal">Прозрачное ценообразование для премиального результата</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Category 1 -->
+                <div class="glass border border-white/5 rounded-2xl p-6 reveal hover:border-brand-lime/30 transition-colors">
+                    <h3 class="font-display text-xl font-bold text-white mb-6 flex items-center gap-2">
+                        <i class="fas fa-chart-pie text-brand-lime text-sm"></i> Маркетплейсы
+                    </h3>
+                    <ul class="space-y-6">
+                        <li class="group">
+                            <div class="flex justify-between items-baseline mb-1">
+                                <span class="text-gray-200 font-medium group-hover:text-brand-lime transition-colors">Инфографика</span>
+                                <span class="text-brand-lime font-bold">от 1490 ₽</span>
+                            </div>
+                            <p class="text-xs text-gray-500">Повышает продажи, делает товар понятным. 3-7 дней.</p>
+                        </li>
+                        <li class="group">
+                            <div class="flex justify-between items-baseline mb-1">
+                                <span class="text-gray-200 font-medium group-hover:text-brand-lime transition-colors">Rich-контент</span>
+                                <span class="text-brand-lime font-bold">от 1990 ₽</span>
+                            </div>
+                            <p class="text-xs text-gray-500">Повышает доверие и конверсию. 3-7 дней.</p>
+                        </li>
+                         <li class="group">
+                            <div class="flex justify-between items-baseline mb-1">
+                                <span class="text-gray-200 font-medium group-hover:text-brand-lime transition-colors">Аним. обложка</span>
+                                <span class="text-brand-lime font-bold">от 2990 ₽</span>
+                            </div>
+                            <p class="text-xs text-gray-500">Динамичные слайды, цепляют взгляд. 3-7 дней.</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Category 2 -->
+                <div class="glass border border-white/5 rounded-2xl p-6 reveal hover:border-brand-lime/30 transition-colors" style="transition-delay: 0.1s;">
+                    <h3 class="font-display text-xl font-bold text-white mb-6 flex items-center gap-2">
+                        <i class="fas fa-print text-brand-lime text-sm"></i> Полиграфия
+                    </h3>
+                    <ul class="space-y-6">
+                        <li class="group">
+                            <div class="flex justify-between items-baseline mb-1">
+                                <span class="text-gray-200 font-medium group-hover:text-brand-lime transition-colors">Визитки, буклеты</span>
+                                <span class="text-brand-lime font-bold">от 1990 ₽</span>
+                            </div>
+                            <p class="text-xs text-gray-500">Уникальный стиль бренда. 3-7 дней.</p>
+                        </li>
+                        <li class="group">
+                            <div class="flex justify-between items-baseline mb-1">
+                                <span class="text-gray-200 font-medium group-hover:text-brand-lime transition-colors">Плакаты, баннеры</span>
+                                <span class="text-brand-lime font-bold">от 3990 ₽</span>
+                            </div>
+                            <p class="text-xs text-gray-500">Оффлайн реклама на узнаваемость. 3-7 дней.</p>
+                        </li>
+                        <li class="group">
+                            <div class="flex justify-between items-baseline mb-1">
+                                <span class="text-gray-200 font-medium group-hover:text-brand-lime transition-colors">Упаковка</span>
+                                <span class="text-brand-lime font-bold">от 3990 ₽</span>
+                            </div>
+                            <p class="text-xs text-gray-500">Повышает ценность продукта. 3-7 дней.</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Category 3 -->
+                <div class="glass border border-white/5 rounded-2xl p-6 reveal hover:border-brand-lime/30 transition-colors" style="transition-delay: 0.2s;">
+                    <h3 class="font-display text-xl font-bold text-white mb-6 flex items-center gap-2">
+                        <i class="fas fa-bullhorn text-brand-lime text-sm"></i> Реклама
+                    </h3>
+                    <ul class="space-y-6">
+                        <li class="group">
+                            <div class="flex justify-between items-baseline mb-1">
+                                <span class="text-gray-200 font-medium group-hover:text-brand-lime transition-colors">Статичные баннеры</span>
+                                <span class="text-brand-lime font-bold">от 1490 ₽</span>
+                            </div>
+                            <p class="text-xs text-gray-500">Высокая кликабельность. 3-7 дней.</p>
+                        </li>
+                        <li class="group">
+                            <div class="flex justify-between items-baseline mb-1">
+                                <span class="text-gray-200 font-medium group-hover:text-brand-lime transition-colors">2D анимация</span>
+                                <span class="text-brand-lime font-bold">от 3490 ₽</span>
+                            </div>
+                            <p class="text-xs text-gray-500">Живая реклама, выделяет бренд. 3-7 дней.</p>
+                        </li>
+                    </ul>
                 </div>
                 
-                <!-- Cat 2 -->
-                <div class="glass-panel service-card hover-trigger">
-                    <h3>Полиграфия</h3>
-                    <div class="service-item">
-                        <span>Визитки, буклеты</span>
-                        <span class="price">от 1990 ₽</span>
-                    </div>
-                    <div class="service-item">
-                        <span>Плакаты, баннеры</span>
-                        <span class="price">от 3990 ₽</span>
-                    </div>
-                    <div class="service-item">
-                        <span>Упаковка, этикетки</span>
-                        <span class="price">от 3990 ₽</span>
+                 <!-- Category 4 -->
+                <div class="glass border border-white/5 rounded-2xl p-6 reveal hover:border-brand-lime/30 transition-colors">
+                    <h3 class="font-display text-xl font-bold text-white mb-6 flex items-center gap-2">
+                        <i class="fab fa-vk text-brand-lime text-sm"></i> Соцсети
+                    </h3>
+                    <ul class="space-y-6">
+                        <li class="group">
+                            <div class="flex justify-between items-baseline mb-1">
+                                <span class="text-gray-200 font-medium group-hover:text-brand-lime transition-colors">Оформление ВК</span>
+                                <span class="text-brand-lime font-bold">от 6490 ₽</span>
+                            </div>
+                            <p class="text-xs text-gray-500">Полная упаковка страницы "под ключ". 3-7 дней.</p>
+                        </li>
+                        <li class="group">
+                            <div class="flex justify-between items-baseline mb-1">
+                                <span class="text-gray-200 font-medium group-hover:text-brand-lime transition-colors">Посты</span>
+                                <span class="text-brand-lime font-bold">от 1490 ₽</span>
+                            </div>
+                            <p class="text-xs text-gray-500">Визуально цепляющий контент. 3-7 дней.</p>
+                        </li>
+                         <li class="group">
+                            <div class="flex justify-between items-baseline mb-1">
+                                <span class="text-gray-200 font-medium group-hover:text-brand-lime transition-colors">Превью YouTube</span>
+                                <span class="text-brand-lime font-bold">от 1490 ₽</span>
+                            </div>
+                            <p class="text-xs text-gray-500">Увеличивают CTR и просмотры. 3-7 дней.</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Category 5 & 6 -->
+                <div class="glass border border-white/5 rounded-2xl p-6 reveal hover:border-brand-lime/30 transition-colors md:col-span-2 lg:col-span-2">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                             <h3 class="font-display text-xl font-bold text-white mb-6 flex items-center gap-2">
+                                <i class="fas fa-globe text-brand-lime text-sm"></i> Web & Logo
+                            </h3>
+                            <ul class="space-y-6">
+                                <li class="group">
+                                    <div class="flex justify-between items-baseline mb-1">
+                                        <span class="text-gray-200 font-medium group-hover:text-brand-lime transition-colors">Создание сайтов</span>
+                                        <span class="text-brand-lime font-bold">от 15 000 ₽</span>
+                                    </div>
+                                    <p class="text-xs text-gray-500">Современные, продающие, адаптивные. от 7 дней.</p>
+                                </li>
+                                <li class="group">
+                                    <div class="flex justify-between items-baseline mb-1">
+                                        <span class="text-gray-200 font-medium group-hover:text-brand-lime transition-colors">Логотип</span>
+                                        <span class="text-brand-lime font-bold">от 4990 ₽</span>
+                                    </div>
+                                    <p class="text-xs text-gray-500">3 варианта, уникальный дизайн. 3-7 дней.</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="flex items-center justify-center relative">
+                            <!-- Visual Decoration -->
+                            <div class="absolute inset-0 bg-gradient-to-tr from-brand-lime/10 to-transparent rounded-xl"></div>
+                            <div class="relative text-center p-6">
+                                <h4 class="font-display font-bold text-2xl text-white mb-2">Нужен комплекс?</h4>
+                                <p class="text-sm text-gray-400 mb-4">Разработаем фирменный стиль и сайт под ключ со скидкой.</p>
+                                <a href="https://t.me/vladpetroov" class="inline-block px-6 py-2 bg-white text-black font-bold rounded-full hover:bg-brand-lime transition-colors text-sm">Обсудить проект</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Cat 3 -->
-                <div class="glass-panel service-card hover-trigger">
-                    <h3>Реклама</h3>
-                    <div class="service-item">
-                        <span>Статичные баннеры</span>
-                        <span class="price">от 1490 ₽</span>
-                    </div>
-                    <div class="service-item">
-                        <span>2D анимация</span>
-                        <span class="price">от 3490 ₽</span>
-                    </div>
-                </div>
-
-                <!-- Cat 4 -->
-                <div class="glass-panel service-card hover-trigger">
-                    <h3>Соцсети</h3>
-                    <div class="service-item">
-                        <span>Оформление ВК</span>
-                        <span class="price">от 6490 ₽</span>
-                    </div>
-                    <div class="service-item">
-                        <span>Посты</span>
-                        <span class="price">от 1490 ₽</span>
-                    </div>
-                    <div class="service-item">
-                        <span>Превью YouTube</span>
-                        <span class="price">от 1490 ₽</span>
-                    </div>
-                </div>
-                
-                 <!-- Cat 5 & 6 Mixed -->
-                 <div class="glass-panel service-card hover-trigger">
-                    <h3>Сайты & Лого</h3>
-                    <div class="service-item">
-                        <span>Сайт (Tilda/Code)</span>
-                        <span class="price">от 15 000 ₽</span>
-                    </div>
-                    <div class="service-item">
-                        <span>Логотип (3 варианта)</span>
-                        <span class="price">от 4990 ₽</span>
-                    </div>
-                    <div class="service-item">
-                        <span>Лого-маскот</span>
-                        <span class="price">от 7990 ₽</span>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
 
     <!-- Portfolio Section -->
-    <section id="portfolio" class="reveal" style="padding: 100px 0;">
-        <div class="container">
-            <h2 class="section-title">Портфолио</h2>
+    <section id="portfolio" class="py-24 bg-black relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="font-display text-4xl md:text-5xl font-bold mb-10 text-center reveal">Портфолио</h2>
             
-            <div class="portfolio-tabs">
-                <button class="tab-btn active hover-trigger" data-filter="infographic">Инфографика</button>
-                <button class="tab-btn hover-trigger" data-filter="rich">Rich-контент</button>
-                <button class="tab-btn hover-trigger" data-filter="business-card">Визитки</button>
-                <button class="tab-btn hover-trigger" data-filter="banners">Баннеры</button>
-                <button class="tab-btn hover-trigger" data-filter="labels">Этикетки</button>
-                <button class="tab-btn hover-trigger" data-filter="creative">Креативы</button>
-                <button class="tab-btn hover-trigger" data-filter="vk">Оформление ВК</button>
+            <!-- Filter Tabs -->
+            <div class="flex flex-wrap justify-center gap-2 md:gap-4 mb-12 reveal sticky top-24 z-30 py-4 bg-black/80 backdrop-blur-md">
+                <button class="portfolio-filter active px-4 py-2 rounded-full border border-white/10 text-sm md:text-base hover:border-brand-lime hover:text-brand-lime transition-all data-[active=true]:bg-brand-lime data-[active=true]:text-black font-medium" data-filter="infographics">Инфографика</button>
+                <button class="portfolio-filter px-4 py-2 rounded-full border border-white/10 text-sm md:text-base hover:border-brand-lime hover:text-brand-lime transition-all data-[active=true]:bg-brand-lime data-[active=true]:text-black font-medium" data-filter="rich">Rich-контент</button>
+                <button class="portfolio-filter px-4 py-2 rounded-full border border-white/10 text-sm md:text-base hover:border-brand-lime hover:text-brand-lime transition-all data-[active=true]:bg-brand-lime data-[active=true]:text-black font-medium" data-filter="cards">Визитки</button>
+                <button class="portfolio-filter px-4 py-2 rounded-full border border-white/10 text-sm md:text-base hover:border-brand-lime hover:text-brand-lime transition-all data-[active=true]:bg-brand-lime data-[active=true]:text-black font-medium" data-filter="banners">Баннеры</button>
+                <button class="portfolio-filter px-4 py-2 rounded-full border border-white/10 text-sm md:text-base hover:border-brand-lime hover:text-brand-lime transition-all data-[active=true]:bg-brand-lime data-[active=true]:text-black font-medium" data-filter="labels">Этикетки</button>
+                <button class="portfolio-filter px-4 py-2 rounded-full border border-white/10 text-sm md:text-base hover:border-brand-lime hover:text-brand-lime transition-all data-[active=true]:bg-brand-lime data-[active=true]:text-black font-medium" data-filter="ads">Реклама</button>
+                <button class="portfolio-filter px-4 py-2 rounded-full border border-white/10 text-sm md:text-base hover:border-brand-lime hover:text-brand-lime transition-all data-[active=true]:bg-brand-lime data-[active=true]:text-black font-medium" data-filter="vk">Оформление ВК</button>
             </div>
 
-            <div class="gallery-grid">
-                <!-- Infographics -->
-                <div class="gallery-item hover-trigger" data-category="infographic"><img src="https://i.ibb.co/FLsCKXYD/579-20251105185725.jpg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item hover-trigger" data-category="infographic"><img src="https://i.ibb.co/wFh0gByn/IMG-8041.jpg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item hover-trigger" data-category="infographic"><img src="https://i.ibb.co/k6wSmDBj/IMG-7170.jpg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item hover-trigger" data-category="infographic"><img src="https://i.ibb.co/JwML7f4g/373-20250817165435.jpg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item hover-trigger" data-category="infographic"><img src="https://i.ibb.co/p6C8zZLn/969-20251230133150.jpg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item hover-trigger" data-category="infographic"><img src="https://i.ibb.co/Z6RPgtBs/394-20250921005440.jpg" alt="Work" loading="lazy"></div>
-
-                <!-- Rich Content -->
-                <div class="gallery-item hover-trigger" data-category="rich"><img src="https://i.ibb.co/8HHXJ0B/IMG-9007.jpg" alt="Rich" loading="lazy"></div>
-                <div class="gallery-item hover-trigger" data-category="rich"><img src="https://i.ibb.co/jZbFs3Ky/IMG-9008.jpg" alt="Rich" loading="lazy"></div>
-                
-                <!-- Business Cards -->
-                <div class="gallery-item hover-trigger" data-category="business-card"><img src="https://i.ibb.co/7twpLLn7/IMG-9022.jpg" alt="Card" loading="lazy"></div>
-                <div class="gallery-item hover-trigger" data-category="business-card"><img src="https://i.ibb.co/TMqPnWFt/IMG-9023.jpg" alt="Card" loading="lazy"></div>
-
-                <!-- Banners -->
-                <div class="gallery-item hover-trigger" data-category="banners"><img src="https://i.ibb.co/HLDvBpNQ/IMG-9027.jpg" alt="Banner" loading="lazy"></div>
-                <div class="gallery-item hover-trigger" data-category="banners"><img src="https://i.ibb.co/4rWPbYG/IMG-9028.jpg" alt="Banner" loading="lazy"></div>
-
-                <!-- Labels -->
-                <div class="gallery-item hover-trigger" data-category="labels"><img src="https://i.ibb.co/k28j2D1X/IMG-9035.jpg" alt="Label" loading="lazy"></div>
-                <div class="gallery-item hover-trigger" data-category="labels"><img src="https://i.ibb.co/DH6c5vR6/IMG-9036.jpg" alt="Label" loading="lazy"></div>
-
-                <!-- Creatives -->
-                <div class="gallery-item hover-trigger" data-category="creative"><img src="https://i.ibb.co/mCwt9S7m/IMG-9038.jpg" alt="Creative" loading="lazy"></div>
-                <div class="gallery-item hover-trigger" data-category="creative"><img src="https://i.ibb.co/kgdk8WHP/IMG-9039.jpg" alt="Creative" loading="lazy"></div>
-
-                 <!-- VK -->
-                <div class="gallery-item hover-trigger" data-category="vk"><img src="https://i.ibb.co/HTMwMzwK/IMG-9042.jpg" alt="VK" loading="lazy"></div>
-                <div class="gallery-item hover-trigger" data-category="vk"><img src="https://i.ibb.co/gMgcyT0q/IMG-9043.jpg" alt="VK" loading="lazy"></div>
-            </div>
-            
-            <div style="text-align:center; margin-top: 3rem;">
-                <p style="color: var(--text-muted); font-size: 0.9rem;">И еще более 500+ работ в архиве</p>
+            <!-- Gallery Container -->
+            <div class="grid-masonry reveal" id="portfolio-grid">
+                <!-- Images injected via JS -->
             </div>
         </div>
     </section>
 
     <!-- Process -->
-    <section id="process" class="reveal" style="padding: 100px 0;">
-        <div class="container">
-            <h2 class="section-title">Процесс работы</h2>
-            <div class="process-container">
-                <div class="process-step">
-                    <div class="step-number">1</div>
-                    <h4>Заявка</h4>
-                    <p style="font-size: 0.9rem; color: #aaa;">Обсуждение задачи в Telegram</p>
-                </div>
-                <div class="process-step">
-                    <div class="step-number">2</div>
-                    <h4>Анализ</h4>
-                    <p style="font-size: 0.9rem; color: #aaa;">Изучение ниши и конкурентов</p>
-                </div>
-                <div class="process-step">
-                    <div class="step-number">3</div>
-                    <h4>Дизайн</h4>
-                    <p style="font-size: 0.9rem; color: #aaa;">Создание продающего визуала</p>
-                </div>
-                <div class="process-step">
-                    <div class="step-number">4</div>
-                    <h4>Правки</h4>
-                    <p style="font-size: 0.9rem; color: #aaa;">Доводим до идеала</p>
-                </div>
-                <div class="process-step">
-                    <div class="step-number">5</div>
-                    <h4>Финал</h4>
-                    <p style="font-size: 0.9rem; color: #aaa;">Передача готовых материалов</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Offer Block -->
-    <section class="reveal" style="padding: 50px 0;">
-        <div class="container">
-            <div class="glass-panel promo-block hover-trigger">
-                <h3 style="font-size: 2rem; margin-bottom: 1rem;">Скидка для новых клиентов</h3>
-                <p style="max-width: 600px; margin: 0 auto 2rem; color: #ddd;">
-                    Получите специальное предложение при первом заказе. <strong>Скидка до 20%</strong> на первый проект или бесплатный бонусный слайд.
-                </p>
-                <a href="https://t.me/vladpetroov" class="btn-primary">Получить предложение</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Training -->
-    <section id="training" class="reveal" style="padding: 100px 0;">
-        <div class="container">
-            <h2 class="section-title">Обучение дизайну</h2>
-            <p style="text-align:center; margin-bottom: 3rem; color: #aaa;">Научись создавать дорогой дизайн и зарабатывать на этом</p>
+    <section class="py-24 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="font-display text-4xl font-bold mb-16 text-center reveal">Процесс работы</h2>
             
-            <div class="training-grid">
+            <div class="relative">
+                <!-- Line Desktop -->
+                <div class="absolute top-1/2 left-0 w-full h-0.5 bg-gray-800 -translate-y-1/2 hidden md:block z-0"></div>
+                <!-- Line Mobile -->
+                <div class="absolute top-0 bottom-0 left-8 w-0.5 bg-gray-800 md:hidden z-0"></div>
+
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-10">
+                    <!-- Step 1 -->
+                    <div class="relative z-10 pl-20 md:pl-0 md:text-center group reveal">
+                        <div class="absolute left-0 top-0 md:static md:mx-auto w-16 h-16 bg-black border border-brand-lime rounded-full flex items-center justify-center text-2xl font-bold font-display text-brand-lime mb-4 group-hover:bg-brand-lime group-hover:text-black transition-all shadow-[0_0_20px_rgba(212,242,56,0.2)]">1</div>
+                        <h3 class="font-bold text-lg mb-2 text-white">Заявка</h3>
+                        <p class="text-sm text-gray-400">Обсуждаем задачи, формат, сроки и цели проекта в Telegram.</p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="relative z-10 pl-20 md:pl-0 md:text-center group reveal" style="transition-delay: 0.1s;">
+                        <div class="absolute left-0 top-0 md:static md:mx-auto w-16 h-16 bg-black border border-gray-700 group-hover:border-brand-lime rounded-full flex items-center justify-center text-2xl font-bold font-display text-gray-500 group-hover:text-brand-lime mb-4 transition-all">2</div>
+                        <h3 class="font-bold text-lg mb-2 text-white">Анализ</h3>
+                        <p class="text-sm text-gray-400">Изучаю товар, нишу и конкурентов для максимальных продаж.</p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="relative z-10 pl-20 md:pl-0 md:text-center group reveal" style="transition-delay: 0.2s;">
+                        <div class="absolute left-0 top-0 md:static md:mx-auto w-16 h-16 bg-black border border-gray-700 group-hover:border-brand-lime rounded-full flex items-center justify-center text-2xl font-bold font-display text-gray-500 group-hover:text-brand-lime mb-4 transition-all">3</div>
+                        <h3 class="font-bold text-lg mb-2 text-white">Дизайн</h3>
+                        <p class="text-sm text-gray-400">Создаю продающую концепцию и дизайн с учётом трендов.</p>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="relative z-10 pl-20 md:pl-0 md:text-center group reveal" style="transition-delay: 0.3s;">
+                        <div class="absolute left-0 top-0 md:static md:mx-auto w-16 h-16 bg-black border border-gray-700 group-hover:border-brand-lime rounded-full flex items-center justify-center text-2xl font-bold font-display text-gray-500 group-hover:text-brand-lime mb-4 transition-all">4</div>
+                        <h3 class="font-bold text-lg mb-2 text-white">Правки</h3>
+                        <p class="text-sm text-gray-400">Доводим работу до идеала, который полностью вас устроит.</p>
+                    </div>
+
+                    <!-- Step 5 -->
+                    <div class="relative z-10 pl-20 md:pl-0 md:text-center group reveal" style="transition-delay: 0.4s;">
+                        <div class="absolute left-0 top-0 md:static md:mx-auto w-16 h-16 bg-black border border-gray-700 group-hover:border-brand-lime rounded-full flex items-center justify-center text-2xl font-bold font-display text-gray-500 group-hover:text-brand-lime mb-4 transition-all">5</div>
+                        <h3 class="font-bold text-lg mb-2 text-white">Готово</h3>
+                        <p class="text-sm text-gray-400">Получаете материалы, готовые к публикации и рекламе.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Promo Banner -->
+    <section class="py-12 px-6">
+        <div class="max-w-5xl mx-auto glass-card rounded-3xl p-8 md:p-12 relative overflow-hidden reveal text-center border-brand-lime/20">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-brand-lime/10 blur-[80px] rounded-full"></div>
+            
+            <h2 class="font-display text-3xl md:text-5xl font-bold mb-4 relative z-10">Скидка для новых клиентов</h2>
+            <p class="text-lg text-gray-300 mb-2 relative z-10">Получите специальное предложение при первом заказе.</p>
+            <p class="text-brand-lime font-bold text-xl mb-8 relative z-10">Скидка до 20% или бонусный слайд!</p>
+            
+            <a href="https://t.me/vladpetroov" class="inline-block px-10 py-4 bg-brand-lime text-black font-bold rounded-full hover:bg-white transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(212,242,56,0.4)] relative z-10">
+                Получить предложение
+            </a>
+        </div>
+    </section>
+
+    <!-- Education & Results -->
+    <section id="education" class="py-24 bg-brand-dark/30">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-4xl md:text-5xl font-bold mb-4 reveal">Обучение</h2>
+                <p class="text-gray-400 reveal">Научу зарабатывать на дизайне удаленно</p>
+            </div>
+
+            <!-- Courses Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
+                
                 <!-- Course 1 -->
-                <div class="glass-panel course-card hover-trigger">
-                    <h3>Инфографика: Старт</h3>
-                    <p style="margin: 1rem 0; color: #ccc; flex-grow: 1;">
-                        Для новичков. Освой создание инфографики с нуля.<br><br>
-                        • Основы продаж через визуал<br>
-                        • Работа со слайдами<br>
-                        • Первые работы в портфолио
-                    </p>
-                    <h4 style="margin: 1rem 0; color: var(--accent-primary);">19 990 ₽</h4>
-                    <a href="https://t.me/vladpetroov" class="btn-primary" style="width:100%">Записаться</a>
+                <div class="glass p-8 rounded-2xl flex flex-col reveal hover:border-brand-lime/30 transition-all group">
+                    <h3 class="font-display text-2xl font-bold mb-2">Инфографика: Старт</h3>
+                    <p class="text-gray-400 text-sm mb-6 flex-grow">Для новичков. Основы, структура карточки, первые заказы.</p>
+                    <div class="text-2xl font-bold text-white mb-6">19 990 ₽</div>
+                    <a href="https://t.me/vladpetroov" class="w-full py-3 rounded-lg border border-white/20 text-center hover:bg-white hover:text-black transition-colors">Записаться</a>
                 </div>
 
-                <!-- Course 2 (TOP) -->
-                <div class="glass-panel course-card highlight hover-trigger">
-                    <div class="card-badge">ХИТ</div>
-                    <h3 class="gradient-text">Инфографика: TOP</h3>
-                    <p style="margin: 1rem 0; color: #ccc; flex-grow: 1;">
-                        Личный формат. Работаем до результата.<br><br>
-                        • Всё из тарифов PRO<br>
-                        • Личные разборы и созвоны<br>
-                        • Стратегия выхода на 100к+<br>
-                        • Помощь с первыми заказами
-                    </p>
-                    <h4 style="margin: 1rem 0; color: var(--accent-secondary); font-size: 1.5rem;">59 990 ₽</h4>
-                    <a href="https://t.me/vladpetroov" class="btn-primary" style="width:100%; border-color: var(--accent-secondary);">Хочу на наставничество</a>
+                <!-- Course 2 -->
+                <div class="glass p-8 rounded-2xl flex flex-col reveal hover:border-brand-lime/30 transition-all group" style="transition-delay: 0.1s;">
+                    <h3 class="font-display text-2xl font-bold mb-2">Инфографика <span class="text-brand-lime">PRO</span></h3>
+                    <p class="text-gray-400 text-sm mb-6 flex-grow">Для опытных. Сильные концепции, работа с брендами, повышение чека.</p>
+                    <div class="text-2xl font-bold text-white mb-6">29 990 ₽</div>
+                    <a href="https://t.me/vladpetroov" class="w-full py-3 rounded-lg border border-white/20 text-center hover:bg-white hover:text-black transition-colors">Записаться</a>
                 </div>
 
-                <!-- Course 3 -->
-                <div class="glass-panel course-card hover-trigger">
-                    <h3>Инфографика: PRO</h3>
-                    <p style="margin: 1rem 0; color: #ccc; flex-grow: 1;">
-                        Для тех, кто хочет масштаба.<br><br>
-                        • Сильные концепции<br>
-                        • Работа с брендами<br>
-                        • Как повысить чек
-                    </p>
-                    <h4 style="margin: 1rem 0; color: var(--accent-primary);">29 990 ₽</h4>
-                    <a href="https://t.me/vladpetroov" class="btn-primary" style="width:100%">Записаться</a>
+                <!-- Course 3 (Featured) -->
+                <div class="glass p-8 rounded-2xl flex flex-col relative border-brand-lime/40 shadow-[0_0_30px_rgba(212,242,56,0.1)] transform md:-translate-y-4 reveal" style="transition-delay: 0.2s;">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-lime text-black text-xs font-bold px-3 py-1 rounded-full uppercase">Хит продаж</div>
+                    <h3 class="font-display text-2xl font-bold mb-2">Личное наставничество</h3>
+                    <p class="text-gray-400 text-sm mb-6 flex-grow">Премиальный формат. Разбор работ, портфолио, стратегия выхода на высокий доход.</p>
+                    <div class="text-3xl font-bold text-brand-lime mb-6">59 990 ₽</div>
+                    <a href="https://t.me/vladpetroov" class="w-full py-3 rounded-lg bg-brand-lime text-black font-bold text-center hover:bg-white transition-colors shadow-lg">Записаться лично</a>
+                </div>
+            </div>
+
+            <!-- Student Results -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 reveal">
+                <div class="glass p-6 rounded-xl border-l-2 border-brand-lime">
+                    <div class="text-brand-lime font-bold text-lg mb-2">Первые заказы</div>
+                    <p class="text-sm text-gray-400">Ученики начинают зарабатывать еще во время обучения.</p>
+                </div>
+                <div class="glass p-6 rounded-xl border-l-2 border-brand-lime">
+                    <div class="text-brand-lime font-bold text-lg mb-2">50-100 тыс. ₽</div>
+                    <p class="text-sm text-gray-400">Средний доход на дизайне после прохождения курса.</p>
+                </div>
+                <div class="glass p-6 rounded-xl border-l-2 border-brand-lime">
+                    <div class="text-brand-lime font-bold text-lg mb-2">Портфолио</div>
+                    <p class="text-sm text-gray-400">Готовые кейсы, которые не стыдно показать крупным брендам.</p>
+                </div>
+                <div class="glass p-6 rounded-xl border-l-2 border-brand-lime">
+                    <div class="text-brand-lime font-bold text-lg mb-2">Удаленная работа</div>
+                    <p class="text-sm text-gray-400">Навык, позволяющий работать из любой точки мира.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Results -->
-    <section class="reveal" style="padding: 50px 0; background: rgba(255,255,255,0.02);">
-        <div class="container">
-            <div class="results-flex">
-                <div class="result-box hover-trigger">
-                    <div class="big-num">100к+</div>
-                    <p>Доход учеников в месяц</p>
-                </div>
-                <div class="result-box hover-trigger">
-                    <div class="big-num">7 дней</div>
-                    <p>До первых заказов</p>
-                </div>
-                <div class="result-box hover-trigger">
-                    <div class="big-num">Portfolio</div>
-                    <p>Готовые кейсы после курса</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Reviews Marquee -->
+    <section class="py-24 overflow-hidden">
+        <h2 class="font-display text-4xl font-bold text-center mb-16 reveal">Отзывы клиентов</h2>
+        
+        <div class="relative w-full">
+            <div class="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-brand-black to-transparent z-10"></div>
+            <div class="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-brand-black to-transparent z-10"></div>
+            
+            <div class="flex animate-marquee space-x-6 w-max hover:[animation-play-state:paused]">
+                <!-- Review Cards (Doubled for loop) -->
+                <script>
+                    const reviews = [
+                        {name: "Алексей", city: "Москва", text: "Карточка стала выглядеть дороже, продажи выросли в первую неделю."},
+                        {name: "Марина", city: "Краснодар", text: "Сделал дизайн лучше, чем мы ожидали. Работаем постоянно."},
+                        {name: "Игорь", city: "СПб", text: "Слайды как у крупных брендов. Конверсия выросла."},
+                        {name: "Ольга", city: "Ростов", text: "Стильно и современно. Клиенты начали чаще писать."},
+                        {name: "Дмитрий", city: "Казань", text: "Чёткая работа, сроки соблюдены. Понимает продажи."},
+                        {name: "Анна", city: "Екб", text: "Конкуренты рядом просто теряются. Премиально."},
+                        {name: "Кирилл", city: "Ученик", text: "До курса не умел делать инфографику. Сейчас уже беру заказы."}
+                    ];
+                    
+                    const renderReview = (r) => `
+                        <div class="w-80 glass p-6 rounded-xl flex-shrink-0 border border-white/5">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center text-xs font-bold text-white">${r.name[0]}</div>
+                                <div>
+                                    <div class="font-bold text-white text-sm">${r.name}</div>
+                                    <div class="text-xs text-gray-500">${r.city}</div>
+                                </div>
+                                <div class="ml-auto flex text-brand-lime text-xs">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-300 italic">"${r.text}"</p>
+                        </div>
+                    `;
 
-    <!-- Reviews -->
-    <section class="reveal" style="padding: 100px 0;">
-        <div class="container">
-            <h2 class="section-title">Отзывы</h2>
-            <div class="reviews-slider">
-                <!-- Review 1 -->
-                <div class="review-card hover-trigger">
-                    <div class="review-header">
-                        <div class="avatar"></div>
-                        <div>
-                            <h4>Алексей</h4>
-                            <span style="font-size: 0.8rem; color: #aaa;">Москва, Seller WB</span>
-                        </div>
-                    </div>
-                    <div class="stars">★★★★★</div>
-                    <p style="margin-top: 10px; font-size: 0.9rem;">Карточка стала выглядеть в разы дороже, продажи выросли уже в первую неделю. Уровень агентства.</p>
-                </div>
-                <!-- Review 2 -->
-                <div class="review-card hover-trigger">
-                    <div class="review-header">
-                        <div class="avatar"></div>
-                        <div>
-                            <h4>Марина</h4>
-                            <span style="font-size: 0.8rem; color: #aaa;">Краснодар</span>
-                        </div>
-                    </div>
-                    <div class="stars">★★★★★</div>
-                    <p style="margin-top: 10px; font-size: 0.9rem;">Очень быстро понял задачу и сделал дизайн лучше, чем мы ожидали. Работаем постоянно.</p>
-                </div>
-                <!-- Review 3 -->
-                <div class="review-card hover-trigger">
-                    <div class="review-header">
-                        <div class="avatar"></div>
-                        <div>
-                            <h4>Кирилл</h4>
-                            <span style="font-size: 0.8rem; color: #aaa;">Ученик курса</span>
-                        </div>
-                    </div>
-                    <div class="stars">★★★★★</div>
-                    <p style="margin-top: 10px; font-size: 0.9rem;">До курса вообще не понимал, как делать инфографику. Сейчас уже беру первые заказы.</p>
-                </div>
-                <!-- Review 4 -->
-                <div class="review-card hover-trigger">
-                    <div class="review-header">
-                        <div class="avatar"></div>
-                        <div>
-                            <h4>Игорь</h4>
-                            <span style="font-size: 0.8rem; color: #aaa;">СПб</span>
-                        </div>
-                    </div>
-                    <div class="stars">★★★★★</div>
-                    <p style="margin-top: 10px; font-size: 0.9rem;">Слайды выглядят как у крупных брендов. Конверсия реально выросла.</p>
-                </div>
+                    // Output twice for marquee
+                    document.write(reviews.map(renderReview).join(''));
+                    document.write(reviews.map(renderReview).join(''));
+                </script>
             </div>
         </div>
     </section>
 
     <!-- FAQ -->
-    <section class="reveal" style="padding: 50px 0;">
-        <div class="container" style="max-width: 800px;">
-            <h2 class="section-title">Частые вопросы</h2>
-            
-            <div class="faq-item">
-                <div class="faq-question">Сколько времени занимает выполнение заказа? <span style="font-size: 1.5rem;">+</span></div>
-                <div class="faq-answer">
-                    В среднем от 3 до 7 дней в зависимости от сложности задачи и количества слайдов или материалов.
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question">Сколько правок можно внести? <span style="font-size: 1.5rem;">+</span></div>
-                <div class="faq-answer">
-                    В процессе работы вносятся разумные правки, чтобы довести дизайн до идеального результата без лишних ограничений.
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">Что нужно для начала работы? <span style="font-size: 1.5rem;">+</span></div>
-                <div class="faq-answer">
-                    Фото товара или материалы, текст, пожелания по стилю и примеры (референсы), если они есть.
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">Как происходит оплата? <span style="font-size: 1.5rem;">+</span></div>
-                <div class="faq-answer">
-                    Обычно работа начинается после предоплаты (50%), остальная часть оплачивается после согласования готового результата.
-                </div>
-            </div>
+    <section class="py-24 max-w-3xl mx-auto px-6">
+        <h2 class="font-display text-4xl font-bold text-center mb-12 reveal">Частые вопросы</h2>
+        
+        <div class="space-y-4" id="faq-container">
+            <!-- FAQ Items injected via JS -->
         </div>
     </section>
 
     <!-- Contacts -->
-    <section id="contacts" class="reveal" style="padding: 100px 0; text-align: center;">
-        <div class="container">
-            <h2 class="section-title">Связаться со мной</h2>
-            <p style="margin-bottom: 3rem; color: #aaa;">Обсудим ваш проект или обучение прямо сейчас</p>
+    <section id="contacts" class="py-32 relative">
+        <div class="absolute inset-0 bg-gradient-to-t from-brand-lime/5 to-transparent pointer-events-none"></div>
+        <div class="max-w-4xl mx-auto px-6 text-center reveal">
+            <h2 class="font-display text-5xl md:text-6xl font-bold mb-6">Готовы к <span class="text-brand-lime">Wow-эффекту?</span></h2>
+            <p class="text-xl text-gray-400 mb-12">Обсудим ваш проект и сделаем дизайн, который принесет деньги.</p>
             
-            <div style="display: flex; justify-content: center; margin-bottom: 2rem;">
-                <a href="https://t.me/vladpetroov" class="btn-primary tg-btn hover-trigger">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.93 1.23-5.46 3.62-.51.35-.98.52-1.4.51-.46-.01-1.35-.26-2.01-.48-.81-.27-1.46-.42-1.4-.88.03-.24.38-.49 1.03-.75 4.06-1.77 6.77-2.94 8.13-3.51 3.87-1.6 4.67-1.88 5.2-1.88.11 0 .37.03.54.17.14.12.18.28.2.45-.02.07-.02.13-.03.2z"/></svg>
-                    Написать в Telegram
+            <a href="https://t.me/vladpetroov" target="_blank" class="inline-flex items-center gap-3 px-10 py-5 bg-[#229ED9] hover:bg-[#1e8dbf] text-white text-xl font-bold rounded-full transition-all transform hover:scale-105 shadow-lg shadow-blue-500/30 mb-12 group">
+                <i class="fab fa-telegram-plane text-2xl group-hover:rotate-12 transition-transform"></i>
+                Написать в Telegram
+            </a>
+            
+            <div class="flex justify-center gap-6">
+                <a href="https://vk.com/vladpetrovagency" target="_blank" class="w-14 h-14 glass rounded-full flex items-center justify-center hover:bg-white hover:text-black transition-all hover:-translate-y-2">
+                    <i class="fab fa-vk text-2xl"></i>
                 </a>
-            </div>
-
-            <div class="social-links">
-                <a href="https://vk.com/vladpetrovagency" class="social-btn vk-btn hover-trigger">VKontakte</a>
-                <a href="https://ru.pinterest.com/vladpetroov" class="social-btn pin-btn hover-trigger">Pinterest</a>
+                <a href="https://ru.pinterest.com/vladpetroov" target="_blank" class="w-14 h-14 glass rounded-full flex items-center justify-center hover:bg-[#E60023] hover:text-white transition-all hover:-translate-y-2">
+                    <i class="fab fa-pinterest text-2xl"></i>
+                </a>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 VP-DESIGN. Все права защищены.</p>
-            <p style="margin-top: 10px; font-size: 0.8rem; color: #555;">Design by VP-DESIGN</p>
+    <footer class="py-10 border-t border-white/5 text-center text-sm text-gray-600">
+        <div class="flex flex-col md:flex-row justify-center items-center gap-4 mb-4">
+            <span class="font-display font-bold text-gray-400">VP-DESIGN</span>
+            <span class="hidden md:inline">•</span>
+            <span>Since 2020</span>
         </div>
+        <p>&copy; 2025 Vlad Petrov. All rights reserved.</p>
     </footer>
 
+    <!-- JavaScript Logic -->
     <script>
-        // --- CURSOR LOGIC ---
-        const cursor = document.querySelector('.cursor');
-        
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
+        // --- Portfolio Data & Logic ---
+        const portfolioData = {
+            infographics: [
+                "https://i.ibb.co/FLsCKXYD/579-20251105185725.jpg", "https://i.ibb.co/wFh0gByn/IMG-8041.jpg", 
+                "https://i.ibb.co/k6wSmDBj/IMG-7170.jpg", "https://i.ibb.co/JwML7f4g/373-20250817165435.jpg",
+                "https://i.ibb.co/p6C8zZLn/969-20251230133150.jpg", "https://i.ibb.co/Z6RPgtBs/394-20250921005440.jpg",
+                "https://i.ibb.co/ZRTgFQ8r/IMG-7801.jpg", "https://i.ibb.co/hR04gy83/1115-20260201215842.png",
+                "https://i.ibb.co/6RkgYh1G/IMG-7410.jpg", "https://i.ibb.co/6cjb5PS9/601-20251110164430.jpg",
+                "https://i.ibb.co/8LX6HLHN/IMG-3641.jpg", "https://i.ibb.co/W4FM2HxQ/436-20250929191023.jpg"
+            ],
+            rich: [
+                "https://i.ibb.co/8HHXJ0B/IMG-9007.jpg", "https://i.ibb.co/jZbFs3Ky/IMG-9008.jpg",
+                "https://i.ibb.co/GvbQSwMt/IMG-9009.jpg", "https://i.ibb.co/vvkNDFwf/IMG-9011.jpg",
+                "https://i.ibb.co/dxSk7NQ/IMG-9013.jpg", "https://i.ibb.co/PGs0D1Dq/IMG-9014.jpg"
+            ],
+            cards: [
+                "https://i.ibb.co/7twpLLn7/IMG-9022.jpg", "https://i.ibb.co/TMqPnWFt/IMG-9023.jpg",
+                "https://i.ibb.co/PZryDz99/IMG-9024.jpg", "https://i.ibb.co/gbSkNFQn/IMG-9025.jpg",
+                "https://i.ibb.co/ym8tJdgK/IMG-9026.jpg"
+            ],
+            banners: [
+                "https://i.ibb.co/HLDvBpNQ/IMG-9027.jpg", "https://i.ibb.co/4rWPbYG/IMG-9028.jpg",
+                "https://i.ibb.co/Ymm37V6/IMG-9029.jpg", "https://i.ibb.co/c43J6RK/IMG-9030.jpg",
+                "https://i.ibb.co/PvmGbwP6/IMG-9031.jpg"
+            ],
+            labels: [
+                "https://i.ibb.co/k28j2D1X/IMG-9035.jpg", "https://i.ibb.co/DH6c5vR6/IMG-9036.jpg",
+                "https://i.ibb.co/0y6TQQd4/IMG-9037.jpg", "https://i.ibb.co/YB7qgGTH/IMG-9034.jpg",
+                "https://i.ibb.co/nM3c5yz8/IMG-9033.jpg"
+            ],
+            ads: [
+                "https://i.ibb.co/mCwt9S7m/IMG-9038.jpg", "https://i.ibb.co/kgdk8WHP/IMG-9039.jpg",
+                "https://i.ibb.co/QvPPwftV/IMG-9040.jpg", "https://i.ibb.co/YTyT1Yhx/IMG-9041.jpg",
+                "https://i.ibb.co/7JpF89m7/IMG-2595.jpg"
+            ],
+            vk: [
+                "https://i.ibb.co/HTMwMzwK/IMG-9042.jpg", "https://i.ibb.co/gMgcyT0q/IMG-9043.jpg",
+                "https://i.ibb.co/673Nd5yp/IMG-9044.jpg", "https://i.ibb.co/HTDbFGHF/IMG-9045.jpg",
+                "https://i.ibb.co/wFLTkBSf/IMG-9046.jpg"
+            ]
+        };
 
-        const hoverTriggers = document.querySelectorAll('.hover-trigger, a, button');
-        hoverTriggers.forEach(trigger => {
-            trigger.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
-            trigger.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
-        });
+        const portfolioGrid = document.getElementById('portfolio-grid');
+        const filterBtns = document.querySelectorAll('.portfolio-filter');
 
-        // --- BACKGROUND CANVAS (Cosmic/Tech Mesh) ---
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
-        
-        let width, height;
-        let particles = [];
-        
-        function resize() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        }
-        
-        class Particle {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = (Math.random() - 0.5) * 0.5;
-                this.size = Math.random() * 2;
-            }
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                if (this.x < 0 || this.x > width) this.vx *= -1;
-                if (this.y < 0 || this.y > height) this.vy *= -1;
-            }
-            draw() {
-                ctx.fillStyle = 'rgba(176, 38, 255, 0.3)'; // Purple particles
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-        
-        function initParticles() {
-            particles = [];
-            const count = window.innerWidth < 768 ? 40 : 80;
-            for (let i = 0; i < count; i++) particles.push(new Particle());
-        }
-        
-        function animate() {
-            ctx.clearRect(0, 0, width, height);
+        function renderPortfolio(category) {
+            // Fade out
+            portfolioGrid.style.opacity = '0';
             
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
+            setTimeout(() => {
+                portfolioGrid.innerHTML = '';
+                const images = portfolioData[category];
                 
-                // Draw connections
-                for (let j = i; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    
-                    if (dist < 150) {
-                        ctx.strokeStyle = `rgba(176, 38, 255, ${0.1 - dist/1500})`;
-                        ctx.lineWidth = 1;
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-            requestAnimationFrame(animate);
+                images.forEach((src, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'masonry-item relative group overflow-hidden rounded-xl';
+                    div.innerHTML = `
+                        <img src="${src}" alt="Portfolio Work" class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <div class="px-4 py-2 bg-brand-lime text-black font-bold text-sm rounded-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                                Смотреть
+                            </div>
+                        </div>
+                    `;
+                    portfolioGrid.appendChild(div);
+                });
+                
+                // Fade in
+                portfolioGrid.style.opacity = '1';
+            }, 300);
         }
-        
-        window.addEventListener('resize', () => { resize(); initParticles(); });
-        resize();
-        initParticles();
-        animate();
 
-        // --- SCROLL REVEAL ANIMATION ---
-        const observerOptions = { threshold: 0.1 };
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update buttons
+                filterBtns.forEach(b => b.removeAttribute('data-active'));
+                btn.setAttribute('data-active', 'true');
+                // Update grid
+                renderPortfolio(btn.getAttribute('data-filter'));
+            });
+        });
+
+        // Initial Load
+        renderPortfolio('infographics');
+        document.querySelector('[data-filter="infographics"]').setAttribute('data-active', 'true');
+
+
+        // --- FAQ Logic ---
+        const faqData = [
+            {q: "Сколько времени занимает выполнение заказа?", a: "В среднем от 3 до 7 дней в зависимости от сложности задачи и количества слайдов."},
+            {q: "Сколько правок можно внести?", a: "Вносим разумные правки до полного утверждения. Мы работаем на результат."},
+            {q: "Что нужно для начала работы?", a: "Фото товара/материалы, текст, ваши пожелания по стилю или примеры (референсы)."},
+            {q: "Работаете ли с постоянными клиентами?", a: "Да, для постоянных клиентов у нас приоритетные сроки и специальные условия."},
+            {q: "Как происходит оплата?", a: "Работа начинается после предоплаты (обычно 50%), остаток после утверждения макетов."}
+        ];
+
+        const faqContainer = document.getElementById('faq-container');
+        faqData.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'glass rounded-xl overflow-hidden';
+            div.innerHTML = `
+                <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none">
+                    <span class="font-bold text-lg">${item.q}</span>
+                    <i class="fas fa-chevron-down text-brand-lime transition-transform duration-300"></i>
+                </button>
+                <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out px-6">
+                    <p class="pb-6 text-gray-400 text-sm">${item.a}</p>
+                </div>
+            `;
+            
+            const btn = div.querySelector('button');
+            const content = div.querySelector('div');
+            const icon = div.querySelector('i');
+
+            btn.addEventListener('click', () => {
+                const isOpen = content.style.maxHeight;
+                // Close all others (optional - exclusive accordion)
+                document.querySelectorAll('#faq-container .max-h-0').forEach(el => {
+                     if(el !== content) el.style.maxHeight = null;
+                });
+                document.querySelectorAll('#faq-container i').forEach(el => {
+                    if(el !== icon) el.style.transform = 'rotate(0deg)';
+                });
+
+                if (isOpen) {
+                    content.style.maxHeight = null;
+                    icon.style.transform = 'rotate(0deg)';
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    icon.style.transform = 'rotate(180deg)';
+                }
+            });
+            
+            faqContainer.appendChild(div);
+        });
+
+        // --- Intersection Observer for Scroll Animations ---
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // --- PORTFOLIO FILTER ---
-        const tabBtns = document.querySelectorAll('.tab-btn');
-        const galleryItems = document.querySelectorAll('.gallery-item');
+        // --- Mobile Menu ---
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const closeBtn = document.getElementById('close-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
 
-        // Show Infographic by default
-        filterGallery('infographic');
-
-        tabBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                tabBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                filterGallery(btn.dataset.filter);
-            });
-        });
-
-        function filterGallery(category) {
-            galleryItems.forEach(item => {
-                item.classList.remove('visible');
-                setTimeout(() => {
-                    if (item.dataset.category === category || category === 'all') {
-                        item.style.display = 'block';
-                        setTimeout(() => item.classList.add('visible'), 50);
-                    } else {
-                        item.style.display = 'none';
-                    }
-                }, 100); // Small delay for exit animation if we added one
-            });
+        function toggleMenu() {
+            menu.classList.toggle('translate-x-full');
+            document.body.classList.toggle('overflow-hidden');
         }
 
-        // --- FAQ ACCORDION ---
-        document.querySelectorAll('.faq-question').forEach(item => {
-            item.addEventListener('click', () => {
-                const parent = item.parentElement;
-                parent.classList.toggle('active');
+        menuBtn.addEventListener('click', toggleMenu);
+        closeBtn.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+        // --- Cosmic Dust Canvas Background ---
+        const canvas = document.getElementById('canvas-bg');
+        const ctx = canvas.getContext('2d');
+        let particlesArray;
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2;
+                this.speedX = (Math.random() * 0.5) - 0.25;
+                this.speedY = (Math.random() * 0.5) - 0.25;
+                this.color = Math.random() > 0.9 ? '#D4F238' : '#ffffff'; // 10% lime particles
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.size > 0.2) this.size -= 0.005; // Twinkle effect
+                if (this.size <= 0.2) this.size = Math.random() * 2;
                 
-                // Close others
-                document.querySelectorAll('.faq-item').forEach(other => {
-                    if (other !== parent) other.classList.remove('active');
-                });
-            });
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 15000;
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+            }
+            requestAnimationFrame(animateParticles);
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initParticles();
         });
 
-        // --- MOBILE MENU ---
-        const burger = document.querySelector('.burger');
-        const nav = document.querySelector('.nav-links');
-        const navLinks = document.querySelectorAll('.nav-links a');
-
-        burger.addEventListener('click', () => {
-            nav.classList.toggle('nav-active');
-            
-            // Animate Links
-            navLinks.forEach((link, index) => {
-                if (link.style.animation) {
-                    link.style.animation = '';
-                } else {
-                    link.style.animation = `fadeInUp 0.5s ease forwards ${index / 7 + 0.3}s`;
-                }
-                // Close menu on click
-                link.addEventListener('click', () => {
-                    nav.classList.remove('nav-active');
-                });
-            });
-            
-            // Burger Animation
-            burger.classList.toggle('toggle');
-        });
-
-        // Header Background on Scroll
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            header.classList.toggle('scrolled', window.scrollY > 50);
-        });
+        initParticles();
+        animateParticles();
 
     </script>
 </body>
