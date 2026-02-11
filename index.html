@@ -3,39 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VP.DESIGN | Инфографика для Маркетплейсов</title>
-    <meta name="description" content="Премиальный дизайн инфографики для Wildberries и Ozon. Увеличиваю CTR и продажи.">
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>VP-DESIGN | Premium Digital Studio</title>
+    <meta name="description" content="Дизайн, который продает. Инфографика, сайты, брендинг.">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
     <!-- Icons (Phosphor) -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
-    <!-- Tailwind Config for Custom Colors/Fonts -->
+    <!-- Tailwind Config -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        deep: '#050505',
-                        secondary: '#0a0a0a',
-                        lime: '#CCFF00',
-                        'lime-dim': '#b3e600',
-                        glass: 'rgba(255, 255, 255, 0.03)',
-                        'glass-border': 'rgba(255, 255, 255, 0.08)',
+                        brand: {
+                            lime: '#D4FF00', // Лайм
+                            dark: '#050505', // Глубокий черный
+                            gray: '#111111', // Темно-серый для карточек
+                            glass: 'rgba(255, 255, 255, 0.05)'
+                        }
                     },
                     fontFamily: {
-                        bebas: ['"Bebas Neue"', 'sans-serif'],
-                        inter: ['"Inter"', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Syne', 'sans-serif'], // Вместо Soyuz Grotesk
                     },
                     backgroundImage: {
-                        'noise': "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.05%22/%3E%3C/svg%3E')",
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    },
+                    animation: {
+                        'spin-slow': 'spin 12s linear infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-glow': 'pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        'pulse-glow': {
+                            '0%, 100%': { opacity: '1', boxShadow: '0 0 20px #D4FF00' },
+                            '50%': { opacity: '.8', boxShadow: '0 0 10px #D4FF00' },
+                        }
                     }
                 }
             }
@@ -43,12 +58,12 @@
     </script>
 
     <style>
-        /* Global & Reset */
+        /* Custom Styles & Reset */
         body {
             background-color: #050505;
-            color: white;
-            font-family: 'Inter', sans-serif;
+            color: #ffffff;
             overflow-x: hidden;
+            cursor: none; /* Custom cursor logic */
         }
 
         /* Custom Scrollbar */
@@ -63,63 +78,75 @@
             border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #CCFF00;
-        }
-
-        /* Selection Color */
-        ::selection {
-            background-color: #CCFF00;
-            color: #000;
+            background: #D4FF00;
         }
 
         /* Glassmorphism Utilities */
         .glass-panel {
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
         }
         
-        .glass-nav {
-            background: rgba(5, 5, 5, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        .glass-panel:hover {
+            border-color: rgba(212, 255, 0, 0.3);
+            box-shadow: 0 0 25px rgba(212, 255, 0, 0.1);
         }
 
-        /* Text Effects */
+        /* Typography Effects */
         .text-glow {
-            text-shadow: 0 0 20px rgba(204, 255, 0, 0.3);
-        }
-        
-        .stroke-text {
-            -webkit-text-stroke: 1px rgba(255,255,255,0.1);
-            color: transparent;
+            text-shadow: 0 0 20px rgba(212, 255, 0, 0.4);
         }
 
-        /* Animations */
-        @keyframes float {
-            0% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(2deg); }
-            100% { transform: translateY(0px) rotate(0deg); }
+        /* Custom Cursor */
+        #cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #D4FF00;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background-color 0.3s;
+            mix-blend-mode: difference;
         }
-        .animate-float {
-            animation: float 6s ease-in-out infinite;
-        }
-        .animate-float-delay {
-            animation: float 8s ease-in-out infinite reverse;
+        #cursor.hovered {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(212, 255, 0, 0.2);
+            border-color: transparent;
         }
 
-        @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 10px rgba(204, 255, 0, 0.1); }
-            50% { box-shadow: 0 0 25px rgba(204, 255, 0, 0.4); }
-        }
-        .hover-glow:hover {
-            animation: pulse-glow 2s infinite;
+        /* Canvas Background */
+        #canvas-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.6;
         }
 
-        /* Fade In Logic */
+        /* Noise Texture overlay for premium feel */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9000;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Animation Utilities */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -130,565 +157,839 @@
             transform: translateY(0);
         }
 
-        /* Mobile Swipe Container */
-        .hide-scrollbar::-webkit-scrollbar {
+        /* Horizontal Scroll Snap for Mobile */
+        .snap-scroll-x {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+        .snap-scroll-x > * {
+            scroll-snap-align: start;
+            flex-shrink: 0;
+        }
+        /* Hide scrollbar for clean look */
+        .snap-scroll-x::-webkit-scrollbar {
             display: none;
         }
-        .hide-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
 
-        /* Abstract shapes */
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.4;
-            z-index: -1;
+        /* Marquee Animation */
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .marquee-content {
+            display: inline-flex;
+            animation: marquee 40s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
     </style>
 </head>
-<body class="antialiased relative">
+<body class="antialiased selection:bg-brand-lime selection:text-black">
 
-    <!-- Noise Texture Overlay -->
-    <div class="fixed inset-0 w-full h-full pointer-events-none z-50 bg-noise opacity-30 mix-blend-overlay"></div>
-
-    <!-- Background Orbs -->
-    <div class="orb w-[500px] h-[500px] bg-lime/20 top-[-100px] left-[-100px] animate-float"></div>
-    <div class="orb w-[400px] h-[400px] bg-blue-900/20 bottom-[10%] right-[-100px] animate-float-delay"></div>
+    <!-- Custom Cursor -->
+    <div id="cursor" class="hidden md:block"></div>
+    
+    <!-- Backgrounds -->
+    <canvas id="canvas-bg"></canvas>
+    <div class="noise-overlay"></div>
 
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 w-full z-[100] px-4 py-4 transition-all duration-300" id="navbar">
-        <div class="max-w-7xl mx-auto glass-nav rounded-2xl px-6 py-4 flex justify-between items-center border border-white/10">
-            <a href="#" class="text-2xl font-bebas tracking-widest text-white hover:text-lime transition-colors">
-                VP<span class="text-lime">.</span>DESIGN
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300 py-6" id="navbar">
+        <div class="container mx-auto px-6 flex justify-between items-center glass-panel rounded-full max-w-7xl mt-2 py-3">
+            <a href="#" class="text-2xl font-display font-bold tracking-tighter hover-trigger">
+                VP<span class="text-brand-lime">-DESIGN</span>
             </a>
-
+            
             <!-- Desktop Menu -->
-            <div class="hidden md:flex space-x-8 text-sm uppercase tracking-wider font-medium text-gray-400">
-                <a href="#about" class="hover:text-lime transition-colors">Обо мне</a>
-                <a href="#portfolio" class="hover:text-lime transition-colors">Портфолио</a>
-                <a href="#cases" class="hover:text-lime transition-colors">Результат</a>
-                <a href="#education" class="hover:text-lime transition-colors">Обучение</a>
-                <a href="#reviews" class="hover:text-lime transition-colors">Отзывы</a>
+            <div class="hidden md:flex space-x-8 text-sm font-medium">
+                <a href="#about" class="hover:text-brand-lime transition-colors hover-trigger">Обо мне</a>
+                <a href="#portfolio" class="hover:text-brand-lime transition-colors hover-trigger">Портфолио</a>
+                <a href="#services" class="hover:text-brand-lime transition-colors hover-trigger">Прайс</a>
+                <a href="#education" class="hover:text-brand-lime transition-colors hover-trigger">Обучение</a>
+                <a href="#contact" class="hover:text-brand-lime transition-colors hover-trigger">Контакты</a>
             </div>
 
             <!-- Mobile Menu Button -->
-            <button id="menu-btn" class="md:hidden text-white focus:outline-none">
-                <i class="ph ph-list text-2xl"></i>
+            <button id="menu-btn" class="md:hidden text-2xl text-white hover:text-brand-lime">
+                <i class="ph ph-list"></i>
             </button>
-
-            <a href="#contact" class="hidden md:inline-flex items-center gap-2 bg-lime text-black px-5 py-2 rounded-full font-bold text-sm hover:bg-white transition-all transform hover:scale-105 hover:shadow-[0_0_20px_rgba(204,255,0,0.4)]">
-                <i class="ph-bold ph-telegram-logo"></i> Написать
-            </a>
-        </div>
-
-        <!-- Mobile Menu Dropdown -->
-        <div id="mobile-menu" class="fixed inset-0 bg-black/95 backdrop-blur-xl z-[90] flex flex-col justify-center items-center space-y-8 transform translate-x-full transition-transform duration-300 md:hidden">
-            <button id="close-menu" class="absolute top-8 right-8 text-white"><i class="ph ph-x text-3xl"></i></button>
-            <a href="#about" class="text-3xl font-bebas text-white hover:text-lime mobile-link">Обо мне</a>
-            <a href="#portfolio" class="text-3xl font-bebas text-white hover:text-lime mobile-link">Портфолио</a>
-            <a href="#cases" class="text-3xl font-bebas text-white hover:text-lime mobile-link">Результат</a>
-            <a href="#education" class="text-3xl font-bebas text-white hover:text-lime mobile-link">Обучение</a>
-            <a href="#contact" class="text-3xl font-bebas text-lime mobile-link">Связаться</a>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="min-h-screen flex items-center justify-center relative pt-20 overflow-hidden">
-        <div class="max-w-7xl w-full mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
-            <div class="z-10 text-center md:text-left">
-                <div class="inline-block px-3 py-1 border border-lime/30 rounded-full bg-lime/5 mb-6 reveal">
-                    <span class="text-lime text-xs font-bold tracking-widest uppercase">Premium Design Studio</span>
-                </div>
-                <h1 class="text-6xl md:text-8xl lg:text-9xl font-bebas leading-[0.9] mb-6 reveal delay-100">
-                    Твой товар <br> 
-                    <span class="text-lime text-glow">Мой Дизайн</span> <br>
-                    <span class="stroke-text text-white">= Рост</span>
-                </h1>
-                <p class="text-gray-400 text-lg md:text-xl max-w-lg mx-auto md:mx-0 mb-10 reveal delay-200 font-light leading-relaxed">
-                    Создаю визуальные решения для маркетплейсов, которые поднимают ваш бренд на космический уровень.
-                </p>
-                <div class="reveal delay-300">
-                    <a href="https://t.me/vladpetroov" target="_blank" class="inline-flex items-center justify-center w-full md:w-auto px-8 py-4 bg-lime text-black font-bold text-lg rounded-full hover:bg-white hover:shadow-[0_0_30px_rgba(204,255,0,0.6)] transition-all duration-300 transform hover:-translate-y-1">
-                        <i class="ph-bold ph-paper-plane-tilt mr-2"></i> Связаться в Telegram
-                    </a>
-                </div>
-            </div>
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-brand-dark/95 backdrop-blur-xl z-40 transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center space-y-8 text-xl font-display font-bold">
+        <button id="close-menu" class="absolute top-8 right-8 text-3xl hover:text-brand-lime"><i class="ph ph-x"></i></button>
+        <a href="#about" class="mobile-link hover:text-brand-lime">Обо мне</a>
+        <a href="#portfolio" class="mobile-link hover:text-brand-lime">Портфолио</a>
+        <a href="#services" class="mobile-link hover:text-brand-lime">Прайс</a>
+        <a href="#education" class="mobile-link hover:text-brand-lime">Обучение</a>
+        <a href="#contact" class="mobile-link hover:text-brand-lime">Контакты</a>
+    </div>
 
-            <!-- 3D Graphic Placeholder -->
-            <div class="relative h-[400px] md:h-[600px] w-full flex items-center justify-center reveal delay-500 hidden md:flex">
-                <!-- Abstract Glass Cards Composition -->
-                <div class="absolute w-64 h-80 bg-gradient-to-br from-white/10 to-transparent border border-white/20 backdrop-blur-md rounded-3xl transform -rotate-12 translate-x-[-50px] animate-float z-10"></div>
-                <div class="absolute w-64 h-80 bg-gradient-to-br from-lime/20 to-transparent border border-lime/20 backdrop-blur-md rounded-3xl transform rotate-6 translate-x-[50px] animate-float-delay z-20 flex items-center justify-center">
-                    <div class="text-center">
-                        <span class="block text-5xl font-bebas text-lime">+45%</span>
-                        <span class="text-sm text-gray-300 uppercase tracking-widest">Продаж</span>
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <!-- Decor Elements -->
+        <div class="absolute top-1/4 left-10 w-32 h-32 bg-brand-lime/20 rounded-full blur-[80px] animate-pulse"></div>
+        <div class="absolute bottom-1/4 right-10 w-64 h-64 bg-purple-600/20 rounded-full blur-[100px] animate-pulse"></div>
+
+        <div class="container mx-auto px-6 text-center z-10 relative">
+            <h1 class="text-5xl md:text-8xl font-display font-bold leading-tight mb-6 reveal">
+                VP-DESIGN<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-gray-500">ДИЗАЙН, КОТОРЫЙ</span><br>
+                <span class="text-brand-lime text-glow">ПРОДАЕТ</span>
+            </h1>
+            
+            <p class="text-gray-400 max-w-2xl mx-auto text-lg md:text-xl mb-10 font-light reveal delay-100">
+                Создаем визуальные решения для брендов: соцсети, рекламные креативы, полиграфия, digital-продукты и premium дизайн.
+            </p>
+
+            <a href="https://t.me/vladpetroov" target="_blank" class="hover-trigger inline-flex items-center gap-3 bg-brand-lime text-black font-bold py-4 px-10 rounded-full text-lg hover:scale-105 transition-transform shadow-[0_0_20px_rgba(212,255,0,0.4)] reveal delay-200 group">
+                Связаться
+                <i class="ph-bold ph-arrow-right group-hover:translate-x-1 transition-transform"></i>
+            </a>
+
+            <!-- 3D Elements Placeholder (CSS) -->
+            <div class="absolute top-1/2 left-10 hidden lg:block animate-float opacity-50">
+                <i class="ph-fill ph-cube text-6xl text-brand-lime/30 rotate-12"></i>
+            </div>
+            <div class="absolute bottom-20 right-20 hidden lg:block animate-float opacity-50" style="animation-delay: 2s;">
+                <i class="ph-fill ph-polygon text-6xl text-white/20 -rotate-12"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Me -->
+    <section id="about" class="py-24 relative">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="reveal order-2 md:order-1">
+                    <h2 class="text-sm font-bold text-brand-lime tracking-widest uppercase mb-4">Основатель студии</h2>
+                    <h3 class="text-4xl md:text-5xl font-display font-bold mb-6">Я Влад, <br>основатель <span class="text-gray-400">VP-DESIGN</span></h3>
+                    <p class="text-gray-300 text-lg leading-relaxed mb-8">
+                        Создаю дизайн, который <span class="text-brand-lime">продаёт</span>: инфографику, рекламные креативы, дизайн для соцсетей и полиграфию. Работаю с 2020 года и каждый проект довожу до максимальной эффективности и визуального <span class="text-brand-lime">wow-эффекта</span>.
+                    </p>
+                    <div class="flex gap-6">
+                        <div class="glass-panel p-4 rounded-xl text-center w-32">
+                            <span class="block text-3xl font-bold text-brand-lime">5+</span>
+                            <span class="text-xs text-gray-400">Лет опыта</span>
+                        </div>
+                        <div class="glass-panel p-4 rounded-xl text-center w-32">
+                            <span class="block text-3xl font-bold text-brand-lime">5k+</span>
+                            <span class="text-xs text-gray-400">Проектов</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="reveal order-1 md:order-2 flex justify-center relative">
+                    <div class="absolute inset-0 bg-brand-lime/20 blur-[60px] rounded-full"></div>
+                    <div class="w-64 h-64 md:w-80 md:h-80 rounded-full border-2 border-brand-lime/30 p-2 relative z-10 glass-panel">
+                        <img src="https://i.ibb.co/zWp1WzTk/1127-20260207204539.png" alt="Vlad Petrov" class="w-full h-full object-cover rounded-full hover:scale-105 transition-transform duration-500">
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- Scroll Down Indicator -->
-        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-gray-500">
-            <i class="ph ph-arrow-down text-2xl"></i>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="py-24 relative">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="glass-panel p-8 md:p-12 rounded-[2rem] flex flex-col md:flex-row items-center gap-12 reveal">
-                <!-- Photo -->
-                <div class="relative w-48 h-48 md:w-64 md:h-64 flex-shrink-0 group">
-                    <div class="absolute inset-0 bg-lime rounded-full blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
-                    <img src="https://i.ibb.co/zWp1WzTk/1127-20260207204539.png" alt="Влад Петров" class="relative w-full h-full object-cover rounded-full border-2 border-lime/30 group-hover:scale-105 transition-transform duration-500">
+    <!-- Why Me -->
+    <section class="py-20 bg-brand-gray/30">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-display font-bold">Почему выбирают <span class="text-brand-lime">VP-DESIGN</span>?</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="glass-panel p-8 rounded-2xl reveal hover:scale-[1.02] transition-transform group">
+                    <div class="w-12 h-12 bg-brand-lime/10 rounded-full flex items-center justify-center mb-6 text-brand-lime group-hover:bg-brand-lime group-hover:text-black transition-colors">
+                        <i class="ph ph-lightning text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Креатив и эффективность</h3>
+                    <p class="text-gray-400 text-sm">Создаю дизайн, который не просто выглядит красиво, а реально продаёт ваш продукт.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-panel p-8 rounded-2xl reveal hover:scale-[1.02] transition-transform group delay-100">
+                    <div class="w-12 h-12 bg-brand-lime/10 rounded-full flex items-center justify-center mb-6 text-brand-lime group-hover:bg-brand-lime group-hover:text-black transition-colors">
+                        <i class="ph ph-clock text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Быстрое выполнение</h3>
+                    <p class="text-gray-400 text-sm">Соблюдаю сроки без потери качества. Ваш бизнес не будет ждать.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-panel p-8 rounded-2xl reveal hover:scale-[1.02] transition-transform group delay-200">
+                    <div class="w-12 h-12 bg-brand-lime/10 rounded-full flex items-center justify-center mb-6 text-brand-lime group-hover:bg-brand-lime group-hover:text-black transition-colors">
+                        <i class="ph ph-trend-up text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Актуальные тренды</h3>
+                    <p class="text-gray-400 text-sm">Использую современные методы дизайна, чтобы вы были на шаг впереди конкурентов.</p>
                 </div>
                 
-                <!-- Text -->
-                <div class="text-center md:text-left">
-                    <h2 class="text-4xl md:text-5xl font-bebas mb-6">Обо мне</h2>
-                    <p class="text-gray-300 text-lg leading-relaxed mb-6">
-                        Я Влад из Анапы, 19 лет. В дизайне с 2020 года. Я не просто "рисую картинки", я создаю <span class="text-lime font-semibold">визуальные инструменты продаж</span>. Моя задача — сделать так, чтобы ваш товар захотели купить за 3 секунды.
-                    </p>
-                    <div class="flex flex-wrap justify-center md:justify-start gap-4">
-                        <span class="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-sm text-lime">5+ лет опыта</span>
-                        <span class="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-sm text-lime">5000+ проектов</span>
-                        <span class="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-sm text-lime">PRO Инфографика</span>
+                 <!-- Card 4 -->
+                 <div class="glass-panel p-8 rounded-2xl reveal hover:scale-[1.02] transition-transform group md:col-span-1.5">
+                    <div class="w-12 h-12 bg-brand-lime/10 rounded-full flex items-center justify-center mb-6 text-brand-lime group-hover:bg-brand-lime group-hover:text-black transition-colors">
+                        <i class="ph ph-fingerprint text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Индивидуальный подход</h3>
+                    <p class="text-gray-400 text-sm">Каждый проект уникален. Никаких шаблонов, только решения под ваши задачи.</p>
+                </div>
+
+                 <!-- Card 5 -->
+                 <div class="glass-panel p-8 rounded-2xl reveal hover:scale-[1.02] transition-transform group md:col-span-1.5">
+                    <div class="w-12 h-12 bg-brand-lime/10 rounded-full flex items-center justify-center mb-6 text-brand-lime group-hover:bg-brand-lime group-hover:text-black transition-colors">
+                        <i class="ph ph-robot text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Использование нейросетей</h3>
+                    <p class="text-gray-400 text-sm">Активно использую ИИ для генерации уникального контента и ускорения процессов.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services & Pricing -->
+    <section id="services" class="py-24 relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl font-display font-bold mb-4">Услуги и <span class="text-brand-lime">Прайс</span></h2>
+                <p class="text-gray-400">Прозрачное ценообразование для премиального результата</p>
+            </div>
+
+            <!-- Mobile Swipe / Desktop Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Category 1 -->
+                <div class="glass-panel p-6 rounded-2xl reveal hover:border-brand-lime/50 transition-colors">
+                    <h3 class="text-xl font-bold text-brand-lime mb-4 flex items-center gap-2"><i class="ph ph-shopping-cart"></i> Маркетплейсы</h3>
+                    <div class="space-y-4">
+                        <div class="border-b border-white/10 pb-2">
+                            <div class="flex justify-between font-bold"><span>Инфографика</span> <span class="text-brand-lime">от 1490 ₽</span></div>
+                            <p class="text-xs text-gray-400 mt-1">3–7 дней. Повышает CTR и продажи.</p>
+                        </div>
+                        <div class="border-b border-white/10 pb-2">
+                            <div class="flex justify-between font-bold"><span>Rich-контент</span> <span class="text-brand-lime">от 1990 ₽</span></div>
+                            <p class="text-xs text-gray-400 mt-1">Имиджевая подача, повышает доверие.</p>
+                        </div>
+                        <div>
+                            <div class="flex justify-between font-bold"><span>Анимация обложки</span> <span class="text-brand-lime">от 2990 ₽</span></div>
+                            <p class="text-xs text-gray-400 mt-1">Динамичные слайды, цепляют взгляд.</p>
+                        </div>
                     </div>
                 </div>
+
+                <!-- Category 2 -->
+                <div class="glass-panel p-6 rounded-2xl reveal hover:border-brand-lime/50 transition-colors delay-100">
+                    <h3 class="text-xl font-bold text-brand-lime mb-4 flex items-center gap-2"><i class="ph ph-printer"></i> Полиграфия</h3>
+                    <div class="space-y-4">
+                        <div class="border-b border-white/10 pb-2">
+                            <div class="flex justify-between font-bold"><span>Визитки, буклеты</span> <span class="text-brand-lime">от 1990 ₽</span></div>
+                            <p class="text-xs text-gray-400 mt-1">Уникальный стиль бренда.</p>
+                        </div>
+                        <div class="border-b border-white/10 pb-2">
+                            <div class="flex justify-between font-bold"><span>Плакаты, баннеры</span> <span class="text-brand-lime">от 3990 ₽</span></div>
+                            <p class="text-xs text-gray-400 mt-1">Для рекламы оффлайн и онлайн.</p>
+                        </div>
+                        <div>
+                            <div class="flex justify-between font-bold"><span>Упаковка</span> <span class="text-brand-lime">от 3990 ₽</span></div>
+                            <p class="text-xs text-gray-400 mt-1">Повышает ценность продукта.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category 3 -->
+                <div class="glass-panel p-6 rounded-2xl reveal hover:border-brand-lime/50 transition-colors delay-200">
+                    <h3 class="text-xl font-bold text-brand-lime mb-4 flex items-center gap-2"><i class="ph ph-megaphone"></i> Реклама</h3>
+                    <div class="space-y-4">
+                        <div class="border-b border-white/10 pb-2">
+                            <div class="flex justify-between font-bold"><span>Статичные баннеры</span> <span class="text-brand-lime">от 1490 ₽</span></div>
+                            <p class="text-xs text-gray-400 mt-1">Высокий CTR.</p>
+                        </div>
+                        <div>
+                            <div class="flex justify-between font-bold"><span>2D анимация</span> <span class="text-brand-lime">от 3490 ₽</span></div>
+                            <p class="text-xs text-gray-400 mt-1">Живые элементы выделяют бренд.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category 4 -->
+                <div class="glass-panel p-6 rounded-2xl reveal hover:border-brand-lime/50 transition-colors">
+                    <h3 class="text-xl font-bold text-brand-lime mb-4 flex items-center gap-2"><i class="ph ph-instagram-logo"></i> Соцсети</h3>
+                    <div class="space-y-4">
+                        <div class="border-b border-white/10 pb-2">
+                            <div class="flex justify-between font-bold"><span>Оформление ВК</span> <span class="text-brand-lime">от 6490 ₽</span></div>
+                            <p class="text-xs text-gray-400 mt-1">Полная упаковка страницы.</p>
+                        </div>
+                        <div class="border-b border-white/10 pb-2">
+                            <div class="flex justify-between font-bold"><span>Посты</span> <span class="text-brand-lime">от 1490 ₽</span></div>
+                            <p class="text-xs text-gray-400 mt-1">Визуально цепляющий контент.</p>
+                        </div>
+                        <div>
+                            <div class="flex justify-between font-bold"><span>Превью YouTube</span> <span class="text-brand-lime">от 1490 ₽</span></div>
+                            <p class="text-xs text-gray-400 mt-1">Увеличивают клики.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category 5 -->
+                <div class="glass-panel p-6 rounded-2xl reveal hover:border-brand-lime/50 transition-colors delay-100">
+                    <h3 class="text-xl font-bold text-brand-lime mb-4 flex items-center gap-2"><i class="ph ph-desktop"></i> Сайты</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between font-bold"><span>Лендинг / Сайт</span> <span class="text-brand-lime">от 15.000 ₽</span></div>
+                            <p class="text-xs text-gray-400 mt-1">Срок от 7 дней. Адаптивная верстка.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category 6 -->
+                <div class="glass-panel p-6 rounded-2xl reveal hover:border-brand-lime/50 transition-colors delay-200">
+                    <h3 class="text-xl font-bold text-brand-lime mb-4 flex items-center gap-2"><i class="ph ph-paint-brush"></i> Брендинг</h3>
+                    <div class="space-y-4">
+                        <div class="border-b border-white/10 pb-2">
+                            <div class="flex justify-between font-bold"><span>Логотип</span> <span class="text-brand-lime">от 4990 ₽</span></div>
+                            <p class="text-xs text-gray-400 mt-1">3 варианта, уникальный дизайн.</p>
+                        </div>
+                        <div>
+                            <div class="flex justify-between font-bold"><span>Логотип-маскот</span> <span class="text-brand-lime">от 7990 ₽</span></div>
+                            <p class="text-xs text-gray-400 mt-1">Персонаж для запоминаемости.</p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
     <!-- Portfolio Section -->
-    <section id="portfolio" class="py-24 bg-secondary/50">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-between items-end mb-12 px-2">
-                <div>
-                    <h2 class="text-5xl md:text-7xl font-bebas text-white reveal">Портфолио</h2>
-                    <p class="text-gray-400 mt-2 reveal delay-100">Лучшие работы, которые приносят деньги</p>
-                </div>
-                <!-- Swipe hint for mobile -->
-                <div class="md:hidden text-lime text-sm animate-pulse">
-                    <i class="ph ph-hand-swipe-left"></i> Листай
-                </div>
+    <section id="portfolio" class="py-24 bg-black relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-10 reveal">
+                <h2 class="text-4xl font-display font-bold">Мои <span class="text-brand-lime">Работы</span></h2>
             </div>
 
-            <!-- Grid/Carousel Container -->
-            <!-- Mobile: Horizontal Scroll with Snap | Desktop: Grid -->
-            <div class="flex overflow-x-auto snap-x snap-mandatory gap-6 md:grid md:grid-cols-2 lg:grid-cols-3 md:overflow-visible pb-8 hide-scrollbar reveal delay-200">
-                
-                <!-- Portfolio Items (Generated dynamically via JS usually, but hardcoded here as requested) -->
-                <!-- Item 1 -->
-                <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4] cursor-pointer">
-                    <img src="https://i.ibb.co/FLsCKXYD/579-20251105185725.jpg" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 1">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                        <span class="text-lime font-bebas text-2xl tracking-wide transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Смотреть кейс</span>
-                    </div>
+            <!-- Filters -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12 reveal" id="portfolio-filters">
+                <button class="filter-btn active px-6 py-2 rounded-full border border-white/10 hover:border-brand-lime transition-all text-sm font-medium bg-white/5" data-filter="all">Все</button>
+                <button class="filter-btn px-6 py-2 rounded-full border border-white/10 hover:border-brand-lime transition-all text-sm font-medium bg-transparent" data-filter="info">Инфографика</button>
+                <button class="filter-btn px-6 py-2 rounded-full border border-white/10 hover:border-brand-lime transition-all text-sm font-medium bg-transparent" data-filter="rich">Rich-контент</button>
+                <button class="filter-btn px-6 py-2 rounded-full border border-white/10 hover:border-brand-lime transition-all text-sm font-medium bg-transparent" data-filter="visit">Визитки</button>
+                <button class="filter-btn px-6 py-2 rounded-full border border-white/10 hover:border-brand-lime transition-all text-sm font-medium bg-transparent" data-filter="banner">Баннеры</button>
+                <button class="filter-btn px-6 py-2 rounded-full border border-white/10 hover:border-brand-lime transition-all text-sm font-medium bg-transparent" data-filter="label">Этикетки</button>
+                <button class="filter-btn px-6 py-2 rounded-full border border-white/10 hover:border-brand-lime transition-all text-sm font-medium bg-transparent" data-filter="creative">Креативы</button>
+                <button class="filter-btn px-6 py-2 rounded-full border border-white/10 hover:border-brand-lime transition-all text-sm font-medium bg-transparent" data-filter="vk">Оформление ВК</button>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4" id="portfolio-grid">
+                <!-- Items inserted via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Process -->
+    <section class="py-24">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-display font-bold text-center mb-16 reveal">Процесс <span class="text-brand-lime">Работы</span></h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
+                <!-- Line Decor for Desktop -->
+                <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-brand-lime to-transparent -z-10"></div>
+
+                <!-- Step 1 -->
+                <div class="glass-panel p-6 rounded-2xl text-center reveal hover:translate-y-[-10px] transition-transform duration-300">
+                    <div class="w-10 h-10 bg-brand-lime text-black rounded-full flex items-center justify-center font-bold text-lg mx-auto mb-4 shadow-[0_0_15px_#D4FF00]">1</div>
+                    <h4 class="font-bold mb-2">Заявка</h4>
+                    <p class="text-xs text-gray-400">Обсуждаем задачи, формат и сроки в Telegram.</p>
                 </div>
 
-                <!-- Item 2 -->
-                <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4]">
-                    <img src="https://i.ibb.co/wFh0gByn/IMG-8041.jpg" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 2">
+                <!-- Step 2 -->
+                <div class="glass-panel p-6 rounded-2xl text-center reveal delay-100 hover:translate-y-[-10px] transition-transform duration-300">
+                    <div class="w-10 h-10 bg-brand-gray border border-brand-lime text-brand-lime rounded-full flex items-center justify-center font-bold text-lg mx-auto mb-4">2</div>
+                    <h4 class="font-bold mb-2">Анализ</h4>
+                    <p class="text-xs text-gray-400">Изучаю нишу, конкурентов и ваш продукт.</p>
                 </div>
 
-                <!-- Item 3 -->
-                <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4]">
-                    <img src="https://i.ibb.co/k6wSmDBj/IMG-7170.jpg" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 3">
+                 <!-- Step 3 -->
+                 <div class="glass-panel p-6 rounded-2xl text-center reveal delay-200 hover:translate-y-[-10px] transition-transform duration-300">
+                    <div class="w-10 h-10 bg-brand-gray border border-brand-lime text-brand-lime rounded-full flex items-center justify-center font-bold text-lg mx-auto mb-4">3</div>
+                    <h4 class="font-bold mb-2">Дизайн</h4>
+                    <p class="text-xs text-gray-400">Разработка концепции и создание продающего визуала.</p>
                 </div>
 
-                <!-- Item 4 -->
-                <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4]">
-                    <img src="https://i.ibb.co/JwML7f4g/373-20250817165435.jpg" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 4">
+                 <!-- Step 4 -->
+                 <div class="glass-panel p-6 rounded-2xl text-center reveal delay-300 hover:translate-y-[-10px] transition-transform duration-300">
+                    <div class="w-10 h-10 bg-brand-gray border border-brand-lime text-brand-lime rounded-full flex items-center justify-center font-bold text-lg mx-auto mb-4">4</div>
+                    <h4 class="font-bold mb-2">Правки</h4>
+                    <p class="text-xs text-gray-400">Доводим работу до идеала и согласовываем.</p>
                 </div>
-                 <!-- Item 5 -->
-                 <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4]">
-                    <img src="https://i.ibb.co/p6C8zZLn/969-20251230133150.jpg" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 5">
-                </div>
-                 <!-- Item 6 -->
-                 <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4]">
-                    <img src="https://i.ibb.co/Z6RPgtBs/394-20250921005440.jpg" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 6">
-                </div>
-                 <!-- Item 7 -->
-                 <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4]">
-                    <img src="https://i.ibb.co/ZRTgFQ8r/IMG-7801.jpg" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 7">
-                </div>
-                 <!-- Item 8 -->
-                 <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4]">
-                    <img src="https://i.ibb.co/hR04gy83/1115-20260201215842.png" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 8">
-                </div>
-                <!-- Item 9 -->
-                <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4]">
-                    <img src="https://i.ibb.co/6RkgYh1G/IMG-7410.jpg" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 9">
-                </div>
-                <!-- Item 10 -->
-                <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4]">
-                    <img src="https://i.ibb.co/6cjb5PS9/601-20251110164430.jpg" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 10">
-                </div>
-                <!-- Item 11 -->
-                <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4]">
-                    <img src="https://i.ibb.co/8LX6HLHN/IMG-3641.jpg" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 11">
-                </div>
-                <!-- Item 12 -->
-                <div class="min-w-[85vw] md:min-w-0 snap-center group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4]">
-                    <img src="https://i.ibb.co/W4FM2HxQ/436-20250929191023.jpg" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio 12">
+
+                 <!-- Step 5 -->
+                 <div class="glass-panel p-6 rounded-2xl text-center reveal delay-400 hover:translate-y-[-10px] transition-transform duration-300">
+                    <div class="w-10 h-10 bg-brand-lime text-black rounded-full flex items-center justify-center font-bold text-lg mx-auto mb-4">5</div>
+                    <h4 class="font-bold mb-2">Результат</h4>
+                    <p class="text-xs text-gray-400">Готовые материалы для ваших продаж.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Cases / Results Section -->
-    <section id="cases" class="py-24 relative overflow-hidden">
-        <!-- Decoration Line -->
-        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-lime to-transparent opacity-30"></div>
+    <!-- First Order Promo -->
+    <section class="py-12 px-6">
+        <div class="container mx-auto max-w-4xl glass-panel rounded-3xl p-8 md:p-12 text-center relative overflow-hidden reveal border border-brand-lime/30 shadow-[0_0_40px_rgba(212,255,0,0.1)]">
+            <!-- Glow background -->
+            <div class="absolute inset-0 bg-brand-lime/5 blur-xl"></div>
+            
+            <div class="relative z-10">
+                <span class="bg-brand-lime text-black px-3 py-1 rounded text-xs font-bold uppercase tracking-wider mb-4 inline-block">Акция</span>
+                <h2 class="text-3xl md:text-5xl font-display font-bold mb-6">Скидка для новых клиентов</h2>
+                <p class="text-gray-300 mb-8 max-w-lg mx-auto">Получите <span class="text-brand-lime">скидку до 20%</span> на первый проект или бесплатный бонусный слайд. Отличный способ проверить качество.</p>
+                <a href="https://t.me/vladpetroov" class="hover-trigger inline-block bg-white text-black font-bold py-3 px-8 rounded-full hover:bg-brand-lime transition-colors">Получить предложение</a>
+            </div>
+        </div>
+    </section>
 
-        <div class="max-w-7xl mx-auto px-4">
-            <h2 class="text-5xl md:text-7xl font-bebas text-center mb-16 reveal">Результаты <span class="text-lime">Клиентов</span></h2>
+    <!-- Education Block -->
+    <section id="education" class="py-24 bg-brand-gray/20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl font-display font-bold">Обучение <span class="text-brand-lime">Дизайну</span></h2>
+                <p class="text-gray-400 mt-2">Зарабатывай на инфографике удаленно</p>
+            </div>
 
+            <!-- Courses Grid -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Case 1 -->
-                <div class="glass-panel p-8 rounded-2xl hover:border-lime/50 transition-colors duration-300 group reveal delay-100">
-                    <div class="text-4xl text-lime mb-4"><i class="ph-bold ph-trend-up"></i></div>
-                    <h3 class="text-xl font-bold mb-2">Задача: Видимость</h3>
-                    <p class="text-gray-400 text-sm mb-6">Товар терялся среди конкурентов с яркими плашками.</p>
-                    <div class="border-t border-white/10 pt-4">
-                        <div class="text-3xl font-bebas text-white group-hover:text-lime transition-colors">+45%</div>
-                        <div class="text-xs uppercase tracking-widest text-gray-500">Кликов (CTR)</div>
-                    </div>
-                </div>
-
-                <!-- Case 2 -->
-                <div class="glass-panel p-8 rounded-2xl hover:border-lime/50 transition-colors duration-300 group reveal delay-200">
-                    <div class="text-4xl text-lime mb-4"><i class="ph-bold ph-shopping-cart"></i></div>
-                    <h3 class="text-xl font-bold mb-2">Задача: Конверсия</h3>
-                    <p class="text-gray-400 text-sm mb-6">Клики были, но покупок мало. Дизайн не закрывал возражения.</p>
-                    <div class="border-t border-white/10 pt-4">
-                        <div class="text-3xl font-bebas text-white group-hover:text-lime transition-colors">+30%</div>
-                        <div class="text-xs uppercase tracking-widest text-gray-500">К продажам</div>
-                    </div>
-                </div>
-
-                <!-- Case 3 -->
-                <div class="glass-panel p-8 rounded-2xl hover:border-lime/50 transition-colors duration-300 group reveal delay-300">
-                    <div class="text-4xl text-lime mb-4"><i class="ph-bold ph-star"></i></div>
-                    <h3 class="text-xl font-bold mb-2">Задача: Брендинг</h3>
-                    <p class="text-gray-400 text-sm mb-6">Нужно было создать ощущение премиального товара.</p>
-                    <div class="border-t border-white/10 pt-4">
-                        <div class="text-3xl font-bebas text-white group-hover:text-lime transition-colors">TOP 3</div>
-                        <div class="text-xs uppercase tracking-widest text-gray-500">В категории</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Why Me / Process Section Combined -->
-    <section class="py-24 bg-secondary/30">
-        <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-16">
-            
-            <!-- Why Me -->
-            <div class="reveal">
-                <h2 class="text-5xl font-bebas mb-8">Почему <span class="text-lime">Я?</span></h2>
-                <div class="space-y-6">
-                    <div class="flex items-start gap-4">
-                        <div class="w-10 h-10 rounded-full bg-lime/10 flex items-center justify-center text-lime flex-shrink-0">
-                            <i class="ph-bold ph-lightning"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-lg">Креатив + Аналитика</h4>
-                            <p class="text-gray-400 text-sm">Не просто красиво, а продающе. Знаю боли ЦА.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-4">
-                        <div class="w-10 h-10 rounded-full bg-lime/10 flex items-center justify-center text-lime flex-shrink-0">
-                            <i class="ph-bold ph-clock-countdown"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-lg">Соблюдение сроков</h4>
-                            <p class="text-gray-400 text-sm">Ваш товар не будет простаивать. Сдаю вовремя.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-4">
-                        <div class="w-10 h-10 rounded-full bg-lime/10 flex items-center justify-center text-lime flex-shrink-0">
-                            <i class="ph-bold ph-paint-brush-broad"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-lg">Индивидуальный стиль</h4>
-                            <p class="text-gray-400 text-sm">Никаких шаблонов. Уникальная упаковка бренда.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Process -->
-            <div class="reveal delay-200">
-                <h2 class="text-5xl font-bebas mb-8">Процесс</h2>
-                <div class="relative border-l border-white/10 ml-3 space-y-8 pl-8">
-                    <div class="relative">
-                        <span class="absolute -left-[39px] top-1 w-5 h-5 bg-lime rounded-full border-4 border-[#050505]"></span>
-                        <h4 class="font-bold text-lg">01. Консультация</h4>
-                        <p class="text-gray-400 text-sm">Бриф, обсуждение целей и ТЗ.</p>
-                    </div>
-                    <div class="relative">
-                        <span class="absolute -left-[39px] top-1 w-5 h-5 bg-lime rounded-full border-4 border-[#050505]"></span>
-                        <h4 class="font-bold text-lg">02. Анализ</h4>
-                        <p class="text-gray-400 text-sm">Изучение конкурентов и воронки продаж.</p>
-                    </div>
-                    <div class="relative">
-                        <span class="absolute -left-[39px] top-1 w-5 h-5 bg-lime rounded-full border-4 border-[#050505]"></span>
-                        <h4 class="font-bold text-lg">03. Дизайн</h4>
-                        <p class="text-gray-400 text-sm">Создание макетов, магия Photoshop.</p>
-                    </div>
-                    <div class="relative">
-                        <span class="absolute -left-[39px] top-1 w-5 h-5 bg-lime rounded-full border-4 border-[#050505]"></span>
-                        <h4 class="font-bold text-lg">04. Результат</h4>
-                        <p class="text-gray-400 text-sm">Готовые файлы для загрузки на WB/Ozon.</p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Services / Pricing -->
-    <section id="services" class="py-24">
-        <div class="max-w-7xl mx-auto px-4">
-            <h2 class="text-5xl md:text-7xl font-bebas text-center mb-16 reveal">Услуги</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-                <!-- Package Start -->
-                <div class="glass-panel rounded-3xl p-8 reveal delay-100">
-                    <h3 class="text-2xl font-bebas text-gray-300">Пакет Старт</h3>
-                    <div class="text-3xl font-bold mt-2 mb-6">3 900₽</div>
-                    <ul class="space-y-3 text-sm text-gray-400 mb-8">
-                        <li class="flex items-center gap-2"><i class="ph ph-check text-lime"></i> Анализ ниши</li>
-                        <li class="flex items-center gap-2"><i class="ph ph-check text-lime"></i> 3 Слайда</li>
-                        <li class="flex items-center gap-2"><i class="ph ph-check text-lime"></i> Базовая ретушь</li>
-                    </ul>
-                    <a href="https://t.me/vladpetroov" class="block w-full py-3 border border-white/20 rounded-xl text-center hover:bg-white hover:text-black transition-colors font-semibold">Заказать</a>
-                </div>
-
-                <!-- Package Standard (HIT) -->
-                <div class="glass-panel rounded-3xl p-8 border-lime/50 relative transform md:scale-110 z-10 bg-lime/5 reveal delay-200">
-                    <div class="absolute top-0 right-0 bg-lime text-black text-xs font-bold px-3 py-1 rounded-bl-xl rounded-tr-xl">ХИТ ПРОДАЖ</div>
-                    <h3 class="text-3xl font-bebas text-white">Пакет Стандарт</h3>
-                    <div class="text-4xl font-bold mt-2 mb-6 text-lime">6 900₽</div>
-                    <ul class="space-y-3 text-sm text-gray-300 mb-8">
-                        <li class="flex items-center gap-2"><i class="ph-bold ph-check text-lime"></i> Глубокий анализ</li>
-                        <li class="flex items-center gap-2"><i class="ph-bold ph-check text-lime"></i> 5-7 Слайдов</li>
-                        <li class="flex items-center gap-2"><i class="ph-bold ph-check text-lime"></i> Сложная ретушь</li>
-                        <li class="flex items-center gap-2"><i class="ph-bold ph-check text-lime"></i> SEO-заголовки</li>
-                    </ul>
-                    <a href="https://t.me/vladpetroov" class="block w-full py-3 bg-lime text-black rounded-xl text-center hover:bg-white transition-colors font-bold shadow-[0_0_20px_rgba(204,255,0,0.3)]">Хочу этот пакет</a>
-                </div>
-
-                <!-- Package Premium -->
-                <div class="glass-panel rounded-3xl p-8 reveal delay-300">
-                    <h3 class="text-2xl font-bebas text-gray-300">Пакет Премиум</h3>
-                    <div class="text-3xl font-bold mt-2 mb-6">8 900₽</div>
-                    <ul class="space-y-3 text-sm text-gray-400 mb-8">
-                        <li class="flex items-center gap-2"><i class="ph ph-check text-lime"></i> Всё включено</li>
-                        <li class="flex items-center gap-2"><i class="ph ph-check text-lime"></i> До 10 слайдов</li>
-                        <li class="flex items-center gap-2"><i class="ph ph-check text-lime"></i> Видеообложка</li>
-                        <li class="flex items-center gap-2"><i class="ph ph-check text-lime"></i> Приоритетная поддержка</li>
-                    </ul>
-                    <a href="https://t.me/vladpetroov" class="block w-full py-3 border border-white/20 rounded-xl text-center hover:bg-white hover:text-black transition-colors font-semibold">Заказать</a>
-                </div>
-            </div>
-
-            <!-- Single Services List -->
-            <div class="mt-12 text-center text-sm text-gray-500 reveal">
-                <p>Главный слайд — 1500₽ • Доп. слайд — 800₽ • Видеообложка — 3000₽</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Education Section -->
-    <section id="education" class="py-24 bg-gradient-to-b from-transparent to-lime/5">
-        <div class="max-w-6xl mx-auto px-4">
-            <h2 class="text-5xl md:text-7xl font-bebas text-center mb-16 reveal">Обучение</h2>
-            
-            <div class="space-y-4">
                 <!-- Course 1 -->
-                <div class="glass-panel p-6 md:p-8 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 group hover:border-lime/30 transition-all reveal">
-                    <div>
-                        <h3 class="text-2xl font-bold text-white group-hover:text-lime transition-colors">Инфографика: Старт</h3>
-                        <p class="text-gray-400 mt-2 text-sm">База для новичков. Основы подачи и инструменты.</p>
-                    </div>
-                    <a href="https://t.me/vladpetroov" class="px-6 py-3 border border-white/20 rounded-full hover:bg-white hover:text-black transition-all">Записаться</a>
+                <div class="glass-panel p-8 rounded-2xl flex flex-col reveal hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all">
+                    <h3 class="text-2xl font-bold mb-2">Инфографика: Старт</h3>
+                    <p class="text-sm text-gray-400 mb-6">Для новичков с нуля.</p>
+                    <ul class="space-y-3 mb-8 text-sm text-gray-300 flex-grow">
+                        <li class="flex items-start gap-2"><i class="ph-fill ph-check-circle text-brand-lime"></i> Основы продающей инфографики</li>
+                        <li class="flex items-start gap-2"><i class="ph-fill ph-check-circle text-brand-lime"></i> Работа со слайдами</li>
+                        <li class="flex items-start gap-2"><i class="ph-fill ph-check-circle text-brand-lime"></i> Первые заказы</li>
+                    </ul>
+                    <a href="https://t.me/vladpetroov" class="w-full block text-center py-3 border border-white/20 rounded-lg hover:bg-white hover:text-black transition-colors font-medium hover-trigger">Записаться</a>
                 </div>
 
                 <!-- Course 2 -->
-                <div class="glass-panel p-6 md:p-8 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 group hover:border-lime/30 transition-all reveal delay-100">
-                    <div>
-                        <h3 class="text-2xl font-bold text-white group-hover:text-lime transition-colors">Инфографика PRO</h3>
-                        <p class="text-gray-400 mt-2 text-sm">Продвинутые техники. Креатив, свет, композиция.</p>
+                <div class="glass-panel p-8 rounded-2xl flex flex-col reveal delay-100 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all">
+                    <h3 class="text-2xl font-bold mb-2">Инфографика PRO</h3>
+                    <p class="text-sm text-gray-400 mb-6">Для выхода на стабильный доход.</p>
+                    <ul class="space-y-3 mb-8 text-sm text-gray-300 flex-grow">
+                        <li class="flex items-start gap-2"><i class="ph-fill ph-check-circle text-brand-lime"></i> Сильные концепции</li>
+                        <li class="flex items-start gap-2"><i class="ph-fill ph-check-circle text-brand-lime"></i> Работа с брендами</li>
+                        <li class="flex items-start gap-2"><i class="ph-fill ph-check-circle text-brand-lime"></i> Повышение чека</li>
+                    </ul>
+                    <a href="https://t.me/vladpetroov" class="w-full block text-center py-3 border border-white/20 rounded-lg hover:bg-white hover:text-black transition-colors font-medium hover-trigger">Записаться</a>
+                </div>
+
+                <!-- Course 3 (Featured) -->
+                <div class="glass-panel p-8 rounded-2xl flex flex-col reveal delay-200 border border-brand-lime/50 shadow-[0_0_30px_rgba(212,255,0,0.1)] relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-brand-lime text-black text-xs font-bold px-3 py-1 rounded-bl-lg">ХИТ</div>
+                    <h3 class="text-2xl font-bold mb-2">Личное наставничество</h3>
+                    <p class="text-sm text-gray-400 mb-6">Работа лично с Владом.</p>
+                    <ul class="space-y-3 mb-8 text-sm text-gray-300 flex-grow">
+                        <li class="flex items-start gap-2"><i class="ph-fill ph-star text-brand-lime"></i> Персональная работа</li>
+                        <li class="flex items-start gap-2"><i class="ph-fill ph-star text-brand-lime"></i> Сборка портфолио</li>
+                        <li class="flex items-start gap-2"><i class="ph-fill ph-star text-brand-lime"></i> Стратегия выхода на 100к+</li>
+                    </ul>
+                    <a href="https://t.me/vladpetroov" class="w-full block text-center py-3 bg-brand-lime text-black rounded-lg hover:bg-white transition-colors font-bold hover-trigger">Записаться</a>
+                </div>
+            </div>
+
+            <!-- Student Results -->
+            <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 reveal">
+                <div class="text-center p-4">
+                    <h3 class="text-3xl font-bold text-brand-lime mb-2">Сразу</h3>
+                    <p class="text-xs text-gray-400">Заказы во время обучения</p>
+                </div>
+                <div class="text-center p-4">
+                    <h3 class="text-3xl font-bold text-brand-lime mb-2">50-100к</h3>
+                    <p class="text-xs text-gray-400">Доход в месяц</p>
+                </div>
+                <div class="text-center p-4">
+                    <h3 class="text-3xl font-bold text-brand-lime mb-2">Портфолио</h3>
+                    <p class="text-xs text-gray-400">Готовые кейсы на выходе</p>
+                </div>
+                <div class="text-center p-4">
+                    <h3 class="text-3xl font-bold text-brand-lime mb-2">Online</h3>
+                    <p class="text-xs text-gray-400">Работа из любой точки</p>
+                </div>
+            </div>
+
+            <!-- Pricing Table (Simplified visual for clarity) -->
+            <div class="mt-20 reveal">
+                <h3 class="text-center text-2xl font-bold mb-8">Тарифы</h3>
+                <div class="flex flex-col md:flex-row justify-center gap-6">
+                    <div class="glass-panel p-6 rounded-xl text-center w-full md:w-64">
+                        <div class="text-gray-400 mb-2">Старт</div>
+                        <div class="text-2xl font-bold text-brand-lime">19 990 ₽</div>
                     </div>
-                    <a href="https://t.me/vladpetroov" class="px-6 py-3 border border-white/20 rounded-full hover:bg-white hover:text-black transition-all">Записаться</a>
-                </div>
-
-                <!-- Course 3 (Top) -->
-                <div class="glass-panel p-6 md:p-8 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 border-lime/20 bg-lime/5 relative overflow-hidden reveal delay-200">
-                    <div class="absolute inset-0 bg-lime/10 blur-xl"></div>
-                    <div class="relative z-10">
-                        <div class="inline-block px-2 py-0.5 bg-lime text-black text-[10px] font-bold rounded mb-2">MENTORSHIP</div>
-                        <h3 class="text-3xl font-bold text-white">Инфографика с Владом — TOP</h3>
-                        <p class="text-gray-300 mt-2 text-sm max-w-md">Личное наставничество. Разборы, практика, доведение до результата.</p>
+                    <div class="glass-panel p-6 rounded-xl text-center w-full md:w-64 border border-brand-lime/30">
+                        <div class="text-gray-400 mb-2">PRO</div>
+                        <div class="text-2xl font-bold text-brand-lime">29 990 ₽</div>
                     </div>
-                    <a href="https://t.me/vladpetroov" class="relative z-10 px-8 py-4 bg-lime text-black font-bold rounded-full hover:shadow-[0_0_20px_rgba(204,255,0,0.4)] transition-all">Записаться</a>
+                    <div class="glass-panel p-6 rounded-xl text-center w-full md:w-64">
+                        <div class="text-gray-400 mb-2">TOP (Личный)</div>
+                        <div class="text-2xl font-bold text-brand-lime">59 990 ₽</div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Reviews -->
-    <section id="reviews" class="py-24 overflow-hidden">
-        <h2 class="text-5xl font-bebas text-center mb-12 reveal">Отзывы</h2>
-        <!-- Marquee / Scroll Container -->
-        <div class="flex overflow-x-auto gap-6 px-4 pb-8 hide-scrollbar snap-x reveal delay-100 max-w-7xl mx-auto">
-            
-            <!-- Repeatable Review Card Block -->
-            <!-- Generating 6 cards for demo -->
-            <script>
-                // Simulating repeating review structure to save code space
-                const reviews = [
-                    {name: "Алексей", text: "Продажи выросли на 40% после редизайна!"},
-                    {name: "Марина", text: "Очень стильно и быстро. Влад профи."},
-                    {name: "Сергей", text: "Обучение окупилось с первого заказа."},
-                    {name: "Елена", text: "Лучшая инфографика в нише электроники."},
-                    {name: "Дмитрий", text: "Четко по ТЗ, даже лучше чем ожидал."},
-                    {name: "Ольга", text: "Спасибо за менторство, вышла на доход!"}
-                ];
-                
-                reviews.forEach((review, i) => {
-                    document.write(`
-                        <div class="min-w-[300px] glass-panel p-6 rounded-2xl snap-center flex-shrink-0">
-                            <div class="flex items-center gap-1 mb-4 text-lime text-sm">
-                                <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
-                            </div>
-                            <p class="text-gray-300 text-sm mb-6 leading-relaxed">"${review.text}"</p>
-                            <div class="flex items-center gap-3">
-                                <img src="https://i.pravatar.cc/150?img=${i+10}" class="w-10 h-10 rounded-full border border-white/20" alt="${review.name}">
-                                <div class="font-bold text-sm">${review.name}</div>
-                            </div>
-                        </div>
-                    `);
-                });
-            </script>
+    <!-- Testimonials (Marquee) -->
+    <section class="py-24 overflow-hidden relative">
+        <div class="container mx-auto px-6 mb-12 text-center reveal">
+            <h2 class="text-4xl font-display font-bold">Отзывы <span class="text-brand-lime">Клиентов</span></h2>
         </div>
-    </section>
 
-    <!-- Contact / Footer -->
-    <section id="contact" class="py-24 relative">
-        <div class="max-w-4xl mx-auto px-4 text-center">
-            <h2 class="text-6xl md:text-8xl font-bebas mb-8 reveal">Давай <span class="text-lime">Начнем</span></h2>
-            <p class="text-gray-400 mb-12 reveal delay-100">Готов вывести свой бренд в топ? Выбери удобный способ связи.</p>
-            
-            <div class="flex flex-col md:flex-row justify-center gap-6 mb-16 reveal delay-200">
-                <a href="https://t.me/vladpetroov" target="_blank" class="flex items-center justify-center gap-3 px-8 py-4 bg-[#0088cc]/20 border border-[#0088cc]/50 hover:bg-[#0088cc] text-white rounded-xl transition-all group">
-                    <i class="ph-bold ph-telegram-logo text-2xl"></i> 
-                    <span class="font-bold">Telegram</span>
-                </a>
-                <a href="https://vk.com/vladpetrovagency" target="_blank" class="flex items-center justify-center gap-3 px-8 py-4 bg-white/5 border border-white/20 hover:bg-white/20 text-white rounded-xl transition-all">
-                    <i class="ph-bold ph-vk-logo text-2xl"></i>
-                    <span class="font-bold">ВКонтакте</span>
-                </a>
-                <a href="https://ru.pinterest.com/vladpetroov" target="_blank" class="flex items-center justify-center gap-3 px-8 py-4 bg-[#E60023]/20 border border-[#E60023]/50 hover:bg-[#E60023] text-white rounded-xl transition-all">
-                    <i class="ph-bold ph-pinterest-logo text-2xl"></i>
-                    <span class="font-bold">Pinterest</span>
-                </a>
-            </div>
-
-            <!-- Simple Form -->
-            <form class="max-w-md mx-auto glass-panel p-8 rounded-2xl reveal delay-300">
-                <div class="space-y-4">
-                    <input type="text" placeholder="Ваше имя" class="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-lime transition-colors text-white">
-                    <input type="tel" placeholder="Телефон / Telegram" class="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-lime transition-colors text-white">
-                    <button type="submit" class="w-full bg-lime text-black font-bold py-3 rounded-lg hover:bg-white transition-colors">Отправить заявку</button>
+        <div class="marquee-container opacity-80 hover:opacity-100 transition-opacity">
+            <div class="marquee-content gap-6 px-6">
+                <!-- Testimonial Items (Duplicated for infinite loop) -->
+                <!-- JS builds this, but hardcoding a few for immediate structure -->
+                <div class="glass-panel p-6 rounded-xl w-80 flex-shrink-0">
+                    <div class="flex text-brand-lime mb-3"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                    <p class="text-sm text-gray-300 mb-4">"Заказывал инфографику для WB, карточка стала выглядеть в разы дороже, продажи выросли."</p>
+                    <p class="font-bold text-white">Алексей, <span class="text-gray-500 font-normal">Москва</span></p>
                 </div>
-            </form>
-            
-            <div class="mt-20 text-gray-600 text-xs">
-                &copy; 2026 VP.DESIGN. Все права защищены. <br> Дизайн, который продает.
+                <div class="glass-panel p-6 rounded-xl w-80 flex-shrink-0">
+                    <div class="flex text-brand-lime mb-3"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                    <p class="text-sm text-gray-300 mb-4">"Очень быстро понял задачу и сделал дизайн лучше, чем мы ожидали."</p>
+                    <p class="font-bold text-white">Марина, <span class="text-gray-500 font-normal">Краснодар</span></p>
+                </div>
+                <div class="glass-panel p-6 rounded-xl w-80 flex-shrink-0">
+                    <div class="flex text-brand-lime mb-3"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                    <p class="text-sm text-gray-300 mb-4">"Слайды выглядят как у крупных брендов. Конверсия реально выросла."</p>
+                    <p class="font-bold text-white">Игорь, <span class="text-gray-500 font-normal">СПб</span></p>
+                </div>
+                 <div class="glass-panel p-6 rounded-xl w-80 flex-shrink-0">
+                    <div class="flex text-brand-lime mb-3"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                    <p class="text-sm text-gray-300 mb-4">"Заказывала баннеры, всё получилось стильно. Клиенты начали чаще писать."</p>
+                    <p class="font-bold text-white">Ольга, <span class="text-gray-500 font-normal">Ростов</span></p>
+                </div>
+                 <div class="glass-panel p-6 rounded-xl w-80 flex-shrink-0">
+                    <div class="flex text-brand-lime mb-3"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                    <p class="text-sm text-gray-300 mb-4">"До курса вообще не понимал, как делать инфографику. Сейчас уже беру заказы."</p>
+                    <p class="font-bold text-white">Кирилл, <span class="text-gray-500 font-normal">Ученик</span></p>
+                </div>
+                 <!-- Duplicate for smooth loop -->
+                 <div class="glass-panel p-6 rounded-xl w-80 flex-shrink-0">
+                    <div class="flex text-brand-lime mb-3"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                    <p class="text-sm text-gray-300 mb-4">"Заказывал инфографику для WB, карточка стала выглядеть в разы дороже."</p>
+                    <p class="font-bold text-white">Алексей, <span class="text-gray-500 font-normal">Москва</span></p>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- FAQ -->
+    <section class="py-24">
+        <div class="container mx-auto px-6 max-w-3xl">
+            <h2 class="text-3xl font-display font-bold text-center mb-12 reveal">Частые <span class="text-brand-lime">Вопросы</span></h2>
+            
+            <div class="space-y-4">
+                <details class="group glass-panel rounded-xl reveal cursor-pointer">
+                    <summary class="flex justify-between items-center p-6 font-bold list-none">
+                        <span>Сколько времени занимает выполнение заказа?</span>
+                        <span class="transition group-open:rotate-180"><i class="ph ph-caret-down text-brand-lime"></i></span>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-400 text-sm">
+                        В среднем от 3 до 7 дней в зависимости от сложности задачи и количества слайдов или материалов.
+                    </div>
+                </details>
+
+                <details class="group glass-panel rounded-xl reveal delay-100 cursor-pointer">
+                    <summary class="flex justify-between items-center p-6 font-bold list-none">
+                        <span>Сколько правок можно внести?</span>
+                        <span class="transition group-open:rotate-180"><i class="ph ph-caret-down text-brand-lime"></i></span>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-400 text-sm">
+                        В процессе работы вносятся разумные правки, чтобы довести дизайн до идеального результата без лишних ограничений.
+                    </div>
+                </details>
+
+                <details class="group glass-panel rounded-xl reveal delay-200 cursor-pointer">
+                    <summary class="flex justify-between items-center p-6 font-bold list-none">
+                        <span>Что нужно предоставить для начала работы?</span>
+                        <span class="transition group-open:rotate-180"><i class="ph ph-caret-down text-brand-lime"></i></span>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-400 text-sm">
+                        Фото товара или материалы, текст, пожелания по стилю и примеры, если они есть.
+                    </div>
+                </details>
+
+                <details class="group glass-panel rounded-xl reveal delay-300 cursor-pointer">
+                    <summary class="flex justify-between items-center p-6 font-bold list-none">
+                        <span>Как происходит оплата?</span>
+                        <span class="transition group-open:rotate-180"><i class="ph ph-caret-down text-brand-lime"></i></span>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-400 text-sm">
+                        Обычно работа начинается после предоплаты, остальная часть оплачивается после согласования готового результата.
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacts -->
+    <section id="contact" class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-t from-brand-lime/10 to-transparent pointer-events-none"></div>
+        <div class="container mx-auto px-6 text-center reveal">
+            <h2 class="text-5xl md:text-6xl font-display font-bold mb-8">Готовы к <span class="text-brand-lime text-glow">Wow-эффекту?</span></h2>
+            <p class="text-xl text-gray-400 mb-12">Давайте обсудим ваш проект прямо сейчас</p>
+            
+            <a href="https://t.me/vladpetroov" target="_blank" class="hover-trigger inline-flex items-center gap-3 bg-[#0088cc] text-white font-bold py-5 px-12 rounded-full text-xl hover:scale-105 transition-transform shadow-[0_0_30px_rgba(0,136,204,0.4)] mb-12 group">
+                <i class="ph-fill ph-telegram-logo text-2xl"></i>
+                Написать в Telegram
+            </a>
+
+            <div class="flex flex-wrap justify-center gap-6">
+                <a href="https://vk.com/vladpetrovagency" class="hover-trigger glass-panel px-8 py-4 rounded-full flex items-center gap-2 hover:bg-white hover:text-black transition-all">
+                    <i class="ph-bold ph-hands-clapping"></i> VKontakte
+                </a>
+                <a href="https://ru.pinterest.com/vladpetroov" class="hover-trigger glass-panel px-8 py-4 rounded-full flex items-center gap-2 hover:bg-[#E60023] hover:text-white transition-all">
+                    <i class="ph-bold ph-pinterest-logo"></i> Pinterest
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 border-t border-white/5">
+        <div class="container mx-auto px-6 text-center md:text-left flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+                <span class="font-display font-bold text-2xl">VP-DESIGN</span>
+                <p class="text-xs text-gray-500 mt-1">© 2024-2026. All rights reserved.</p>
+            </div>
+            <div class="flex gap-6 text-sm text-gray-500">
+                <a href="#" class="hover:text-white transition-colors">Политика конфиденциальности</a>
+                <a href="#" class="hover:text-white transition-colors">Оферта</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
     <script>
-        // --- 1. Reveal on Scroll (Intersection Observer) ---
+        /* --- 1. Portfolio Logic --- */
+        const portfolioData = [
+            // Infographics (12 items)
+            { cat: 'info', src: 'https://i.ibb.co/FLsCKXYD/579-20251105185725.jpg' },
+            { cat: 'info', src: 'https://i.ibb.co/wFh0gByn/IMG-8041.jpg' },
+            { cat: 'info', src: 'https://i.ibb.co/k6wSmDBj/IMG-7170.jpg' },
+            { cat: 'info', src: 'https://i.ibb.co/JwML7f4g/373-20250817165435.jpg' },
+            { cat: 'info', src: 'https://i.ibb.co/p6C8zZLn/969-20251230133150.jpg' },
+            { cat: 'info', src: 'https://i.ibb.co/Z6RPgtBs/394-20250921005440.jpg' },
+            { cat: 'info', src: 'https://i.ibb.co/ZRTgFQ8r/IMG-7801.jpg' },
+            { cat: 'info', src: 'https://i.ibb.co/hR04gy83/1115-20260201215842.png' },
+            { cat: 'info', src: 'https://i.ibb.co/6RkgYh1G/IMG-7410.jpg' },
+            { cat: 'info', src: 'https://i.ibb.co/6cjb5PS9/601-20251110164430.jpg' },
+            { cat: 'info', src: 'https://i.ibb.co/8LX6HLHN/IMG-3641.jpg' },
+            { cat: 'info', src: 'https://i.ibb.co/W4FM2HxQ/436-20250929191023.jpg' },
+            
+            // Rich Content
+            { cat: 'rich', src: 'https://i.ibb.co/8HHXJ0B/IMG-9007.jpg' },
+            { cat: 'rich', src: 'https://i.ibb.co/jZbFs3Ky/IMG-9008.jpg' },
+            { cat: 'rich', src: 'https://i.ibb.co/GvbQSwMt/IMG-9009.jpg' },
+            { cat: 'rich', src: 'https://i.ibb.co/vvkNDFwf/IMG-9011.jpg' },
+            { cat: 'rich', src: 'https://i.ibb.co/dxSk7NQ/IMG-9013.jpg' },
+            { cat: 'rich', src: 'https://i.ibb.co/PGs0D1Dq/IMG-9014.jpg' },
+
+            // Cards (Business Cards)
+            { cat: 'visit', src: 'https://i.ibb.co/7twpLLn7/IMG-9022.jpg' },
+            { cat: 'visit', src: 'https://i.ibb.co/TMqPnWFt/IMG-9023.jpg' },
+            { cat: 'visit', src: 'https://i.ibb.co/PZryDz99/IMG-9024.jpg' },
+            { cat: 'visit', src: 'https://i.ibb.co/gbSkNFQn/IMG-9025.jpg' },
+            { cat: 'visit', src: 'https://i.ibb.co/ym8tJdgK/IMG-9026.jpg' },
+
+            // Banners
+            { cat: 'banner', src: 'https://i.ibb.co/HLDvBpNQ/IMG-9027.jpg' },
+            { cat: 'banner', src: 'https://i.ibb.co/4rWPbYG/IMG-9028.jpg' },
+            { cat: 'banner', src: 'https://i.ibb.co/Ymm37V6/IMG-9029.jpg' },
+            { cat: 'banner', src: 'https://i.ibb.co/c43J6RK/IMG-9030.jpg' },
+            { cat: 'banner', src: 'https://i.ibb.co/PvmGbwP6/IMG-9031.jpg' },
+
+            // Labels
+            { cat: 'label', src: 'https://i.ibb.co/k28j2D1X/IMG-9035.jpg' },
+            { cat: 'label', src: 'https://i.ibb.co/DH6c5vR6/IMG-9036.jpg' },
+            { cat: 'label', src: 'https://i.ibb.co/0y6TQQd4/IMG-9037.jpg' },
+            { cat: 'label', src: 'https://i.ibb.co/YB7qgGTH/IMG-9034.jpg' },
+            { cat: 'label', src: 'https://i.ibb.co/nM3c5yz8/IMG-9033.jpg' },
+
+            // Creative
+            { cat: 'creative', src: 'https://i.ibb.co/mCwt9S7m/IMG-9038.jpg' },
+            { cat: 'creative', src: 'https://i.ibb.co/kgdk8WHP/IMG-9039.jpg' },
+            { cat: 'creative', src: 'https://i.ibb.co/QvPPwftV/IMG-9040.jpg' },
+            { cat: 'creative', src: 'https://i.ibb.co/YTyT1Yhx/IMG-9041.jpg' },
+            { cat: 'creative', src: 'https://i.ibb.co/7JpF89m7/IMG-2595.jpg' },
+
+            // VK
+            { cat: 'vk', src: 'https://i.ibb.co/HTMwMzwK/IMG-9042.jpg' },
+            { cat: 'vk', src: 'https://i.ibb.co/gMgcyT0q/IMG-9043.jpg' },
+            { cat: 'vk', src: 'https://i.ibb.co/673Nd5yp/IMG-9044.jpg' },
+            { cat: 'vk', src: 'https://i.ibb.co/HTDbFGHF/IMG-9045.jpg' },
+            { cat: 'vk', src: 'https://i.ibb.co/wFLTkBSf/IMG-9046.jpg' },
+        ];
+
+        const portfolioGrid = document.getElementById('portfolio-grid');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+
+        function renderPortfolio(filter) {
+            portfolioGrid.innerHTML = '';
+            portfolioGrid.style.opacity = '0';
+            
+            setTimeout(() => {
+                const filtered = filter === 'all' 
+                    ? portfolioData.slice(0, 12) // Limit 'all' to 12 items to save space
+                    : portfolioData.filter(item => item.cat === filter);
+
+                filtered.forEach((item, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'glass-panel p-2 rounded-xl h-64 overflow-hidden relative group hover-trigger';
+                    div.innerHTML = `
+                        <img src="${item.src}" alt="Portfolio" class="w-full h-full object-cover rounded-lg transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                             <div class="text-brand-lime font-bold">Просмотр</div>
+                        </div>
+                    `;
+                    portfolioGrid.appendChild(div);
+                });
+                
+                portfolioGrid.style.opacity = '1';
+                portfolioGrid.style.transition = 'opacity 0.3s';
+            }, 300);
+        }
+
+        // Initialize Portfolio
+        renderPortfolio('all');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-white/5', 'active');
+                    b.classList.add('bg-transparent');
+                });
+                btn.classList.remove('bg-transparent');
+                btn.classList.add('bg-white/5', 'active');
+                renderPortfolio(btn.dataset.filter);
+            });
+        });
+
+
+        /* --- 2. Canvas Background (Cosmic Dust) --- */
+        const canvas = document.getElementById('canvas-bg');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2;
+                this.alpha = Math.random() * 0.5 + 0.1;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0) this.x = width;
+                if (this.x > width) this.x = 0;
+                if (this.y < 0) this.y = height;
+                if (this.y > height) this.y = 0;
+            }
+
+            draw() {
+                ctx.fillStyle = `rgba(212, 255, 0, ${this.alpha})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < 100; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => {
+            resize();
+            initParticles();
+        });
+
+        resize();
+        initParticles();
+        animate();
+
+
+        /* --- 3. Custom Cursor & Hover Effects --- */
+        const cursor = document.getElementById('cursor');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        document.addEventListener('mouseover', (e) => {
+            if (e.target.closest('.hover-trigger') || e.target.closest('a') || e.target.closest('button')) {
+                cursor.classList.add('hovered');
+            } else {
+                cursor.classList.remove('hovered');
+            }
+        });
+
+
+        /* --- 4. Scroll Reveal --- */
         const observerOptions = {
             threshold: 0.1,
-            rootMargin: "0px 0px -50px 0px"
+            rootMargin: "0px"
         };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
-                    observer.unobserve(entry.target); // Only animate once
                 }
             });
         }, observerOptions);
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // --- 2. Mobile Menu Toggle ---
+
+        /* --- 5. Mobile Menu --- */
         const menuBtn = document.getElementById('menu-btn');
-        const closeMenuBtn = document.getElementById('close-menu');
         const mobileMenu = document.getElementById('mobile-menu');
+        const closeMenu = document.getElementById('close-menu');
         const mobileLinks = document.querySelectorAll('.mobile-link');
 
         function toggleMenu() {
-            const isClosed = mobileMenu.classList.contains('translate-x-full');
-            if (isClosed) {
-                mobileMenu.classList.remove('translate-x-full');
-                document.body.style.overflow = 'hidden'; // Prevent scrolling
-            } else {
-                mobileMenu.classList.add('translate-x-full');
-                document.body.style.overflow = '';
-            }
+            mobileMenu.classList.toggle('translate-x-full');
+            document.body.classList.toggle('overflow-hidden');
         }
 
         menuBtn.addEventListener('click', toggleMenu);
-        closeMenuBtn.addEventListener('click', toggleMenu);
-        
-        // Close menu when a link is clicked
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', toggleMenu);
-        });
-
-        // --- 3. Simple Form Handler (Mock) ---
-        document.querySelector('form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const btn = e.target.querySelector('button');
-            const originalText = btn.innerText;
-            
-            btn.innerText = 'Отправлено!';
-            btn.style.backgroundColor = 'white';
-            
-            setTimeout(() => {
-                btn.innerText = originalText;
-                btn.style.backgroundColor = '#CCFF00';
-                e.target.reset();
-            }, 3000);
-            
-            // In real life, send data to Telegram API here
-            // window.open('https://t.me/vladpetroov', '_blank');
-        });
-
-        // --- 4. Navbar Blur on Scroll ---
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                nav.classList.add('py-2');
-                nav.classList.remove('py-4');
-            } else {
-                nav.classList.add('py-4');
-                nav.classList.remove('py-2');
-            }
-        });
+        closeMenu.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
 
     </script>
 </body>
