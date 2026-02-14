@@ -150,13 +150,13 @@
     <!-- Hero Section -->
     <header class="relative min-h-screen flex items-center justify-center pt-20 px-6 overflow-hidden">
         <!-- Glow effects behind -->
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-lime-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-lime-500/5 rounded-full blur-[100px] pointer-events-none"></div>
 
         <div class="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
             <div class="lg:col-span-8 space-y-8 text-center lg:text-left">
-                <h1 class="font-display font-extrabold text-5xl md:text-7xl lg:text-9xl tracking-tighter leading-[0.9] text-[#CCFF00] drop-shadow-[0_0_25px_rgba(204,255,0,0.25)] hero-title">
+                <h1 class="font-display font-extrabold text-5xl md:text-7xl lg:text-9xl tracking-tighter leading-[0.9] text-[#CCFF00] drop-shadow-[0_0_15px_rgba(204,255,0,0.15)] hero-title">
                     VP-DESIGN <br>
-                    <span class="text-3xl md:text-5xl lg:text-7xl font-light text-white block mt-4 drop-shadow-none">ДИЗАЙН, КОТОРЫЙ <span class="text-[#CCFF00] italic">ПРОДАЕТ</span></span>
+                    <span class="text-3xl md:text-5xl lg:text-7xl font-display font-medium text-white block mt-4 drop-shadow-none tracking-tight">ДИЗАЙН, КОТОРЫЙ <span class="text-[#CCFF00] italic">ПРОДАЕТ</span></span>
                 </h1>
                 
                 <p class="font-sans text-gray-400 text-lg md:text-xl max-w-2xl mx-auto lg:mx-0 font-light hero-subtitle">
@@ -207,8 +207,8 @@
                         Основатель <span class="text-white font-medium">VP-DESIGN</span>. Создаю дизайн, который <span class="text-[#CCFF00] border-b border-[#CCFF00]/50 pb-1">продаёт</span>: инфографику, рекламные креативы, дизайн для соцсетей и полиграфию. Работаю с 2020 года и каждый проект довожу до максимальной <span class="text-white">эффективности</span> и визуального <span class="text-[#CCFF00] italic">wow-эффекта</span>.
                     </p>
                     <div class="flex flex-wrap gap-4 justify-center md:justify-start pt-4">
-                        <span class="px-4 py-2 border border-white/10 rounded-full text-sm hover:bg-white/5 transition-colors">5+ лет опыта</span>
-                        <span class="px-4 py-2 border border-white/10 rounded-full text-sm hover:bg-white/5 transition-colors">5000+ проектов</span>
+                        <span class="px-4 py-2 border border-white/10 rounded-full text-sm hover:bg-white/5 transition-colors">В дизайне с 2020 года</span>
+                        <span class="px-4 py-2 border border-white/10 rounded-full text-sm hover:bg-white/5 transition-colors">500+ кейсов</span>
                         <span class="px-4 py-2 border border-white/10 rounded-full text-sm hover:bg-white/5 transition-colors">TOP Рейтинг</span>
                     </div>
                 </div>
@@ -255,12 +255,22 @@
                     <p class="text-gray-300 text-sm">Погружаюсь в каждый проект с головой.</p>
                 </div>
                 
-                <div class="glass-panel p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 gsap-fade-up md:col-span-2 lg:col-span-1">
+                <!-- Shortened AI Card -->
+                <div class="glass-panel p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 gsap-fade-up">
                     <div class="w-12 h-12 bg-[#CCFF00]/10 rounded-full flex items-center justify-center mb-6 text-[#CCFF00]">
                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
                     </div>
                     <h3 class="text-xl font-bold mb-2">Нейросети & AI</h3>
                     <p class="text-gray-300 text-sm">Использую мощь ИИ для уникальной графики.</p>
+                </div>
+
+                <!-- New Education Card -->
+                <div class="glass-panel p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 gsap-fade-up">
+                    <div class="w-12 h-12 bg-[#CCFF00]/10 rounded-full flex items-center justify-center mb-6 text-[#CCFF00]">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Образование B&D</h3>
+                    <p class="text-gray-300 text-sm">Высшее в Институте бизнеса и дизайна (Мск). Графический дизайн + маркетинг.</p>
                 </div>
             </div>
         </div>
@@ -363,9 +373,12 @@
             <h2 class="font-display font-bold text-4xl md:text-6xl mb-12 text-center">ПОРТФОЛИО</h2>
             
             <!-- Tabs -->
-            <div class="flex flex-wrap justify-center gap-4 mb-12" id="portfolio-tabs">
+            <div class="flex flex-wrap justify-center gap-3 mb-12" id="portfolio-tabs">
                 <button class="px-6 py-2 rounded-full border border-white/20 text-sm hover:border-[#CCFF00] hover:text-[#CCFF00] transition-all active-tab" data-filter="infographic">Инфографика</button>
                 <button class="px-6 py-2 rounded-full border border-white/20 text-sm hover:border-[#CCFF00] hover:text-[#CCFF00] transition-all" data-filter="rich">Rich-контент</button>
+                <button class="px-6 py-2 rounded-full border border-white/20 text-sm hover:border-[#CCFF00] hover:text-[#CCFF00] transition-all" data-filter="websites">Сайты</button>
+                <button class="px-6 py-2 rounded-full border border-white/20 text-sm hover:border-[#CCFF00] hover:text-[#CCFF00] transition-all" data-filter="logos">Логотипы</button>
+                <button class="px-6 py-2 rounded-full border border-white/20 text-sm hover:border-[#CCFF00] hover:text-[#CCFF00] transition-all" data-filter="youtube">Превью YouTube</button>
                 <button class="px-6 py-2 rounded-full border border-white/20 text-sm hover:border-[#CCFF00] hover:text-[#CCFF00] transition-all" data-filter="cards">Визитки</button>
                 <button class="px-6 py-2 rounded-full border border-white/20 text-sm hover:border-[#CCFF00] hover:text-[#CCFF00] transition-all" data-filter="banners">Баннеры</button>
                 <button class="px-6 py-2 rounded-full border border-white/20 text-sm hover:border-[#CCFF00] hover:text-[#CCFF00] transition-all" data-filter="labels">Этикетки</button>
@@ -379,50 +392,70 @@
             </div>
             
             <div class="text-center mt-12">
-                 <a href="https://t.me/vladpetroov" class="inline-block text-sm text-gray-500 hover:text-[#CCFF00] transition-colors">Больше работ в Telegram →</a>
+                 <a href="https://ru.pinterest.com/vladpetroov/" target="_blank" class="inline-flex items-center gap-3 px-8 py-3 rounded-full glass-panel hover:border-[#E60023] hover:text-[#E60023] hover:shadow-[0_0_20px_rgba(230,0,35,0.3)] transition-all duration-300 group">
+                    <svg class="w-5 h-5 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.399.165-1.487-.695-2.419-2.878-2.419-4.629 0-3.773 2.749-7.229 7.93-7.229 4.162 0 7.396 2.967 7.396 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.367 18.62 0 12.017 0z"/></svg>
+                    <span class="font-medium tracking-wide">Больше работ в Pinterest</span>
+                 </a>
             </div>
         </div>
     </section>
 
     <!-- Block 6: Process -->
-    <section class="py-24 px-6 bg-gradient-to-b from-transparent to-[#0a0a0a]">
-        <div class="max-w-7xl mx-auto">
-             <h2 class="font-display font-bold text-4xl mb-16 text-center">ПРОЦЕСС <span class="text-[#CCFF00]">РАБОТЫ</span></h2>
+    <section id="process" class="py-24 px-6 bg-gradient-to-b from-transparent to-[#0a0a0a]">
+        <div class="max-w-3xl mx-auto">
+             <h2 class="font-display font-bold text-4xl mb-20 text-center">ПРОЦЕСС <span class="text-[#CCFF00]">РАБОТЫ</span></h2>
              
-             <div class="relative">
-                 <!-- Line connector for Desktop -->
-                 <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-white/10 -translate-y-1/2"></div>
+             <div class="relative" id="process-container">
+                 <!-- Vertical Lines -->
+                 <!-- Background Line -->
+                 <div class="absolute left-[23px] top-4 bottom-12 w-0.5 bg-white/10 z-0"></div>
+                 <!-- Active Progress Line -->
+                 <div class="absolute left-[23px] top-4 w-0.5 bg-[#CCFF00] z-0 h-0 shadow-[0_0_10px_#CCFF00]" id="process-progress"></div>
                  
-                 <div class="grid grid-cols-1 md:grid-cols-5 gap-8">
-                     <!-- Steps -->
-                     <div class="relative group gsap-fade-up">
-                         <div class="w-12 h-12 bg-[#1a1a1a] border border-white/20 rounded-full flex items-center justify-center font-bold text-[#CCFF00] mb-6 relative z-10 group-hover:border-[#CCFF00] group-hover:shadow-[0_0_15px_#CCFF00] transition-all mx-auto md:mx-0">1</div>
-                         <h4 class="font-bold text-lg mb-2 text-center md:text-left">Заявка</h4>
-                         <p class="text-xs text-gray-500 text-center md:text-left">Обсуждаем задачи, цели и сроки проекта.</p>
+                 <div class="space-y-16 relative z-10">
+                     <!-- Step 1 -->
+                     <div class="process-step flex gap-8 items-start">
+                         <div class="w-12 h-12 rounded-full bg-[#050505] border border-white/20 flex items-center justify-center font-bold text-gray-500 flex-shrink-0 transition-all duration-500 step-marker relative z-10 text-xl">1</div>
+                         <div class="pt-1 step-content opacity-30 transition-all duration-500 transform translate-x-4">
+                             <h4 class="font-bold text-2xl mb-3 text-white">Заявка и брифинг</h4>
+                             <p class="text-gray-400 max-w-lg leading-relaxed">Вы оставляете заявку. Мы обсуждаем задачи, формат работы, сроки и желаемый результат. Фиксируем договоренности.</p>
+                         </div>
                      </div>
                      
-                     <div class="relative group gsap-fade-up" style="transition-delay: 100ms">
-                         <div class="w-12 h-12 bg-[#1a1a1a] border border-white/20 rounded-full flex items-center justify-center font-bold text-[#CCFF00] mb-6 relative z-10 group-hover:border-[#CCFF00] group-hover:shadow-[0_0_15px_#CCFF00] transition-all mx-auto md:mx-0">2</div>
-                         <h4 class="font-bold text-lg mb-2 text-center md:text-left">Анализ</h4>
-                         <p class="text-xs text-gray-500 text-center md:text-left">Изучаю нишу, конкурентов и тренды.</p>
+                     <!-- Step 2 -->
+                     <div class="process-step flex gap-8 items-start">
+                         <div class="w-12 h-12 rounded-full bg-[#050505] border border-white/20 flex items-center justify-center font-bold text-gray-500 flex-shrink-0 transition-all duration-500 step-marker relative z-10 text-xl">2</div>
+                         <div class="pt-1 step-content opacity-30 transition-all duration-500 transform translate-x-4">
+                             <h4 class="font-bold text-2xl mb-3 text-white">Анализ ниши</h4>
+                             <p class="text-gray-400 max-w-lg leading-relaxed">Я изучаю ваш товар, конкурентов и тренды в нише. Собираю референсы и продумываю воронку внимания для карточки или сайта.</p>
+                         </div>
                      </div>
 
-                     <div class="relative group gsap-fade-up" style="transition-delay: 200ms">
-                         <div class="w-12 h-12 bg-[#1a1a1a] border border-white/20 rounded-full flex items-center justify-center font-bold text-[#CCFF00] mb-6 relative z-10 group-hover:border-[#CCFF00] group-hover:shadow-[0_0_15px_#CCFF00] transition-all mx-auto md:mx-0">3</div>
-                         <h4 class="font-bold text-lg mb-2 text-center md:text-left">Дизайн</h4>
-                         <p class="text-xs text-gray-500 text-center md:text-left">Создание продающей концепции.</p>
+                     <!-- Step 3 -->
+                     <div class="process-step flex gap-8 items-start">
+                         <div class="w-12 h-12 rounded-full bg-[#050505] border border-white/20 flex items-center justify-center font-bold text-gray-500 flex-shrink-0 transition-all duration-500 step-marker relative z-10 text-xl">3</div>
+                         <div class="pt-1 step-content opacity-30 transition-all duration-500 transform translate-x-4">
+                             <h4 class="font-bold text-2xl mb-3 text-white">Разработка дизайна</h4>
+                             <p class="text-gray-400 max-w-lg leading-relaxed">Создаю сочную, продающую концепцию. Верстаю макеты, работаю с композицией, типографикой и визуальными эффектами.</p>
+                         </div>
                      </div>
 
-                     <div class="relative group gsap-fade-up" style="transition-delay: 300ms">
-                         <div class="w-12 h-12 bg-[#1a1a1a] border border-white/20 rounded-full flex items-center justify-center font-bold text-[#CCFF00] mb-6 relative z-10 group-hover:border-[#CCFF00] group-hover:shadow-[0_0_15px_#CCFF00] transition-all mx-auto md:mx-0">4</div>
-                         <h4 class="font-bold text-lg mb-2 text-center md:text-left">Правки</h4>
-                         <p class="text-xs text-gray-500 text-center md:text-left">Доводим до идеала.</p>
+                     <!-- Step 4 -->
+                     <div class="process-step flex gap-8 items-start">
+                         <div class="w-12 h-12 rounded-full bg-[#050505] border border-white/20 flex items-center justify-center font-bold text-gray-500 flex-shrink-0 transition-all duration-500 step-marker relative z-10 text-xl">4</div>
+                         <div class="pt-1 step-content opacity-30 transition-all duration-500 transform translate-x-4">
+                             <h4 class="font-bold text-2xl mb-3 text-white">Согласование</h4>
+                             <p class="text-gray-400 max-w-lg leading-relaxed">Показываю вам результат. Если нужно — вносим точечные правки, чтобы довести визуал до идеала.</p>
+                         </div>
                      </div>
 
-                     <div class="relative group gsap-fade-up" style="transition-delay: 400ms">
-                         <div class="w-12 h-12 bg-[#CCFF00] text-black border border-[#CCFF00] rounded-full flex items-center justify-center font-bold mb-6 relative z-10 shadow-[0_0_15px_#CCFF00] mx-auto md:mx-0">5</div>
-                         <h4 class="font-bold text-lg mb-2 text-center md:text-left">Результат</h4>
-                         <p class="text-xs text-gray-500 text-center md:text-left">Готовые материалы для роста продаж.</p>
+                     <!-- Step 5 -->
+                     <div class="process-step flex gap-8 items-start">
+                         <div class="w-12 h-12 rounded-full bg-[#050505] border border-white/20 flex items-center justify-center font-bold text-gray-500 flex-shrink-0 transition-all duration-500 step-marker relative z-10 text-xl">5</div>
+                         <div class="pt-1 step-content opacity-30 transition-all duration-500 transform translate-x-4">
+                             <h4 class="font-bold text-2xl mb-3 text-white">Финал проекта</h4>
+                             <p class="text-gray-400 max-w-lg leading-relaxed">Передаю вам все готовые исходники в высоком качестве. Ваш дизайн готов продавать!</p>
+                         </div>
                      </div>
                  </div>
              </div>
@@ -431,18 +464,32 @@
 
     <!-- Block 7: Promo Action -->
     <section class="py-24 px-6 flex justify-center">
-        <div class="w-full max-w-4xl glass-panel p-8 md:p-16 rounded-[40px] relative overflow-hidden group gsap-fade-up">
-            <!-- decorative bg -->
-            <div class="absolute -top-24 -right-24 w-64 h-64 bg-[#CCFF00] opacity-20 blur-[100px] group-hover:opacity-30 transition-opacity"></div>
+        <!-- New Brighter Card Style -->
+        <div class="w-full max-w-4xl relative rounded-[40px] overflow-hidden group gsap-fade-up transition-all duration-500 hover:shadow-[0_0_50px_rgba(204,255,0,0.15)] border border-[#CCFF00]/30 bg-gradient-to-b from-white/5 to-black/40 backdrop-blur-xl">
             
-            <div class="relative z-10 text-center space-y-6">
-                <span class="inline-block px-4 py-1 rounded-full bg-[#CCFF00]/10 text-[#CCFF00] text-xs font-bold tracking-wider mb-2 border border-[#CCFF00]/20">NEW CLIENTS ONLY</span>
-                <h2 class="font-display font-bold text-3xl md:text-5xl">СКИДКА ДЛЯ НОВЫХ КЛИЕНТОВ</h2>
-                <p class="text-gray-300 max-w-lg mx-auto">Получите <span class="text-white font-bold">скидку 20%</span> на первый заказ или бесплатный бонусный слайд. Отличный способ протестировать качество.</p>
+            <!-- decorative bg: Increased opacity and size -->
+            <div class="absolute -top-40 -right-40 w-96 h-96 bg-[#CCFF00] opacity-10 blur-[120px] group-hover:opacity-20 transition-opacity duration-700"></div>
+            <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-[#CCFF00] opacity-5 blur-[120px] group-hover:opacity-15 transition-opacity duration-700"></div>
+            
+            <div class="relative z-10 text-center p-8 md:p-16 space-y-8">
+                <!-- Badge -->
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#CCFF00]/10 border border-[#CCFF00] text-[#CCFF00] text-xs font-bold tracking-widest uppercase shadow-[0_0_15px_rgba(204,255,0,0.3)] animate-pulse">
+                    <span class="w-2 h-2 rounded-full bg-[#CCFF00]"></span>
+                    New Clients Only
+                </div>
+
+                <h2 class="font-display font-bold text-4xl md:text-6xl text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+                    СКИДКА ДЛЯ <span class="text-[#CCFF00]">НОВЫХ</span> КЛИЕНТОВ
+                </h2>
                 
-                <a href="https://t.me/vladpetroov" class="inline-flex items-center gap-3 bg-white text-black font-bold px-8 py-4 rounded-full mt-8 hover:bg-[#CCFF00] transition-colors hover:shadow-[0_0_20px_#CCFF00]">
+                <p class="text-gray-300 text-lg max-w-xl mx-auto leading-relaxed">
+                    Получите <span class="text-white font-bold border-b border-[#CCFF00]">скидку 20%</span> на первый заказ или бесплатный бонусный слайд. Отличный способ протестировать качество и поднять продажи.
+                </p>
+                
+                <!-- Button: WHITE background for max brightness -->
+                <a href="https://t.me/vladpetroov" class="inline-flex items-center gap-3 bg-white text-black font-bold text-lg px-12 py-5 rounded-full mt-4 hover:bg-[#CCFF00] hover:scale-105 transition-all duration-300 shadow-[0_0_40px_rgba(255,255,255,0.4)] hover:shadow-[0_0_60px_rgba(204,255,0,0.6)]">
                     Получить предложение
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                 </a>
             </div>
         </div>
@@ -487,11 +534,14 @@
                         <li class="flex gap-2"><span class="text-[#CCFF00]">✓</span> Основы инфографики</li>
                         <li class="flex gap-2"><span class="text-[#CCFF00]">✓</span> Домашние задания</li>
                     </ul>
-                    <a href="https://t.me/vladpetroov" class="block text-center w-full py-3 border border-white/20 rounded-xl hover:bg-white hover:text-black transition-colors font-medium">Записаться</a>
+                    <!-- Updated Button: Black glass + Lime border -->
+                    <a href="https://t.me/vladpetroov" class="block text-center w-full py-3 bg-black/50 backdrop-blur-md border border-[#CCFF00] text-[#CCFF00] rounded-xl hover:bg-[#CCFF00] hover:text-black hover:shadow-[0_0_20px_#CCFF00] transition-all font-bold relative overflow-hidden group">
+                        <span class="relative z-10">Записаться</span>
+                    </a>
                 </div>
 
                 <!-- Card 2 -->
-                <div class="glass-panel p-8 rounded-3xl hover:border-[#CCFF00]/30 transition-all gsap-fade-up">
+                <div class="glass-panel p-8 rounded-3xl hover:border-[#CCFF00]/30 transition-all gsap-fade-up border-t-4 border-t-[#CCFF00]">
                     <h3 class="text-2xl font-bold mb-2">PRO</h3>
                     <p class="text-sm text-gray-400 mb-6">Для выхода на доход</p>
                     <div class="text-3xl font-display font-bold mb-6">29 990 ₽</div>
@@ -501,12 +551,17 @@
                         <li class="flex gap-2"><span class="text-[#CCFF00]">✓</span> Помощь с портфолио</li>
                         <li class="flex gap-2"><span class="text-[#CCFF00]">✓</span> Поиск клиентов</li>
                     </ul>
-                    <a href="https://t.me/vladpetroov" class="block text-center w-full py-3 border border-white/20 rounded-xl hover:bg-white hover:text-black transition-colors font-medium">Записаться</a>
+                    <!-- Updated Button: Black glass + Lime border -->
+                    <a href="https://t.me/vladpetroov" class="block text-center w-full py-3 bg-black/50 backdrop-blur-md border border-[#CCFF00] text-[#CCFF00] rounded-xl hover:bg-[#CCFF00] hover:text-black hover:shadow-[0_0_20px_#CCFF00] transition-all font-bold relative overflow-hidden group">
+                        <span class="relative z-10">Записаться</span>
+                    </a>
                 </div>
 
                 <!-- Card 3 -->
                 <div class="glass-panel p-8 rounded-3xl hover:border-[#CCFF00]/30 transition-all relative overflow-hidden gsap-fade-up border-t-4 border-t-[#CCFF00]">
-                    <div class="absolute top-0 right-0 bg-[#CCFF00] text-black text-xs font-bold px-3 py-1 rounded-bl-xl">HIT</div>
+                    <!-- HIT Badge: Black glass + Lime border -->
+                    <div class="absolute top-0 right-0 bg-black/60 backdrop-blur-md border-l border-b border-[#CCFF00] text-[#CCFF00] text-xs font-bold px-4 py-2 rounded-bl-2xl shadow-[0_0_10px_rgba(204,255,0,0.2)]">HIT</div>
+                    
                     <h3 class="text-2xl font-bold mb-2">TOP / Личный</h3>
                     <p class="text-sm text-gray-400 mb-6">Работа лично со мной</p>
                     <div class="text-3xl font-display font-bold mb-6 text-[#CCFF00]">59 990 ₽</div>
@@ -515,7 +570,11 @@
                         <li class="flex gap-2"><span class="text-[#CCFF00]">✓</span> Личный чат поддержки</li>
                         <li class="flex gap-2"><span class="text-[#CCFF00]">✓</span> Стратегия роста дохода</li>
                     </ul>
-                    <a href="https://t.me/vladpetroov" class="block text-center w-full py-3 bg-[#CCFF00] text-black rounded-xl hover:shadow-[0_0_20px_#CCFF00] transition-all font-bold">Записаться</a>
+                    
+                    <!-- Button: Black glass + Lime border + Hover fill -->
+                    <a href="https://t.me/vladpetroov" class="block text-center w-full py-3 bg-black/50 backdrop-blur-md border border-[#CCFF00] text-[#CCFF00] rounded-xl hover:bg-[#CCFF00] hover:text-black hover:shadow-[0_0_20px_#CCFF00] transition-all font-bold relative overflow-hidden group">
+                        <span class="relative z-10">Записаться</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -581,22 +640,29 @@
             
             <h2 class="font-display font-bold text-5xl md:text-7xl">ДАВАЙТЕ <span class="text-[#CCFF00] text-glow">СОЗДАВАТЬ</span></h2>
             
-            <div class="flex flex-col md:flex-row justify-center gap-6">
-                <a href="https://t.me/vladpetroov" target="_blank" class="glass-panel px-10 py-6 rounded-2xl flex items-center gap-4 hover:border-[#229ED9] hover:text-[#229ED9] transition-all group w-full md:w-auto justify-center">
-                    <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 11.944 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-                    <div class="text-left">
-                        <div class="text-xs text-gray-400">Написать в</div>
-                        <div class="font-bold text-xl">Telegram</div>
+            <div class="flex flex-col items-center gap-8">
+                <!-- Telegram Button: MAIN ACCENT -->
+                <a href="https://t.me/vladpetroov" target="_blank" class="relative px-12 py-6 rounded-2xl flex items-center gap-5 border border-[#229ED9] bg-[#229ED9]/10 text-[#229ED9] shadow-[0_0_40px_rgba(34,158,217,0.2)] hover:bg-[#229ED9] hover:text-white hover:shadow-[0_0_60px_rgba(34,158,217,0.6)] hover:scale-105 transition-all duration-300 group w-full md:w-auto justify-center overflow-hidden">
+                    <!-- Glow effect inside -->
+                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                    
+                    <svg class="w-10 h-10 relative z-10" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 11.944 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                    <div class="text-left relative z-10">
+                        <div class="text-xs font-medium uppercase tracking-wider opacity-80 mb-1">Обсудить проект</div>
+                        <div class="font-bold text-2xl tracking-tight">Telegram</div>
                     </div>
                 </a>
 
-                <a href="https://vk.com/vladpetrovagency" target="_blank" class="glass-panel px-8 py-6 rounded-2xl flex items-center gap-4 hover:border-[#0077FF] transition-all w-full md:w-auto justify-center group">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/VK_Compact_Logo_%282021-present%29.svg/1024px-VK_Compact_Logo_%282021-present%29.svg.png" alt="VK" class="w-8 h-8 grayscale group-hover:grayscale-0 transition-all duration-300">
-                </a>
-                
-                <a href="https://ru.pinterest.com/vladpetroov" target="_blank" class="glass-panel px-8 py-6 rounded-2xl flex items-center gap-4 hover:border-[#E60023] hover:text-[#E60023] transition-all w-full md:w-auto justify-center">
-                    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.399.165-1.487-.695-2.419-2.878-2.419-4.629 0-3.773 2.749-7.229 7.93-7.229 4.162 0 7.396 2.967 7.396 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.367 18.62 0 12.017 0z"/></svg>
-                </a>
+                <!-- Secondary Socials -->
+                <div class="flex gap-4">
+                    <a href="https://vk.com/vladpetrovagency" target="_blank" class="glass-panel w-16 h-16 rounded-2xl flex items-center justify-center hover:border-[#0077FF] hover:text-[#0077FF] hover:-translate-y-1 transition-all duration-300 group" title="ВКонтакте">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/VK_Compact_Logo_%282021-present%29.svg/1024px-VK_Compact_Logo_%282021-present%29.svg.png" alt="VK" class="w-8 h-8 grayscale brightness-200 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-300">
+                    </a>
+                    
+                    <a href="https://ru.pinterest.com/vladpetroov" target="_blank" class="glass-panel w-16 h-16 rounded-2xl flex items-center justify-center hover:border-[#E60023] hover:text-[#E60023] hover:-translate-y-1 transition-all duration-300" title="Pinterest">
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.399.165-1.487-.695-2.419-2.878-2.419-4.629 0-3.773 2.749-7.229 7.93-7.229 4.162 0 7.396 2.967 7.396 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.367 18.62 0 12.017 0z"/></svg>
+                    </a>
+                </div>
             </div>
 
             <div class="border-t border-white/5 pt-8 text-sm text-gray-600 flex flex-col md:flex-row justify-between items-center">
@@ -622,38 +688,102 @@
             ],
             rich: [
                 'https://i.ibb.co/8HHXJ0B/IMG-9007.jpg', 'https://i.ibb.co/jZbFs3Ky/IMG-9008.jpg', 'https://i.ibb.co/GvbQSwMt/IMG-9009.jpg',
-                'https://i.ibb.co/vvkNDFwf/IMG-9011.jpg', 'https://i.ibb.co/dxSk7NQ/IMG-9013.jpg', 'https://i.ibb.co/PGs0D1Dq/IMG-9014.jpg'
+                'https://i.ibb.co/vvkNDFwf/IMG-9011.jpg', 'https://i.ibb.co/dxSk7NQ/IMG-9013.jpg', 'https://i.ibb.co/PGs0D1Dq/IMG-9014.jpg',
+                'https://i.ibb.co/JFRgsH6s/IMG-9192.jpg', 'https://i.ibb.co/3YjV7wff/IMG-9193.jpg', 'https://i.ibb.co/wF3tJpGW/IMG-4578.jpg',
+                'https://i.ibb.co/BHFYQSYJ/IMG-9195.jpg', 'https://i.ibb.co/sd0HQhnt/IMG-9196.jpg'
+            ],
+            websites: [
+                'https://i.ibb.co/39t29Xf8/IMG-9251.jpg', 'https://i.ibb.co/5g3fqvpV/IMG-9253.jpg', 'https://i.ibb.co/bgQ72rCj/IMG-9255.jpg',
+                'https://i.ibb.co/QFMFb3Q8/IMG-9258.jpg', 'https://i.ibb.co/8GMvvzn/IMG-9259.jpg', 'https://i.ibb.co/KpWgV8r4/IMG-9015.jpg',
+                'https://i.ibb.co/352S5d8X/IMG-9016.jpg', 'https://i.ibb.co/xSZ1vCbB/IMG-9017.jpg', 'https://i.ibb.co/93WHrXxf/IMG-9018.jpg',
+                'https://i.ibb.co/20P76pG4/IMG-9019.jpg'
+            ],
+            logos: [
+                'https://i.ibb.co/7J4p4Vv4/IMG-9240.jpg', 'https://i.ibb.co/208FxJYY/IMG-9241.jpg', 'https://i.ibb.co/XZfZhbJF/IMG-9242.jpg',
+                'https://i.ibb.co/tTRvm49t/IMG-9243.jpg', 'https://i.ibb.co/99QzsC6T/IMG-9244.jpg', 'https://i.ibb.co/gZDgFYJ8/IMG-9245.jpg',
+                'https://i.ibb.co/0pS1jW3X/IMG-9246.jpg', 'https://i.ibb.co/XZkDCQqQ/IMG-9247.jpg', 'https://i.ibb.co/kgRQGG11/IMG-9248.jpg',
+                'https://i.ibb.co/Z6SQ3vxx/IMG-9249.jpg'
+            ],
+            youtube: [
+                'https://i.ibb.co/0pGWY1FP/IMG-9205.jpg', 'https://i.ibb.co/QjPdF8ns/IMG-3082.jpg', 'https://i.ibb.co/Wp6hgvnK/IMG-9207.jpg',
+                'https://i.ibb.co/DDz2QW5G/IMG-9208.jpg', 'https://i.ibb.co/dJ7nrnkQ/IMG-9209.jpg', 'https://i.ibb.co/pSNt1MF/IMG-9210.jpg',
+                'https://i.ibb.co/yFzpfsYC/IMG-9211.jpg', 'https://i.ibb.co/qLbDbGNk/IMG-9212.jpg'
             ],
             cards: [
                 'https://i.ibb.co/7twpLLn7/IMG-9022.jpg', 'https://i.ibb.co/TMqPnWFt/IMG-9023.jpg', 'https://i.ibb.co/PZryDz99/IMG-9024.jpg',
-                'https://i.ibb.co/gbSkNFQn/IMG-9025.jpg', 'https://i.ibb.co/ym8tJdgK/IMG-9026.jpg'
+                'https://i.ibb.co/gbSkNFQn/IMG-9025.jpg', 'https://i.ibb.co/ym8tJdgK/IMG-9026.jpg',
+                'https://i.ibb.co/KzyYMfvs/IMG-9197.jpg', 'https://i.ibb.co/995FH8kv/IMG-9199.jpg', 'https://i.ibb.co/nsVmFP7Y/IMG-9200.jpg',
+                'https://i.ibb.co/JFddR5Fq/IMG-9202.jpg', 'https://i.ibb.co/DDFvyfNc/IMG-9201.jpg', 'https://i.ibb.co/TDvy4wG6/IMG-9203.jpg'
             ],
             banners: [
                  'https://i.ibb.co/HLDvBpNQ/IMG-9027.jpg', 'https://i.ibb.co/4rWPbYG/IMG-9028.jpg', 'https://i.ibb.co/Ymm37V6/IMG-9029.jpg',
-                 'https://i.ibb.co/c43J6RK/IMG-9030.jpg', 'https://i.ibb.co/PvmGbwP6/IMG-9031.jpg'
+                 'https://i.ibb.co/c43J6RK/IMG-9030.jpg', 'https://i.ibb.co/PvmGbwP6/IMG-9031.jpg',
+                 'https://i.ibb.co/d0tdPvLR/IMG-9213.jpg', 'https://i.ibb.co/qLMfFwX8/IMG-9214.jpg', 'https://i.ibb.co/nqvHw95z/IMG-9215.jpg',
+                 'https://i.ibb.co/Q3ptYQbJ/IMG-9216.jpg', 'https://i.ibb.co/JR9FHZ9H/IMG-9217.jpg'
             ],
             labels: [
                 'https://i.ibb.co/k28j2D1X/IMG-9035.jpg', 'https://i.ibb.co/DH6c5vR6/IMG-9036.jpg', 'https://i.ibb.co/0y6TQQd4/IMG-9037.jpg',
-                'https://i.ibb.co/YB7qgGTH/IMG-9034.jpg', 'https://i.ibb.co/nM3c5yz8/IMG-9033.jpg'
+                'https://i.ibb.co/YB7qgGTH/IMG-9034.jpg', 'https://i.ibb.co/nM3c5yz8/IMG-9033.jpg',
+                'https://i.ibb.co/MxF7wJPV/IMG-9218.jpg', 'https://i.ibb.co/8Dp5bRzL/IMG-9219.jpg', 'https://i.ibb.co/8D6fcyb2/IMG-9220.jpg',
+                'https://i.ibb.co/rGS8KZjH/IMG-9221.jpg', 'https://i.ibb.co/zWKkGgS8/IMG-9224.jpg'
             ],
             ads: [
                 'https://i.ibb.co/mCwt9S7m/IMG-9038.jpg', 'https://i.ibb.co/kgdk8WHP/IMG-9039.jpg', 'https://i.ibb.co/QvPPwftV/IMG-9040.jpg',
-                'https://i.ibb.co/YTyT1Yhx/IMG-9041.jpg', 'https://i.ibb.co/7JpF89m7/IMG-2595.jpg'
+                'https://i.ibb.co/YTyT1Yhx/IMG-9041.jpg', 'https://i.ibb.co/7JpF89m7/IMG-2595.jpg',
+                'https://i.ibb.co/QjCd4nnm/IMG-2607.jpg', 'https://i.ibb.co/8grtG5HT/IMG-9236.jpg', 'https://i.ibb.co/B5vqD6XT/IMG-9237.jpg',
+                'https://i.ibb.co/nMDRG9hP/IMG-9238.jpg', 'https://i.ibb.co/7Nk21NQS/IMG-9239.jpg'
             ],
             vk: [
                 'https://i.ibb.co/HTMwMzwK/IMG-9042.jpg', 'https://i.ibb.co/gMgcyT0q/IMG-9043.jpg', 'https://i.ibb.co/673Nd5yp/IMG-9044.jpg',
-                'https://i.ibb.co/HTDbFGHF/IMG-9045.jpg', 'https://i.ibb.co/wFLTkBSf/IMG-9046.jpg'
+                'https://i.ibb.co/HTDbFGHF/IMG-9045.jpg', 'https://i.ibb.co/wFLTkBSf/IMG-9046.jpg',
+                'https://i.ibb.co/Nd2bRd8J/IMG-6325.jpg', 'https://i.ibb.co/pBXg4GYr/IMG-9229.jpg', 'https://i.ibb.co/z90Tqv2/IMG-9231.jpg',
+                'https://i.ibb.co/cSv8mjKZ/IMG-9233.jpg', 'https://i.ibb.co/4nd20SMP/IMG-9234.jpg'
             ]
         };
 
         const reviewsData = [
-            {name: "Алексей, Москва", text: "Карточка стала выглядеть в разы дороже, продажи выросли в первую неделю.", stars: 5},
-            {name: "Марина, Краснодар", text: "Быстро понял задачу и сделал дизайн лучше, чем мы ожидали.", stars: 5},
-            {name: "Кирилл, ученик", text: "До курса вообще не понимал инфографику. Сейчас уже беру первые заказы.", stars: 5},
-            {name: "Игорь, СПб", text: "Слайды выглядят как у крупных брендов. Конверсия выросла.", stars: 5},
-            {name: "Ольга, Ростов", text: "Заказывала баннеры, всё стильно и современно.", stars: 5},
-            {name: "Анастасия, ученица", text: "Очень понятная подача. Уже окупила обучение.", stars: 5},
-            {name: "Дмитрий, Казань", text: "Работа чёткая, сроки соблюдены, правок почти не было.", stars: 5}
+            {
+                name: "Алексей, Москва", 
+                text: "Карточка стала выглядеть в разы дороже, продажи выросли в первую неделю.", 
+                stars: 5,
+                avatar: "https://randomuser.me/api/portraits/men/32.jpg"
+            },
+            {
+                name: "Марина, Краснодар", 
+                text: "Быстро понял задачу и сделал дизайн лучше, чем мы ожидали.", 
+                stars: 5,
+                avatar: "https://randomuser.me/api/portraits/women/44.jpg"
+            },
+            {
+                name: "Кирилл, ученик", 
+                text: "До курса вообще не понимал инфографику. Сейчас уже беру первые заказы.", 
+                stars: 5,
+                avatar: "https://randomuser.me/api/portraits/men/46.jpg"
+            },
+            {
+                name: "Игорь, СПб", 
+                text: "Слайды выглядят как у крупных брендов. Конверсия выросла.", 
+                stars: 5,
+                avatar: "https://randomuser.me/api/portraits/men/11.jpg"
+            },
+            {
+                name: "Ольга, Ростов", 
+                text: "Заказывала баннеры, всё стильно и современно.", 
+                stars: 5,
+                avatar: "https://randomuser.me/api/portraits/women/65.jpg"
+            },
+            {
+                name: "Анастасия, ученица", 
+                text: "Очень понятная подача. Уже окупила обучение.", 
+                stars: 5,
+                avatar: "https://randomuser.me/api/portraits/women/26.jpg"
+            },
+            {
+                name: "Дмитрий, Казань", 
+                text: "Работа чёткая, сроки соблюдены, правок почти не было.", 
+                stars: 5,
+                avatar: "https://randomuser.me/api/portraits/men/85.jpg"
+            }
         ];
 
         // --- 2. Render Functions ---
@@ -664,12 +794,35 @@
             const items = portfolioItems[filter] || [];
             items.forEach((src, index) => {
                 const div = document.createElement('div');
-                div.className = 'group relative overflow-hidden rounded-xl aspect-[3/4] bg-gray-800 cursor-pointer';
+                div.className = 'group relative overflow-hidden rounded-xl aspect-[16/9] bg-gray-800 cursor-pointer'; // Default aspect ratio
+                
+                // Base image classes
+                let imgClasses = "w-full h-full object-cover transition-transform duration-700 group-hover:scale-110";
+
+                // Adjust aspect ratios for specific categories
+                if (filter === 'infographic') {
+                    div.classList.remove('aspect-[16/9]');
+                    div.classList.add('aspect-[3/4]');
+                } else if (filter === 'rich' || filter === 'websites') {
+                    // Vertical format 1:2 (Tall but wide enough) + Align Top
+                    div.classList.remove('aspect-[16/9]');
+                    div.classList.add('aspect-[1/2]');
+                    imgClasses += " object-top"; // SHOW THE HEADER/TOP OF THE DESIGN
+                } else if (filter === 'logos' || filter === 'vk' || filter === 'cards' || filter === 'labels' || filter === 'banners') {
+                    // Square format for Logos, VK, Business Cards, Labels AND Banners
+                    div.classList.remove('aspect-[16/9]');
+                    div.classList.add('aspect-square');
+                } else if (filter === 'ads') {
+                    // Vertical "Wallpaper" format for Ads/Creatives
+                    div.classList.remove('aspect-[16/9]');
+                    div.classList.add('aspect-[9/16]');
+                }
+
                 div.style.animation = `fadeIn 0.5s ease forwards ${index * 0.1}s`;
                 div.style.opacity = '0';
                 
                 div.innerHTML = `
-                    <img src="${src}" alt="Portfolio Item" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
+                    <img src="${src}" alt="Portfolio Item" class="${imgClasses}" loading="lazy">
                     <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                         <div class="w-12 h-12 rounded-full border border-[#CCFF00] flex items-center justify-center text-[#CCFF00] transform scale-0 group-hover:scale-100 transition-transform duration-300 delay-100">
                              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M14 10l6.1-6.1M9 21H3v-6M10 14l-6.1 6.1"/></svg>
@@ -683,15 +836,17 @@
         function renderReviews() {
             const container = document.getElementById('reviews-container');
             const reviewsHtml = reviewsData.map(r => `
-                <div class="min-w-[300px] md:min-w-[400px] glass-panel p-6 rounded-2xl mx-4">
+                <div class="min-w-[300px] md:min-w-[400px] glass-panel p-6 rounded-2xl mx-4 hover:border-[#CCFF00]/30 transition-colors">
                     <div class="flex items-center gap-4 mb-4">
-                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-gray-700 to-black"></div>
+                        <img src="${r.avatar}" alt="${r.name}" class="w-12 h-12 rounded-full object-cover border-2 border-white/10">
                         <div>
-                            <div class="font-bold text-sm">${r.name}</div>
-                            <div class="text-[#CCFF00] text-xs">★★★★★</div>
+                            <div class="font-bold text-sm text-white">${r.name}</div>
+                            <div class="text-[#CCFF00] text-xs flex gap-1">
+                                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                            </div>
                         </div>
                     </div>
-                    <p class="text-gray-300 text-sm italic">"${r.text}"</p>
+                    <p class="text-gray-300 text-sm italic leading-relaxed">"${r.text}"</p>
                 </div>
             `).join('');
             
@@ -764,6 +919,55 @@
                     }
                 );
             });
+
+             // --- NEW Process Animation Logic ---
+            const progressLine = document.getElementById('process-progress');
+            const processContainer = document.getElementById('process-container');
+            
+            if (processContainer && progressLine) {
+                // 1. Line Fill Animation - Fill as we scroll
+                gsap.fromTo(progressLine, 
+                    { height: '0%' },
+                    {
+                        height: '100%',
+                        ease: 'none',
+                        scrollTrigger: {
+                            trigger: '#process-container',
+                            start: 'top 60%', // Start filling a bit earlier
+                            end: 'bottom 60%', // End filling a bit earlier
+                            scrub: 0.5
+                        }
+                    }
+                );
+
+                // 2. Steps Activation
+                const steps = document.querySelectorAll('.process-step');
+                steps.forEach((step) => {
+                    const marker = step.querySelector('.step-marker');
+                    const content = step.querySelector('.step-content');
+                    
+                    ScrollTrigger.create({
+                        trigger: step,
+                        start: 'top 70%', // Trigger when top of step hits 70% of viewport height (lower down)
+                        end: 'bottom 70%',
+                        onEnter: () => {
+                             // Make Active
+                             marker.classList.remove('border-white/20', 'text-gray-500', 'bg-[#050505]');
+                             marker.classList.add('border-[#CCFF00]', 'bg-[#CCFF00]', 'text-black', 'shadow-[0_0_20px_#CCFF00]', 'scale-110');
+                             content.classList.remove('opacity-30', 'translate-x-4');
+                             content.classList.add('opacity-100', 'translate-x-0');
+                        },
+                        onLeaveBack: () => {
+                            // Make Inactive
+                            marker.classList.add('border-white/20', 'text-gray-500', 'bg-[#050505]');
+                            marker.classList.remove('border-[#CCFF00]', 'bg-[#CCFF00]', 'text-black', 'shadow-[0_0_20px_#CCFF00]', 'scale-110');
+                            content.classList.add('opacity-30', 'translate-x-4');
+                            content.classList.remove('opacity-100', 'translate-x-0');
+                        }
+                    });
+                });
+            }
+
 
             // --- 4. Three.js Background ---
             const canvas = document.getElementById('bg-canvas');
