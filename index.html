@@ -520,12 +520,12 @@
         </div>
     </section>
 
-    <!-- Block 7: Promo Action - OPTIMIZED: Fade only, reduced blur -->
+    <!-- Block 7: Promo Action - SUPER OPTIMIZED: No Blur, Solid Colors -->
     <section class="py-24 px-6 flex justify-center overflow-hidden">
-        <!-- Optimized Card: gsap-fade-in (no movement), backdrop-blur-sm, darker bg -->
-        <div class="w-full max-w-4xl relative rounded-[40px] overflow-hidden group gsap-fade-in transition-all duration-300 hover:shadow-[0_0_30px_rgba(204,255,0,0.15)] border border-[#CCFF00]/30 bg-gradient-to-b from-white/5 to-black/60 backdrop-blur-sm transform-gpu will-change-opacity">
+        <!-- Performance Fix: Removed 'backdrop-blur', increased bg opacity to 95% hex color -->
+        <div class="w-full max-w-4xl relative rounded-[40px] overflow-hidden group gsap-fade-in transition-all duration-300 hover:shadow-[0_0_30px_rgba(204,255,0,0.15)] border border-[#CCFF00]/30 bg-[#111]/95 transform-gpu will-change-opacity">
             
-            <!-- decorative bg: Increased opacity and size -->
+            <!-- decorative bg: Kept visual flair but behind opaque layer so less blending needed -->
             <div class="absolute -top-40 -right-40 w-96 h-96 bg-[#CCFF00] opacity-10 blur-[100px] group-hover:opacity-20 transition-opacity duration-700"></div>
             <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-[#CCFF00] opacity-5 blur-[100px] group-hover:opacity-15 transition-opacity duration-700"></div>
             
@@ -553,17 +553,17 @@
         </div>
     </section>
 
-    <!-- Block 8 & 9 & 10: Training - OPTIMIZED: Fade only, simpler blur -->
+    <!-- Block 8 & 9 & 10: Training - SUPER OPTIMIZED -->
     <section id="training" class="py-24 px-6 relative overflow-hidden">
-        <!-- Optimized Background -->
-        <div class="absolute inset-0 bg-zinc-900/30 -skew-y-3 z-0 origin-top-left transform scale-110 will-change-transform"></div>
+        <!-- Optimized Background: darker opacity to reduce blend work -->
+        <div class="absolute inset-0 bg-[#0a0a0a]/90 -skew-y-3 z-0 origin-top-left transform scale-110 will-change-transform"></div>
         
         <div class="max-w-7xl mx-auto relative z-10">
             <h2 class="font-display font-bold text-4xl md:text-6xl text-center mb-6">ОБУЧЕНИЕ</h2>
             <p class="text-center text-gray-400 mb-16 max-w-2xl mx-auto">Я не только создаю дизайн, но и учу зарабатывать на этом. От новичка до профи.</p>
             
-            <!-- Results Ticker -->
-            <div class="glass-panel p-6 rounded-xl mb-20 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left gsap-fade-in will-change-opacity">
+            <!-- Results Ticker: Replaced glass-panel with simple border style -->
+            <div class="border border-white/10 bg-zinc-900/90 rounded-xl p-6 mb-20 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left gsap-fade-in will-change-opacity shadow-lg">
                 <div class="flex-1">
                     <div class="text-[#CCFF00] text-3xl font-display font-bold">Уже в процессе</div>
                     <div class="text-sm text-gray-400">ученики берут первые заказы</div>
@@ -583,8 +583,8 @@
             <!-- Pricing Cards -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
                 
-                <!-- Card 1 -->
-                <div class="glass-panel p-8 rounded-3xl hover:border-[#CCFF00]/30 transition-all gsap-fade-in will-change-opacity">
+                <!-- Card 1: Replaced glass-panel with solid translucent bg -->
+                <div class="p-8 rounded-3xl border border-white/10 bg-zinc-900/90 hover:border-[#CCFF00]/30 transition-all gsap-fade-in will-change-opacity shadow-xl">
                     <h3 class="text-2xl font-bold mb-2">Старт</h3>
                     <p class="text-sm text-gray-400 mb-6">Для новичков</p>
                     <div class="text-3xl font-display font-bold mb-6">19 990 ₽</div>
@@ -593,13 +593,13 @@
                         <li class="flex gap-2"><span class="text-[#CCFF00]">✓</span> Основы инфографики</li>
                         <li class="flex gap-2"><span class="text-[#CCFF00]">✓</span> Домашние задания</li>
                     </ul>
-                    <a href="https://t.me/vladpetroov" class="block text-center w-full py-3 bg-black/50 backdrop-blur-md border border-[#CCFF00] text-[#CCFF00] rounded-xl hover:bg-[#CCFF00] hover:text-black hover:shadow-[0_0_20px_#CCFF00] transition-all font-bold relative overflow-hidden group">
+                    <a href="https://t.me/vladpetroov" class="block text-center w-full py-3 bg-black/50 border border-[#CCFF00] text-[#CCFF00] rounded-xl hover:bg-[#CCFF00] hover:text-black hover:shadow-[0_0_20px_#CCFF00] transition-all font-bold relative overflow-hidden group">
                         <span class="relative z-10">Записаться</span>
                     </a>
                 </div>
 
                 <!-- Card 2 -->
-                <div class="glass-panel p-8 rounded-3xl hover:border-[#CCFF00]/30 transition-all gsap-fade-in border-t-4 border-t-[#CCFF00] will-change-opacity">
+                <div class="p-8 rounded-3xl border border-white/10 bg-zinc-900/90 hover:border-[#CCFF00]/30 transition-all gsap-fade-in border-t-4 border-t-[#CCFF00] will-change-opacity shadow-xl">
                     <h3 class="text-2xl font-bold mb-2">PRO</h3>
                     <p class="text-sm text-gray-400 mb-6">Для выхода на доход</p>
                     <div class="text-3xl font-display font-bold mb-6">29 990 ₽</div>
@@ -609,15 +609,15 @@
                         <li class="flex gap-2"><span class="text-[#CCFF00]">✓</span> Помощь с портфолио</li>
                         <li class="flex gap-2"><span class="text-[#CCFF00]">✓</span> Поиск клиентов</li>
                     </ul>
-                    <a href="https://t.me/vladpetroov" class="block text-center w-full py-3 bg-black/50 backdrop-blur-md border border-[#CCFF00] text-[#CCFF00] rounded-xl hover:bg-[#CCFF00] hover:text-black hover:shadow-[0_0_20px_#CCFF00] transition-all font-bold relative overflow-hidden group">
+                    <a href="https://t.me/vladpetroov" class="block text-center w-full py-3 bg-black/50 border border-[#CCFF00] text-[#CCFF00] rounded-xl hover:bg-[#CCFF00] hover:text-black hover:shadow-[0_0_20px_#CCFF00] transition-all font-bold relative overflow-hidden group">
                         <span class="relative z-10">Записаться</span>
                     </a>
                 </div>
 
                 <!-- Card 3 -->
-                <div class="glass-panel p-8 rounded-3xl hover:border-[#CCFF00]/30 transition-all relative overflow-hidden gsap-fade-in border-t-4 border-t-[#CCFF00] will-change-opacity">
+                <div class="p-8 rounded-3xl border border-white/10 bg-zinc-900/90 hover:border-[#CCFF00]/30 transition-all relative overflow-hidden gsap-fade-in border-t-4 border-t-[#CCFF00] will-change-opacity shadow-xl">
                     <!-- HIT Badge -->
-                    <div class="absolute top-0 right-0 bg-black/60 backdrop-blur-md border-l border-b border-[#CCFF00] text-[#CCFF00] text-xs font-bold px-4 py-2 rounded-bl-2xl shadow-[0_0_10px_rgba(204,255,0,0.2)]">HIT</div>
+                    <div class="absolute top-0 right-0 bg-black/80 border-l border-b border-[#CCFF00] text-[#CCFF00] text-xs font-bold px-4 py-2 rounded-bl-2xl shadow-[0_0_10px_rgba(204,255,0,0.2)]">HIT</div>
                     
                     <h3 class="text-2xl font-bold mb-2">TOP / Личный</h3>
                     <p class="text-sm text-gray-400 mb-6">Работа лично со мной</p>
@@ -628,7 +628,7 @@
                         <li class="flex gap-2"><span class="text-[#CCFF00]">✓</span> Стратегия роста дохода</li>
                     </ul>
                     
-                    <a href="https://t.me/vladpetroov" class="block text-center w-full py-3 bg-black/50 backdrop-blur-md border border-[#CCFF00] text-[#CCFF00] rounded-xl hover:bg-[#CCFF00] hover:text-black hover:shadow-[0_0_20px_#CCFF00] transition-all font-bold relative overflow-hidden group">
+                    <a href="https://t.me/vladpetroov" class="block text-center w-full py-3 bg-black/50 border border-[#CCFF00] text-[#CCFF00] rounded-xl hover:bg-[#CCFF00] hover:text-black hover:shadow-[0_0_20px_#CCFF00] transition-all font-bold relative overflow-hidden group">
                         <span class="relative z-10">Записаться</span>
                     </a>
                 </div>
