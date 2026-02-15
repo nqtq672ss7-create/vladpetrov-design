@@ -63,16 +63,16 @@
             background: #CCFF00;
         }
 
-        /* Glassmorphism Utilities - OPTIMIZED */
+        /* Glassmorphism Utilities - OPTIMIZED FOR PERFORMANCE */
         .glass-panel {
             background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px); /* Reduced slightly for performance */
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(8px); /* Reduced blur for better FPS */
+            -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
             /* Performance fix: Force GPU acceleration */
             transform: translateZ(0); 
-            will-change: transform, opacity;
+            will-change: opacity; /* Only animate opacity if possible */
         }
         
         .glass-panel:hover {
@@ -99,6 +99,7 @@
 
         /* Animations classes */
         .fade-up { opacity: 0; transform: translateY(30px); }
+        .fade-in { opacity: 0; } /* New simple fade class */
         
         /* Loader */
         .loader {
@@ -519,10 +520,10 @@
         </div>
     </section>
 
-    <!-- Block 7: Promo Action -->
+    <!-- Block 7: Promo Action - OPTIMIZED: Fade only, reduced blur -->
     <section class="py-24 px-6 flex justify-center overflow-hidden">
-        <!-- Optimized Card: Reduced blur (xl -> md) and optimized shadows for performance -->
-        <div class="w-full max-w-4xl relative rounded-[40px] overflow-hidden group gsap-fade-up transition-all duration-300 hover:shadow-[0_0_30px_rgba(204,255,0,0.15)] border border-[#CCFF00]/30 bg-gradient-to-b from-white/5 to-black/40 backdrop-blur-md transform-gpu will-change-transform">
+        <!-- Optimized Card: gsap-fade-in (no movement), backdrop-blur-sm, darker bg -->
+        <div class="w-full max-w-4xl relative rounded-[40px] overflow-hidden group gsap-fade-in transition-all duration-300 hover:shadow-[0_0_30px_rgba(204,255,0,0.15)] border border-[#CCFF00]/30 bg-gradient-to-b from-white/5 to-black/60 backdrop-blur-sm transform-gpu will-change-opacity">
             
             <!-- decorative bg: Increased opacity and size -->
             <div class="absolute -top-40 -right-40 w-96 h-96 bg-[#CCFF00] opacity-10 blur-[100px] group-hover:opacity-20 transition-opacity duration-700"></div>
@@ -552,7 +553,7 @@
         </div>
     </section>
 
-    <!-- Block 8 & 9 & 10: Training -->
+    <!-- Block 8 & 9 & 10: Training - OPTIMIZED: Fade only, simpler blur -->
     <section id="training" class="py-24 px-6 relative overflow-hidden">
         <!-- Optimized Background -->
         <div class="absolute inset-0 bg-zinc-900/30 -skew-y-3 z-0 origin-top-left transform scale-110 will-change-transform"></div>
@@ -562,7 +563,7 @@
             <p class="text-center text-gray-400 mb-16 max-w-2xl mx-auto">Я не только создаю дизайн, но и учу зарабатывать на этом. От новичка до профи.</p>
             
             <!-- Results Ticker -->
-            <div class="glass-panel p-6 rounded-xl mb-20 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left gsap-fade-up">
+            <div class="glass-panel p-6 rounded-xl mb-20 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left gsap-fade-in will-change-opacity">
                 <div class="flex-1">
                     <div class="text-[#CCFF00] text-3xl font-display font-bold">Уже в процессе</div>
                     <div class="text-sm text-gray-400">ученики берут первые заказы</div>
@@ -583,7 +584,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
                 
                 <!-- Card 1 -->
-                <div class="glass-panel p-8 rounded-3xl hover:border-[#CCFF00]/30 transition-all gsap-fade-up will-change-transform">
+                <div class="glass-panel p-8 rounded-3xl hover:border-[#CCFF00]/30 transition-all gsap-fade-in will-change-opacity">
                     <h3 class="text-2xl font-bold mb-2">Старт</h3>
                     <p class="text-sm text-gray-400 mb-6">Для новичков</p>
                     <div class="text-3xl font-display font-bold mb-6">19 990 ₽</div>
@@ -598,7 +599,7 @@
                 </div>
 
                 <!-- Card 2 -->
-                <div class="glass-panel p-8 rounded-3xl hover:border-[#CCFF00]/30 transition-all gsap-fade-up border-t-4 border-t-[#CCFF00] will-change-transform">
+                <div class="glass-panel p-8 rounded-3xl hover:border-[#CCFF00]/30 transition-all gsap-fade-in border-t-4 border-t-[#CCFF00] will-change-opacity">
                     <h3 class="text-2xl font-bold mb-2">PRO</h3>
                     <p class="text-sm text-gray-400 mb-6">Для выхода на доход</p>
                     <div class="text-3xl font-display font-bold mb-6">29 990 ₽</div>
@@ -614,7 +615,7 @@
                 </div>
 
                 <!-- Card 3 -->
-                <div class="glass-panel p-8 rounded-3xl hover:border-[#CCFF00]/30 transition-all relative overflow-hidden gsap-fade-up border-t-4 border-t-[#CCFF00] will-change-transform">
+                <div class="glass-panel p-8 rounded-3xl hover:border-[#CCFF00]/30 transition-all relative overflow-hidden gsap-fade-in border-t-4 border-t-[#CCFF00] will-change-opacity">
                     <!-- HIT Badge -->
                     <div class="absolute top-0 right-0 bg-black/60 backdrop-blur-md border-l border-b border-[#CCFF00] text-[#CCFF00] text-xs font-bold px-4 py-2 rounded-bl-2xl shadow-[0_0_10px_rgba(204,255,0,0.2)]">HIT</div>
                     
@@ -992,6 +993,22 @@
                         scrollTrigger: {
                             trigger: element,
                             start: "top 90%", // Start earlier (was 85%)
+                        }
+                    }
+                );
+            });
+
+            // NEW: FADE IN ONLY (For heavy elements)
+            gsap.utils.toArray('.gsap-fade-in').forEach(element => {
+                gsap.fromTo(element, 
+                    { opacity: 0 },
+                    {
+                        opacity: 1, 
+                        duration: 0.6, 
+                        ease: "power2.out",
+                        scrollTrigger: {
+                            trigger: element,
+                            start: "top 85%", 
                         }
                     }
                 );
