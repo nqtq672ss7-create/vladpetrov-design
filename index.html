@@ -72,8 +72,9 @@
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            transform: translateZ(0); /* Hardware Acceleration Trigger */
-            will-change: opacity;
+            /* Performance fix: Force GPU acceleration */
+            transform: translateZ(0); 
+            will-change: opacity; /* Only animate opacity if possible */
         }
         
         .glass-panel:hover {
@@ -94,7 +95,8 @@
         }
 
         /* Optimized Animations */
-        .fade-in { opacity: 0; }
+        .fade-up { opacity: 0; transform: translateY(30px); }
+        .fade-in { opacity: 0; } /* New simple fade class */
         
         /* Loader */
         .loader {
@@ -171,8 +173,8 @@
 
     <!-- Hero Section -->
     <header class="relative min-h-screen flex items-center justify-center pt-20 px-6 overflow-hidden">
-        <!-- Glow effects - Optimized opacity -->
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-lime-500/5 rounded-full blur-[100px] pointer-events-none z-0 transform-gpu"></div>
+        <!-- Glow effects - REDUCED INTENSITY for Mobile (bg-lime-500/[0.02]) -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-lime-500/[0.02] rounded-full blur-[100px] pointer-events-none z-0 transform-gpu"></div>
 
         <!-- Floating Background Items - Optimized & Small -->
         <div class="absolute inset-0 overflow-hidden pointer-events-none select-none z-0">
@@ -221,7 +223,7 @@
                 </h1>
                 
                 <p class="font-sans text-gray-400 text-base md:text-lg max-w-xl mx-auto lg:mx-0 font-light hero-subtitle leading-relaxed">
-                    Я не делаю «просто красиво». Я создаю <span class="text-white border-b border-[#CCFF00]/30 pb-0.5">визуальное превосходство</span>. Упаковываю бренды так, чтобы они выделялись из серой массы, вызывали доверие и желание купить. От маркетплейсов до веб-сайтов — стильно, дорого, эффективно.
+                    Я не делаю «просто красиво». Я создаю <span class="text-white border-b border-[#CCFF00]/30 pb-0.5">визуальное превосходство</span>. Дизайн, который выделяет бренд и реально продает. Стильно, дорого, эффективно.
                 </p>
 
                 <div class="flex flex-col md:flex-row items-center gap-6 justify-center lg:justify-start hero-cta">
@@ -276,13 +278,7 @@
     <!-- Block 3: Why Me -->
     <section id="why-me" class="py-24 px-6 relative overflow-hidden">
         
-        <!-- Floating Question Marks - CSS only for optimization -->
-        <div class="absolute inset-0 pointer-events-none select-none z-0 overflow-hidden">
-            <div class="absolute -top-10 -left-10 text-[15rem] leading-none font-display font-bold text-[#CCFF00] opacity-[0.03] -rotate-12 animate-float" style="animation-duration: 25s;">?</div>
-            <div class="absolute top-1/3 right-0 text-[10rem] leading-none font-display font-bold text-white opacity-[0.02] rotate-12 animate-float" style="animation-duration: 30s; animation-delay: 2s;">?</div>
-            <div class="absolute bottom-0 left-10 text-[12rem] leading-none font-display font-bold text-[#CCFF00] opacity-[0.02] rotate-45 animate-float" style="animation-duration: 22s; animation-delay: 1s;">?</div>
-            <div class="absolute -bottom-10 -right-10 text-[8rem] leading-none font-display font-bold text-white opacity-[0.03] -rotate-6 animate-float" style="animation-duration: 28s; animation-delay: 0.5s;">?</div>
-        </div>
+        <!-- REMOVED Floating Question Marks per request -->
 
         <div class="max-w-7xl mx-auto space-y-16 relative z-10">
             <h2 class="font-display font-bold text-4xl md:text-5xl text-center">ПОЧЕМУ <span class="text-[#CCFF00]">Я?</span></h2>
@@ -321,6 +317,7 @@
                     <p class="text-gray-300 text-sm">Погружаюсь в каждый проект с головой.</p>
                 </div>
                 
+                <!-- Shortened AI Card -->
                 <div class="glass-panel p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 gsap-fade-up will-change-transform">
                     <div class="w-12 h-12 bg-[#CCFF00]/10 rounded-full flex items-center justify-center mb-6 text-[#CCFF00]">
                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
@@ -329,6 +326,7 @@
                     <p class="text-gray-300 text-sm">Использую мощь ИИ для уникальной графики.</p>
                 </div>
 
+                <!-- New Education Card -->
                 <div class="glass-panel p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 gsap-fade-up will-change-transform">
                     <div class="w-12 h-12 bg-[#CCFF00]/10 rounded-full flex items-center justify-center mb-6 text-[#CCFF00]">
                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
@@ -559,7 +557,8 @@
             <h2 class="font-display font-bold text-4xl md:text-6xl text-center mb-6">ОБУЧЕНИЕ</h2>
             <p class="text-center text-gray-400 mb-16 max-w-2xl mx-auto">Я не только создаю дизайн, но и учу зарабатывать на этом. От новичка до профи.</p>
             
-            <div class="border border-white/10 bg-[#080808] rounded-xl p-6 mb-20 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left gsap-fade-in will-change-opacity shadow-lg">
+            <!-- Results Ticker: Changed bg-[#080808] to bg-black for darker look -->
+            <div class="border border-white/10 bg-black rounded-xl p-6 mb-20 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left gsap-fade-in will-change-opacity shadow-lg">
                 <div class="flex-1">
                     <div class="text-[#CCFF00] text-3xl font-display font-bold">Уже в процессе</div>
                     <div class="text-sm text-gray-400">ученики берут первые заказы</div>
@@ -926,8 +925,19 @@
             });
             
             // Initial Render
+            // Ensure Infographic is active by default
             const initialTab = document.querySelector('[data-filter="infographic"]');
             if(initialTab) {
+                // Force active styling just in case HTML differs
+                const tabs = document.querySelectorAll('#portfolio-tabs button');
+                tabs.forEach(t => {
+                     if (t !== initialTab) {
+                         t.classList.remove('bg-[#CCFF00]', 'text-black', 'border-[#CCFF00]', 'shadow-[0_0_15px_rgba(204,255,0,0.4)]');
+                         t.classList.add('border-white/20', 'text-white');
+                     }
+                });
+                initialTab.classList.add('bg-[#CCFF00]', 'text-black', 'border-[#CCFF00]', 'shadow-[0_0_15px_rgba(204,255,0,0.4)]');
+                
                 renderPortfolio('infographic');
             }
 
@@ -1046,7 +1056,7 @@
 
                 // Particles
                 const particlesGeometry = new THREE.BufferGeometry();
-                const particlesCount = window.innerWidth < 768 ? 300 : 700; // Reduce particles on mobile
+                const particlesCount = window.innerWidth < 768 ? 800 : 1500; // Increased particles count
                 const posArray = new Float32Array(particlesCount * 3);
 
                 for(let i = 0; i < particlesCount * 3; i++) {
