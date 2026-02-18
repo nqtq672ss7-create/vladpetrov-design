@@ -7,18 +7,17 @@
     <title>VP-DESIGN | Premium Digital Studio</title>
     <meta name="description" content="Дизайн, который продает. Инфографика, веб-дизайн, брендинг.">
     
-    <!-- Favicon / SEO -->
+    <!-- Favicon -->
     <link rel="icon" href="https://i.ibb.co/xqnZhscX/1155-20260215153254.png" type="image/png" sizes="any">
     <link rel="shortcut icon" href="https://i.ibb.co/xqnZhscX/1155-20260215153254.png" type="image/png">
     <link rel="apple-touch-icon" href="https://i.ibb.co/xqnZhscX/1155-20260215153254.png">
 
-    <!-- Fonts - Preconnect for speed -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Added Playfair Display back -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@400;600;700;800&family=Playfair+Display:ital,wght@1,400;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@400;600;700;800;900&family=Playfair+Display:ital,wght@1,400;1,600&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS (Using CDN for this environment - In prod, compilation is recommended) -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -35,11 +34,7 @@
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
                         display: ['Syne', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'], // Added custom serif font
                     },
-                    backgroundImage: {
-                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-                    }
                 }
             }
         }
@@ -47,7 +42,6 @@
 
     <!-- Styles -->
     <style>
-        /* Base optimizations */
         body {
             background-color: #050505;
             color: #ffffff;
@@ -59,33 +53,30 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Optimized Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #0a0a0a; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #CCFF00; }
 
-        /* Glassmorphism - Performance Mode */
+        /* Unified Glass Styles */
         .glass-panel {
             background: rgba(255, 255, 255, 0.03);
-            /* Reduced blur radius for FPS boost */
-            backdrop-filter: blur(8px); 
-            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            /* Performance fix: Force GPU acceleration */
             transform: translateZ(0); 
-            will-change: opacity; /* Only animate opacity if possible */
+            will-change: opacity, transform;
         }
         
         .glass-panel:hover {
             border-color: rgba(204, 255, 0, 0.3);
-            box-shadow: 0 0 20px rgba(204, 255, 0, 0.15);
+            box-shadow: 0 0 30px rgba(204, 255, 0, 0.1);
         }
 
         .text-glow { text-shadow: 0 0 20px rgba(204, 255, 0, 0.3); }
 
-        /* 3D Canvas - Behind everything */
+        /* 3D Canvas */
         #bg-canvas {
             position: fixed;
             top: 0; left: 0;
@@ -95,41 +86,43 @@
             pointer-events: none;
         }
 
-        /* Optimized Animations */
+        /* Animations */
         .fade-up { opacity: 0; transform: translateY(30px); }
-        .fade-in { opacity: 0; } /* New simple fade class */
+        .fade-in { opacity: 0; }
         
         /* Loader */
         .loader {
-            position: fixed;
-            inset: 0;
-            background: #000;
-            z-index: 100;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            position: fixed; inset: 0; background: #000; z-index: 100;
+            display: flex; justify-content: center; align-items: center;
             transition: opacity 0.5s ease;
         }
 
-        /* Efficient Floating Animation */
+        /* Effects */
         @keyframes float {
             0%, 100% { transform: translate(0, 0) rotate(var(--tw-rotate)); }
             33% { transform: translate(20px, -30px) rotate(calc(var(--tw-rotate) + 5deg)); }
             66% { transform: translate(-15px, 20px) rotate(calc(var(--tw-rotate) - 5deg)); }
         }
-        .animate-float {
-            animation: float 20s infinite ease-in-out;
-            will-change: transform; /* Hint for browser */
-        }
+        .animate-float { animation: float 20s infinite ease-in-out; will-change: transform; }
 
         @keyframes soft-neon-pulse {
             0%, 100% { box-shadow: 0 0 5px rgba(204, 255, 0, 0.1); border-color: rgba(204, 255, 0, 0.5); }
-            50% { box-shadow: 0 0 20px rgba(204, 255, 0, 0.4); border-color: #CCFF00; }
+            50% { box-shadow: 0 0 30px rgba(204, 255, 0, 0.4); border-color: #CCFF00; }
         }
         .animate-soft-pulse { animation: soft-neon-pulse 3s infinite ease-in-out; }
-
+        
         .scrollbar-hide::-webkit-scrollbar { display: none; }
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Deco Elements */
+        .glass-deco {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(4px);
+            pointer-events: none;
+            z-index: 0;
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-[#CCFF00] selection:text-black">
@@ -147,7 +140,6 @@
         <div class="max-w-7xl mx-auto flex justify-between items-center glass-panel rounded-full px-6 py-3">
             <a href="#" class="font-display font-bold text-2xl tracking-tighter text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.5)] hover:text-[#CCFF00] hover:drop-shadow-[0_0_10px_rgba(204,255,0,0.5)] transition-all">VP-DESIGN</a>
             
-            <!-- Desktop Menu -->
             <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-300">
                 <a href="#about" class="hover:text-[#CCFF00] transition-colors hover:shadow-[0_0_10px_#CCFF00]">Обо мне</a>
                 <a href="#portfolio" class="hover:text-[#CCFF00] transition-colors hover:shadow-[0_0_10px_#CCFF00]">Портфолио</a>
@@ -156,13 +148,11 @@
                 <a href="#contacts" class="hover:text-[#CCFF00] transition-colors hover:shadow-[0_0_10px_#CCFF00]">Контакты</a>
             </div>
 
-            <!-- Mobile Menu Button -->
             <button class="md:hidden text-white" id="mobile-menu-btn" aria-label="Menu">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
             </button>
         </div>
         
-        <!-- Mobile Menu Dropdown -->
         <div id="mobile-menu" class="hidden absolute top-20 left-4 right-4 glass-panel rounded-2xl p-6 flex-col space-y-4 text-center md:hidden">
             <a href="#about" class="block text-lg hover:text-[#CCFF00]">Обо мне</a>
             <a href="#portfolio" class="block text-lg hover:text-[#CCFF00]">Портфолио</a>
@@ -174,32 +164,28 @@
 
     <!-- Hero Section -->
     <header class="relative min-h-screen flex items-center justify-center pt-20 px-6 overflow-hidden">
-        <!-- Glow effects - REDUCED INTENSITY for Mobile (bg-lime-500/[0.02]) -->
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-lime-500/[0.02] rounded-full blur-[100px] pointer-events-none z-0 transform-gpu"></div>
 
-        <!-- Floating Background Items - Optimized & Small -->
+        <div class="glass-deco w-32 h-32 rounded-2xl top-[20%] left-[10%] -rotate-12 animate-float" style="animation-duration: 18s;"></div>
+        <div class="glass-deco w-24 h-24 rounded-full bottom-[15%] right-[15%] rotate-12 animate-float" style="animation-duration: 22s; animation-delay: 1s;"></div>
+        <div class="glass-deco w-48 h-48 rounded-[30px] top-[10%] right-[10%] rotate-45 opacity-50 animate-float" style="animation-duration: 25s; animation-delay: 2s;"></div>
+
         <div class="absolute inset-0 overflow-hidden pointer-events-none select-none z-0">
-            <!-- Item 1 -->
-            <img src="https://i.ibb.co/p6C8zZLn/969-20251230133150.jpg" class="absolute top-[10%] left-[5%] w-20 md:w-28 opacity-20 brightness-90 rotate-12 blur-[0.5px] animate-float duration-[25s] object-cover rounded-lg border border-white/10" decoding="async">
-            <!-- Item 2 -->
-            <img src="https://i.ibb.co/6RkgYh1G/IMG-7410.jpg" class="absolute top-[15%] right-[5%] w-24 md:w-32 opacity-20 brightness-90 -rotate-12 blur-[0.5px] animate-float duration-[20s] delay-1000 object-cover rounded-lg border border-white/10" decoding="async">
-            <!-- Item 3 -->
-            <img src="https://i.ibb.co/6cjb5PS9/601-20251110164430.jpg" class="absolute bottom-[10%] left-[8%] w-16 md:w-24 opacity-20 brightness-90 rotate-6 blur-[0.5px] animate-float duration-[30s] delay-2000 object-cover rounded-lg border border-white/10" decoding="async">
-            <!-- Item 4 -->
-            <img src="https://i.ibb.co/8LX6HLHN/IMG-3641.jpg" class="absolute bottom-[20%] right-[10%] w-20 md:w-28 opacity-20 brightness-90 -rotate-6 blur-[0.5px] animate-float duration-[22s] delay-500 object-cover rounded-lg border border-white/10" decoding="async">
-            <!-- Item 5 -->
-            <img src="https://i.ibb.co/W4FM2HxQ/436-20250929191023.jpg" class="absolute top-[30%] left-[20%] w-14 md:w-20 opacity-15 brightness-90 rotate-45 blur-[0.5px] animate-float duration-[35s] delay-1500 object-cover rounded-lg border border-white/10" decoding="async">
+            <img src="https://i.ibb.co/p6C8zZLn/969-20251230133150.jpg" class="absolute top-[10%] left-[5%] w-20 md:w-28 opacity-[0.15] brightness-90 rotate-12 blur-[0.5px] animate-float duration-[25s] object-cover rounded-lg border border-white/10" decoding="async">
+            <img src="https://i.ibb.co/6RkgYh1G/IMG-7410.jpg" class="absolute top-[15%] right-[5%] w-24 md:w-32 opacity-[0.15] brightness-90 -rotate-12 blur-[0.5px] animate-float duration-[20s] delay-1000 object-cover rounded-lg border border-white/10" decoding="async">
+            <img src="https://i.ibb.co/6cjb5PS9/601-20251110164430.jpg" class="absolute bottom-[10%] left-[8%] w-16 md:w-24 opacity-[0.15] brightness-90 rotate-6 blur-[0.5px] animate-float duration-[30s] delay-2000 object-cover rounded-lg border border-white/10" decoding="async">
+            <img src="https://i.ibb.co/8LX6HLHN/IMG-3641.jpg" class="absolute bottom-[20%] right-[10%] w-20 md:w-28 opacity-[0.15] brightness-90 -rotate-6 blur-[0.5px] animate-float duration-[22s] delay-500 object-cover rounded-lg border border-white/10" decoding="async">
+            <img src="https://i.ibb.co/W4FM2HxQ/436-20250929191023.jpg" class="absolute top-[30%] left-[20%] w-14 md:w-20 opacity-[0.1] brightness-90 rotate-45 blur-[0.5px] animate-float duration-[35s] delay-1500 object-cover rounded-lg border border-white/10" decoding="async">
         </div>
 
         <div class="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
-            <div class="lg:col-span-8 space-y-8 text-center lg:text-left">
+            <div class="lg:col-span-8 space-y-12 text-center lg:text-left">
                 
                 <!-- Founder Badge -->
                 <div class="flex justify-center lg:justify-start hero-badge">
                     <div class="inline-flex items-center gap-3 glass-panel pl-2 pr-6 py-2 rounded-full border border-white/10 hover:border-[#CCFF00]/50 transition-colors duration-300 cursor-default">
                         <div class="relative">
                             <img src="https://i.ibb.co/PvNyhvvC/1155-20260214202943.png" alt="Vladislav Petrov" class="w-10 h-10 rounded-full object-cover" decoding="async">
-                            <!-- Verified Checkmark Badge -->
                             <div class="absolute bottom-0 -right-1 text-[#CCFF00] bg-black rounded-full border-2 border-black">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3">
                                     <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
@@ -210,14 +196,13 @@
                     </div>
                 </div>
 
-                <h1 class="font-display font-extrabold text-5xl md:text-7xl lg:text-9xl tracking-tighter leading-[0.9] text-[#CCFF00] drop-shadow-[0_0_15px_rgba(204,255,0,0.15)] hero-title">
+                <!-- Headline -->
+                <h1 class="font-display font-extrabold text-5xl md:text-7xl lg:text-9xl tracking-tighter leading-[0.9] text-[#CCFF00] drop-shadow-[0_0_30px_rgba(204,255,0,0.3)] hero-title">
                     VP-DESIGN <br>
-                    <span class="text-3xl md:text-5xl lg:text-7xl font-display font-medium text-white block mt-4 drop-shadow-none tracking-tight">
-                        ДИЗАЙН, ВЫЗЫВАЮЩИЙ 
+                    <span class="text-3xl md:text-5xl lg:text-7xl font-display font-medium text-white block mt-4 drop-shadow-[0_4px_10px_rgba(0,0,0,0.9)] tracking-tight">
+                        ДИЗАЙН, ВЫЗЫВАЮЩИЙ <br class="md:hidden" />
                         <span class="relative inline-block">
-                            <!-- Reverted to main font (Syne) + Italic -->
-                            <span class="text-[#CCFF00] italic relative z-10">ЖАЖДУ</span>
-                            <!-- SVG Stroke -->
+                            <span class="font-display italic text-[#CCFF00] relative z-10 font-bold tracking-tight">ЖЕЛАНИЕ КУПИТЬ</span>
                             <svg class="absolute -bottom-2 md:-bottom-3 left-0 w-full h-3 md:h-5 text-[#CCFF00] -z-0" viewBox="0 0 200 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M2.00025 6.99997C58.5002 9.49998 112.5 -2.50002 198 2.49999" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
                             </svg>
@@ -225,23 +210,24 @@
                     </span>
                 </h1>
                 
-                <p class="font-sans text-gray-400 text-base md:text-lg max-w-xl mx-auto lg:mx-0 font-light hero-subtitle leading-relaxed">
+                <!-- Subtitle -->
+                <p class="font-sans text-gray-300 text-lg md:text-xl max-w-lg mx-auto lg:mx-0 font-light hero-subtitle leading-relaxed drop-shadow-md">
                     Я не делаю «просто красиво». Я создаю <span class="text-white border-b border-[#CCFF00]/30 pb-0.5">визуальное превосходство</span>. Дизайн, который выделяет бренд и реально продает. Стильно, дорого, эффективно.
                 </p>
 
                 <div class="flex flex-col md:flex-row items-center gap-6 justify-center lg:justify-start hero-cta">
-                    <a href="https://t.me/vladpetroov" target="_blank" class="group relative px-8 py-4 bg-transparent border border-[#CCFF00] rounded-full overflow-hidden transition-all duration-300 hover:border-white hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] animate-soft-pulse hover:animate-none">
-                        <div class="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
-                        <span class="relative font-bold text-[#CCFF00] group-hover:text-black transition-colors z-10 flex items-center gap-2">
+                    <!-- Button: Black background, Lime border & Text -->
+                    <a href="https://t.me/vladpetroov" target="_blank" class="group relative px-12 py-6 bg-black border border-[#CCFF00] rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(204,255,0,0.4)] animate-soft-pulse hover:animate-none">
+                        <span class="relative font-bold text-xl text-[#CCFF00] group-hover:text-black transition-colors z-10 flex items-center gap-3 uppercase tracking-wide">
                             СВЯЗАТЬСЯ 
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                         </span>
+                        <div class="absolute inset-0 bg-[#CCFF00] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
                     </a>
                     <span class="text-sm text-gray-500 animate-pulse">Отвечаю в течение 15 мин</span>
                 </div>
             </div>
 
-            <!-- Abstract 3D Visual -->
             <div class="hidden lg:block lg:col-span-4 relative h-full min-h-[400px]">
                  <div class="absolute inset-0 flex items-center justify-center">
                     <div class="w-64 h-64 border border-white/10 rounded-full animate-[spin_10s_linear_infinite]"></div>
@@ -253,11 +239,10 @@
     </header>
 
     <!-- Block 2: About Me -->
-    <section id="about" class="py-24 px-6 relative overflow-hidden">
+    <section id="about" class="py-20 md:py-32 px-6 relative overflow-hidden">
         <div class="max-w-7xl mx-auto">
-            <div class="glass-panel rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-12 gsap-fade-up">
+            <div class="glass-panel rounded-[2.5rem] p-8 md:p-12 flex flex-col md:flex-row items-center gap-12 gsap-fade-up will-change-transform">
                 <div class="md:w-1/3 flex justify-center relative">
-                    <!-- Optimized Blur -->
                     <div class="absolute inset-0 bg-[#CCFF00] blur-[60px] opacity-15 transform-gpu"></div>
                     <div class="relative w-64 h-64 rounded-full overflow-hidden border-2 border-white/10 p-1 group">
                         <img src="https://i.ibb.co/zWp1WzTk/1127-20260207204539.png" alt="Vlad VP-DESIGN" class="w-full h-full object-cover rounded-full transition-all duration-500 transform group-hover:scale-110 will-change-transform" decoding="async">
@@ -266,7 +251,7 @@
                 <div class="md:w-2/3 space-y-6 text-center md:text-left">
                     <h2 class="font-display font-bold text-4xl">Привет, я <span class="text-[#CCFF00]">Влад</span></h2>
                     <p class="text-xl text-gray-300 font-light leading-relaxed">
-                        Основатель <span class="text-white font-medium">VP-DESIGN</span>. Моя стихия — <span class="text-[#CCFF00] border-b border-[#CCFF00]/50 pb-1">инфографика для маркетплейсов</span>, которая не оставляет шансов конкурентам. Я не просто двигаю пиксели, я создаю визуальный хук, заставляющий остановиться в бесконечной ленте. Делаю так, чтобы ваш товар хотели <span class="text-[#CCFF00] italic">купить глазами</span> еще до чтения описания.
+                        Основатель <span class="text-white font-medium">VP-DESIGN</span>. Моя стихия — <span class="text-[#CCFF00] border-b border-[#CCFF00]/50 pb-1">инфографика для маркетплейсов</span>, которая не оставляет шансов конкурентам. Я не просто двигаю пиксели, я создаю визуальный хук, заставляющий остановиться в бесконечной ленте.
                     </p>
                     <div class="flex flex-wrap gap-4 justify-center md:justify-start pt-4">
                         <span class="px-4 py-2 border border-white/10 rounded-full text-sm hover:bg-white/5 transition-colors">В дизайне с 2020 года</span>
@@ -279,70 +264,73 @@
     </section>
 
     <!-- Block 3: Why Me -->
-    <section id="why-me" class="py-24 px-6 relative overflow-hidden">
-        
-        <!-- REMOVED Floating Question Marks per request -->
+    <section id="why-me" class="py-20 md:py-32 px-6 relative overflow-hidden">
+        <div class="glass-deco w-32 h-32 rounded-2xl top-[10%] left-[5%] rotate-12 opacity-30 animate-float" style="animation-duration: 20s;"></div>
+        <div class="glass-deco w-24 h-24 rounded-full bottom-[10%] right-[10%] -rotate-12 opacity-30 animate-float" style="animation-duration: 25s; animation-delay: 2s;"></div>
 
-        <div class="max-w-7xl mx-auto space-y-16 relative z-10">
-            <h2 class="font-display font-bold text-4xl md:text-5xl text-center">ПОЧЕМУ <span class="text-[#CCFF00]">Я?</span></h2>
+        <div class="max-w-7xl mx-auto space-y-20 relative z-10">
+            <h2 class="font-display font-bold text-4xl md:text-6xl text-center">ПОЧЕМУ <span class="text-[#CCFF00]">Я?</span></h2>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Advantage Cards -->
-                <div class="glass-panel p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 gsap-fade-up will-change-transform">
-                    <div class="w-12 h-12 bg-[#CCFF00]/10 rounded-full flex items-center justify-center mb-6 text-[#CCFF00]">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Advantage Card 1 -->
+                <div class="glass-panel p-10 rounded-[2.5rem] hover:-translate-y-2 transition-all duration-300 gsap-fade-up will-change-transform group border border-white/5 hover:border-[#CCFF00]/30">
+                    <div class="w-16 h-16 bg-[#CCFF00]/5 rounded-2xl flex items-center justify-center mb-8 text-[#CCFF00] border border-[#CCFF00]/20 shadow-[0_0_20px_rgba(204,255,0,0.1)] group-hover:bg-[#CCFF00] group-hover:text-black group-hover:shadow-[0_0_30px_rgba(204,255,0,0.4)] transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
                     </div>
-                    <h3 class="text-xl font-bold mb-2">Креатив и эффективность</h3>
-                    <p class="text-gray-300 text-sm">Не просто картинки, а инструменты продаж.</p>
+                    <h3 class="text-2xl font-display font-bold mb-4 uppercase tracking-wide text-white">Креатив и эффективность</h3>
+                    <p class="text-gray-400 text-base leading-relaxed">Не просто картинки, а инструменты продаж. Каждый макет создается с учетом маркетинговых целей и психологии покупателя.</p>
                 </div>
 
-                <div class="glass-panel p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 gsap-fade-up will-change-transform">
-                    <div class="w-12 h-12 bg-[#CCFF00]/10 rounded-full flex items-center justify-center mb-6 text-[#CCFF00]">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <!-- Advantage Card 2 -->
+                <div class="glass-panel p-10 rounded-[2.5rem] hover:-translate-y-2 transition-all duration-300 gsap-fade-up will-change-transform group border border-white/5 hover:border-[#CCFF00]/30">
+                    <div class="w-16 h-16 bg-[#CCFF00]/5 rounded-2xl flex items-center justify-center mb-8 text-[#CCFF00] border border-[#CCFF00]/20 shadow-[0_0_20px_rgba(204,255,0,0.1)] group-hover:bg-[#CCFF00] group-hover:text-black group-hover:shadow-[0_0_30px_rgba(204,255,0,0.4)] transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                     </div>
-                    <h3 class="text-xl font-bold mb-2">Быстрое выполнение</h3>
-                    <p class="text-gray-300 text-sm">Соблюдаю сроки. Срочные заказы без потери качества.</p>
+                    <h3 class="text-2xl font-display font-bold mb-4 uppercase tracking-wide text-white">Быстрое выполнение</h3>
+                    <p class="text-gray-400 text-base leading-relaxed">Ценю ваше время. Соблюдаю дедлайны. Возможны срочные заказы «день в день» без потери качества.</p>
                 </div>
 
-                <div class="glass-panel p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 gsap-fade-up will-change-transform">
-                    <div class="w-12 h-12 bg-[#CCFF00]/10 rounded-full flex items-center justify-center mb-6 text-[#CCFF00]">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <!-- Advantage Card 3 -->
+                <div class="glass-panel p-10 rounded-[2.5rem] hover:-translate-y-2 transition-all duration-300 gsap-fade-up will-change-transform group border border-white/5 hover:border-[#CCFF00]/30">
+                    <div class="w-16 h-16 bg-[#CCFF00]/5 rounded-2xl flex items-center justify-center mb-8 text-[#CCFF00] border border-[#CCFF00]/20 shadow-[0_0_20px_rgba(204,255,0,0.1)] group-hover:bg-[#CCFF00] group-hover:text-black group-hover:shadow-[0_0_30px_rgba(204,255,0,0.4)] transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
                     </div>
-                    <h3 class="text-xl font-bold mb-2">Актуальные тренды</h3>
-                    <p class="text-gray-300 text-sm">Дизайн, который выглядит современно и дорого.</p>
+                    <h3 class="text-2xl font-display font-bold mb-4 uppercase tracking-wide text-white">Актуальные тренды</h3>
+                    <p class="text-gray-400 text-base leading-relaxed">Постоянно слежу за визуальными трендами. Ваш дизайн будет выглядеть современно, дорого и свежо.</p>
                 </div>
 
-                <div class="glass-panel p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 gsap-fade-up will-change-transform">
-                    <div class="w-12 h-12 bg-[#CCFF00]/10 rounded-full flex items-center justify-center mb-6 text-[#CCFF00]">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                <!-- Advantage Card 4 -->
+                <div class="glass-panel p-10 rounded-[2.5rem] hover:-translate-y-2 transition-all duration-300 gsap-fade-up will-change-transform group border border-white/5 hover:border-[#CCFF00]/30">
+                    <div class="w-16 h-16 bg-[#CCFF00]/5 rounded-2xl flex items-center justify-center mb-8 text-[#CCFF00] border border-[#CCFF00]/20 shadow-[0_0_20px_rgba(204,255,0,0.1)] group-hover:bg-[#CCFF00] group-hover:text-black group-hover:shadow-[0_0_30px_rgba(204,255,0,0.4)] transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                     </div>
-                    <h3 class="text-xl font-bold mb-2">Индивидуальный подход</h3>
-                    <p class="text-gray-300 text-sm">Погружаюсь в каждый проект с головой.</p>
+                    <h3 class="text-2xl font-display font-bold mb-4 uppercase tracking-wide text-white">Индивидуальный подход</h3>
+                    <p class="text-gray-400 text-base leading-relaxed">Погружаюсь в каждый проект с головой. Изучаю вашу нишу и задачи, чтобы предложить лучшее решение.</p>
                 </div>
                 
-                <!-- Shortened AI Card -->
-                <div class="glass-panel p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 gsap-fade-up will-change-transform">
-                    <div class="w-12 h-12 bg-[#CCFF00]/10 rounded-full flex items-center justify-center mb-6 text-[#CCFF00]">
-                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+                <!-- Advantage Card 5: Updated AI Text -->
+                <div class="glass-panel p-10 rounded-[2.5rem] hover:-translate-y-2 transition-all duration-300 gsap-fade-up will-change-transform group border border-white/5 hover:border-[#CCFF00]/30">
+                    <div class="w-16 h-16 bg-[#CCFF00]/5 rounded-2xl flex items-center justify-center mb-8 text-[#CCFF00] border border-[#CCFF00]/20 shadow-[0_0_20px_rgba(204,255,0,0.1)] group-hover:bg-[#CCFF00] group-hover:text-black group-hover:shadow-[0_0_30px_rgba(204,255,0,0.4)] transition-all duration-300">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
                     </div>
-                    <h3 class="text-xl font-bold mb-2">Нейросети & AI</h3>
-                    <p class="text-gray-300 text-sm">Использую мощь ИИ для уникальной графики.</p>
+                    <h3 class="text-2xl font-display font-bold mb-4 uppercase tracking-wide text-white">Нейросети и Generative Art</h3>
+                    <p class="text-gray-400 text-base leading-relaxed">Использую передовые нейросети для создания уникальной графики, недоступной конкурентам.</p>
                 </div>
 
-                <!-- New Education Card -->
-                <div class="glass-panel p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 gsap-fade-up will-change-transform">
-                    <div class="w-12 h-12 bg-[#CCFF00]/10 rounded-full flex items-center justify-center mb-6 text-[#CCFF00]">
-                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                <!-- Advantage Card 6: Updated Education Text -->
+                <div class="glass-panel p-10 rounded-[2.5rem] hover:-translate-y-2 transition-all duration-300 gsap-fade-up will-change-transform group border border-white/5 hover:border-[#CCFF00]/30">
+                    <div class="w-16 h-16 bg-[#CCFF00]/5 rounded-2xl flex items-center justify-center mb-8 text-[#CCFF00] border border-[#CCFF00]/20 shadow-[0_0_20px_rgba(204,255,0,0.1)] group-hover:bg-[#CCFF00] group-hover:text-black group-hover:shadow-[0_0_30px_rgba(204,255,0,0.4)] transition-all duration-300">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
                     </div>
-                    <h3 class="text-xl font-bold mb-2">Образование B&D</h3>
-                    <p class="text-gray-300 text-sm">Высшее в Институте бизнеса и дизайна (Мск). Графический дизайн + маркетинг.</p>
+                    <h3 class="text-2xl font-display font-bold mb-4 uppercase tracking-wide text-white">Образование B&D</h3>
+                    <p class="text-gray-400 text-base leading-relaxed">Профильное образование B&D (Мск). Факультет графического дизайна и маркетинга.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Block 4: Services & Price -->
-    <section id="services" class="py-24 px-6 bg-black/50 overflow-hidden">
+    <section id="services" class="py-20 md:py-32 px-6 bg-black/50 overflow-hidden">
         <div class="max-w-7xl mx-auto">
             <div class="flex flex-col md:flex-row justify-between items-end mb-16 px-2">
                 <div>
@@ -354,8 +342,8 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Services Cards -->
-                <div class="glass-panel p-6 rounded-2xl gsap-fade-up">
+                <!-- Category 1 -->
+                <div class="glass-panel p-8 rounded-[2.5rem] gsap-fade-up">
                     <h3 class="text-[#CCFF00] font-bold text-xl mb-6 border-b border-white/10 pb-4">Маркетплейсы</h3>
                     <ul class="space-y-6">
                         <li>
@@ -364,7 +352,7 @@
                         </li>
                         <li>
                             <div class="flex justify-between mb-1"><span class="font-medium">Rich-контент</span> <span class="text-[#CCFF00]">от 1990 ₽</span></div>
-                            <p class="text-xs text-gray-500">Повышает доверие к бренду.</p>
+                            <p class="text-xs text-gray-500">Удерживает внимание и закрывает возражения покупателя.</p>
                         </li>
                         <li>
                             <div class="flex justify-between mb-1"><span class="font-medium">Анимация</span> <span class="text-[#CCFF00]">от 2990 ₽</span></div>
@@ -373,7 +361,7 @@
                     </ul>
                 </div>
 
-                <div class="glass-panel p-6 rounded-2xl gsap-fade-up">
+                <div class="glass-panel p-8 rounded-[2.5rem] gsap-fade-up">
                     <h3 class="text-[#CCFF00] font-bold text-xl mb-6 border-b border-white/10 pb-4">Полиграфия</h3>
                     <ul class="space-y-6">
                         <li>
@@ -391,7 +379,7 @@
                     </ul>
                 </div>
 
-                <div class="glass-panel p-6 rounded-2xl gsap-fade-up">
+                <div class="glass-panel p-8 rounded-[2.5rem] gsap-fade-up">
                     <h3 class="text-[#CCFF00] font-bold text-xl mb-6 border-b border-white/10 pb-4">Реклама & SMM</h3>
                     <ul class="space-y-6">
                         <li>
@@ -409,13 +397,13 @@
                     </ul>
                 </div>
                 
-                <div class="glass-panel p-6 rounded-2xl gsap-fade-up lg:col-span-3 flex flex-col md:flex-row gap-8">
+                <div class="glass-panel p-8 rounded-[2.5rem] gsap-fade-up lg:col-span-3 flex flex-col md:flex-row gap-8">
                      <div class="flex-1">
                         <h3 class="text-[#CCFF00] font-bold text-xl mb-6 border-b border-white/10 pb-4">Web & Logo</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <div>
                                 <div class="flex justify-between mb-1"><span class="font-medium text-lg">Создание сайтов</span> <span class="text-[#CCFF00] text-lg">от 15 000 ₽</span></div>
-                                <p class="text-sm text-gray-500">Срок от 7 дней. Tilda / Webflow / Code. Адаптив.</p>
+                                <p class="text-sm text-gray-500">Срок от 7 дней. Разработка на Tilda / Webflow / Code. Полная адаптация под мобильные устройства.</p>
                             </div>
                             <div>
                                 <div class="flex justify-between mb-1"><span class="font-medium text-lg">Логотип</span> <span class="text-[#CCFF00] text-lg">от 4990 ₽</span></div>
@@ -429,7 +417,7 @@
     </section>
 
     <!-- Block 5: Portfolio -->
-    <section id="portfolio" class="py-24 px-6 overflow-hidden">
+    <section id="portfolio" class="py-20 md:py-32 px-6 overflow-hidden">
         <div class="max-w-7xl mx-auto">
             <h2 class="font-display font-bold text-4xl md:text-6xl mb-12 text-center">ПОРТФОЛИО</h2>
             
@@ -472,7 +460,7 @@
     </section>
 
     <!-- Block 6: Process -->
-    <section id="process" class="py-24 px-6 bg-gradient-to-b from-transparent to-[#0a0a0a] overflow-hidden">
+    <section id="process" class="py-20 md:py-32 pb-0 px-6 bg-gradient-to-b from-transparent to-[#0a0a0a] overflow-hidden">
         <div class="max-w-3xl mx-auto">
              <h2 class="font-display font-bold text-4xl mb-20 text-center">ПРОЦЕСС <span class="text-[#CCFF00]">РАБОТЫ</span></h2>
              
@@ -482,35 +470,40 @@
                  
                  <div class="space-y-16 relative z-10">
                      <div class="process-step flex gap-8 items-start">
-                         <div class="w-12 h-12 rounded-full bg-[#050505] border border-white/20 flex items-center justify-center font-bold text-gray-500 flex-shrink-0 transition-all duration-500 step-marker relative z-10 text-xl">1</div>
+                         <!-- Updated to Glass Circle -->
+                         <div class="w-12 h-12 rounded-full glass-panel flex items-center justify-center font-bold text-gray-400 flex-shrink-0 transition-all duration-500 step-marker relative z-10 text-xl border border-white/10">1</div>
                          <div class="pt-1 step-content opacity-30 transition-all duration-500 transform translate-x-4">
                              <h4 class="font-bold text-2xl mb-3 text-white">Заявка и брифинг</h4>
                              <p class="text-gray-400 max-w-lg leading-relaxed">Вы оставляете заявку. Мы обсуждаем задачи, формат работы, сроки и желаемый результат. Фиксируем договоренности.</p>
                          </div>
                      </div>
                      <div class="process-step flex gap-8 items-start">
-                         <div class="w-12 h-12 rounded-full bg-[#050505] border border-white/20 flex items-center justify-center font-bold text-gray-500 flex-shrink-0 transition-all duration-500 step-marker relative z-10 text-xl">2</div>
+                         <!-- Updated to Glass Circle -->
+                         <div class="w-12 h-12 rounded-full glass-panel flex items-center justify-center font-bold text-gray-400 flex-shrink-0 transition-all duration-500 step-marker relative z-10 text-xl border border-white/10">2</div>
                          <div class="pt-1 step-content opacity-30 transition-all duration-500 transform translate-x-4">
                              <h4 class="font-bold text-2xl mb-3 text-white">Анализ ниши</h4>
                              <p class="text-gray-400 max-w-lg leading-relaxed">Я изучаю ваш товар, конкурентов и тренды в нише. Собираю референсы и продумываю воронку внимания для карточки или сайта.</p>
                          </div>
                      </div>
                      <div class="process-step flex gap-8 items-start">
-                         <div class="w-12 h-12 rounded-full bg-[#050505] border border-white/20 flex items-center justify-center font-bold text-gray-500 flex-shrink-0 transition-all duration-500 step-marker relative z-10 text-xl">3</div>
+                         <!-- Updated to Glass Circle -->
+                         <div class="w-12 h-12 rounded-full glass-panel flex items-center justify-center font-bold text-gray-400 flex-shrink-0 transition-all duration-500 step-marker relative z-10 text-xl border border-white/10">3</div>
                          <div class="pt-1 step-content opacity-30 transition-all duration-500 transform translate-x-4">
                              <h4 class="font-bold text-2xl mb-3 text-white">Разработка дизайна</h4>
                              <p class="text-gray-400 max-w-lg leading-relaxed">Создаю сочную, продающую концепцию. Верстаю макеты, работаю с композицией, типографикой и визуальными эффектами.</p>
                          </div>
                      </div>
                      <div class="process-step flex gap-8 items-start">
-                         <div class="w-12 h-12 rounded-full bg-[#050505] border border-white/20 flex items-center justify-center font-bold text-gray-500 flex-shrink-0 transition-all duration-500 step-marker relative z-10 text-xl">4</div>
+                         <!-- Updated to Glass Circle -->
+                         <div class="w-12 h-12 rounded-full glass-panel flex items-center justify-center font-bold text-gray-400 flex-shrink-0 transition-all duration-500 step-marker relative z-10 text-xl border border-white/10">4</div>
                          <div class="pt-1 step-content opacity-30 transition-all duration-500 transform translate-x-4">
                              <h4 class="font-bold text-2xl mb-3 text-white">Согласование</h4>
                              <p class="text-gray-400 max-w-lg leading-relaxed">Показываю вам результат. Если нужно — вносим точечные правки, чтобы довести визуал до идеала.</p>
                          </div>
                      </div>
                      <div class="process-step flex gap-8 items-start">
-                         <div class="w-12 h-12 rounded-full bg-[#050505] border border-white/20 flex items-center justify-center font-bold text-gray-500 flex-shrink-0 transition-all duration-500 step-marker relative z-10 text-xl">5</div>
+                         <!-- Updated to Glass Circle -->
+                         <div class="w-12 h-12 rounded-full glass-panel flex items-center justify-center font-bold text-gray-400 flex-shrink-0 transition-all duration-500 step-marker relative z-10 text-xl border border-white/10">5</div>
                          <div class="pt-1 step-content opacity-30 transition-all duration-500 transform translate-x-4">
                              <h4 class="font-bold text-2xl mb-3 text-white">Финал проекта</h4>
                              <p class="text-gray-400 max-w-lg leading-relaxed">Передаю вам все готовые исходники в высоком качестве. Ваш дизайн готов продавать!</p>
@@ -521,18 +514,18 @@
         </div>
     </section>
 
-    <!-- Block 7: Promo Action - Super Optimized (CSS Gradient) -->
-    <section class="py-24 px-6 flex justify-center overflow-hidden">
-        <div class="w-full max-w-4xl relative rounded-[40px] overflow-hidden group gsap-fade-in transition-all duration-300 border border-[#CCFF00]/50 shadow-[0_0_30px_rgba(204,255,0,0.15)] bg-[#111]/95 transform-gpu will-change-opacity"
-             style="background: radial-gradient(circle at top right, rgba(204, 255, 0, 0.15), transparent 40%), radial-gradient(circle at bottom left, rgba(204, 255, 0, 0.1), transparent 40%), #111;">
+    <!-- Block 7: Promo Action - IMPROVED: High Contrast & Big Typography -->
+    <section class="pt-12 pb-20 md:pb-32 px-6 flex justify-center overflow-hidden relative">
+        <div class="w-full max-w-4xl relative rounded-[3rem] overflow-hidden group gsap-fade-in transition-all duration-300 border border-[#CCFF00] shadow-[0_0_30px_rgba(204,255,0,0.15)] bg-[#050505] transform-gpu will-change-opacity"
+             style="background: radial-gradient(circle at top right, rgba(204, 255, 0, 0.1), transparent 50%), radial-gradient(circle at bottom left, rgba(204, 255, 0, 0.05), transparent 50%), #050505;">
             
-            <div class="relative z-10 text-center p-8 md:p-16 space-y-8">
+            <div class="relative z-10 text-center p-8 md:p-16 space-y-8 flex flex-col items-center">
                 <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#CCFF00]/10 border border-[#CCFF00] text-[#CCFF00] text-xs font-bold tracking-widest uppercase shadow-[0_0_15px_rgba(204,255,0,0.3)] animate-pulse">
                     <span class="w-2 h-2 rounded-full bg-[#CCFF00]"></span>
                     New Clients Only
                 </div>
 
-                <h2 class="font-display font-bold text-4xl md:text-6xl text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+                <h2 class="font-display font-black text-4xl md:text-6xl text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">
                     СКИДКА ДЛЯ <span class="text-[#CCFF00]">НОВЫХ</span> КЛИЕНТОВ
                 </h2>
                 
@@ -542,7 +535,7 @@
                 
                 <!-- Button: CLEAN & MINIMALIST -->
                 <div class="pt-8">
-                    <a href="https://t.me/vladpetroov" class="relative inline-flex items-center justify-center gap-3 bg-white text-black font-extrabold text-xl px-14 py-6 rounded-full transition-all duration-300 group shadow-[0_0_30px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_#CCFF00] hover:scale-105 hover:-translate-y-1">
+                    <a href="https://t.me/vladpetroov" class="relative inline-flex items-center justify-center gap-3 bg-white text-black font-extrabold text-xl px-14 py-6 rounded-full transition-all duration-300 group shadow-[0_0_30px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_#CCFF00] hover:scale-105 hover:-translate-y-1 hover-pulse">
                         
                         <!-- Text -->
                         <span class="uppercase tracking-widest">Получить предложение</span>
@@ -556,8 +549,8 @@
     </section>
 
     <!-- Block 8 & 9 & 10: Training - Optimized BG -->
-    <section id="training" class="py-24 px-6 relative overflow-hidden">
-        <div class="absolute inset-0 bg-[#0a0a0a] z-0"></div>
+    <section id="training" class="py-20 md:py-32 px-6 relative overflow-hidden">
+        <div class="absolute inset-0 bg-black z-0"></div>
         
         <div class="max-w-7xl mx-auto relative z-10">
             <h2 class="font-display font-bold text-4xl md:text-6xl text-center mb-6">ОБУЧЕНИЕ</h2>
@@ -566,7 +559,7 @@
             <!-- NEW Results Block: 3 Premium Cards with Lime Glow -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
                 <!-- Stat 1 -->
-                <div class="relative group p-8 rounded-2xl bg-[#080808] border border-[#CCFF00]/30 hover:border-[#CCFF00] transition-all duration-300 hover:-translate-y-1 gsap-fade-in will-change-opacity shadow-[0_0_15px_rgba(204,255,0,0.05)] hover:shadow-[0_0_30px_rgba(204,255,0,0.25)]">
+                <div class="relative group p-8 rounded-[2.5rem] bg-[#080808] border border-[#CCFF00]/30 hover:border-[#CCFF00] transition-all duration-300 hover:-translate-y-1 gsap-fade-in will-change-opacity shadow-[0_0_15px_rgba(204,255,0,0.05)] hover:shadow-[0_0_30px_rgba(204,255,0,0.25)]">
                     <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#CCFF00] to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
                     <div class="text-4xl md:text-5xl font-display font-bold text-white mb-3 group-hover:text-[#CCFF00] transition-colors">14 <span class="text-xl text-gray-500 font-normal align-middle">дней</span></div>
                     <h4 class="text-lg font-bold text-white mb-2 uppercase tracking-wide">До первых денег</h4>
@@ -574,7 +567,7 @@
                 </div>
 
                 <!-- Stat 2 -->
-                <div class="relative group p-8 rounded-2xl bg-[#080808] border border-[#CCFF00]/30 hover:border-[#CCFF00] transition-all duration-300 hover:-translate-y-1 gsap-fade-in will-change-opacity shadow-[0_0_15px_rgba(204,255,0,0.05)] hover:shadow-[0_0_30px_rgba(204,255,0,0.25)]" style="transition-delay: 100ms;">
+                <div class="relative group p-8 rounded-[2.5rem] bg-[#080808] border border-[#CCFF00]/30 hover:border-[#CCFF00] transition-all duration-300 hover:-translate-y-1 gsap-fade-in will-change-opacity shadow-[0_0_15px_rgba(204,255,0,0.05)] hover:shadow-[0_0_30px_rgba(204,255,0,0.25)]" style="transition-delay: 100ms;">
                     <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#CCFF00] to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
                     <div class="text-4xl md:text-5xl font-display font-bold text-white mb-3 group-hover:text-[#CCFF00] transition-colors">100к+</div>
                     <h4 class="text-lg font-bold text-white mb-2 uppercase tracking-wide">Стабильный доход</h4>
@@ -582,7 +575,7 @@
                 </div>
 
                 <!-- Stat 3 -->
-                <div class="relative group p-8 rounded-2xl bg-[#080808] border border-[#CCFF00]/30 hover:border-[#CCFF00] transition-all duration-300 hover:-translate-y-1 gsap-fade-in will-change-opacity shadow-[0_0_15px_rgba(204,255,0,0.05)] hover:shadow-[0_0_30px_rgba(204,255,0,0.25)]" style="transition-delay: 200ms;">
+                <div class="relative group p-8 rounded-[2.5rem] bg-[#080808] border border-[#CCFF00]/30 hover:border-[#CCFF00] transition-all duration-300 hover:-translate-y-1 gsap-fade-in will-change-opacity shadow-[0_0_15px_rgba(204,255,0,0.05)] hover:shadow-[0_0_30px_rgba(204,255,0,0.25)]" style="transition-delay: 200ms;">
                     <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#CCFF00] to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
                     <div class="text-4xl md:text-5xl font-display font-bold text-white mb-3 group-hover:text-[#CCFF00] transition-colors">TOP</div>
                     <h4 class="text-lg font-bold text-white mb-2 uppercase tracking-wide">Убойное портфолио</h4>
@@ -591,55 +584,75 @@
             </div>
 
             <!-- Pricing Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
                 
-                <!-- Card 1: FIXED - Permanent Border & Shadow -->
-                <div class="p-8 rounded-3xl border border-[#CCFF00]/30 bg-[#080808] transition-all gsap-fade-in will-change-opacity shadow-[0_0_20px_rgba(204,255,0,0.1)]">
+                <!-- Card 1 -->
+                <div class="p-8 rounded-[2.5rem] border border-[#CCFF00]/30 bg-[#080808] transition-all gsap-fade-in will-change-opacity shadow-[0_0_20px_rgba(204,255,0,0.1)] flex flex-col">
                     <h3 class="text-2xl font-bold mb-2">Старт</h3>
-                    <p class="text-sm text-gray-400 mb-6">Для новичков</p>
-                    <div class="text-3xl font-display font-bold mb-6">19 990 ₽</div>
-                    <ul class="space-y-3 text-sm text-gray-300 mb-8">
-                        <li class="flex gap-2"><span class="text-[#CCFF00]">✓</span> Доступ к урокам</li>
-                        <li class="flex gap-2"><span class="text-[#CCFF00]">✓</span> Основы инфографики</li>
-                        <li class="flex gap-2"><span class="text-[#CCFF00]">✓</span> Домашние задания</li>
+                    <p class="text-sm text-gray-400 mb-6 h-10 flex items-center">Для новичков, кто хочет освоить базу</p>
+                    <div class="text-4xl font-display font-bold mb-8">19 990 ₽</div>
+                    
+                    <ul class="space-y-4 text-sm text-gray-300 mb-8 flex-grow">
+                        <li class="flex gap-3"><span class="text-[#CCFF00] min-w-[10px]">✓</span> Доступ к урокам</li>
+                        <li class="flex gap-3"><span class="text-[#CCFF00] min-w-[10px]">✓</span> Основы инфографики</li>
+                        <li class="flex gap-3"><span class="text-[#CCFF00] min-w-[10px]">✓</span> Домашние задания</li>
+                        <li class="flex gap-3"><span class="text-[#CCFF00] min-w-[10px]">✓</span> Сертификат участника</li>
                     </ul>
-                    <a href="https://t.me/vladpetroov" class="block text-center w-full py-3 bg-black border border-[#CCFF00] text-[#CCFF00] rounded-xl hover:bg-[#CCFF00] hover:text-black hover:shadow-[0_0_20px_#CCFF00] transition-all font-bold relative overflow-hidden group">
+                    
+                    <a href="https://t.me/vladpetroov" class="block text-center w-full py-4 bg-transparent border border-[#CCFF00] text-[#CCFF00] rounded-full hover:bg-[#CCFF00] hover:text-black hover:shadow-[0_0_20px_#CCFF00] transition-all font-bold relative overflow-hidden group mt-auto">
                         <span class="relative z-10">Записаться</span>
                     </a>
                 </div>
 
-                <!-- Card 2: FIXED - Permanent Border & Shadow -->
-                <div class="p-8 rounded-3xl border border-[#CCFF00]/30 bg-[#080808] transition-all gsap-fade-in border-t-4 border-t-[#CCFF00] will-change-opacity shadow-[0_0_20px_rgba(204,255,0,0.1)]">
+                <!-- Card 2 -->
+                <div class="p-8 rounded-[2.5rem] border border-[#CCFF00]/30 bg-[#080808] transition-all gsap-fade-in border-t-4 border-t-[#CCFF00] will-change-opacity shadow-[0_0_20px_rgba(204,255,0,0.1)] flex flex-col relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-[#CCFF00] text-black text-[10px] font-bold px-3 py-1 rounded-bl-xl tracking-wider">POPULAR</div>
+                    
                     <h3 class="text-2xl font-bold mb-2">PRO</h3>
-                    <p class="text-sm text-gray-400 mb-6">Для выхода на доход</p>
-                    <div class="text-3xl font-display font-bold mb-6">29 990 ₽</div>
-                    <ul class="space-y-3 text-sm text-gray-300 mb-8">
-                        <li class="flex gap-2"><span class="text-[#CCFF00]">✓</span> Всё из тарифа Старт</li>
-                        <li class="flex gap-2"><span class="text-[#CCFF00]">✓</span> Разборы работ</li>
-                        <li class="flex gap-2"><span class="text-[#CCFF00]">✓</span> Помощь с портфолио</li>
-                        <li class="flex gap-2"><span class="text-[#CCFF00]">✓</span> Поиск клиентов</li>
+                    <p class="text-sm text-gray-400 mb-6 h-10 flex items-center">Для выхода на стабильный доход</p>
+                    <div class="text-4xl font-display font-bold mb-8 text-white">29 990 ₽</div>
+                    
+                    <ul class="space-y-4 text-sm text-gray-300 mb-8 flex-grow">
+                        <li class="flex gap-3"><span class="text-[#CCFF00] min-w-[10px]">✓</span> Всё из тарифа Старт</li>
+                        <li class="flex gap-3"><span class="text-[#CCFF00] min-w-[10px]">✓</span> Разборы ваших работ</li>
+                        <li class="flex gap-3"><span class="text-[#CCFF00] min-w-[10px]">✓</span> Помощь с портфолио</li>
+                        <li class="flex gap-3"><span class="text-[#CCFF00] min-w-[10px]">✓</span> Блок по поиску клиентов</li>
                     </ul>
-                    <a href="https://t.me/vladpetroov" class="block text-center w-full py-3 bg-black border border-[#CCFF00] text-[#CCFF00] rounded-xl hover:bg-[#CCFF00] hover:text-black hover:shadow-[0_0_20px_#CCFF00] transition-all font-bold relative overflow-hidden group">
+                    
+                    <a href="https://t.me/vladpetroov" class="block text-center w-full py-4 bg-transparent border border-[#CCFF00] text-[#CCFF00] rounded-full hover:bg-[#CCFF00] hover:text-black hover:shadow-[0_0_20px_#CCFF00] transition-all font-bold relative overflow-hidden group mt-auto">
                         <span class="relative z-10">Записаться</span>
                     </a>
                 </div>
 
-                <!-- Card 3: FIXED - Permanent Border & Shadow -->
-                <div class="p-8 rounded-3xl border border-[#CCFF00]/30 bg-[#080808] transition-all relative overflow-hidden gsap-fade-in border-t-4 border-t-[#CCFF00] will-change-opacity shadow-[0_0_20px_rgba(204,255,0,0.1)]">
-                    <div class="absolute top-0 right-0 bg-black border-l border-b border-[#CCFF00] text-[#CCFF00] text-xs font-bold px-4 py-2 rounded-bl-2xl shadow-[0_0_10px_rgba(204,255,0,0.2)]">LIMITED</div>
-                    <h3 class="text-2xl font-bold mb-2">VIP / MENTOR</h3>
-                    <p class="text-sm text-gray-400 mb-6">Личное наставничество до результата</p>
-                    <div class="text-3xl font-display font-bold mb-6 text-[#CCFF00]">59 990 ₽</div>
-                    <ul class="space-y-3 text-sm text-gray-300 mb-8">
-                        <li class="flex gap-2"><span class="text-[#CCFF00]">✓</span> Всё из тарифа PRO</li>
-                        <li class="flex gap-2"><span class="text-[#CCFF00]">✓</span> Личные Zoom-разборы</li>
-                        <li class="flex gap-2"><span class="text-[#CCFF00]">✓</span> Совместный проект для портфолио</li>
-                        <li class="flex gap-2"><span class="text-[#CCFF00]">✓</span> Доступ к базе премиум-клиентов</li>
-                        <li class="flex gap-2"><span class="text-[#CCFF00]">✓</span> Стратегия выхода на 100к+</li>
-                        <li class="flex gap-2"><span class="text-[#CCFF00]">✓</span> Личный чат поддержки 24/7</li>
+                <!-- Card 3: VIP -->
+                <div class="p-8 rounded-[2.5rem] border border-[#CCFF00] bg-[#080808] transition-all relative overflow-hidden gsap-fade-in border-t-4 border-t-[#CCFF00] will-change-opacity shadow-[0_0_40px_rgba(204,255,0,0.15)] flex flex-col">
+                    <div class="absolute top-0 right-0 bg-black text-[#CCFF00] border-l border-b border-[#CCFF00] text-[10px] font-bold px-3 py-1 rounded-bl-xl tracking-wider">LIMITED</div>
+                    
+                    <h3 class="text-2xl font-bold mb-1 text-[#CCFF00]">VIP / MENTOR</h3>
+                    <!-- Scarcity Badge -->
+                    <div class="inline-flex items-center gap-2 mb-3">
+                        <span class="relative flex h-2 w-2">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#CCFF00] opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-2 w-2 bg-[#CCFF00]"></span>
+                        </span>
+                        <span class="text-xs font-bold text-[#CCFF00] uppercase tracking-wide">Мест: 2</span>
+                    </div>
+
+                    <p class="text-sm text-gray-400 mb-6 h-10 flex items-center">Личное наставничество до результата</p>
+                    
+                    <div class="text-4xl font-display font-bold mb-1 text-[#CCFF00]">59 990 ₽</div>
+                    <div class="text-[10px] text-gray-500 uppercase tracking-widest mb-8">Только через собеседование</div>
+                    
+                    <ul class="space-y-4 text-sm text-gray-300 mb-8 flex-grow">
+                        <li class="flex gap-3"><span class="text-[#CCFF00] min-w-[10px]">✓</span> Всё из тарифа PRO</li>
+                        <li class="flex gap-3"><span class="text-[#CCFF00] min-w-[10px]">✓</span> Личные Zoom-разборы</li>
+                        <li class="flex gap-3"><span class="text-[#CCFF00] min-w-[10px]">✓</span> Совместный проект</li>
+                        <li class="flex gap-3"><span class="text-[#CCFF00] min-w-[10px]">✓</span> База премиум-клиентов</li>
+                        <li class="flex gap-3"><span class="text-[#CCFF00] min-w-[10px]">✓</span> Личный чат 24/7</li>
                     </ul>
-                    <a href="https://t.me/vladpetroov" class="block text-center w-full py-3 bg-black border border-[#CCFF00] text-[#CCFF00] rounded-xl hover:bg-[#CCFF00] hover:text-black hover:shadow-[0_0_20px_#CCFF00] transition-all font-bold relative overflow-hidden group animate-soft-pulse hover:animate-none">
-                        <span class="relative z-10">Записаться</span>
+                    
+                    <a href="https://t.me/vladpetroov" class="block text-center w-full py-4 bg-[#CCFF00] text-black rounded-full hover:bg-white hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] transition-all font-bold relative overflow-hidden group mt-auto animate-soft-pulse hover:animate-none">
+                        <span class="relative z-10">Собеседование</span>
                     </a>
                 </div>
             </div>
@@ -647,7 +660,7 @@
     </section>
 
     <!-- Block 11: Reviews Slider -->
-    <section class="py-24 overflow-hidden">
+    <section class="py-20 md:py-32 overflow-hidden">
         <h2 class="font-display font-bold text-4xl text-center mb-12">ОТЗЫВЫ <span class="text-[#CCFF00]">КЛИЕНТОВ</span></h2>
         
         <div class="relative w-full">
@@ -660,31 +673,31 @@
     </section>
 
     <!-- Block 12: FAQ -->
-    <section class="py-24 px-6 max-w-4xl mx-auto overflow-hidden">
+    <section class="py-20 md:py-32 px-6 max-w-4xl mx-auto overflow-hidden">
         <h2 class="font-display font-bold text-3xl mb-12 text-center">ЧАСТЫЕ ВОПРОСЫ</h2>
         <div class="space-y-4">
-             <details class="glass-panel rounded-xl group p-6 open:bg-white/5 transition-colors">
+             <details class="glass-panel rounded-3xl group p-6 open:bg-white/5 transition-colors">
                 <summary class="flex justify-between items-center font-bold cursor-pointer list-none text-lg">
                     Сколько времени занимает выполнение?
                     <span class="transform group-open:rotate-180 transition-transform text-[#CCFF00]">▼</span>
                 </summary>
                 <p class="text-gray-400 mt-4 text-sm leading-relaxed">В среднем от 3 до 7 дней в зависимости от сложности задачи и количества слайдов или материалов.</p>
             </details>
-            <details class="glass-panel rounded-xl group p-6 open:bg-white/5 transition-colors">
+            <details class="glass-panel rounded-3xl group p-6 open:bg-white/5 transition-colors">
                 <summary class="flex justify-between items-center font-bold cursor-pointer list-none text-lg">
                     Сколько правок можно внести?
                     <span class="transform group-open:rotate-180 transition-transform text-[#CCFF00]">▼</span>
                 </summary>
                 <p class="text-gray-400 mt-4 text-sm leading-relaxed">В процессе работы вносятся разумные правки, чтобы довести дизайн до идеального результата без лишних ограничений.</p>
             </details>
-            <details class="glass-panel rounded-xl group p-6 open:bg-white/5 transition-colors">
+            <details class="glass-panel rounded-3xl group p-6 open:bg-white/5 transition-colors">
                 <summary class="flex justify-between items-center font-bold cursor-pointer list-none text-lg">
                     Что нужно для начала работы?
                     <span class="transform group-open:rotate-180 transition-transform text-[#CCFF00]">▼</span>
                 </summary>
                 <p class="text-gray-400 mt-4 text-sm leading-relaxed">Фото товара или материалы, текст, пожелания по стилю и примеры, если они есть.</p>
             </details>
-            <details class="glass-panel rounded-xl group p-6 open:bg-white/5 transition-colors">
+            <details class="glass-panel rounded-3xl group p-6 open:bg-white/5 transition-colors">
                 <summary class="flex justify-between items-center font-bold cursor-pointer list-none text-lg">
                     Как происходит оплата?
                     <span class="transform group-open:rotate-180 transition-transform text-[#CCFF00]">▼</span>
@@ -695,15 +708,15 @@
     </section>
 
     <!-- Block 13: Contacts & Footer -->
-    <footer id="contacts" class="pt-24 pb-12 px-6 relative border-t border-white/5 overflow-hidden">
+    <footer id="contacts" class="pt-20 md:pt-32 pb-12 px-6 relative border-t border-white/5 overflow-hidden">
         <div class="max-w-7xl mx-auto text-center space-y-12">
             <h2 class="font-display font-bold text-4xl md:text-6xl lg:text-7xl leading-tight">
-                ХВАТИТ БЫТЬ ТЕНЬЮ. <br>
-                СТАНЬТЕ <span class="text-[#CCFF00] text-glow">ЛЕГЕНДОЙ.</span>
+                ВЫДЕЛЯЙТЕСЬ. ПРОДАВАЙТЕ. <br>
+                <span class="text-[#CCFF00] text-glow">ДОМИНИРУЙТЕ.</span>
             </h2>
             
             <div class="flex flex-col items-center gap-8">
-                <a href="https://t.me/vladpetroov" target="_blank" class="relative px-12 py-6 rounded-2xl flex items-center gap-5 border border-[#229ED9] bg-[#229ED9]/10 text-[#229ED9] shadow-[0_0_40px_rgba(34,158,217,0.2)] hover:bg-[#229ED9] hover:text-white hover:shadow-[0_0_60px_rgba(34,158,217,0.6)] hover:scale-105 transition-all duration-300 group w-full md:w-auto justify-center overflow-hidden">
+                <a href="https://t.me/vladpetroov" target="_blank" class="relative px-12 py-6 rounded-full flex items-center gap-5 border border-[#229ED9] bg-[#229ED9]/10 text-[#229ED9] shadow-[0_0_40px_rgba(34,158,217,0.2)] hover:bg-[#229ED9] hover:text-white hover:shadow-[0_0_60px_rgba(34,158,217,0.6)] hover:scale-105 transition-all duration-300 group w-full md:w-auto justify-center overflow-hidden">
                     <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
                     <svg class="w-10 h-10 relative z-10" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 11.944 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
                     <div class="text-left relative z-10">
@@ -713,10 +726,10 @@
                 </a>
 
                 <div class="flex gap-4">
-                    <a href="https://vk.com/vladpetrovagency" target="_blank" class="glass-panel w-16 h-16 rounded-2xl flex items-center justify-center hover:border-[#0077FF] hover:text-[#0077FF] hover:-translate-y-1 transition-all duration-300 group" title="ВКонтакте">
+                    <a href="https://vk.com/vladpetrovagency" target="_blank" class="glass-panel w-16 h-16 rounded-3xl flex items-center justify-center hover:border-[#0077FF] hover:text-[#0077FF] hover:-translate-y-1 transition-all duration-300 group" title="ВКонтакте">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/VK_Compact_Logo_%282021-present%29.svg/1024px-VK_Compact_Logo_%282021-present%29.svg.png" alt="VK" class="w-8 h-8 grayscale brightness-200 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-300">
                     </a>
-                    <a href="https://ru.pinterest.com/vladpetroov" target="_blank" class="glass-panel w-16 h-16 rounded-2xl flex items-center justify-center hover:border-[#E60023] hover:text-[#E60023] hover:-translate-y-1 transition-all duration-300" title="Pinterest">
+                    <a href="https://ru.pinterest.com/vladpetroov" target="_blank" class="glass-panel w-16 h-16 rounded-3xl flex items-center justify-center hover:border-[#E60023] hover:text-[#E60023] hover:-translate-y-1 transition-all duration-300" title="Pinterest">
                         <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.399.165-1.487-.695-2.419-2.878-2.419-4.629 0-3.773 2.749-7.229 7.93-7.229 4.162 0 7.396 2.967 7.396 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.367 18.62 0 12.017 0z"/></svg>
                     </a>
                 </div>
@@ -729,7 +742,7 @@
         </div>
     </footer>
 
-    <!-- Scripts - Moved to bottom and optimized loading order -->
+    <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -846,6 +859,7 @@
         // --- 2. Render Functions ---
         function renderPortfolio(filter) {
             const grid = document.getElementById('portfolio-grid');
+            if (!grid) return;
             grid.innerHTML = '';
             
             const items = portfolioItems[filter] || [];
@@ -887,6 +901,7 @@
 
         function renderReviews() {
             const container = document.getElementById('reviews-container');
+            if (!container) return;
             const reviewsHtml = reviewsData.map(r => `
                 <div class="min-w-[300px] md:min-w-[400px] glass-panel p-6 rounded-2xl mx-4 hover:border-[#CCFF00]/30 transition-colors">
                     <div class="flex items-center gap-4 mb-4">
@@ -979,10 +994,10 @@
             gsap.registerPlugin(ScrollTrigger);
             
             // Hero
-            gsap.from(".hero-badge", { duration: 1.0, y: -20, opacity: 0, ease: "power3.out", delay: 0.2 });
-            gsap.from(".hero-title", { duration: 1.5, y: 100, opacity: 0, ease: "power4.out", delay: 0.1 }); 
-            gsap.from(".hero-subtitle", { duration: 1.5, x: -100, opacity: 0, ease: "power4.out", delay: 0.5 });
-            gsap.from(".hero-cta", { duration: 1.5, y: 50, opacity: 0, ease: "power4.out", delay: 0.8 });
+            gsap.from(".hero-badge", { duration: 1.2, y: -30, opacity: 0, ease: "power3.out", delay: 0.2 });
+            gsap.from(".hero-title", { duration: 1.5, y: 50, opacity: 0, ease: "power3.out", delay: 0.4 }); 
+            gsap.from(".hero-subtitle", { duration: 1.5, y: 30, opacity: 0, ease: "power3.out", delay: 0.6 });
+            gsap.from(".hero-cta", { duration: 1.5, y: 30, opacity: 0, ease: "power3.out", delay: 0.8 });
 
             // Sections - OPTIMIZED
             gsap.utils.toArray('.gsap-fade-up').forEach(element => {
