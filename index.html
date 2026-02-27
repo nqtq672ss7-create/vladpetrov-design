@@ -1,22 +1,18 @@
 <!DOCTYPE html>
-<html lang="ru" class="scroll-smooth overflow-x-hidden">
+<html lang="ru" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#050505">
-    <title>VP-DESIGN | Premium Digital Studio</title>
-    <meta name="description" content="Дизайн, который продает. Инфографика, веб-дизайн, брендинг.">
+    <title>VP-DESIGN | Crafting Digital Excellence</title>
     
-    <!-- Favicon -->
-    <link rel="icon" href="https://i.ibb.co/xqnZhscX/1155-20260215153254.png" type="image/png" sizes="any">
-    <link rel="shortcut icon" href="https://i.ibb.co/xqnZhscX/1155-20260215153254.png" type="image/png">
-    <link rel="apple-touch-icon" href="https://i.ibb.co/xqnZhscX/1155-20260215153254.png">
-
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@400;600;700;800;900&family=Playfair+Display:ital,wght@1,400;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
     
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -24,1152 +20,1193 @@
             theme: {
                 extend: {
                     colors: {
-                        dark: '#050505',
-                        card: 'rgba(20, 20, 20, 0.6)',
-                        lime: {
-                            DEFAULT: '#CCFF00',
-                            glow: 'rgba(204, 255, 0, 0.4)'
-                        }
+                        deep: '#000000',
+                        electric: '#2563FF',
+                        electricLight: '#3B82F6',
+                        electricGlow: '#60A5FA',
+                        deepAccent: '#1E3A8A',
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                        display: ['Syne', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
                     },
+                    backgroundImage: {
+                        'glass': 'linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%)',
+                        'glass-hover': 'linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%)',
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'marquee': 'marquee 40s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        }
+                    }
                 }
             }
         }
     </script>
 
-    <!-- Styles -->
+    <!-- Custom Styles for premium feel -->
     <style>
-        body {
-            background-color: #050505;
-            color: #ffffff;
-            overflow-x: hidden;
-            cursor: default;
-            width: 100%;
-            position: relative;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+        :root {
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --electric-glow: 0 0 30px rgba(37, 99, 255, 0.3);
+            --electric-glow-strong: 0 0 50px rgba(37, 99, 255, 0.6);
         }
 
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0a0a0a; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #CCFF00; }
+        body {
+            background-color: #000000;
+            color: #FFFFFF;
+            overflow-x: hidden;
+        }
 
-        /* Unified Glass Styles */
+        /* Lenis Smooth Scroll Recommended CSS */
+        html.lenis { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-stopped { overflow: hidden; }
+        .lenis.lenis-scrolling iframe { pointer-events: none; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #000000; }
+        ::-webkit-scrollbar-thumb { background: #1E3A8A; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #2563FF; }
+
+        /* Glassmorphism Utilities */
         .glass-panel {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px); 
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            transform: translateZ(0); 
-            will-change: opacity, transform;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
         
         .glass-panel:hover {
-            border-color: rgba(204, 255, 0, 0.3);
-            box-shadow: 0 0 30px rgba(204, 255, 0, 0.1);
+            border-color: rgba(37, 99, 255, 0.4);
+            box-shadow: var(--electric-glow);
+            transform: translateY(-4px) scale(1.01);
+            background: var(--glass-hover);
         }
 
-        .text-glow { text-shadow: 0 0 20px rgba(204, 255, 0, 0.3); }
-
-        /* 3D Canvas */
-        #bg-canvas {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: -1;
-            opacity: 0.6;
-            pointer-events: none;
+        .glass-panel-static {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
         }
 
-        /* Animations */
-        .fade-up { opacity: 0; transform: translateY(30px); }
-        .fade-in { opacity: 0; }
+        /* Typography FX */
+        .text-gradient {
+            background: linear-gradient(135deg, #FFFFFF 0%, #A1A1AA 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .text-electric {
+            background: linear-gradient(135deg, #60A5FA 0%, #2563FF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Hide elements for GSAP reveal */
+        .gsap-reveal { opacity: 0; visibility: hidden; }
+
+        /* Portfolio Filters */
+        .filter-btn.active {
+            color: #FFFFFF;
+            border-color: #2563FF;
+            box-shadow: 0 0 20px rgba(37, 99, 255, 0.3);
+            background: rgba(37, 99, 255, 0.1);
+        }
         
-        /* Loader */
-        .loader {
-            position: fixed; inset: 0; background: #000; z-index: 100;
-            display: flex; justify-content: center; align-items: center;
-            transition: opacity 0.5s ease;
+        /* Marquee specific */
+        .marquee-container {
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+        .marquee-content:hover {
+            animation-play-state: paused;
         }
 
-        /* Effects */
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) rotate(var(--tw-rotate)); }
-            33% { transform: translate(20px, -30px) rotate(calc(var(--tw-rotate) + 5deg)); }
-            66% { transform: translate(-15px, 20px) rotate(calc(var(--tw-rotate) - 5deg)); }
-        }
-        .animate-float { animation: float 20s infinite ease-in-out; will-change: transform; }
-
-        @keyframes soft-neon-pulse {
-            0%, 100% { box-shadow: 0 0 5px rgba(204, 255, 0, 0.1); border-color: rgba(204, 255, 0, 0.5); }
-            50% { box-shadow: 0 0 30px rgba(204, 255, 0, 0.4); border-color: #CCFF00; }
-        }
-        .animate-soft-pulse { animation: soft-neon-pulse 3s infinite ease-in-out; }
-        
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
-        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-
-        /* Deco Elements */
-        .glass-deco {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(4px);
-            pointer-events: none;
-            z-index: 0;
-        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-<body class="antialiased selection:bg-[#CCFF00] selection:text-black">
+<body class="antialiased selection:bg-electric selection:text-white relative">
 
-    <!-- Loader -->
-    <div id="loader" class="loader">
-        <div class="font-display font-bold text-4xl text-[#CCFF00] tracking-tighter animate-pulse">VP-DESIGN</div>
+    <!-- Ambient Background -->
+    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+        <!-- Grid overlay (replaced SVG with sharper CSS grid and increased visibility) -->
+        <div class="absolute inset-0 opacity-40" style="background-image: linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px); background-size: 60px 60px;"></div>
     </div>
 
-    <!-- 3D Background -->
-    <canvas id="bg-canvas"></canvas>
-
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300 py-6 px-6 md:px-12" id="navbar">
-        <div class="max-w-7xl mx-auto flex justify-between items-center glass-panel rounded-full px-6 py-3">
-            <a href="#" class="font-display font-bold text-2xl tracking-tighter text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.5)] hover:text-[#CCFF00] hover:drop-shadow-[0_0_10px_rgba(204,255,0,0.5)] transition-all">VP-DESIGN</a>
+    <nav class="fixed w-full z-50 top-0 pt-6 px-6 md:px-12 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto flex justify-between items-center glass-panel-static rounded-full px-6 py-4 border-white/10">
+            <a href="#" class="font-display font-bold text-xl tracking-wider flex items-center gap-2 group">
+                <span class="w-2 h-2 rounded-full bg-electric group-hover:shadow-[0_0_15px_#2563FF] transition-all"></span>
+                VP-DESIGN
+            </a>
             
-            <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-300">
-                <a href="#about" class="hover:text-[#CCFF00] transition-colors hover:shadow-[0_0_10px_#CCFF00]">Обо мне</a>
-                <a href="#portfolio" class="hover:text-[#CCFF00] transition-colors hover:shadow-[0_0_10px_#CCFF00]">Портфолио</a>
-                <a href="#services" class="hover:text-[#CCFF00] transition-colors hover:shadow-[0_0_10px_#CCFF00]">Прайс</a>
-                <a href="#training" class="hover:text-[#CCFF00] transition-colors hover:shadow-[0_0_10px_#CCFF00]">Обучение</a>
-                <a href="#contacts" class="hover:text-[#CCFF00] transition-colors hover:shadow-[0_0_10px_#CCFF00]">Контакты</a>
+            <!-- Desktop Nav -->
+            <div class="hidden md:flex gap-8 text-sm font-medium text-gray-400">
+                <a href="#about" class="hover:text-white transition-colors">Обо мне</a>
+                <a href="#portfolio" class="hover:text-white transition-colors">Портфолио</a>
+                <a href="#services" class="hover:text-white transition-colors">Услуги</a>
+                <a href="#contact" class="hover:text-white transition-colors">Контакты</a>
             </div>
 
-            <button class="md:hidden text-white" id="mobile-menu-btn" aria-label="Menu">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            <!-- Mobile Menu Btn -->
+            <button class="md:hidden text-white p-2">
+                <i class="ph ph-list text-2xl"></i>
             </button>
-        </div>
-        
-        <div id="mobile-menu" class="hidden absolute top-20 left-4 right-4 glass-panel rounded-2xl p-6 flex-col space-y-4 text-center md:hidden">
-            <a href="#about" class="block text-lg hover:text-[#CCFF00]">Обо мне</a>
-            <a href="#portfolio" class="block text-lg hover:text-[#CCFF00]">Портфолио</a>
-            <a href="#services" class="block text-lg hover:text-[#CCFF00]">Прайс</a>
-            <a href="#training" class="block text-lg hover:text-[#CCFF00]">Обучение</a>
-            <a href="#contacts" class="block text-lg hover:text-[#CCFF00]">Контакты</a>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="relative min-h-screen flex items-center justify-center pt-20 px-6 overflow-hidden">
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-lime-500/[0.02] rounded-full blur-[100px] pointer-events-none z-0 transform-gpu"></div>
-
-        <div class="glass-deco w-32 h-32 rounded-2xl top-[20%] left-[10%] -rotate-12 animate-float" style="animation-duration: 18s;"></div>
-        <div class="glass-deco w-24 h-24 rounded-full bottom-[15%] right-[15%] rotate-12 animate-float" style="animation-duration: 22s; animation-delay: 1s;"></div>
-        <div class="glass-deco w-48 h-48 rounded-[30px] top-[10%] right-[10%] rotate-45 opacity-50 animate-float" style="animation-duration: 25s; animation-delay: 2s;"></div>
-
-        <div class="absolute inset-0 overflow-hidden pointer-events-none select-none z-0">
-            <img src="https://i.ibb.co/p6C8zZLn/969-20251230133150.jpg" class="absolute top-[10%] left-[5%] w-20 md:w-28 opacity-[0.15] brightness-90 rotate-12 blur-[0.5px] animate-float duration-[25s] object-cover rounded-lg border border-white/10" decoding="async">
-            <img src="https://i.ibb.co/6RkgYh1G/IMG-7410.jpg" class="absolute top-[15%] right-[5%] w-24 md:w-32 opacity-[0.15] brightness-90 -rotate-12 blur-[0.5px] animate-float duration-[20s] delay-1000 object-cover rounded-lg border border-white/10" decoding="async">
-            <img src="https://i.ibb.co/6cjb5PS9/601-20251110164430.jpg" class="absolute bottom-[10%] left-[8%] w-16 md:w-24 opacity-[0.15] brightness-90 rotate-6 blur-[0.5px] animate-float duration-[30s] delay-2000 object-cover rounded-lg border border-white/10" decoding="async">
-            <img src="https://i.ibb.co/8LX6HLHN/IMG-3641.jpg" class="absolute bottom-[20%] right-[10%] w-20 md:w-28 opacity-[0.15] brightness-90 -rotate-6 blur-[0.5px] animate-float duration-[22s] delay-500 object-cover rounded-lg border border-white/10" decoding="async">
-            <img src="https://i.ibb.co/W4FM2HxQ/436-20250929191023.jpg" class="absolute top-[30%] left-[20%] w-14 md:w-20 opacity-[0.1] brightness-90 rotate-45 blur-[0.5px] animate-float duration-[35s] delay-1500 object-cover rounded-lg border border-white/10" decoding="async">
-        </div>
-
-        <div class="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
-            <div class="lg:col-span-8 space-y-12 text-center lg:text-left">
+    <main>
+        <!-- 1. HERO BLOCK -->
+        <section id="hero" class="relative min-h-[85vh] lg:min-h-[90vh] flex items-center pt-32 pb-12 px-6 md:px-12 overflow-hidden">
+            <div class="max-w-7xl mx-auto w-full grid md:grid-cols-2 gap-12 items-center relative z-10 lg:-translate-y-8">
                 
-                <!-- Founder Badge -->
-                <div class="flex justify-center lg:justify-start hero-badge">
-                    <div class="inline-flex items-center gap-3 glass-panel pl-2 pr-6 py-2 rounded-full border border-white/10 hover:border-[#CCFF00]/50 transition-colors duration-300 cursor-default">
-                        <div class="relative">
-                            <img src="https://i.ibb.co/PvNyhvvC/1155-20260214202943.png" alt="Vladislav Petrov" class="w-10 h-10 rounded-full object-cover" decoding="async">
-                            <div class="absolute bottom-0 -right-1 text-[#CCFF00] bg-black rounded-full border-2 border-black">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3">
-                                    <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </div>
-                        <span class="text-sm text-gray-300">Основатель агентства <span class="text-white font-medium">Владислав Петров</span></span>
-                    </div>
-                </div>
-
-                <!-- Headline -->
-                <h1 class="font-display font-extrabold text-5xl md:text-7xl lg:text-9xl tracking-tighter leading-[0.9] text-[#CCFF00] drop-shadow-[0_0_30px_rgba(204,255,0,0.3)] hero-title">
-                    VP-DESIGN <br>
-                    <span class="text-3xl md:text-5xl lg:text-7xl font-display font-medium text-white block mt-4 drop-shadow-[0_4px_10px_rgba(0,0,0,0.9)] tracking-tight">
-                        ДИЗАЙН, ВЫЗЫВАЮЩИЙ <br class="md:hidden" />
-                        <span class="relative inline-block">
-                            <span class="font-display italic text-[#CCFF00] relative z-10 font-bold tracking-tight">ЖЕЛАНИЕ КУПИТЬ</span>
-                            <svg class="absolute -bottom-2 md:-bottom-3 left-0 w-full h-3 md:h-5 text-[#CCFF00] -z-0" viewBox="0 0 200 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M2.00025 6.99997C58.5002 9.49998 112.5 -2.50002 198 2.49999" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
-                            </svg>
+                <!-- Text Content -->
+                <div class="flex flex-col items-start z-20">
+                    <div class="gsap-hero-el inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel-static mb-6 text-xs font-medium text-electricGlow uppercase tracking-widest border-electric/30">
+                        <span class="relative flex h-2 w-2">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-electric opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-2 w-2 bg-electric"></span>
                         </span>
-                    </span>
-                </h1>
-                
-                <!-- Subtitle -->
-                <p class="font-sans text-gray-300 text-lg md:text-xl max-w-lg mx-auto lg:mx-0 font-light hero-subtitle leading-relaxed drop-shadow-md">
-                    Я не делаю «просто красиво». Я создаю <span class="text-white border-b border-[#CCFF00]/30 pb-0.5">визуальное превосходство</span>. Дизайн, который выделяет бренд и реально продает. Стильно, дорого, эффективно.
-                </p>
-
-                <div class="flex flex-col md:flex-row items-center gap-6 justify-center lg:justify-start hero-cta">
-                    <!-- Button: Black background, Lime border & Text -->
-                    <a href="https://t.me/vladpetroov" target="_blank" class="group relative px-12 py-6 bg-black border border-[#CCFF00] rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(204,255,0,0.4)] animate-soft-pulse hover:animate-none">
-                        <span class="relative font-bold text-xl text-[#CCFF00] group-hover:text-black transition-colors z-10 flex items-center gap-3 uppercase tracking-wide">
-                            СВЯЗАТЬСЯ 
-                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                        </span>
-                        <div class="absolute inset-0 bg-[#CCFF00] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
-                    </a>
-                    <span class="text-sm text-gray-500 animate-pulse">Отвечаю в течение 15 мин</span>
-                </div>
-            </div>
-
-            <div class="hidden lg:block lg:col-span-4 relative h-full min-h-[400px]">
-                 <div class="absolute inset-0 flex items-center justify-center">
-                    <div class="w-64 h-64 border border-white/10 rounded-full animate-[spin_10s_linear_infinite]"></div>
-                    <div class="absolute w-48 h-48 border border-[#CCFF00]/30 rounded-full animate-[spin_15s_linear_infinite_reverse]"></div>
-                    <div class="absolute w-32 h-32 bg-gradient-to-tr from-[#CCFF00]/20 to-transparent rounded-full blur-xl animate-pulse"></div>
-                 </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Block 2: About Me -->
-    <section id="about" class="py-20 md:py-32 px-6 relative overflow-hidden">
-        <div class="max-w-7xl mx-auto">
-            <div class="glass-panel rounded-[2.5rem] p-8 md:p-12 flex flex-col md:flex-row items-center gap-12 gsap-fade-up will-change-transform">
-                <div class="md:w-1/3 flex justify-center relative">
-                    <div class="absolute inset-0 bg-[#CCFF00] blur-[60px] opacity-15 transform-gpu"></div>
-                    <div class="relative w-64 h-64 rounded-full overflow-hidden border-2 border-white/10 p-1 group">
-                        <img src="https://i.ibb.co/zWp1WzTk/1127-20260207204539.png" alt="Vlad VP-DESIGN" class="w-full h-full object-cover rounded-full transition-all duration-500 transform group-hover:scale-110 will-change-transform" decoding="async">
+                        Independent Digital Designer
                     </div>
-                </div>
-                <div class="md:w-2/3 space-y-6 text-center md:text-left">
-                    <h2 class="font-display font-bold text-4xl">Привет, я <span class="text-[#CCFF00]">Влад</span></h2>
-                    <p class="text-xl text-gray-300 font-light leading-relaxed">
-                        Основатель <span class="text-white font-medium">VP-DESIGN</span>. Моя стихия — <span class="text-[#CCFF00] border-b border-[#CCFF00]/50 pb-1">инфографика для маркетплейсов</span>, которая не оставляет шансов конкурентам. Я не просто двигаю пиксели, я создаю визуальный хук, заставляющий остановиться в бесконечной ленте.
+
+                    <h1 class="font-display text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.1] mb-6 tracking-tight">
+                        <span class="gsap-hero-title block text-white/90">VP-DESIGN —</span>
+                        <span class="gsap-hero-title block italic font-light text-white/80">Crafting</span>
+                        <span class="gsap-hero-title block text-electric mt-2 uppercase tracking-tighter">Digital Excellence</span>
+                    </h1>
+
+                    <p class="gsap-hero-el text-lg md:text-xl text-gray-400 font-light max-w-lg mb-10 leading-relaxed">
+                        Красиво. Технологично. Эффективно. Создаю премиальные интерфейсы и визуальные концепции, которые продают.
                     </p>
-                    <div class="flex flex-wrap gap-4 justify-center md:justify-start pt-4">
-                        <span class="px-4 py-2 border border-white/10 rounded-full text-sm hover:bg-white/5 transition-colors">В дизайне с 2020 года</span>
-                        <span class="px-4 py-2 border border-white/10 rounded-full text-sm hover:bg-white/5 transition-colors">500+ кейсов</span>
-                        <span class="px-4 py-2 border border-white/10 rounded-full text-sm hover:bg-white/5 transition-colors">TOP Рейтинг</span>
+
+                    <a href="https://t.me/vladpetroov" target="_blank" class="gsap-hero-el group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-black border border-electric text-electric font-medium rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-[0_0_40px_rgba(37,99,255,0.4)] hover:scale-105 active:scale-95">
+                        <span class="absolute inset-0 w-full h-full bg-electric/10 group-hover:bg-electric/20 transition-all duration-300"></span>
+                        <span class="relative flex items-center gap-2">
+                            Связаться
+                            <i class="ph-bold ph-arrow-up-right transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"></i>
+                        </span>
+                    </a>
+                </div>
+
+                <!-- Hero Image & 3D elements -->
+                <div class="relative w-full h-[500px] md:h-[650px] lg:h-[750px] flex justify-center items-center gsap-hero-image">
+                    
+                    <!-- NEW: Architectural Geometric Background (Increased Opacity & CSS Grids) -->
+                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden">
+                        <!-- Fading Grid/Mesh -->
+                        <div class="absolute inset-0 opacity-60" style="background-image: linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px); background-size: 40px 40px; -webkit-mask-image: radial-gradient(circle at center, black 20%, transparent 70%); mask-image: radial-gradient(circle at center, black 20%, transparent 70%);"></div>
+                        
+                        <!-- Abstract Diagonal Lines -->
+                        <div class="absolute w-[150%] h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent rotate-[35deg] translate-y-[-120px]"></div>
+                        <div class="absolute w-[150%] h-[1px] bg-gradient-to-r from-transparent via-electric/50 to-transparent -rotate-[35deg] translate-y-[180px]"></div>
+                        <div class="absolute w-[1px] h-[150%] bg-gradient-to-b from-transparent via-white/20 to-transparent translate-x-[-150px]"></div>
+                        
+                        <!-- Geometric Wireframes -->
+                        <div class="absolute w-[280px] h-[280px] md:w-[450px] md:h-[450px] border border-white/20 rounded-3xl rotate-[15deg] translate-x-[-10%] translate-y-[10%]"></div>
+                        <div class="absolute w-[220px] h-[220px] md:w-[380px] md:h-[380px] border border-electric/40 rounded-full -rotate-[10deg] translate-x-[15%] translate-y-[-15%]"></div>
+                        
+                        <!-- Crosshairs / Targeting Marks -->
+                        <div class="absolute top-[20%] left-[20%] w-10 h-10 opacity-70">
+                            <div class="absolute top-1/2 left-0 w-full h-[1px] bg-white"></div>
+                            <div class="absolute top-0 left-1/2 w-[1px] h-full bg-white"></div>
+                        </div>
+                        <div class="absolute bottom-[25%] right-[20%] w-10 h-10 opacity-70">
+                            <div class="absolute top-1/2 left-0 w-full h-[1px] bg-white"></div>
+                            <div class="absolute top-0 left-1/2 w-[1px] h-full bg-white"></div>
+                        </div>
+                        
+                        <!-- NEW: Extra technical elements -->
+                        <div class="absolute top-[30%] right-[10%] text-white/20 font-mono text-xs tracking-[0.3em]">+ + + +</div>
+                        <div class="absolute bottom-[35%] left-[10%] text-white/20 font-mono text-xs tracking-widest flex flex-col leading-4"><span>+</span><span>+</span><span>+</span></div>
+                        <div class="absolute w-[800px] h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent rotate-[60deg] translate-x-[200px] translate-y-[-100px]"></div>
+                        <div class="absolute top-[45%] left-[15%] text-electric/30 font-mono text-[10px] tracking-widest">SYS.RDY // 100%</div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Block 3: Why Me -->
-    <section id="why-me" class="py-20 md:py-32 px-6 relative overflow-hidden">
-        <div class="glass-deco w-32 h-32 rounded-2xl top-[10%] left-[5%] rotate-12 opacity-30 animate-float" style="animation-duration: 20s;"></div>
-        <div class="glass-deco w-24 h-24 rounded-full bottom-[10%] right-[10%] -rotate-12 opacity-30 animate-float" style="animation-duration: 25s; animation-delay: 2s;"></div>
-
-        <div class="max-w-7xl mx-auto space-y-20 relative z-10">
-            <h2 class="font-display font-bold text-4xl md:text-6xl text-center">ПОЧЕМУ <span class="text-[#CCFF00]">Я?</span></h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Advantage Card 1 -->
-                <div class="glass-panel p-10 rounded-[2.5rem] hover:-translate-y-2 transition-all duration-300 gsap-fade-up will-change-transform group border border-white/5 hover:border-[#CCFF00]/30">
-                    <div class="w-16 h-16 bg-[#CCFF00]/5 rounded-2xl flex items-center justify-center mb-8 text-[#CCFF00] border border-[#CCFF00]/20 shadow-[0_0_20px_rgba(204,255,0,0.1)] group-hover:bg-[#CCFF00] group-hover:text-black group-hover:shadow-[0_0_30px_rgba(204,255,0,0.4)] transition-all duration-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    <!-- Decor Rings -->
+                    <div class="absolute inset-0 flex items-center justify-center opacity-50 pointer-events-none z-0">
+                        <div class="w-[300px] h-[300px] md:w-[600px] md:h-[600px] rounded-full border border-electric/60 animate-[spin_20s_linear_infinite]"></div>
+                        <div class="absolute w-[250px] h-[250px] md:w-[500px] md:h-[500px] rounded-full border border-electricLight/40 animate-[spin_15s_linear_infinite_reverse]"></div>
                     </div>
-                    <h3 class="text-2xl font-display font-bold mb-4 uppercase tracking-wide text-white">Креатив и эффективность</h3>
-                    <p class="text-gray-400 text-base leading-relaxed">Не просто картинки, а инструменты продаж. Каждый макет создается с учетом маркетинговых целей и психологии покупателя.</p>
-                </div>
-
-                <!-- Advantage Card 2 -->
-                <div class="glass-panel p-10 rounded-[2.5rem] hover:-translate-y-2 transition-all duration-300 gsap-fade-up will-change-transform group border border-white/5 hover:border-[#CCFF00]/30">
-                    <div class="w-16 h-16 bg-[#CCFF00]/5 rounded-2xl flex items-center justify-center mb-8 text-[#CCFF00] border border-[#CCFF00]/20 shadow-[0_0_20px_rgba(204,255,0,0.1)] group-hover:bg-[#CCFF00] group-hover:text-black group-hover:shadow-[0_0_30px_rgba(204,255,0,0.4)] transition-all duration-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                    </div>
-                    <h3 class="text-2xl font-display font-bold mb-4 uppercase tracking-wide text-white">Быстрое выполнение</h3>
-                    <p class="text-gray-400 text-base leading-relaxed">Ценю ваше время. Соблюдаю дедлайны. Возможны срочные заказы «день в день» без потери качества.</p>
-                </div>
-
-                <!-- Advantage Card 3 -->
-                <div class="glass-panel p-10 rounded-[2.5rem] hover:-translate-y-2 transition-all duration-300 gsap-fade-up will-change-transform group border border-white/5 hover:border-[#CCFF00]/30">
-                    <div class="w-16 h-16 bg-[#CCFF00]/5 rounded-2xl flex items-center justify-center mb-8 text-[#CCFF00] border border-[#CCFF00]/20 shadow-[0_0_20px_rgba(204,255,0,0.1)] group-hover:bg-[#CCFF00] group-hover:text-black group-hover:shadow-[0_0_30px_rgba(204,255,0,0.4)] transition-all duration-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                    </div>
-                    <h3 class="text-2xl font-display font-bold mb-4 uppercase tracking-wide text-white">Актуальные тренды</h3>
-                    <p class="text-gray-400 text-base leading-relaxed">Постоянно слежу за визуальными трендами. Ваш дизайн будет выглядеть современно, дорого и свежо.</p>
-                </div>
-
-                <!-- Advantage Card 4 -->
-                <div class="glass-panel p-10 rounded-[2.5rem] hover:-translate-y-2 transition-all duration-300 gsap-fade-up will-change-transform group border border-white/5 hover:border-[#CCFF00]/30">
-                    <div class="w-16 h-16 bg-[#CCFF00]/5 rounded-2xl flex items-center justify-center mb-8 text-[#CCFF00] border border-[#CCFF00]/20 shadow-[0_0_20px_rgba(204,255,0,0.1)] group-hover:bg-[#CCFF00] group-hover:text-black group-hover:shadow-[0_0_30px_rgba(204,255,0,0.4)] transition-all duration-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                    </div>
-                    <h3 class="text-2xl font-display font-bold mb-4 uppercase tracking-wide text-white">Индивидуальный подход</h3>
-                    <p class="text-gray-400 text-base leading-relaxed">Погружаюсь в каждый проект с головой. Изучаю вашу нишу и задачи, чтобы предложить лучшее решение.</p>
-                </div>
-                
-                <!-- Advantage Card 5: Updated AI Text -->
-                <div class="glass-panel p-10 rounded-[2.5rem] hover:-translate-y-2 transition-all duration-300 gsap-fade-up will-change-transform group border border-white/5 hover:border-[#CCFF00]/30">
-                    <div class="w-16 h-16 bg-[#CCFF00]/5 rounded-2xl flex items-center justify-center mb-8 text-[#CCFF00] border border-[#CCFF00]/20 shadow-[0_0_20px_rgba(204,255,0,0.1)] group-hover:bg-[#CCFF00] group-hover:text-black group-hover:shadow-[0_0_30px_rgba(204,255,0,0.4)] transition-all duration-300">
-                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
-                    </div>
-                    <h3 class="text-2xl font-display font-bold mb-4 uppercase tracking-wide text-white">Нейросети и Generative Art</h3>
-                    <p class="text-gray-400 text-base leading-relaxed">Использую передовые нейросети для создания уникальной графики, недоступной конкурентам.</p>
-                </div>
-
-                <!-- Advantage Card 6: Updated Education Text -->
-                <div class="glass-panel p-10 rounded-[2.5rem] hover:-translate-y-2 transition-all duration-300 gsap-fade-up will-change-transform group border border-white/5 hover:border-[#CCFF00]/30">
-                    <div class="w-16 h-16 bg-[#CCFF00]/5 rounded-2xl flex items-center justify-center mb-8 text-[#CCFF00] border border-[#CCFF00]/20 shadow-[0_0_20px_rgba(204,255,0,0.1)] group-hover:bg-[#CCFF00] group-hover:text-black group-hover:shadow-[0_0_30px_rgba(204,255,0,0.4)] transition-all duration-300">
-                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-                    </div>
-                    <h3 class="text-2xl font-display font-bold mb-4 uppercase tracking-wide text-white">Образование B&D</h3>
-                    <p class="text-gray-400 text-base leading-relaxed">Профильное образование B&D (Мск). Факультет графического дизайна и маркетинга.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Block 4: Services & Price -->
-    <section id="services" class="py-20 md:py-32 px-6 bg-black/50 overflow-hidden">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-16 px-2">
-                <div>
-                    <h2 class="font-display font-bold text-4xl md:text-6xl mb-4">УСЛУГИ <br> <span class="text-gray-600">&</span> <span class="text-[#CCFF00]">ПРАЙС</span></h2>
-                </div>
-                <div class="text-gray-400 text-sm mt-4 md:mt-0 max-w-xs text-right">
-                    Цены могут варьироваться в зависимости от сложности ТЗ.
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Category 1 -->
-                <div class="glass-panel p-8 rounded-[2.5rem] gsap-fade-up">
-                    <h3 class="text-[#CCFF00] font-bold text-xl mb-6 border-b border-white/10 pb-4">Маркетплейсы</h3>
-                    <ul class="space-y-6">
-                        <li>
-                            <div class="flex justify-between mb-1"><span class="font-medium">Инфографика</span> <span class="text-[#CCFF00]">от 1490 ₽</span></div>
-                            <p class="text-xs text-gray-500">3–7 дней. Повышает CTR и продажи.</p>
-                        </li>
-                        <li>
-                            <div class="flex justify-between mb-1"><span class="font-medium">Rich-контент</span> <span class="text-[#CCFF00]">от 1990 ₽</span></div>
-                            <p class="text-xs text-gray-500">Удерживает внимание и закрывает возражения покупателя.</p>
-                        </li>
-                        <li>
-                            <div class="flex justify-between mb-1"><span class="font-medium">Анимация</span> <span class="text-[#CCFF00]">от 2990 ₽</span></div>
-                            <p class="text-xs text-gray-500">Динамичные слайды обложки.</p>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="glass-panel p-8 rounded-[2.5rem] gsap-fade-up">
-                    <h3 class="text-[#CCFF00] font-bold text-xl mb-6 border-b border-white/10 pb-4">Полиграфия</h3>
-                    <ul class="space-y-6">
-                        <li>
-                            <div class="flex justify-between mb-1"><span class="font-medium">Визитки, буклеты</span> <span class="text-[#CCFF00]">от 1990 ₽</span></div>
-                            <p class="text-xs text-gray-500">Стиль вашего бренда.</p>
-                        </li>
-                        <li>
-                            <div class="flex justify-between mb-1"><span class="font-medium">Плакаты</span> <span class="text-[#CCFF00]">от 3990 ₽</span></div>
-                            <p class="text-xs text-gray-500">Оффлайн и онлайн реклама.</p>
-                        </li>
-                        <li>
-                            <div class="flex justify-between mb-1"><span class="font-medium">Упаковка</span> <span class="text-[#CCFF00]">от 3990 ₽</span></div>
-                            <p class="text-xs text-gray-500">Повышает ценность продукта.</p>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="glass-panel p-8 rounded-[2.5rem] gsap-fade-up">
-                    <h3 class="text-[#CCFF00] font-bold text-xl mb-6 border-b border-white/10 pb-4">Реклама & SMM</h3>
-                    <ul class="space-y-6">
-                        <li>
-                            <div class="flex justify-between mb-1"><span class="font-medium">Баннеры</span> <span class="text-[#CCFF00]">от 1490 ₽</span></div>
-                            <p class="text-xs text-gray-500">Высокая кликабельность.</p>
-                        </li>
-                         <li>
-                            <div class="flex justify-between mb-1"><span class="font-medium">Оформление ВК</span> <span class="text-[#CCFF00]">от 6490 ₽</span></div>
-                            <p class="text-xs text-gray-500">Полная упаковка страницы.</p>
-                        </li>
-                         <li>
-                            <div class="flex justify-between mb-1"><span class="font-medium">Превью YouTube</span> <span class="text-[#CCFF00]">от 1490 ₽</span></div>
-                            <p class="text-xs text-gray-500">Рост кликов (CTR).</p>
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="glass-panel p-8 rounded-[2.5rem] gsap-fade-up lg:col-span-3 flex flex-col md:flex-row gap-8">
-                     <div class="flex-1">
-                        <h3 class="text-[#CCFF00] font-bold text-xl mb-6 border-b border-white/10 pb-4">Web & Logo</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div>
-                                <div class="flex justify-between mb-1"><span class="font-medium text-lg">Создание сайтов</span> <span class="text-[#CCFF00] text-lg">от 15 000 ₽</span></div>
-                                <p class="text-sm text-gray-500">Срок от 7 дней. Разработка на Tilda / Webflow / Code. Полная адаптация под мобильные устройства.</p>
+                    
+                    <!-- Glass backdrop behind image -->
+                    <div class="absolute w-[320px] h-[450px] md:w-[450px] md:h-[650px] glass-panel-static rounded-3xl rotate-6 translate-x-4 opacity-50 z-0"></div>
+                    
+                    <!-- Image -->
+                    <img src="https://s10.iimage.su/s/27/g9NPRMPxrMg0Py7y3IFv5H8OiAsvvVDfTG2rb2DEP.png" alt="Владислав Петров" class="relative z-10 w-auto h-full max-h-[95%] object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                    
+                    <!-- NEW: AI Estimate Widget -->
+                    <div class="absolute bottom-[5%] right-0 md:right-[10%] glass-panel p-5 rounded-2xl z-30 max-w-[260px] cursor-pointer group hover:bg-white/5 transition-all" onclick="openAIModal()">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 rounded-full bg-electric/20 flex items-center justify-center text-electric relative overflow-hidden">
+                                <div class="absolute inset-0 bg-electric/20 animate-pulse"></div>
+                                <i class="ph-bold ph-magic-wand"></i>
                             </div>
                             <div>
-                                <div class="flex justify-between mb-1"><span class="font-medium text-lg">Логотип</span> <span class="text-[#CCFF00] text-lg">от 4990 ₽</span></div>
-                                <p class="text-sm text-gray-500">3 уникальных варианта. Индивидуальность.</p>
+                                <div class="text-[10px] text-electric font-mono tracking-widest uppercase">SYS.AI_ESTIMATE</div>
+                                <div class="text-sm font-bold text-white">Умный расчет ✨</div>
                             </div>
                         </div>
-                     </div>
+                        <p class="text-xs text-gray-400 leading-relaxed">Опишите задачу, и моя нейросеть подберет услуги и соберет примерную смету.</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Block 5: Portfolio -->
-    <section id="portfolio" class="py-20 md:py-32 px-6 overflow-hidden">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="font-display font-bold text-4xl md:text-6xl mb-12 text-center">ПОРТФОЛИО</h2>
-            
-            <div class="flex flex-wrap justify-center gap-3 mb-12" id="portfolio-tabs">
-                <!-- Highlighted Category 1 -->
-                <button class="group px-6 py-2 rounded-full border border-[#CCFF00] bg-[#CCFF00] text-black shadow-[0_0_15px_rgba(204,255,0,0.4)] text-sm transition-all active-tab relative overflow-hidden" data-filter="infographic">
-                    <span class="relative z-10 font-bold flex items-center gap-2">
-                        Инфографика <span class="text-xs bg-black/20 px-1.5 py-0.5 rounded text-black">HIT</span>
-                    </span>
-                </button>
-
-                <!-- Highlighted Category 2 -->
-                <button class="group px-6 py-2 rounded-full border border-[#CCFF00]/50 text-white shadow-[0_0_10px_rgba(204,255,0,0.15)] text-sm hover:border-[#CCFF00] hover:text-[#CCFF00] transition-all relative overflow-hidden" data-filter="rich">
-                    <span class="relative z-10 font-bold flex items-center gap-2">
-                        Rich-контент
-                    </span>
-                </button>
-
-                <button class="px-6 py-2 rounded-full border border-white/20 text-sm hover:border-[#CCFF00] hover:text-[#CCFF00] transition-all" data-filter="websites">Сайты</button>
-                <button class="px-6 py-2 rounded-full border border-white/20 text-sm hover:border-[#CCFF00] hover:text-[#CCFF00] transition-all" data-filter="logos">Логотипы</button>
-                <button class="px-6 py-2 rounded-full border border-white/20 text-sm hover:border-[#CCFF00] hover:text-[#CCFF00] transition-all" data-filter="youtube">Превью YouTube</button>
-                <button class="px-6 py-2 rounded-full border border-white/20 text-sm hover:border-[#CCFF00] hover:text-[#CCFF00] transition-all" data-filter="cards">Визитки</button>
-                <button class="px-6 py-2 rounded-full border border-white/20 text-sm hover:border-[#CCFF00] hover:text-[#CCFF00] transition-all" data-filter="banners">Баннеры</button>
-                <button class="px-6 py-2 rounded-full border border-white/20 text-sm hover:border-[#CCFF00] hover:text-[#CCFF00] transition-all" data-filter="labels">Этикетки</button>
-                <button class="px-6 py-2 rounded-full border border-white/20 text-sm hover:border-[#CCFF00] hover:text-[#CCFF00] transition-all" data-filter="ads">Креативы</button>
-                <button class="px-6 py-2 rounded-full border border-white/20 text-sm hover:border-[#CCFF00] hover:text-[#CCFF00] transition-all" data-filter="vk">Оформление ВК</button>
+        <!-- 2. ABOUT ME (UPGRADED) -->
+        <section id="about" class="pt-12 pb-24 px-6 md:px-12 relative z-10 overflow-hidden">
+            <!-- Architectural Decor -->
+            <div class="absolute inset-0 pointer-events-none z-0">
+                <div class="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] border border-white/5 rounded-full"></div>
+                <div class="absolute bottom-[20%] left-[-5%] w-[400px] h-[400px] border border-electric/10 rounded-3xl rotate-[25deg]"></div>
+                <!-- Crosshair -->
+                <div class="absolute bottom-[10%] left-[10%] w-12 h-12 opacity-20">
+                    <div class="absolute top-1/2 left-0 w-full h-[1px] bg-white"></div>
+                    <div class="absolute top-0 left-1/2 w-[1px] h-full bg-white"></div>
+                </div>
+                <!-- Extra technical elements -->
+                <div class="absolute right-[5%] top-[40%] text-electric/20 font-mono text-[10px] tracking-[0.5em]" style="writing-mode: vertical-rl;">VP-DESIGN.SYS.01</div>
+                <div class="absolute left-[-5%] bottom-[15%] w-[300px] border-t border-dashed border-white/10"></div>
+                <div class="absolute top-[20%] left-[15%] flex gap-2 opacity-20">
+                    <div class="w-1 h-1 bg-white rounded-full"></div>
+                    <div class="w-1 h-1 bg-white rounded-full"></div>
+                    <div class="w-1 h-1 bg-electric rounded-full"></div>
+                </div>
             </div>
 
-            <div id="portfolio-grid" class="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-8 md:grid md:grid-cols-3 lg:grid-cols-4 md:pb-0 md:overflow-visible scrollbar-hide -mx-6 px-6 md:mx-0 md:px-0">
-                <!-- Images via JS -->
-            </div>
-            
-            <div class="text-center mt-4 md:mt-12">
-                 <a href="https://ru.pinterest.com/vladpetroov/" target="_blank" class="inline-flex items-center gap-3 px-8 py-3 rounded-full glass-panel hover:border-[#E60023] hover:text-[#E60023] hover:shadow-[0_0_20px_rgba(230,0,35,0.3)] transition-all duration-300 group">
-                    <svg class="w-5 h-5 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.399.165-1.487-.695-2.419-2.878-2.419-4.629 0-3.773 2.749-7.229 7.93-7.229 4.162 0 7.396 2.967 7.396 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.367 18.62 0 12.017 0z"/></svg>
-                    <span class="font-medium tracking-wide">Больше работ в Pinterest</span>
-                 </a>
-            </div>
-        </div>
-    </section>
+            <div class="max-w-7xl mx-auto relative z-10">
+                <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+                    
+                    <!-- Image Area (The Upgrade) -->
+                    <div class="lg:col-span-5 order-2 lg:order-1 relative gsap-reveal">
+                        <!-- Tech Frame Decor Around Image -->
+                        <div class="absolute -inset-6 border border-white/5 rounded-[2.5rem] pointer-events-none">
+                            <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-black px-4 py-1 flex gap-2 items-center">
+                                <div class="w-1.5 h-1.5 bg-electric rounded-full animate-pulse shadow-[0_0_8px_#2563FF]"></div>
+                                <div class="text-[8px] font-mono text-white/40 tracking-[0.4em]">SCANNING_ENTITY_01</div>
+                            </div>
+                            <!-- Corner Accents -->
+                            <div class="absolute top-0 left-0 w-10 h-10 border-t border-l border-electric/40 rounded-tl-3xl"></div>
+                            <div class="absolute bottom-0 right-0 w-10 h-10 border-b border-r border-electric/40 rounded-br-3xl"></div>
+                        </div>
 
-    <!-- Block 6: Process -->
-    <section id="process" class="py-20 md:py-32 pb-0 px-6 bg-gradient-to-b from-transparent to-[#0a0a0a] overflow-hidden">
-        <div class="max-w-3xl mx-auto">
-             <h2 class="font-display font-bold text-4xl mb-20 text-center">ПРОЦЕСС <span class="text-[#CCFF00]">РАБОТЫ</span></h2>
-             
-             <div class="relative" id="process-container">
-                 <div class="absolute left-[23px] top-4 bottom-12 w-0.5 bg-white/10 z-0"></div>
-                 <div class="absolute left-[23px] top-4 w-0.5 bg-[#CCFF00] z-0 h-0 shadow-[0_0_10px_#CCFF00]" id="process-progress"></div>
-                 
-                 <div class="space-y-16 relative z-10">
-                     <div class="process-step flex gap-8 items-start">
-                         <!-- Updated to Glass Circle -->
-                         <div class="w-12 h-12 rounded-full glass-panel flex items-center justify-center font-bold text-gray-400 flex-shrink-0 transition-all duration-500 step-marker relative z-10 text-xl border border-white/10">1</div>
-                         <div class="pt-1 step-content opacity-30 transition-all duration-500 transform translate-x-4">
-                             <h4 class="font-bold text-2xl mb-3 text-white">Заявка и брифинг</h4>
-                             <p class="text-gray-400 max-w-lg leading-relaxed">Вы оставляете заявку. Мы обсуждаем задачи, формат работы, сроки и желаемый результат. Фиксируем договоренности.</p>
-                         </div>
-                     </div>
-                     <div class="process-step flex gap-8 items-start">
-                         <!-- Updated to Glass Circle -->
-                         <div class="w-12 h-12 rounded-full glass-panel flex items-center justify-center font-bold text-gray-400 flex-shrink-0 transition-all duration-500 step-marker relative z-10 text-xl border border-white/10">2</div>
-                         <div class="pt-1 step-content opacity-30 transition-all duration-500 transform translate-x-4">
-                             <h4 class="font-bold text-2xl mb-3 text-white">Анализ ниши</h4>
-                             <p class="text-gray-400 max-w-lg leading-relaxed">Я изучаю ваш товар, конкурентов и тренды в нише. Собираю референсы и продумываю воронку внимания для карточки или сайта.</p>
-                         </div>
-                     </div>
-                     <div class="process-step flex gap-8 items-start">
-                         <!-- Updated to Glass Circle -->
-                         <div class="w-12 h-12 rounded-full glass-panel flex items-center justify-center font-bold text-gray-400 flex-shrink-0 transition-all duration-500 step-marker relative z-10 text-xl border border-white/10">3</div>
-                         <div class="pt-1 step-content opacity-30 transition-all duration-500 transform translate-x-4">
-                             <h4 class="font-bold text-2xl mb-3 text-white">Разработка дизайна</h4>
-                             <p class="text-gray-400 max-w-lg leading-relaxed">Создаю сочную, продающую концепцию. Верстаю макеты, работаю с композицией, типографикой и визуальными эффектами.</p>
-                         </div>
-                     </div>
-                     <div class="process-step flex gap-8 items-start">
-                         <!-- Updated to Glass Circle -->
-                         <div class="w-12 h-12 rounded-full glass-panel flex items-center justify-center font-bold text-gray-400 flex-shrink-0 transition-all duration-500 step-marker relative z-10 text-xl border border-white/10">4</div>
-                         <div class="pt-1 step-content opacity-30 transition-all duration-500 transform translate-x-4">
-                             <h4 class="font-bold text-2xl mb-3 text-white">Согласование</h4>
-                             <p class="text-gray-400 max-w-lg leading-relaxed">Показываю вам результат. Если нужно — вносим точечные правки, чтобы довести визуал до идеала.</p>
-                         </div>
-                     </div>
-                     <div class="process-step flex gap-8 items-start">
-                         <!-- Updated to Glass Circle -->
-                         <div class="w-12 h-12 rounded-full glass-panel flex items-center justify-center font-bold text-gray-400 flex-shrink-0 transition-all duration-500 step-marker relative z-10 text-xl border border-white/10">5</div>
-                         <div class="pt-1 step-content opacity-30 transition-all duration-500 transform translate-x-4">
-                             <h4 class="font-bold text-2xl mb-3 text-white">Финал проекта</h4>
-                             <p class="text-gray-400 max-w-lg leading-relaxed">Передаю вам все готовые исходники в высоком качестве. Ваш дизайн готов продавать!</p>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-        </div>
-    </section>
+                        <!-- Data Tags (Filling the empty space) -->
+                        <div class="absolute -left-12 top-1/4 glass-panel px-4 py-2 rounded-xl border-electric/30 animate-float z-20 hidden xl:flex items-center gap-3">
+                            <div class="w-2 h-2 rounded-full bg-electric shadow-[0_0_10px_#2563FF]"></div>
+                            <span class="font-mono text-[9px] text-white tracking-widest uppercase">Location: Anapa</span>
+                        </div>
 
-    <!-- Block 7: Promo Action - IMPROVED: High Contrast & Big Typography -->
-    <section class="pt-12 pb-20 md:pb-32 px-6 flex justify-center overflow-hidden relative">
-        <div class="w-full max-w-4xl relative rounded-[3rem] overflow-hidden group gsap-fade-in transition-all duration-300 border border-[#CCFF00] shadow-[0_0_30px_rgba(204,255,0,0.15)] bg-[#050505] transform-gpu will-change-opacity"
-             style="background: radial-gradient(circle at top right, rgba(204, 255, 0, 0.1), transparent 50%), radial-gradient(circle at bottom left, rgba(204, 255, 0, 0.05), transparent 50%), #050505;">
-            
-            <div class="relative z-10 text-center p-8 md:p-16 space-y-8 flex flex-col items-center">
-                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#CCFF00]/10 border border-[#CCFF00] text-[#CCFF00] text-xs font-bold tracking-widest uppercase shadow-[0_0_15px_rgba(204,255,0,0.3)] animate-pulse">
-                    <span class="w-2 h-2 rounded-full bg-[#CCFF00]"></span>
-                    New Clients Only
+                        <div class="absolute -right-10 top-20 glass-panel px-4 py-3 rounded-xl border-white/10 animate-float z-20 hidden xl:flex flex-col gap-1" style="animation-delay: 2s;">
+                            <span class="text-[8px] text-electric font-mono uppercase tracking-widest">Tech_Stack</span>
+                            <span class="text-[10px] font-bold text-white tracking-tighter">UI. UX. AI. MOTION.</span>
+                        </div>
+
+                        <div class="absolute -left-8 bottom-[15%] glass-panel px-4 py-3 rounded-xl border-white/10 animate-float z-20 hidden xl:flex flex-col gap-2" style="animation-delay: 1.2s;">
+                            <div class="flex items-center gap-2">
+                                <i class="ph-fill ph-circles-three text-electric text-sm"></i>
+                                <span class="text-[9px] font-mono text-white/50 tracking-widest uppercase">Expertise</span>
+                            </div>
+                            <div class="w-24 bg-white/5 h-[2px] rounded-full overflow-hidden">
+                                <div class="bg-electric h-full w-[94%] animate-[pulse_2s_infinite]"></div>
+                            </div>
+                        </div>
+
+                        <!-- Main Image Wrapper -->
+                        <div class="relative rounded-[2rem] p-2 glass-panel-static group overflow-hidden">
+                            <div class="absolute inset-0 bg-electric/15 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                            <img src="https://s10.iimage.su/s/27/gSnvsaTxddBqQm0sz9iB73NNZjzzrCIm13zazDbUd.png" alt="Обо мне" class="relative rounded-[1.5rem] w-full object-cover aspect-[4/5] bg-deep/50 transition-all duration-700 grayscale-[20%] group-hover:grayscale-0">
+                            
+                            <!-- Floating Badge -->
+                            <div class="absolute -bottom-6 -right-6 glass-panel px-6 py-4 rounded-2xl flex items-center gap-4 animate-float z-30" style="animation-delay: 1.5s;">
+                                <div class="w-12 h-12 rounded-full bg-electric/20 flex items-center justify-center text-electric">
+                                    <i class="ph-fill ph-star text-2xl shadow-[0_0_15px_#2563FF]"></i>
+                                </div>
+                                <div>
+                                    <div class="text-[9px] text-electric font-mono tracking-widest uppercase">Premium_Quality</div>
+                                    <div class="font-bold text-sm">WOW-эффекта</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Vertical Link Line to text area -->
+                        <div class="hidden lg:block absolute top-1/2 -right-16 w-16 h-[1px] bg-gradient-to-r from-electric/40 to-transparent"></div>
+                    </div>
+
+                    <!-- Text Area -->
+                    <div class="lg:col-span-7 order-1 lg:order-2 lg:pl-12 flex flex-col justify-center">
+                        <h2 class="font-display text-4xl md:text-5xl font-bold mb-8 gsap-reveal">
+                            Дизайн, который <span class="text-electric italic">работает</span> на ваш бизнес
+                        </h2>
+                        
+                        <div class="text-gray-300 space-y-6 text-lg font-light leading-relaxed mb-12 gsap-reveal">
+                            <p>Я Влад из Анапы, погружен в дизайн с 2020 года. Создаю визуальные решения, которые <span class="text-white font-medium">продают</span>: digital-продукты, рекламные креативы, полиграфию.</p>
+                            <p>Учусь на графического дизайнера в B&D (Москва). Использую передовые <span class="text-electric font-medium">AI-инструменты</span> для ускорения работы и генерации уникальных концепций. Каждый проект довожу до максимального эффекта и <span class="text-electric font-medium">wow-впечатления</span>.</p>
+                        </div>
+
+                        <!-- Stats Grid (UPDATED: Added blue border and + signs) -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 gsap-reveal">
+                            <div class="glass-panel p-6 rounded-2xl text-center border-electric/40">
+                                <div class="text-3xl font-display font-bold text-white mb-1"><span class="counter" data-target="500">0</span>+</div>
+                                <div class="text-xs text-gray-400 uppercase tracking-wider">Проектов</div>
+                            </div>
+                            <div class="glass-panel p-6 rounded-2xl text-center border-electric/40">
+                                <div class="text-3xl font-display font-bold text-white mb-1"><span class="counter" data-target="3">0</span>+</div>
+                                <div class="text-xs text-gray-400 uppercase tracking-wider">Года опыта</div>
+                            </div>
+                            <div class="glass-panel p-6 rounded-2xl text-center md:col-span-2 flex flex-col justify-center items-center border-electric/40">
+                                <div class="text-sm font-medium text-electric mb-1"><i class="ph-bold ph-check-circle mr-1"></i> Топовые бренды+</div>
+                                <div class="text-xs text-gray-400 uppercase tracking-wider">Маркетплейсы & Digital</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. SERVICES & SOLUTIONS -->
+        <section id="services" class="py-24 px-6 md:px-12 relative overflow-hidden">
+            <!-- Architectural Decor -->
+            <div class="absolute inset-0 pointer-events-none z-0">
+                <!-- Fading Grid -->
+                <div class="absolute inset-0 opacity-30" style="background-image: linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 80px 80px; -webkit-mask-image: radial-gradient(ellipse at top right, black 20%, transparent 70%); mask-image: radial-gradient(ellipse at top right, black 20%, transparent 70%);"></div>
+                <!-- Abstract Lines -->
+                <div class="absolute right-[15%] top-[-10%] w-[1px] h-[500px] bg-gradient-to-b from-transparent via-electric/30 to-transparent"></div>
+                <div class="absolute left-[-10%] top-[40%] w-[50%] h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent rotate-12"></div>
+                <!-- NEW: Extra technical elements -->
+                <div class="absolute right-[5%] bottom-[10%] w-32 h-32 border-r border-b border-electric/20 rounded-br-[40px]"></div>
+                <div class="absolute left-[10%] top-[10%] w-24 h-24 border-l border-t border-white/10 rounded-tl-2xl"></div>
+                <div class="absolute top-[20%] right-[25%] text-white/10 text-xs font-mono tracking-widest">/// DATA FLOW</div>
+            </div>
+
+            <div class="max-w-7xl mx-auto relative z-10">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-16 gsap-reveal">
+                    <div>
+                        <h2 class="font-display text-4xl md:text-6xl font-bold text-white mb-4">Услуги & <span class="text-transparent bg-clip-text bg-gradient-to-r from-electric to-electricLight">Решения</span></h2>
+                        <p class="text-gray-400 text-lg max-w-xl">Полный спектр digital-дизайна для вашего бренда. Прозрачные цены, точные сроки, премиальное качество.</p>
+                    </div>
                 </div>
 
-                <h2 class="font-display font-black text-4xl md:text-6xl text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">
-                    СКИДКА ДЛЯ <span class="text-[#CCFF00]">НОВЫХ</span> КЛИЕНТОВ
+                <!-- Services Grid -->
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    
+                    <!-- Card 1 -->
+                    <div class="glass-panel p-8 rounded-3xl flex flex-col gsap-reveal group">
+                        <div class="w-14 h-14 rounded-2xl bg-electric/10 flex items-center justify-center text-electric mb-6 group-hover:scale-110 transition-transform">
+                            <i class="ph-light ph-shopping-bag text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Инфографика<br>для маркетплейсов</h3>
+                        <ul class="space-y-3 mb-8 text-sm text-gray-300 flex-grow">
+                            <li class="flex justify-between border-b border-white/5 pb-2">
+                                <span>Главный слайд</span>
+                                <span class="text-electric font-medium">1490 ₽</span>
+                            </li>
+                            <li class="flex justify-between border-b border-white/5 pb-2">
+                                <span>Доп. слайд</span>
+                                <span class="text-white">700 ₽</span>
+                            </li>
+                            <li class="flex justify-between border-b border-white/5 pb-2">
+                                <span>Rich-контент</span>
+                                <span class="text-white">от 1990 ₽</span>
+                            </li>
+                            <li class="flex justify-between pb-2">
+                                <span>Аним. обложка</span>
+                                <span class="text-white">от 2990 ₽</span>
+                            </li>
+                        </ul>
+                        <div class="text-xs text-gray-500 mt-auto flex items-center gap-2"><i class="ph ph-clock"></i> Срок: 3–7 дней</div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="glass-panel p-8 rounded-3xl flex flex-col gsap-reveal group" style="transition-delay: 0.1s;">
+                        <div class="w-14 h-14 rounded-2xl bg-electric/10 flex items-center justify-center text-electric mb-6 group-hover:scale-110 transition-transform">
+                            <i class="ph-light ph-megaphone text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Реклама &<br>Продвижение</h3>
+                        <ul class="space-y-3 mb-8 text-sm text-gray-300 flex-grow">
+                            <li class="flex justify-between border-b border-white/5 pb-2">
+                                <span>Статичные баннеры</span>
+                                <span class="text-electric font-medium">от 1490 ₽</span>
+                            </li>
+                            <li class="flex justify-between pb-2">
+                                <span>2D анимация</span>
+                                <span class="text-white">от 3490 ₽</span>
+                            </li>
+                        </ul>
+                        <div class="text-xs text-gray-500 mt-auto flex items-center gap-2"><i class="ph ph-clock"></i> Срок: 3–7 дней</div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="glass-panel p-8 rounded-3xl flex flex-col gsap-reveal group" style="transition-delay: 0.2s;">
+                        <div class="w-14 h-14 rounded-2xl bg-electric/10 flex items-center justify-center text-electric mb-6 group-hover:scale-110 transition-transform">
+                            <i class="ph-light ph-share-network text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Оформление<br>соцсетей</h3>
+                        <ul class="space-y-3 mb-8 text-sm text-gray-300 flex-grow">
+                            <li class="flex justify-between border-b border-white/5 pb-2">
+                                <span>Оформление ВК</span>
+                                <span class="text-electric font-medium">от 6490 ₽</span>
+                            </li>
+                            <li class="flex justify-between border-b border-white/5 pb-2">
+                                <span>Посты для соцсетей</span>
+                                <span class="text-white">от 1490 ₽</span>
+                            </li>
+                            <li class="flex justify-between pb-2">
+                                <span>Превью YouTube</span>
+                                <span class="text-white">от 1490 ₽</span>
+                            </li>
+                        </ul>
+                        <div class="text-xs text-gray-500 mt-auto flex items-center gap-2"><i class="ph ph-clock"></i> Срок: 3–7 дней</div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="glass-panel p-8 rounded-3xl flex flex-col gsap-reveal group" style="transition-delay: 0.3s;">
+                        <div class="w-14 h-14 rounded-2xl bg-electric/10 flex items-center justify-center text-electric mb-6 group-hover:scale-110 transition-transform">
+                            <i class="ph-light ph-layout text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Сайты &<br>Логотипы</h3>
+                        <ul class="space-y-3 mb-8 text-sm text-gray-300 flex-grow">
+                            <li class="flex justify-between border-b border-white/5 pb-2">
+                                <span>Создание сайтов</span>
+                                <span class="text-electric font-medium">от 15 000 ₽</span>
+                            </li>
+                            <li class="flex justify-between border-b border-white/5 pb-2">
+                                <span>Логотип</span>
+                                <span class="text-white">от 4990 ₽</span>
+                            </li>
+                            <li class="flex justify-between pb-2">
+                                <span>Логотип-маскот</span>
+                                <span class="text-white">от 7990 ₽</span>
+                            </li>
+                        </ul>
+                        <div class="text-xs text-gray-500 mt-auto flex items-center gap-2"><i class="ph ph-clock"></i> Срок: от 7 дней</div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. PORTFOLIO -->
+        <section id="portfolio" class="py-24 px-6 md:px-12 relative overflow-hidden">
+            <!-- Architectural Decor -->
+            <div class="absolute inset-0 pointer-events-none z-0">
+                <!-- Crosshairs -->
+                <div class="absolute top-[10%] left-[5%] w-10 h-10 opacity-30">
+                    <div class="absolute top-1/2 left-0 w-full h-[1px] bg-white"></div>
+                    <div class="absolute top-0 left-1/2 w-[1px] h-full bg-white"></div>
+                </div>
+                <div class="absolute bottom-[10%] right-[5%] w-10 h-10 opacity-30">
+                    <div class="absolute top-1/2 left-0 w-full h-[1px] bg-white"></div>
+                    <div class="absolute top-0 left-1/2 w-[1px] h-full bg-white"></div>
+                </div>
+                <!-- Diagonal beam -->
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent -rotate-6"></div>
+                <!-- NEW: Extra technical elements -->
+                <div class="absolute left-0 top-[30%] w-[25%] h-[1px] bg-gradient-to-r from-electric/40 to-transparent"></div>
+                <div class="absolute right-0 bottom-[30%] w-[25%] h-[1px] bg-gradient-to-l from-white/20 to-transparent"></div>
+                <div class="absolute top-[12%] left-[12%] text-white/10 font-mono text-sm tracking-widest">[ PRJ_MATRIX ]</div>
+            </div>
+
+            <div class="max-w-7xl mx-auto relative z-10">
+                <div class="text-center mb-16 gsap-reveal">
+                    <h2 class="font-display text-4xl md:text-6xl font-bold text-white mb-6">Избранные <span class="text-electric italic">Работы</span></h2>
+                    
+                    <!-- Filters -->
+                    <div class="flex flex-wrap justify-center gap-3 max-w-3xl mx-auto" id="portfolio-filters">
+                        <button class="filter-btn active px-6 py-2 rounded-full border border-white/10 text-sm font-medium transition-all" data-filter="all">Все проекты</button>
+                        <button class="filter-btn px-6 py-2 rounded-full border border-white/10 text-gray-400 hover:text-white transition-all" data-filter="mp">Инфографика & Rich</button>
+                        <button class="filter-btn px-6 py-2 rounded-full border border-white/10 text-gray-400 hover:text-white transition-all" data-filter="ads">Креативы & Соцсети</button>
+                        <button class="filter-btn px-6 py-2 rounded-full border border-white/10 text-gray-400 hover:text-white transition-all" data-filter="web">Сайты & Лого</button>
+                    </div>
+                </div>
+
+                <!-- Portfolio Grid -->
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" id="portfolio-grid">
+                    
+                    <!-- Items (Placeholders mimicking real works) -->
+                    <div class="portfolio-item mp group cursor-pointer gsap-reveal">
+                        <div class="glass-panel rounded-2xl overflow-hidden aspect-[4/5] relative">
+                            <div class="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center p-8 text-center transition-transform duration-700 group-hover:scale-105">
+                                <div class="opacity-30 mix-blend-overlay absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmZmZmYiLz48L3N2Zz4=')]"></div>
+                                <div class="relative z-10">
+                                    <i class="ph-light ph-image text-5xl text-gray-500 mb-4 block"></i>
+                                    <span class="text-gray-400 text-sm font-medium uppercase tracking-widest">Инфографика</span>
+                                </div>
+                            </div>
+                            <div class="absolute inset-0 bg-electric/0 group-hover:bg-electric/20 transition-colors duration-300 flex flex-col justify-end p-6">
+                                <div class="translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                                    <h4 class="text-white font-bold text-xl">Wildberries Product</h4>
+                                    <p class="text-white/80 text-sm">Главный слайд + Воронка</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item ads group cursor-pointer gsap-reveal" style="transition-delay: 0.1s;">
+                        <div class="glass-panel rounded-2xl overflow-hidden aspect-[4/5] relative">
+                            <div class="absolute inset-0 bg-gradient-to-br from-slate-800 to-blue-900 flex items-center justify-center p-8 text-center transition-transform duration-700 group-hover:scale-105">
+                                <div class="relative z-10">
+                                    <i class="ph-light ph-play-circle text-5xl text-gray-500 mb-4 block"></i>
+                                    <span class="text-gray-400 text-sm font-medium uppercase tracking-widest">Реклама</span>
+                                </div>
+                            </div>
+                            <div class="absolute inset-0 bg-electric/0 group-hover:bg-electric/20 transition-colors duration-300 flex flex-col justify-end p-6">
+                                <div class="translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                                    <h4 class="text-white font-bold text-xl">VK Target Promo</h4>
+                                    <p class="text-white/80 text-sm">Анимационный креатив</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item web group cursor-pointer gsap-reveal" style="transition-delay: 0.2s;">
+                        <div class="glass-panel rounded-2xl overflow-hidden aspect-[4/5] relative">
+                            <div class="absolute inset-0 bg-gradient-to-br from-gray-900 to-black flex items-center justify-center p-8 text-center transition-transform duration-700 group-hover:scale-105">
+                                <div class="relative z-10">
+                                    <i class="ph-light ph-browser text-5xl text-gray-500 mb-4 block"></i>
+                                    <span class="text-gray-400 text-sm font-medium uppercase tracking-widest">Сайт</span>
+                                </div>
+                            </div>
+                            <div class="absolute inset-0 bg-electric/0 group-hover:bg-electric/20 transition-colors duration-300 flex flex-col justify-end p-6">
+                                <div class="translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                                    <h4 class="text-white font-bold text-xl">Premium Landing</h4>
+                                    <p class="text-white/80 text-sm">UI/UX + Development</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item mp group cursor-pointer gsap-reveal">
+                        <div class="glass-panel rounded-2xl overflow-hidden aspect-[4/5] relative">
+                            <div class="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center p-8 text-center transition-transform duration-700 group-hover:scale-105">
+                                <div class="relative z-10">
+                                    <i class="ph-light ph-images text-5xl text-gray-500 mb-4 block"></i>
+                                    <span class="text-gray-400 text-sm font-medium uppercase tracking-widest">Rich Контент</span>
+                                </div>
+                            </div>
+                            <div class="absolute inset-0 bg-electric/0 group-hover:bg-electric/20 transition-colors duration-300 flex flex-col justify-end p-6">
+                                <div class="translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                                    <h4 class="text-white font-bold text-xl">Ozon Landing Page</h4>
+                                    <p class="text-white/80 text-sm">Сюжетный дизайн товара</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item ads group cursor-pointer gsap-reveal" style="transition-delay: 0.1s;">
+                        <div class="glass-panel rounded-2xl overflow-hidden aspect-[4/5] relative">
+                            <div class="absolute inset-0 bg-gradient-to-br from-indigo-900 to-gray-900 flex items-center justify-center p-8 text-center transition-transform duration-700 group-hover:scale-105">
+                                <div class="relative z-10">
+                                    <i class="ph-light ph-youtube-logo text-5xl text-gray-500 mb-4 block"></i>
+                                    <span class="text-gray-400 text-sm font-medium uppercase tracking-widest">Превью YouTube</span>
+                                </div>
+                            </div>
+                            <div class="absolute inset-0 bg-electric/0 group-hover:bg-electric/20 transition-colors duration-300 flex flex-col justify-end p-6">
+                                <div class="translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                                    <h4 class="text-white font-bold text-xl">Блогер-миллионник</h4>
+                                    <p class="text-white/80 text-sm">Кликабельная обложка</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item web group cursor-pointer gsap-reveal" style="transition-delay: 0.2s;">
+                        <div class="glass-panel rounded-2xl overflow-hidden aspect-[4/5] relative">
+                            <div class="absolute inset-0 bg-gradient-to-br from-blue-900 to-electric/20 flex items-center justify-center p-8 text-center transition-transform duration-700 group-hover:scale-105">
+                                <div class="relative z-10">
+                                    <i class="ph-light ph-bezier-curve text-5xl text-gray-500 mb-4 block"></i>
+                                    <span class="text-gray-400 text-sm font-medium uppercase tracking-widest">Логотип</span>
+                                </div>
+                            </div>
+                            <div class="absolute inset-0 bg-electric/0 group-hover:bg-electric/20 transition-colors duration-300 flex flex-col justify-end p-6">
+                                <div class="translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                                    <h4 class="text-white font-bold text-xl">IT Startup Mascot</h4>
+                                    <p class="text-white/80 text-sm">Брендинг</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. WORKFLOW PROCESS -->
+        <section class="py-24 px-6 md:px-12 relative overflow-hidden">
+            <!-- Architectural Decor -->
+            <div class="absolute inset-0 pointer-events-none z-0">
+                <div class="absolute inset-0 opacity-20" style="background-image: linear-gradient(rgba(37,99,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(37,99,255,0.1) 1px, transparent 1px); background-size: 40px 40px; -webkit-mask-image: radial-gradient(circle at center, black 10%, transparent 60%); mask-image: radial-gradient(circle at center, black 10%, transparent 60%);"></div>
+                <!-- NEW: Extra technical elements -->
+                <div class="absolute top-0 right-[15%] w-[1px] h-full bg-gradient-to-b from-transparent via-white/5 to-transparent border-l border-dashed border-white/10"></div>
+                <div class="absolute top-0 left-[15%] w-[1px] h-full bg-gradient-to-b from-transparent via-electric/10 to-transparent border-r border-dashed border-electric/10"></div>
+                <div class="absolute bottom-[20%] left-[20%] text-electric/20 font-mono text-xs tracking-widest">PROCESS_SEQ_05</div>
+            </div>
+
+            <div class="max-w-7xl mx-auto relative z-10">
+                <h2 class="font-display text-4xl md:text-5xl font-bold text-center mb-16 gsap-reveal">Как мы <span class="text-electric italic">строим работу</span></h2>
+                
+                <div class="grid md:grid-cols-5 gap-6 md:gap-4 relative">
+                    <!-- Connect line (Desktop) -->
+                    <div class="hidden md:block absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-electric/50 to-transparent -translate-y-1/2 z-0"></div>
+
+                    <!-- Steps -->
+                    <div class="glass-panel p-6 rounded-3xl relative z-10 gsap-reveal flex flex-col items-center text-center">
+                        <div class="w-12 h-12 rounded-full bg-black border border-electric/30 flex items-center justify-center text-xl font-bold text-electric mb-4 shadow-[0_0_15px_rgba(37,99,255,0.2)]">1</div>
+                        <h4 class="font-bold mb-2">Заявка</h4>
+                        <p class="text-xs text-gray-400">Связь в Telegram, обсуждение задач и целей.</p>
+                    </div>
+
+                    <div class="glass-panel p-6 rounded-3xl relative z-10 gsap-reveal flex flex-col items-center text-center" style="transition-delay: 0.1s;">
+                        <div class="w-12 h-12 rounded-full bg-black border border-electric/30 flex items-center justify-center text-xl font-bold text-electric mb-4">2</div>
+                        <h4 class="font-bold mb-2">Анализ</h4>
+                        <p class="text-xs text-gray-400">Изучение ниши, конкурентов и продукта.</p>
+                    </div>
+
+                    <div class="glass-panel p-6 rounded-3xl relative z-10 gsap-reveal flex flex-col items-center text-center" style="transition-delay: 0.2s;">
+                        <div class="w-12 h-12 rounded-full bg-black border border-electric flex items-center justify-center text-xl font-bold text-white mb-4 shadow-[0_0_20px_rgba(37,99,255,0.5)]">3</div>
+                        <h4 class="font-bold mb-2 text-electric">Дизайн</h4>
+                        <p class="text-xs text-gray-400">Разработка концепции и визуала.</p>
+                    </div>
+
+                    <div class="glass-panel p-6 rounded-3xl relative z-10 gsap-reveal flex flex-col items-center text-center" style="transition-delay: 0.3s;">
+                        <div class="w-12 h-12 rounded-full bg-black border border-electric/30 flex items-center justify-center text-xl font-bold text-electric mb-4">4</div>
+                        <h4 class="font-bold mb-2">Правки</h4>
+                        <p class="text-xs text-gray-400">Доводим результат до идеала.</p>
+                    </div>
+
+                    <div class="glass-panel p-6 rounded-3xl relative z-10 gsap-reveal flex flex-col items-center text-center" style="transition-delay: 0.4s;">
+                        <div class="w-12 h-12 rounded-full bg-black border border-electric/30 flex items-center justify-center text-xl font-bold text-electric mb-4 shadow-[0_0_15px_rgba(37,99,255,0.2)]">5</div>
+                        <h4 class="font-bold mb-2">Результат</h4>
+                        <p class="text-xs text-gray-400">Передача готовых материалов.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. FIRST ORDER PROMO -->
+        <section class="py-12 px-6 md:px-12 relative gsap-reveal">
+            <div class="max-w-5xl mx-auto">
+                <div class="relative rounded-[2.5rem] p-[1px] overflow-hidden group">
+                    <!-- Animated Border -->
+                    <div class="absolute inset-0 bg-gradient-to-r from-electric/10 via-electric to-electric/10 opacity-50 group-hover:opacity-100 transition-opacity duration-500 animate-[spin_4s_linear_infinite]" style="width: 200%; height: 200%; top: -50%; left: -50%;"></div>
+                    
+                    <div class="relative bg-black rounded-[2.5rem] p-10 md:p-16 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-10 overflow-hidden">
+                        <!-- Inner Glow -->
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-electric/10 blur-[80px] pointer-events-none"></div>
+
+                        <div class="relative z-10 max-w-xl">
+                            <div class="inline-block px-4 py-1.5 rounded-full border border-electric/50 text-electric text-xs font-bold uppercase tracking-wider mb-6">Спецпредложение</div>
+                            <h2 class="font-display text-4xl md:text-5xl font-bold mb-4">Скидка для новых клиентов</h2>
+                            <p class="text-gray-400 text-lg mb-6 leading-relaxed">Получите скидку <span class="text-white font-medium border-b border-electric">до 20% на первый проект</span> или бесплатный бонусный слайд. Отличный способ протестировать качество и получить wow-эффект по выгодной цене.</p>
+                        </div>
+
+                        <!-- NEW: Designer Checkmark element to fill space -->
+                        <div class="hidden lg:flex absolute left-[62%] top-1/2 -translate-y-1/2 items-center justify-center pointer-events-none z-0">
+                            <!-- Glow -->
+                            <div class="absolute inset-0 bg-electric/20 blur-[60px] rounded-full scale-[2]"></div>
+                            
+                            <!-- Orbiting Dash -->
+                            <div class="absolute w-40 h-40 rounded-full border border-dashed border-electric/30 animate-[spin_20s_linear_infinite]"></div>
+                            
+                            <!-- Glass Checkmark Box -->
+                            <div class="relative w-24 h-24 bg-[#0B0F1A]/60 border border-electric/50 backdrop-blur-xl rounded-[2rem] rotate-12 flex items-center justify-center shadow-[0_0_40px_rgba(37,99,255,0.4)] overflow-hidden">
+                                <div class="absolute inset-0 bg-gradient-to-br from-electric/30 to-transparent opacity-50"></div>
+                                <i class="ph-bold ph-check text-5xl text-electric drop-shadow-[0_0_15px_rgba(37,99,255,0.8)] relative z-10 -rotate-12"></i>
+                            </div>
+                        </div>
+
+                        <div class="relative z-10 shrink-0">
+                            <a href="https://t.me/vladpetroov" target="_blank" class="inline-flex items-center justify-center gap-3 px-8 py-5 bg-electric text-white font-bold rounded-2xl transition-all hover:bg-electricLight hover:shadow-[0_0_40px_rgba(37,99,255,0.6)] hover:scale-105">
+                                Забрать бонус
+                                <i class="ph-bold ph-telegram-logo text-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. EDUCATION & RESULTS -->
+        <section class="py-24 px-6 md:px-12 relative overflow-hidden">
+            <!-- Architectural Decor -->
+            <div class="absolute inset-0 pointer-events-none z-0">
+                <div class="absolute left-[-15%] top-[10%] w-[600px] h-[600px] border border-electric/10 rounded-3xl rotate-[35deg]"></div>
+                <div class="absolute right-[-10%] bottom-[20%] w-[500px] h-[500px] border border-white/5 rounded-full"></div>
+                <div class="absolute top-[30%] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
+                <!-- NEW: Extra technical elements -->
+                <div class="absolute top-[15%] right-[5%] w-40 h-40 rounded-full border border-dashed border-electric/20 animate-[spin_30s_linear_infinite]"></div>
+                <div class="absolute bottom-[10%] left-[10%] text-white/10 font-mono text-[10px] tracking-widest leading-relaxed">STATUS: MENTORING_ACTIVE<br>LEVEL: MAX</div>
+                <div class="absolute top-[50%] right-[10%] flex flex-col gap-2 opacity-20">
+                    <div class="w-8 h-[1px] bg-white"></div>
+                    <div class="w-6 h-[1px] bg-white"></div>
+                    <div class="w-10 h-[1px] bg-electric"></div>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto relative z-10">
+                <div class="text-center mb-16 gsap-reveal">
+                    <h2 class="font-display text-4xl md:text-6xl font-bold text-white mb-6">Обучение & <span class="text-electric italic">Наставничество</span></h2>
+                    <p class="text-gray-400 text-lg max-w-2xl mx-auto">Передаю опыт: от первых шагов в дизайне до выхода на стабильный доход 50-100к+ на фрилансе.</p>
+                </div>
+
+                <!-- Results Mini-Carousel (CSS Flex wrap on desktop, scroll on mobile) -->
+                <div class="flex overflow-x-auto gap-4 pb-8 mb-8 snap-x hide-scrollbar gsap-reveal">
+                    <div class="glass-panel p-6 rounded-2xl min-w-[280px] flex-1 snap-center">
+                        <div class="text-3xl font-display font-bold text-electric mb-2">+ Первые заказы</div>
+                        <p class="text-sm text-gray-300">Ученики находят клиентов уже во время обучения.</p>
+                    </div>
+                    <div class="glass-panel p-6 rounded-2xl min-w-[280px] flex-1 snap-center">
+                        <div class="text-3xl font-display font-bold text-electric mb-2">50-100k ₽</div>
+                        <p class="text-sm text-gray-300">Выход на стабильный доход удаленно через 2-3 месяца.</p>
+                    </div>
+                    <div class="glass-panel p-6 rounded-2xl min-w-[280px] flex-1 snap-center">
+                        <div class="text-3xl font-display font-bold text-electric mb-2">Сильное портфолио</div>
+                        <p class="text-sm text-gray-300">Готовые кейсы для работы с крупными селлерами.</p>
+                    </div>
+                </div>
+
+                <!-- Pricing Cards -->
+                <div class="grid lg:grid-cols-3 gap-8 items-center">
+                    
+                    <!-- Basic -->
+                    <div class="glass-panel p-8 rounded-3xl flex flex-col h-full gsap-reveal">
+                        <h3 class="text-2xl font-bold mb-2">Старт</h3>
+                        <p class="text-gray-400 text-sm mb-6 h-10">Базовый уровень для новичков. Первые заказы и портфолио.</p>
+                        <div class="text-4xl font-display font-bold mb-8">19 990 ₽</div>
+                        <ul class="space-y-4 mb-8 text-sm flex-grow">
+                            <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-electric mt-0.5"></i> Доступ к видеоурокам</li>
+                            <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-electric mt-0.5"></i> Основы инфографики Figma</li>
+                            <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-electric mt-0.5"></i> Домашние задания</li>
+                        </ul>
+                        <a href="https://t.me/vladpetroov" target="_blank" class="w-full py-4 text-center rounded-xl border border-white/20 hover:bg-white/5 transition-colors font-medium">Выбрать тариф</a>
+                    </div>
+
+                    <!-- TOP/Premium -->
+                    <div class="relative rounded-3xl p-[2px] transform lg:scale-105 z-10 gsap-reveal">
+                        <div class="absolute inset-0 bg-gradient-to-b from-electric to-transparent rounded-3xl opacity-50"></div>
+                        <div class="absolute inset-0 bg-electric/20 blur-2xl -z-10 animate-pulse-slow"></div>
+                        
+                        <div class="bg-black p-8 rounded-[23px] flex flex-col h-full relative">
+                            <div class="absolute top-0 right-8 transform -translate-y-1/2 bg-electric text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-[0_0_15px_rgba(37,99,255,0.5)]">Хит продаж</div>
+                            
+                            <h3 class="text-2xl font-bold mb-2 text-electric">Инфографика с Владом</h3>
+                            <p class="text-gray-400 text-sm mb-6 h-10">Персональная работа, личное наставничество и стратегия дохода.</p>
+                            <div class="text-5xl font-display font-bold mb-8">59 990 ₽</div>
+                            <ul class="space-y-4 mb-8 text-sm flex-grow">
+                                <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-electric mt-0.5"></i> <b>Всё из тарифов Старт и PRO</b></li>
+                                <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-electric mt-0.5"></i> Личные созвоны 1 на 1</li>
+                                <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-electric mt-0.5"></i> Построение личного бренда</li>
+                                <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-electric mt-0.5"></i> Гарантированный выход на результат</li>
+                            </ul>
+                            <a href="https://t.me/vladpetroov" target="_blank" class="w-full py-4 text-center rounded-xl bg-electric text-white font-bold hover:shadow-[0_0_30px_rgba(37,99,255,0.4)] transition-all">Иду на наставничество</a>
+                        </div>
+                    </div>
+
+                    <!-- PRO -->
+                    <div class="glass-panel p-8 rounded-3xl flex flex-col h-full gsap-reveal">
+                        <h3 class="text-2xl font-bold mb-2">PRO</h3>
+                        <p class="text-gray-400 text-sm mb-6 h-10">Продвинутый уровень. Работа с брендами, повышение чека.</p>
+                        <div class="text-4xl font-display font-bold mb-8">29 990 ₽</div>
+                        <ul class="space-y-4 mb-8 text-sm flex-grow">
+                            <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-electric mt-0.5"></i> Всё из тарифа Старт</li>
+                            <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-electric mt-0.5"></i> Глубокие разборы работ</li>
+                            <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-electric mt-0.5"></i> Упаковка мощного портфолио</li>
+                        </ul>
+                        <a href="https://t.me/vladpetroov" target="_blank" class="w-full py-4 text-center rounded-xl border border-white/20 hover:bg-white/5 transition-colors font-medium">Выбрать тариф</a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. TESTIMONIALS (Infinite Marquee) -->
+        <section class="py-24 relative overflow-hidden bg-gradient-to-b from-transparent via-electric/5 to-transparent gsap-reveal">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-4xl font-bold text-white mb-4">Отзывы клиентов & учеников</h2>
+            </div>
+
+            <div class="marquee-container relative w-full overflow-hidden flex">
+                <div class="marquee-content flex gap-6 w-max animate-marquee pl-6">
+                    <!-- Cards Generation (10 cards for smooth loop) -->
+                    <script>
+                        const reviews = [
+                            { name: "Александр", role: "Селлер WB", text: "Влад сделал топовую воронку продаж через инфографику. CTR вырос в 2 раза!", type: "Услуга" },
+                            { name: "Екатерина", role: "Бренд косметики", text: "Очень крутой подход. Быстро, стильно, без лишних вопросов. Будем работать на постоянке.", type: "Услуга" },
+                            { name: "Максим", role: "Ученик, Старт", text: "Благодаря курсу взял первый заказ на 5000 рублей уже через неделю! Объясняет супер понятно.", type: "Обучение" },
+                            { name: "Ольга", role: "Владелец магазина", text: "Рекламные креативы зашли на ура, стоимость клика упала. Спасибо за креативность!", type: "Услуга" },
+                            { name: "Игорь", role: "Ученик, Личное", text: "Наставничество с Владом — лучшая инвестиция. Вышел на 100к/мес за 2 месяца с нуля.", type: "Обучение" },
+                            { name: "Дарья", role: "SMM специалист", text: "Заказывала оформление группы ВК. Выглядит премиально и очень дорого. Клиенты в восторге.", type: "Услуга" },
+                            { name: "Сергей", role: "Селлер Ozon", text: "Rich-контент получился как мини-сайт внутри карточки. Продажи пошли вверх с первого дня.", type: "Услуга" },
+                            { name: "Анна", role: "Ученик, PRO", text: "Разобрали мои ошибки, переупаковали портфолио, и я наконец-то подняла чек в 3 раза!", type: "Обучение" },
+                            { name: "Дмитрий", role: "IT Стартап", text: "Разработали логотип и фирменный стиль. Попали в точку с первого эскиза. Профессионал.", type: "Услуга" },
+                            { name: "Виктория", role: "YouTube блогер", text: "Превью огонь! Кликабельность видео выросла невероятно. Работаем дальше.", type: "Услуга" }
+                        ];
+
+                        // Duplicate for seamless loop
+                        const allReviews = [...reviews, ...reviews];
+
+                        allReviews.forEach(r => {
+                            document.write(`
+                                <div class="glass-panel w-[350px] p-8 rounded-3xl shrink-0 flex flex-col">
+                                    <div class="flex items-center justify-between mb-6">
+                                        <div class="flex items-center gap-4">
+                                            <div class="w-12 h-12 rounded-full bg-electric/20 flex items-center justify-center font-bold text-electric">${r.name[0]}</div>
+                                            <div>
+                                                <div class="font-bold">${r.name}</div>
+                                                <div class="text-xs text-gray-400">${r.role}</div>
+                                            </div>
+                                        </div>
+                                        <div class="text-xs px-2 py-1 rounded-md ${r.type === 'Обучение' ? 'bg-purple-500/20 text-purple-400' : 'bg-electric/20 text-electric'}">${r.type}</div>
+                                    </div>
+                                    <p class="text-sm text-gray-300 leading-relaxed mb-6 flex-grow">"${r.text}"</p>
+                                    <div class="flex gap-1 text-electric">
+                                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                                    </div>
+                                </div>
+                            `);
+                        });
+                    </script>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. CONTACT CTA -->
+        <section id="contact" class="py-32 px-6 md:px-12 relative overflow-hidden">
+            <!-- Huge glowing background -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] md:w-[40vw] md:h-[40vw] bg-electric/20 blur-[150px] rounded-full pointer-events-none z-0"></div>
+
+            <!-- Architectural Decor -->
+            <div class="absolute inset-0 pointer-events-none z-0">
+                <!-- Grid fading up -->
+                <div class="absolute inset-0 opacity-30" style="background-image: linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px); background-size: 60px 60px; -webkit-mask-image: linear-gradient(to top, black 10%, transparent 80%); mask-image: linear-gradient(to top, black 10%, transparent 80%);"></div>
+                
+                <!-- Crosshairs -->
+                <div class="absolute top-[20%] left-[15%] w-12 h-12 opacity-30">
+                    <div class="absolute top-1/2 left-0 w-full h-[1px] bg-electric"></div>
+                    <div class="absolute top-0 left-1/2 w-[1px] h-full bg-electric"></div>
+                </div>
+                <div class="absolute top-[20%] right-[15%] w-12 h-12 opacity-30">
+                    <div class="absolute top-1/2 left-0 w-full h-[1px] bg-electric"></div>
+                    <div class="absolute top-0 left-1/2 w-[1px] h-full bg-electric"></div>
+                </div>
+                
+                <!-- NEW: Extra technical elements -->
+                <div class="absolute top-[30%] left-[8%] text-electric/30 font-mono text-[10px] tracking-widest">TARGET_ACQUIRED</div>
+                <div class="absolute bottom-[10%] right-[15%] w-48 h-48 border border-white/5 rounded-full flex items-center justify-center opacity-50">
+                    <div class="w-24 h-24 border border-dashed border-electric/20 rounded-full animate-[spin_20s_linear_infinite_reverse]"></div>
+                </div>
+                <div class="absolute top-0 left-1/2 w-[1px] h-[30%] bg-gradient-to-b from-electric/40 to-transparent"></div>
+            </div>
+
+            <div class="max-w-4xl mx-auto text-center relative z-10 gsap-reveal">
+                <h2 class="font-display text-5xl md:text-8xl font-black mb-8 tracking-tighter">
+                    Готовы начать<br><span class="text-electric italic font-light">проект?</span>
                 </h2>
                 
-                <p class="text-gray-300 text-lg max-w-xl mx-auto leading-relaxed">
-                    Получите <span class="text-white font-bold border-b border-[#CCFF00]">скидку 20%</span> на первый заказ или бесплатный бонусный слайд. Отличный способ протестировать качество и поднять продажи.
-                </p>
-                
-                <!-- Button: CLEAN & MINIMALIST -->
-                <div class="pt-8">
-                    <a href="https://t.me/vladpetroov" class="relative inline-flex items-center justify-center gap-3 bg-white text-black font-extrabold text-xl px-14 py-6 rounded-full transition-all duration-300 group shadow-[0_0_30px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_#CCFF00] hover:scale-105 hover:-translate-y-1 hover-pulse">
+                <p class="text-gray-400 text-lg md:text-xl mb-12 max-w-2xl mx-auto">Свяжитесь со мной напрямую для обсуждения вашего проекта. Я всегда открыт к новым интересным задачам.</p>
+
+                <div class="flex flex-col items-center gap-6">
+                    <!-- Main CTA -->
+                    <a href="https://t.me/vladpetroov" target="_blank" class="group relative inline-flex items-center justify-center gap-4 px-10 py-6 glass-panel rounded-full overflow-hidden transition-all duration-300 hover:scale-105">
+                        <div class="absolute inset-0 bg-electric/10 group-hover:bg-electric/30 transition-colors"></div>
+                        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 shadow-[inset_0_0_40px_rgba(37,99,255,0.5)] transition-opacity duration-300 rounded-full"></div>
                         
-                        <!-- Text -->
-                        <span class="uppercase tracking-widest">Получить предложение</span>
-                        
-                        <!-- Minimalist Arrow Icon (No Circle) -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 text-black"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                        <i class="ph-fill ph-telegram-logo text-3xl text-electric group-hover:text-white transition-colors relative z-10"></i>
+                        <span class="text-xl md:text-2xl font-bold relative z-10 group-hover:text-white transition-colors">Написать в Telegram</span>
                     </a>
+
+                    <!-- Social Links -->
+                    <div class="flex gap-4 mt-8">
+                        <a href="#" class="w-14 h-14 glass-panel rounded-full flex items-center justify-center hover:bg-[#0077FF]/20 hover:text-[#0077FF] hover:border-[#0077FF] transition-all" title="VK">
+                            <i class="ph-bold ph-vk-logo text-2xl"></i>
+                        </a>
+                        <a href="#" class="w-14 h-14 glass-panel rounded-full flex items-center justify-center hover:bg-[#E60023]/20 hover:text-[#E60023] hover:border-[#E60023] transition-all" title="Pinterest">
+                            <i class="ph-bold ph-pinterest-logo text-2xl"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Block 8 & 9 & 10: Training - Optimized BG -->
-    <section id="training" class="py-20 md:py-32 px-6 relative overflow-hidden">
-        <div class="absolute inset-0 bg-black z-0"></div>
-        
-        <div class="max-w-7xl mx-auto relative z-10">
-            <h2 class="font-display font-bold text-4xl md:text-6xl text-center mb-6">ОБУЧЕНИЕ</h2>
-            <p class="text-center text-gray-400 mb-16 max-w-2xl mx-auto">Я не только создаю дизайн, но и учу зарабатывать на этом. От новичка до профи.</p>
-            
-            <!-- NEW Results Block: 3 Premium Cards with Lime Glow -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
-                <!-- Stat 1 -->
-                <div class="relative group p-8 rounded-[2.5rem] bg-[#080808] border border-[#CCFF00]/30 hover:border-[#CCFF00] transition-all duration-300 hover:-translate-y-1 gsap-fade-in will-change-opacity shadow-[0_0_15px_rgba(204,255,0,0.05)] hover:shadow-[0_0_30px_rgba(204,255,0,0.25)]">
-                    <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#CCFF00] to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div class="text-4xl md:text-5xl font-display font-bold text-white mb-3 group-hover:text-[#CCFF00] transition-colors">14 <span class="text-xl text-gray-500 font-normal align-middle">дней</span></div>
-                    <h4 class="text-lg font-bold text-white mb-2 uppercase tracking-wide">До первых денег</h4>
-                    <p class="text-sm text-gray-400 leading-relaxed">Ты окупишь обучение еще в процессе. Студенты начинают брать реальные заказы уже со второй недели.</p>
-                </div>
-
-                <!-- Stat 2 -->
-                <div class="relative group p-8 rounded-[2.5rem] bg-[#080808] border border-[#CCFF00]/30 hover:border-[#CCFF00] transition-all duration-300 hover:-translate-y-1 gsap-fade-in will-change-opacity shadow-[0_0_15px_rgba(204,255,0,0.05)] hover:shadow-[0_0_30px_rgba(204,255,0,0.25)]" style="transition-delay: 100ms;">
-                    <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#CCFF00] to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div class="text-4xl md:text-5xl font-display font-bold text-white mb-3 group-hover:text-[#CCFF00] transition-colors">100к+</div>
-                    <h4 class="text-lg font-bold text-white mb-2 uppercase tracking-wide">Стабильный доход</h4>
-                    <p class="text-sm text-gray-400 leading-relaxed">Даю пошаговую систему поиска клиентов, чтобы выйти на 100 000 ₽+ в месяц без выгорания и начальников.</p>
-                </div>
-
-                <!-- Stat 3 -->
-                <div class="relative group p-8 rounded-[2.5rem] bg-[#080808] border border-[#CCFF00]/30 hover:border-[#CCFF00] transition-all duration-300 hover:-translate-y-1 gsap-fade-in will-change-opacity shadow-[0_0_15px_rgba(204,255,0,0.05)] hover:shadow-[0_0_30px_rgba(204,255,0,0.25)]" style="transition-delay: 200ms;">
-                    <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#CCFF00] to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div class="text-4xl md:text-5xl font-display font-bold text-white mb-3 group-hover:text-[#CCFF00] transition-colors">TOP</div>
-                    <h4 class="text-lg font-bold text-white mb-2 uppercase tracking-wide">Убойное портфолио</h4>
-                    <p class="text-sm text-gray-400 leading-relaxed">Упакуем 5-7 сильных кейсов. Твое портфолио будет продавать услуги дорого и без лишних слов.</p>
-                </div>
-            </div>
-
-            <!-- Pricing Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+        <!-- AI Estimate Modal -->
+        <div id="ai-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center px-4">
+            <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeAIModal()"></div>
+            <div id="ai-modal-content" class="relative glass-panel w-full max-w-2xl rounded-3xl p-6 md:p-8 border border-electric/30 shadow-[0_0_50px_rgba(37,99,255,0.15)] flex flex-col max-h-[90vh]">
+                <!-- Close Btn -->
+                <button onclick="closeAIModal()" class="absolute top-6 right-6 text-gray-400 hover:text-white transition-colors">
+                    <i class="ph-bold ph-x text-2xl"></i>
+                </button>
                 
-                <!-- Card 1 -->
-                <div class="p-8 rounded-[2.5rem] border border-[#CCFF00]/30 bg-[#080808] transition-all gsap-fade-in will-change-opacity shadow-[0_0_20px_rgba(204,255,0,0.1)] flex flex-col">
-                    <h3 class="text-2xl font-bold mb-2">Старт</h3>
-                    <p class="text-sm text-gray-400 mb-6 h-10 flex items-center">Для новичков, кто хочет освоить базу</p>
-                    <div class="text-4xl font-display font-bold mb-8">19 990 ₽</div>
-                    
-                    <ul class="space-y-4 text-sm text-gray-300 mb-8 flex-grow">
-                        <li class="flex gap-3"><span class="text-[#CCFF00] min-w-[10px]">✓</span> Доступ к урокам</li>
-                        <li class="flex gap-3"><span class="text-[#CCFF00] min-w-[10px]">✓</span> Основы инфографики</li>
-                        <li class="flex gap-3"><span class="text-[#CCFF00] min-w-[10px]">✓</span> Домашние задания</li>
-                        <li class="flex gap-3"><span class="text-[#CCFF00] min-w-[10px]">✓</span> Сертификат участника</li>
-                    </ul>
-                    
-                    <a href="https://t.me/vladpetroov" class="block text-center w-full py-4 bg-transparent border border-[#CCFF00] text-[#CCFF00] rounded-full hover:bg-[#CCFF00] hover:text-black hover:shadow-[0_0_20px_#CCFF00] transition-all font-bold relative overflow-hidden group mt-auto">
-                        <span class="relative z-10">Записаться</span>
-                    </a>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="p-8 rounded-[2.5rem] border border-[#CCFF00]/30 bg-[#080808] transition-all gsap-fade-in border-t-4 border-t-[#CCFF00] will-change-opacity shadow-[0_0_20px_rgba(204,255,0,0.1)] flex flex-col relative overflow-hidden">
-                    <div class="absolute top-0 right-0 bg-[#CCFF00] text-black text-[10px] font-bold px-3 py-1 rounded-bl-xl tracking-wider">POPULAR</div>
-                    
-                    <h3 class="text-2xl font-bold mb-2">PRO</h3>
-                    <p class="text-sm text-gray-400 mb-6 h-10 flex items-center">Для выхода на стабильный доход</p>
-                    <div class="text-4xl font-display font-bold mb-8 text-white">29 990 ₽</div>
-                    
-                    <ul class="space-y-4 text-sm text-gray-300 mb-8 flex-grow">
-                        <li class="flex gap-3"><span class="text-[#CCFF00] min-w-[10px]">✓</span> Всё из тарифа Старт</li>
-                        <li class="flex gap-3"><span class="text-[#CCFF00] min-w-[10px]">✓</span> Разборы ваших работ</li>
-                        <li class="flex gap-3"><span class="text-[#CCFF00] min-w-[10px]">✓</span> Помощь с портфолио</li>
-                        <li class="flex gap-3"><span class="text-[#CCFF00] min-w-[10px]">✓</span> Блок по поиску клиентов</li>
-                    </ul>
-                    
-                    <a href="https://t.me/vladpetroov" class="block text-center w-full py-4 bg-transparent border border-[#CCFF00] text-[#CCFF00] rounded-full hover:bg-[#CCFF00] hover:text-black hover:shadow-[0_0_20px_#CCFF00] transition-all font-bold relative overflow-hidden group mt-auto">
-                        <span class="relative z-10">Записаться</span>
-                    </a>
-                </div>
-
-                <!-- Card 3: VIP -->
-                <div class="p-8 rounded-[2.5rem] border border-[#CCFF00] bg-[#080808] transition-all relative overflow-hidden gsap-fade-in border-t-4 border-t-[#CCFF00] will-change-opacity shadow-[0_0_40px_rgba(204,255,0,0.15)] flex flex-col">
-                    <div class="absolute top-0 right-0 bg-black text-[#CCFF00] border-l border-b border-[#CCFF00] text-[10px] font-bold px-3 py-1 rounded-bl-xl tracking-wider">LIMITED</div>
-                    
-                    <h3 class="text-2xl font-bold mb-1 text-[#CCFF00]">VIP / MENTOR</h3>
-                    <!-- Scarcity Badge -->
-                    <div class="inline-flex items-center gap-2 mb-3">
-                        <span class="relative flex h-2 w-2">
-                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#CCFF00] opacity-75"></span>
-                          <span class="relative inline-flex rounded-full h-2 w-2 bg-[#CCFF00]"></span>
-                        </span>
-                        <span class="text-xs font-bold text-[#CCFF00] uppercase tracking-wide">Мест: 2</span>
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric">
+                        <i class="ph-fill ph-robot text-2xl"></i>
                     </div>
-
-                    <p class="text-sm text-gray-400 mb-6 h-10 flex items-center">Личное наставничество до результата</p>
-                    
-                    <div class="text-4xl font-display font-bold mb-1 text-[#CCFF00]">59 990 ₽</div>
-                    <div class="text-[10px] text-gray-500 uppercase tracking-widest mb-8">Только через собеседование</div>
-                    
-                    <ul class="space-y-4 text-sm text-gray-300 mb-8 flex-grow">
-                        <li class="flex gap-3"><span class="text-[#CCFF00] min-w-[10px]">✓</span> Всё из тарифа PRO</li>
-                        <li class="flex gap-3"><span class="text-[#CCFF00] min-w-[10px]">✓</span> Личные Zoom-разборы</li>
-                        <li class="flex gap-3"><span class="text-[#CCFF00] min-w-[10px]">✓</span> Совместный проект</li>
-                        <li class="flex gap-3"><span class="text-[#CCFF00] min-w-[10px]">✓</span> База премиум-клиентов</li>
-                        <li class="flex gap-3"><span class="text-[#CCFF00] min-w-[10px]">✓</span> Личный чат 24/7</li>
-                    </ul>
-                    
-                    <a href="https://t.me/vladpetroov" class="block text-center w-full py-4 bg-[#CCFF00] text-black rounded-full hover:bg-white hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] transition-all font-bold relative overflow-hidden group mt-auto animate-soft-pulse hover:animate-none">
-                        <span class="relative z-10">Собеседование</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Block 11: Reviews Slider -->
-    <section class="py-20 md:py-32 overflow-hidden">
-        <h2 class="font-display font-bold text-4xl text-center mb-12">ОТЗЫВЫ <span class="text-[#CCFF00]">КЛИЕНТОВ</span></h2>
-        
-        <div class="relative w-full">
-            <div class="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#050505] to-transparent z-10"></div>
-            <div class="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#050505] to-transparent z-10"></div>
-            <div class="flex space-x-6 animate-[scroll_40s_linear_infinite] w-max hover:[animation-play-state:paused]" id="reviews-container">
-                <!-- Reviews via JS -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Block 12: FAQ -->
-    <section class="py-20 md:py-32 px-6 max-w-4xl mx-auto overflow-hidden">
-        <h2 class="font-display font-bold text-3xl mb-12 text-center">ЧАСТЫЕ ВОПРОСЫ</h2>
-        <div class="space-y-4">
-             <details class="glass-panel rounded-3xl group p-6 open:bg-white/5 transition-colors">
-                <summary class="flex justify-between items-center font-bold cursor-pointer list-none text-lg">
-                    Сколько времени занимает выполнение?
-                    <span class="transform group-open:rotate-180 transition-transform text-[#CCFF00]">▼</span>
-                </summary>
-                <p class="text-gray-400 mt-4 text-sm leading-relaxed">В среднем от 3 до 7 дней в зависимости от сложности задачи и количества слайдов или материалов.</p>
-            </details>
-            <details class="glass-panel rounded-3xl group p-6 open:bg-white/5 transition-colors">
-                <summary class="flex justify-between items-center font-bold cursor-pointer list-none text-lg">
-                    Сколько правок можно внести?
-                    <span class="transform group-open:rotate-180 transition-transform text-[#CCFF00]">▼</span>
-                </summary>
-                <p class="text-gray-400 mt-4 text-sm leading-relaxed">В процессе работы вносятся разумные правки, чтобы довести дизайн до идеального результата без лишних ограничений.</p>
-            </details>
-            <details class="glass-panel rounded-3xl group p-6 open:bg-white/5 transition-colors">
-                <summary class="flex justify-between items-center font-bold cursor-pointer list-none text-lg">
-                    Что нужно для начала работы?
-                    <span class="transform group-open:rotate-180 transition-transform text-[#CCFF00]">▼</span>
-                </summary>
-                <p class="text-gray-400 mt-4 text-sm leading-relaxed">Фото товара или материалы, текст, пожелания по стилю и примеры, если они есть.</p>
-            </details>
-            <details class="glass-panel rounded-3xl group p-6 open:bg-white/5 transition-colors">
-                <summary class="flex justify-between items-center font-bold cursor-pointer list-none text-lg">
-                    Как происходит оплата?
-                    <span class="transform group-open:rotate-180 transition-transform text-[#CCFF00]">▼</span>
-                </summary>
-                <p class="text-gray-400 mt-4 text-sm leading-relaxed">Обычно работа начинается после предоплаты (50%), остальная часть оплачивается после согласования готового результата.</p>
-            </details>
-        </div>
-    </section>
-
-    <!-- Block 13: Contacts & Footer -->
-    <footer id="contacts" class="pt-20 md:pt-32 pb-12 px-6 relative border-t border-white/5 overflow-hidden">
-        <div class="max-w-7xl mx-auto text-center space-y-12">
-            <h2 class="font-display font-bold text-4xl md:text-6xl lg:text-7xl leading-tight">
-                ВЫДЕЛЯЙТЕСЬ. ПРОДАВАЙТЕ. <br>
-                <span class="text-[#CCFF00] text-glow">ДОМИНИРУЙТЕ.</span>
-            </h2>
-            
-            <div class="flex flex-col items-center gap-8">
-                <a href="https://t.me/vladpetroov" target="_blank" class="relative px-12 py-6 rounded-full flex items-center gap-5 border border-[#229ED9] bg-[#229ED9]/10 text-[#229ED9] shadow-[0_0_40px_rgba(34,158,217,0.2)] hover:bg-[#229ED9] hover:text-white hover:shadow-[0_0_60px_rgba(34,158,217,0.6)] hover:scale-105 transition-all duration-300 group w-full md:w-auto justify-center overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-                    <svg class="w-10 h-10 relative z-10" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 11.944 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-                    <div class="text-left relative z-10">
-                        <div class="text-xs font-medium uppercase tracking-wider opacity-80 mb-1">Обсудить проект</div>
-                        <div class="font-bold text-2xl tracking-tight">Telegram</div>
+                    <div>
+                        <h3 class="font-display font-bold text-xl md:text-2xl">AI-Консультант VP-DESIGN ✨</h3>
+                        <p class="text-xs text-electric font-mono tracking-widest mt-1">GEMINI LLM ENGINE</p>
                     </div>
-                </a>
+                </div>
 
-                <div class="flex gap-4">
-                    <a href="https://vk.com/vladpetrovagency" target="_blank" class="glass-panel w-16 h-16 rounded-3xl flex items-center justify-center hover:border-[#0077FF] hover:text-[#0077FF] hover:-translate-y-1 transition-all duration-300 group" title="ВКонтакте">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/VK_Compact_Logo_%282021-present%29.svg/1024px-VK_Compact_Logo_%282021-present%29.svg.png" alt="VK" class="w-8 h-8 grayscale brightness-200 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-300">
-                    </a>
-                    <a href="https://ru.pinterest.com/vladpetroov" target="_blank" class="glass-panel w-16 h-16 rounded-3xl flex items-center justify-center hover:border-[#E60023] hover:text-[#E60023] hover:-translate-y-1 transition-all duration-300" title="Pinterest">
-                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.399.165-1.487-.695-2.419-2.878-2.419-4.629 0-3.773 2.749-7.229 7.93-7.229 4.162 0 7.396 2.967 7.396 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.367 18.62 0 12.017 0z"/></svg>
-                    </a>
+                <div class="flex-grow overflow-y-auto pr-2 mb-6 flex flex-col gap-4">
+                    <p class="text-sm text-gray-300">Привет! Я персональный AI-ассистент Влада. Опишите, что вам нужно сделать (например: "Нужно оформить 3 карточки товара на Ozon, тематика - электроника"), и я рассчитаю ориентировочную стоимость проекта на основе прайса.</p>
+                    
+                    <div id="ai-output" class="bg-[#0B0F1A] border border-white/5 rounded-2xl p-5 min-h-[100px] text-sm text-gray-300">
+                        <div class="opacity-50 text-center italic mt-4">Здесь появится ваш персональный расчет...</div>
+                    </div>
+                </div>
+
+                <div class="relative mt-auto">
+                    <textarea id="ai-input" rows="3" class="w-full bg-[#0B0F1A] border border-white/10 rounded-2xl py-3 px-4 pb-14 text-sm text-white focus:outline-none focus:border-electric transition-colors resize-none" placeholder="Опишите вашу задачу..."></textarea>
+                    <button onclick="generateAIEstimate()" class="absolute bottom-3 right-3 bg-electric text-white px-5 py-2 rounded-xl text-sm font-medium hover:bg-electricLight hover:shadow-[0_0_20px_rgba(37,99,255,0.4)] transition-all">
+                        Рассчитать
+                    </button>
                 </div>
             </div>
-
-            <div class="border-t border-white/5 pt-8 text-sm text-gray-600 flex flex-col md:flex-row justify-between items-center">
-                <p>&copy; 2026 VP-DESIGN. Все права защищены.</p>
-                <p class="font-display font-bold">PREMIUM DIGITAL STUDIO</p>
-            </div>
         </div>
-    </footer>
 
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+        <!-- Footer -->
+        <footer class="py-8 border-t border-white/10 text-center text-sm text-gray-500">
+            <p>&copy; 2024 VP-DESIGN. Владислав Петров. Все права защищены.</p>
+        </footer>
+    </main>
+
+    <!-- Scripts for animations and logic -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.32/dist/lenis.min.js"></script>
+
     <script>
-        // --- 1. Portfolio Data ---
-        const portfolioItems = {
-            infographic: [
-                'https://i.ibb.co/FLsCKXYD/579-20251105185725.jpg', 'https://i.ibb.co/wFh0gByn/IMG-8041.jpg', 'https://i.ibb.co/k6wSmDBj/IMG-7170.jpg', 
-                'https://i.ibb.co/JwML7f4g/373-20250817165435.jpg', 'https://i.ibb.co/p6C8zZLn/969-20251230133150.jpg', 'https://i.ibb.co/Z6RPgtBs/394-20250921005440.jpg',
-                'https://i.ibb.co/ZRTgFQ8r/IMG-7801.jpg', 'https://i.ibb.co/hR04gy83/1115-20260201215842.png', 'https://i.ibb.co/6RkgYh1G/IMG-7410.jpg',
-                'https://i.ibb.co/6cjb5PS9/601-20251110164430.jpg', 'https://i.ibb.co/8LX6HLHN/IMG-3641.jpg', 'https://i.ibb.co/W4FM2HxQ/436-20250929191023.jpg'
-            ],
-            rich: [
-                'https://i.ibb.co/8HHXJ0B/IMG-9007.jpg', 'https://i.ibb.co/jZbFs3Ky/IMG-9008.jpg', 'https://i.ibb.co/GvbQSwMt/IMG-9009.jpg',
-                'https://i.ibb.co/vvkNDFwf/IMG-9011.jpg', 'https://i.ibb.co/dxSk7NQ/IMG-9013.jpg', 'https://i.ibb.co/PGs0D1Dq/IMG-9014.jpg',
-                'https://i.ibb.co/JFRgsH6s/IMG-9192.jpg', 'https://i.ibb.co/3YjV7wff/IMG-9193.jpg', 'https://i.ibb.co/wF3tJpGW/IMG-4578.jpg',
-                'https://i.ibb.co/BHFYQSYJ/IMG-9195.jpg', 'https://i.ibb.co/sd0HQhnt/IMG-9196.jpg'
-            ],
-            websites: [
-                'https://i.ibb.co/39t29Xf8/IMG-9251.jpg', 'https://i.ibb.co/5g3fqvpV/IMG-9253.jpg', 'https://i.ibb.co/bgQ72rCj/IMG-9255.jpg',
-                'https://i.ibb.co/QFMFb3Q8/IMG-9258.jpg', 'https://i.ibb.co/8GMvvzn/IMG-9259.jpg', 'https://i.ibb.co/KpWgV8r4/IMG-9015.jpg',
-                'https://i.ibb.co/352S5d8X/IMG-9016.jpg', 'https://i.ibb.co/xSZ1vCbB/IMG-9017.jpg', 'https://i.ibb.co/93WHrXxf/IMG-9018.jpg',
-                'https://i.ibb.co/20P76pG4/IMG-9019.jpg'
-            ],
-            logos: [
-                'https://i.ibb.co/7J4p4Vv4/IMG-9240.jpg', 'https://i.ibb.co/208FxJYY/IMG-9241.jpg', 'https://i.ibb.co/XZfZhbJF/IMG-9242.jpg',
-                'https://i.ibb.co/tTRvm49t/IMG-9243.jpg', 'https://i.ibb.co/99QzsC6T/IMG-9244.jpg', 'https://i.ibb.co/gZDgFYJ8/IMG-9245.jpg',
-                'https://i.ibb.co/0pS1jW3X/IMG-9246.jpg', 'https://i.ibb.co/XZkDCQqQ/IMG-9247.jpg', 'https://i.ibb.co/kgRQGG11/IMG-9248.jpg',
-                'https://i.ibb.co/Z6SQ3vxx/IMG-9249.jpg'
-            ],
-            youtube: [
-                'https://i.ibb.co/0pGWY1FP/IMG-9205.jpg', 'https://i.ibb.co/QjPdF8ns/IMG-3082.jpg', 'https://i.ibb.co/Wp6hgvnK/IMG-9207.jpg',
-                'https://i.ibb.co/DDz2QW5G/IMG-9208.jpg', 'https://i.ibb.co/dJ7nrnkQ/IMG-9209.jpg', 'https://i.ibb.co/pSNt1MF/IMG-9210.jpg',
-                'https://i.ibb.co/yFzpfsYC/IMG-9211.jpg', 'https://i.ibb.co/qLbDbGNk/IMG-9212.jpg'
-            ],
-            cards: [
-                'https://i.ibb.co/7twpLLn7/IMG-9022.jpg', 'https://i.ibb.co/TMqPnWFt/IMG-9023.jpg', 'https://i.ibb.co/PZryDz99/IMG-9024.jpg',
-                'https://i.ibb.co/gbSkNFQn/IMG-9025.jpg', 'https://i.ibb.co/ym8tJdgK/IMG-9026.jpg',
-                'https://i.ibb.co/KzyYMfvs/IMG-9197.jpg', 'https://i.ibb.co/995FH8kv/IMG-9199.jpg', 'https://i.ibb.co/nsVmFP7Y/IMG-9200.jpg',
-                'https://i.ibb.co/JFddR5Fq/IMG-9202.jpg', 'https://i.ibb.co/DDFvyfNc/IMG-9201.jpg', 'https://i.ibb.co/TDvy4wG6/IMG-9203.jpg'
-            ],
-            banners: [
-                 'https://i.ibb.co/HLDvBpNQ/IMG-9027.jpg', 'https://i.ibb.co/4rWPbYG/IMG-9028.jpg', 'https://i.ibb.co/Ymm37V6/IMG-9029.jpg',
-                 'https://i.ibb.co/c43J6RK/IMG-9030.jpg', 'https://i.ibb.co/PvmGbwP6/IMG-9031.jpg',
-                 'https://i.ibb.co/d0tdPvLR/IMG-9213.jpg', 'https://i.ibb.co/qLMfFwX8/IMG-9214.jpg', 'https://i.ibb.co/nqvHw95z/IMG-9215.jpg',
-                 'https://i.ibb.co/Q3ptYQbJ/IMG-9216.jpg', 'https://i.ibb.co/JR9FHZ9H/IMG-9217.jpg'
-            ],
-            labels: [
-                'https://i.ibb.co/k28j2D1X/IMG-9035.jpg', 'https://i.ibb.co/DH6c5vR6/IMG-9036.jpg', 'https://i.ibb.co/0y6TQQd4/IMG-9037.jpg',
-                'https://i.ibb.co/YB7qgGTH/IMG-9034.jpg', 'https://i.ibb.co/nM3c5yz8/IMG-9033.jpg',
-                'https://i.ibb.co/MxF7wJPV/IMG-9218.jpg', 'https://i.ibb.co/8Dp5bRzL/IMG-9219.jpg', 'https://i.ibb.co/8D6fcyb2/IMG-9220.jpg',
-                'https://i.ibb.co/rGS8KZjH/IMG-9221.jpg', 'https://i.ibb.co/zWKkGgS8/IMG-9224.jpg'
-            ],
-            ads: [
-                'https://i.ibb.co/mCwt9S7m/IMG-9038.jpg', 'https://i.ibb.co/kgdk8WHP/IMG-9039.jpg', 'https://i.ibb.co/QvPPwftV/IMG-9040.jpg',
-                'https://i.ibb.co/YTyT1Yhx/IMG-9041.jpg', 'https://i.ibb.co/7JpF89m7/IMG-2595.jpg',
-                'https://i.ibb.co/QjCd4nnm/IMG-2607.jpg', 'https://i.ibb.co/8grtG5HT/IMG-9236.jpg', 'https://i.ibb.co/B5vqD6XT/IMG-9237.jpg',
-                'https://i.ibb.co/nMDRG9hP/IMG-9238.jpg', 'https://i.ibb.co/7Nk21NQS/IMG-9239.jpg'
-            ],
-            vk: [
-                'https://i.ibb.co/HTMwMzwK/IMG-9042.jpg', 'https://i.ibb.co/gMgcyT0q/IMG-9043.jpg', 'https://i.ibb.co/673Nd5yp/IMG-9044.jpg',
-                'https://i.ibb.co/HTDbFGHF/IMG-9045.jpg', 'https://i.ibb.co/wFLTkBSf/IMG-9046.jpg',
-                'https://i.ibb.co/Nd2bRd8J/IMG-6325.jpg', 'https://i.ibb.co/pBXg4GYr/IMG-9229.jpg', 'https://i.ibb.co/z90Tqv2/IMG-9231.jpg',
-                'https://i.ibb.co/cSv8mjKZ/IMG-9233.jpg', 'https://i.ibb.co/4nd20SMP/IMG-9234.jpg'
-            ]
-        };
+        // 1. Smooth Scroll Initiation (Lenis)
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+            infinite: false,
+        })
 
-        const reviewsData = [
-            {
-                name: "Алексей, Москва", 
-                text: "Карточка стала выглядеть в разы дороже, продажи выросли в первую неделю.", 
-                stars: 5,
-                avatar: "https://randomuser.me/api/portraits/men/32.jpg"
-            },
-            {
-                name: "Марина, Краснодар", 
-                text: "Быстро понял задачу и сделал дизайн лучше, чем мы ожидали.", 
-                stars: 5,
-                avatar: "https://randomuser.me/api/portraits/women/44.jpg"
-            },
-            {
-                name: "Кирилл, ученик", 
-                text: "До курса вообще не понимал инфографику. Сейчас уже беру первые заказы.", 
-                stars: 5,
-                avatar: "https://randomuser.me/api/portraits/men/46.jpg"
-            },
-            {
-                name: "Игорь, СПб", 
-                text: "Слайды выглядят как у крупных брендов. Конверсия выросла.", 
-                stars: 5,
-                avatar: "https://randomuser.me/api/portraits/men/11.jpg"
-            },
-            {
-                name: "Ольга, Ростов", 
-                text: "Заказывала баннеры, всё стильно и современно.", 
-                stars: 5,
-                avatar: "https://randomuser.me/api/portraits/women/65.jpg"
-            },
-            {
-                name: "Анастасия, ученица", 
-                text: "Очень понятная подача. Уже окупила обучение.", 
-                stars: 5,
-                avatar: "https://randomuser.me/api/portraits/women/26.jpg"
-            },
-            {
-                name: "Дмитрий, Казань", 
-                text: "Работа чёткая, сроки соблюдены, правок почти не было.", 
-                stars: 5,
-                avatar: "https://randomuser.me/api/portraits/men/85.jpg"
-            }
-        ];
+        function raf(time) {
+            lenis.raf(time)
+            requestAnimationFrame(raf)
+        }
+        requestAnimationFrame(raf)
 
-        // --- 2. Render Functions ---
-        function renderPortfolio(filter) {
-            const grid = document.getElementById('portfolio-grid');
-            if (!grid) return;
-            grid.innerHTML = '';
-            
-            const items = portfolioItems[filter] || [];
-            items.forEach((src, index) => {
-                const div = document.createElement('div');
-                div.className = 'group relative overflow-hidden rounded-xl bg-gray-800 cursor-pointer flex-shrink-0 w-[85vw] md:w-auto snap-center aspect-[16/9]'; 
-                
-                let imgClasses = "w-full h-full object-cover";
+        // Sync GSAP ScrollTrigger with Lenis
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // 2. Initial Hero Animations
+        const tl = gsap.timeline();
+        
+        tl.from(".gsap-hero-title", {
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.15,
+            ease: "power3.out",
+            delay: 0.2
+        })
+        .from(".gsap-hero-el", {
+            y: 30,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power2.out"
+        }, "-=0.5")
+        .from(".gsap-hero-image", {
+            opacity: 0,
+            duration: 1.5,
+            ease: "expo.out"
+        }, "-=1");
 
-                if (filter === 'infographic') {
-                    div.classList.remove('aspect-[16/9]');
-                    div.classList.add('aspect-[3/4]');
-                } else if (filter === 'rich' || filter === 'websites') {
-                    div.classList.remove('aspect-[16/9]');
-                    div.classList.add('aspect-[1/2]');
-                    imgClasses += " object-top"; 
-                } else if (filter === 'logos' || filter === 'vk' || filter === 'cards' || filter === 'labels' || filter === 'banners') {
-                    div.classList.remove('aspect-[16/9]');
-                    div.classList.add('aspect-square');
-                } else if (filter === 'ads') {
-                    div.classList.remove('aspect-[16/9]');
-                    div.classList.add('aspect-[9/16]');
+        // 3. Scroll Reveals
+        const revealElements = document.querySelectorAll('.gsap-reveal');
+        
+        revealElements.forEach((el) => {
+            gsap.fromTo(el, 
+                { autoAlpha: 0, y: 50 },
+                { 
+                    duration: 1, 
+                    autoAlpha: 1, 
+                    y: 0, 
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    }
                 }
+            );
+        });
 
-                div.style.animation = `fadeIn 0.5s ease forwards ${index * 0.1}s`;
-                div.style.opacity = '0';
-                
-                div.innerHTML = `
-                    <img src="${src}" alt="Portfolio Item" class="${imgClasses}" loading="lazy" decoding="async">
-                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <div class="w-12 h-12 rounded-full border border-[#CCFF00] flex items-center justify-center text-[#CCFF00] transform scale-0 group-hover:scale-100 transition-transform duration-300 delay-100">
-                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M14 10l6.1-6.1M9 21H3v-6M10 14l-6.1 6.1"/></svg>
-                        </div>
-                    </div>
-                `;
-                grid.appendChild(div);
-            });
-        }
-
-        function renderReviews() {
-            const container = document.getElementById('reviews-container');
-            if (!container) return;
-            const reviewsHtml = reviewsData.map(r => `
-                <div class="min-w-[300px] md:min-w-[400px] glass-panel p-6 rounded-2xl mx-4 hover:border-[#CCFF00]/30 transition-colors">
-                    <div class="flex items-center gap-4 mb-4">
-                        <img src="${r.avatar}" alt="${r.name}" class="w-12 h-12 rounded-full object-cover border-2 border-white/10" loading="lazy">
-                        <div>
-                            <div class="font-bold text-sm text-white">${r.name}</div>
-                            <div class="text-[#CCFF00] text-xs flex gap-1">
-                                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="text-gray-300 text-sm italic leading-relaxed">"${r.text}"</p>
-                </div>
-            `).join('');
+        // 4. Parallax effect (removed for image as per request)
+        document.addEventListener("mousemove", (e) => {
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 80;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 80;
             
-            // Double the content for infinite scroll
-            container.innerHTML = reviewsHtml + reviewsHtml; 
-        }
+            // Apply only to background rings/elements if needed, here removed for general "me" animation
+        });
 
-        // --- 3. Init Logic ---
-        document.addEventListener('DOMContentLoaded', () => {
-            // Loader
-            setTimeout(() => {
-                document.getElementById('loader').style.opacity = '0';
-                setTimeout(() => document.getElementById('loader').style.display = 'none', 500);
-            }, 1500);
-
-            // Portfolio Tabs
-            const tabs = document.querySelectorAll('#portfolio-tabs button');
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    const filter = tab.dataset.filter;
-                    
-                    tabs.forEach(t => {
-                        // Reset
-                        t.classList.remove('bg-[#CCFF00]', 'text-black', 'border-[#CCFF00]', 'shadow-[0_0_15px_rgba(204,255,0,0.4)]');
-                        
-                        // Check active history
-                        if (t.dataset.filter === 'infographic' || t.dataset.filter === 'rich') {
-                             t.classList.add('border-[#CCFF00]/50', 'text-white', 'shadow-[0_0_10px_rgba(204,255,0,0.15)]');
-                             t.classList.remove('border-white/20');
-                        } else {
-                             t.classList.add('border-white/20', 'text-white');
-                             t.classList.remove('border-[#CCFF00]/50', 'shadow-[0_0_10px_rgba(204,255,0,0.15)]');
-                        }
+        // 5. Number Counters in About section
+        const counters = document.querySelectorAll('.counter');
+        
+        ScrollTrigger.create({
+            trigger: "#about",
+            start: "top 75%",
+            onEnter: () => {
+                counters.forEach(counter => {
+                    const target = +counter.getAttribute('data-target');
+                    gsap.to(counter, {
+                        innerHTML: target,
+                        duration: 2,
+                        snap: { innerHTML: 1 },
+                        ease: "power2.out"
                     });
-
-                    // Set Active
-                    tab.classList.remove('border-white/20', 'text-white', 'border-[#CCFF00]/50', 'shadow-[0_0_10px_rgba(204,255,0,0.15)]');
-                    tab.classList.add('bg-[#CCFF00]', 'text-black', 'border-[#CCFF00]', 'shadow-[0_0_15px_rgba(204,255,0,0.4)]');
-                    
-                    renderPortfolio(filter);
                 });
-            });
-            
-            // Initial Render
-            // Ensure Infographic is active by default
-            const initialTab = document.querySelector('[data-filter="infographic"]');
-            if(initialTab) {
-                // Force active styling just in case HTML differs
-                const tabs = document.querySelectorAll('#portfolio-tabs button');
-                tabs.forEach(t => {
-                     if (t !== initialTab) {
-                         t.classList.remove('bg-[#CCFF00]', 'text-black', 'border-[#CCFF00]', 'shadow-[0_0_15px_rgba(204,255,0,0.4)]');
-                         t.classList.add('border-white/20', 'text-white');
-                     }
-                });
-                initialTab.classList.add('bg-[#CCFF00]', 'text-black', 'border-[#CCFF00]', 'shadow-[0_0_15px_rgba(204,255,0,0.4)]');
-                
-                renderPortfolio('infographic');
-            }
+            },
+            once: true
+        });
 
-            renderReviews();
+        // 6. Portfolio Filtering
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
 
-            // Mobile Menu
-            const btn = document.getElementById('mobile-menu-btn');
-            const menu = document.getElementById('mobile-menu');
+        filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                menu.classList.toggle('hidden');
-                menu.classList.toggle('flex');
-            });
-            menu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    menu.classList.add('hidden');
-                    menu.classList.remove('flex');
-                });
-            });
+                // Active state styling
+                filterBtns.forEach(b => b.classList.remove('active', 'text-white'));
+                filterBtns.forEach(b => b.classList.add('text-gray-400'));
+                btn.classList.add('active', 'text-white');
+                btn.classList.remove('text-gray-400');
 
-            // GSAP Animations
-            gsap.registerPlugin(ScrollTrigger);
-            
-            // Hero
-            gsap.from(".hero-badge", { duration: 1.2, y: -30, opacity: 0, ease: "power3.out", delay: 0.2 });
-            gsap.from(".hero-title", { duration: 1.5, y: 50, opacity: 0, ease: "power3.out", delay: 0.4 }); 
-            gsap.from(".hero-subtitle", { duration: 1.5, y: 30, opacity: 0, ease: "power3.out", delay: 0.6 });
-            gsap.from(".hero-cta", { duration: 1.5, y: 30, opacity: 0, ease: "power3.out", delay: 0.8 });
+                const filterValue = btn.getAttribute('data-filter');
 
-            // Sections - OPTIMIZED
-            gsap.utils.toArray('.gsap-fade-up').forEach(element => {
-                gsap.fromTo(element, 
-                    { opacity: 0, y: 50 },
-                    {
-                        opacity: 1, 
-                        y: 0, 
-                        duration: 0.8, 
-                        ease: "power3.out",
-                        scrollTrigger: {
-                            trigger: element,
-                            start: "top 90%",
-                        }
-                    }
-                );
-            });
-
-            gsap.utils.toArray('.gsap-fade-in').forEach(element => {
-                gsap.fromTo(element, 
-                    { opacity: 0 },
-                    {
-                        opacity: 1, 
-                        duration: 0.6, 
-                        ease: "power2.out",
-                        scrollTrigger: {
-                            trigger: element,
-                            start: "top 85%", 
-                        }
-                    }
-                );
-            });
-
-             // Process Animation
-            const progressLine = document.getElementById('process-progress');
-            const processContainer = document.getElementById('process-container');
-            
-            if (processContainer && progressLine) {
-                gsap.fromTo(progressLine, 
-                    { height: '0%' },
-                    {
-                        height: '100%',
-                        ease: 'none',
-                        scrollTrigger: {
-                            trigger: '#process-container',
-                            start: 'top 60%', 
-                            end: 'bottom 60%', 
-                            scrub: 0.5
-                        }
-                    }
-                );
-
-                const steps = document.querySelectorAll('.process-step');
-                steps.forEach((step) => {
-                    const marker = step.querySelector('.step-marker');
-                    const content = step.querySelector('.step-content');
-                    
-                    ScrollTrigger.create({
-                        trigger: step,
-                        start: 'top 70%', 
-                        end: 'bottom 70%',
-                        onEnter: () => {
-                             marker.classList.remove('border-white/20', 'text-gray-500', 'bg-[#050505]');
-                             marker.classList.add('border-[#CCFF00]', 'bg-[#CCFF00]', 'text-black', 'shadow-[0_0_20px_#CCFF00]', 'scale-110');
-                             content.classList.remove('opacity-30', 'translate-x-4');
-                             content.classList.add('opacity-100', 'translate-x-0');
-                        },
-                        onLeaveBack: () => {
-                            marker.classList.add('border-white/20', 'text-gray-500', 'bg-[#050505]');
-                            marker.classList.remove('border-[#CCFF00]', 'bg-[#CCFF00]', 'text-black', 'shadow-[0_0_20px_#CCFF00]', 'scale-110');
-                            content.classList.add('opacity-30', 'translate-x-4');
-                            content.classList.remove('opacity-100', 'translate-x-0');
-                        }
-                    });
-                });
-            }
-
-
-            // --- 4. Three.js Background - OPTIMIZED ---
-            const canvas = document.getElementById('bg-canvas');
-            if (canvas) {
-                const scene = new THREE.Scene();
-                const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-                const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, powerPreference: "high-performance" });
-                
-                // Limit Pixel Ratio for Performance
-                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5)); // Cap at 1.5 to save mobile batteries/GPU
-                renderer.setSize(window.innerWidth, window.innerHeight);
-
-                // Particles
-                const particlesGeometry = new THREE.BufferGeometry();
-                const particlesCount = window.innerWidth < 768 ? 800 : 1500; // Increased particles count
-                const posArray = new Float32Array(particlesCount * 3);
-
-                for(let i = 0; i < particlesCount * 3; i++) {
-                    posArray[i] = (Math.random() - 0.5) * 15;
-                }
-
-                particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-
-                const material = new THREE.PointsMaterial({
-                    size: 0.015,
-                    color: 0xCCFF00, // Lime color
-                    transparent: true,
-                    opacity: 0.8,
-                });
-
-                const particlesMesh = new THREE.Points(particlesGeometry, material);
-                scene.add(particlesMesh);
-
-                camera.position.z = 3;
-
-                // Mouse Interaction
-                let mouseX = 0;
-                let mouseY = 0;
-
-                // Throttled mouse move
-                let ticking = false;
-                document.addEventListener('mousemove', (event) => {
-                    if (!ticking) {
-                        window.requestAnimationFrame(() => {
-                            mouseX = event.clientX / window.innerWidth - 0.5;
-                            mouseY = event.clientY / window.innerHeight - 0.5;
-                            ticking = false;
+                // Animate items out, then show/hide, then animate in
+                gsap.to(portfolioItems, {
+                    scale: 0.9,
+                    opacity: 0,
+                    duration: 0.3,
+                    onComplete: () => {
+                        portfolioItems.forEach(item => {
+                            if(filterValue === 'all' || item.classList.contains(filterValue)) {
+                                item.style.display = 'block';
+                                gsap.to(item, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.7)" });
+                            } else {
+                                item.style.display = 'none';
+                            }
                         });
-                        ticking = true;
-                    }
-                }, { passive: true });
-
-                // Animation Loop with pause support
-                const clock = new THREE.Clock();
-                let animationId;
-
-                function animate() {
-                    animationId = requestAnimationFrame(animate);
-                    const elapsedTime = clock.getElapsedTime();
-
-                    particlesMesh.rotation.y = elapsedTime * 0.05;
-                    particlesMesh.rotation.x = mouseY * 0.5;
-                    particlesMesh.rotation.y += mouseX * 0.5;
-
-                    renderer.render(scene, camera);
-                }
-                animate();
-
-                // Stop loop if tab is hidden
-                document.addEventListener("visibilitychange", () => {
-                    if (document.hidden) {
-                        cancelAnimationFrame(animationId);
-                    } else {
-                        animate();
+                        // Refresh ScrollTrigger as height might have changed
+                        ScrollTrigger.refresh();
                     }
                 });
+            });
+        });
 
-                // Resize
-                window.addEventListener('resize', () => {
-                    camera.aspect = window.innerWidth / window.innerHeight;
-                    camera.updateProjectionMatrix();
-                    renderer.setSize(window.innerWidth, window.innerHeight);
-                }, { passive: true });
+        // 7. Sticky Navbar styling on scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('py-4');
+                navbar.classList.remove('pt-6');
+            } else {
+                navbar.classList.add('pt-6');
+                navbar.classList.remove('py-4');
             }
         });
+
+        // 8. AI Modal Logic & Gemini Integration
+        const apiKey = "";
+        
+        function openAIModal() {
+            const modal = document.getElementById('ai-modal');
+            modal.classList.remove('hidden');
+            gsap.fromTo(modal, {opacity: 0}, {opacity: 1, duration: 0.3});
+            gsap.fromTo("#ai-modal-content", {y: 50, scale: 0.95}, {y: 0, scale: 1, duration: 0.4, ease: "back.out(1.5)"});
+        }
+
+        function closeAIModal() {
+            const modal = document.getElementById('ai-modal');
+            gsap.to(modal, {opacity: 0, duration: 0.3, onComplete: () => modal.classList.add('hidden')});
+        }
+
+        async function generateAIEstimate() {
+            const inputEl = document.getElementById('ai-input');
+            const outputEl = document.getElementById('ai-output');
+            const query = inputEl.value.trim();
+            
+            if (!query) return;
+
+            // Loading state
+            outputEl.innerHTML = `<div class="flex items-center justify-center h-full gap-2 text-electric animate-pulse py-4"><i class="ph ph-spinner animate-spin text-xl"></i> Анализирую запрос и считаю смету...</div>`;
+            
+            const systemPrompt = `Ты — элитный AI-ассистент Владислава Петрова (VP-DESIGN). Твоя задача — анализировать запросы клиентов на дизайн и предлагать смету на основе прайса Влада.
+Прайс Влада:
+- Инфографика: Главный слайд 1490 ₽, Доп. слайд 700 ₽, Rich-контент от 1990 ₽, Аним. обложка от 2990 ₽.
+- Реклама: Статичные баннеры от 1490 ₽, 2D анимация от 3490 ₽.
+- Соцсети: Оформление ВК от 6490 ₽, Посты от 1490 ₽, Превью YouTube от 1490 ₽.
+- Сайты и Лого: Создание сайтов от 15000 ₽, Логотип от 4990 ₽, Логотип-маскот от 7990 ₽.
+
+Отвечай в стиле премиум digital-студии. Будь краток и профессионален. Структура:
+1. Краткое понимание задачи.
+2. Рекомендуемые услуги и их базовая цена.
+3. Итоговая примерная стоимость (диапазон).
+4. Строгий и вежливый призыв написать Владу в Telegram (https://t.me/vladpetroov) для точного расчета.
+Используй HTML-теги для форматирования (<b>, <ul>, <li>, <br>). Не используй Markdown.`;
+
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            
+            const payload = {
+                contents: [{ parts: [{ text: query }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] }
+            };
+
+            let retries = 0;
+            const maxRetries = 5;
+            const delays = [1000, 2000, 4000, 8000, 16000];
+
+            while (retries <= maxRetries) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) throw new Error('Network response error');
+
+                    const data = await response.json();
+                    const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                    
+                    outputEl.innerHTML = `<div class="text-sm text-gray-300 leading-relaxed space-y-3">${text}</div>`;
+                    inputEl.value = ''; // clear input after success
+                    return;
+                } catch (error) {
+                    if (retries === maxRetries) {
+                        outputEl.innerHTML = `<div class="text-red-400 text-sm py-4">Ошибка соединения с нейросетью. Пожалуйста, попробуйте позже или напишите Владу напрямую.</div>`;
+                        return;
+                    }
+                    await new Promise(resolve => setTimeout(resolve, delays[retries]));
+                    retries++;
+                }
+            }
+        }
     </script>
-    
-    <style>
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-    </style>
 </body>
 </html>
