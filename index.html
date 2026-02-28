@@ -148,6 +148,34 @@
 
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Mobile Portfolio Carousel */
+        @media (max-width: 639px) {
+            #portfolio-grid {
+                display: flex !important;
+                overflow-x: auto !important;
+                scroll-snap-type: x mandatory;
+                gap: 1rem !important;
+                padding-bottom: 2rem;
+                /* Отрицательные отступы делают скролл от края до края экрана (Full Bleed) */
+                margin-left: -1.5rem;
+                margin-right: -1.5rem;
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+                -ms-overflow-style: none; /* Скрытие скроллбара IE/Edge */
+                scrollbar-width: none; /* Скрытие скроллбара Firefox */
+            }
+            #portfolio-grid::-webkit-scrollbar {
+                display: none; /* Скрытие скроллбара Chrome/Safari */
+            }
+            #portfolio-grid .portfolio-item {
+                width: 85vw !important;
+                max-width: 320px;
+                flex-shrink: 0;
+                scroll-snap-align: center; /* Карточки магнитятся по центру при свайпе */
+                margin-bottom: 0 !important;
+            }
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-electric selection:text-white relative">
@@ -417,19 +445,25 @@
                         </div>
 
                         <!-- Stats Grid (UPDATED: Added blue border and + signs) -->
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 gsap-reveal">
-                            <div class="glass-panel p-6 rounded-2xl text-center border-electric/40">
-                                <div class="text-3xl font-display font-bold text-white mb-1"><span class="counter" data-target="500">0</span>+</div>
-                                <div class="text-xs text-gray-400 uppercase tracking-wider">Проектов</div>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 gsap-stagger-grid">
+                            <div class="gsap-stagger-item">
+                                <div class="glass-panel p-6 rounded-2xl text-center border-electric/40 h-full">
+                                    <div class="text-3xl font-display font-bold text-white mb-1"><span class="counter" data-target="500">0</span>+</div>
+                                    <div class="text-xs text-gray-400 uppercase tracking-wider">Проектов</div>
+                                </div>
                             </div>
-                            <div class="glass-panel p-6 rounded-2xl text-center border-electric/40">
-                                <div class="text-3xl font-display font-bold text-white mb-1"><span class="counter" data-target="3">0</span>+</div>
-                                <div class="text-xs text-gray-400 uppercase tracking-wider">Года опыта</div>
+                            <div class="gsap-stagger-item">
+                                <div class="glass-panel p-6 rounded-2xl text-center border-electric/40 h-full">
+                                    <div class="text-3xl font-display font-bold text-white mb-1"><span class="counter" data-target="3">0</span>+</div>
+                                    <div class="text-xs text-gray-400 uppercase tracking-wider">Года опыта</div>
+                                </div>
                             </div>
                             <!-- UPGRADED: Added col-span-2 so it takes full width on mobile -->
-                            <div class="glass-panel p-6 rounded-2xl text-center col-span-2 flex flex-col justify-center items-center border-electric/40">
-                                <div class="text-sm font-medium text-electric mb-1"><i class="ph-bold ph-check-circle mr-1"></i> Топовые бренды+</div>
-                                <div class="text-xs text-gray-400 uppercase tracking-wider">Маркетплейсы & Digital</div>
+                            <div class="gsap-stagger-item col-span-2">
+                                <div class="glass-panel p-6 rounded-2xl text-center flex flex-col justify-center items-center border-electric/40 h-full">
+                                    <div class="text-sm font-medium text-electric mb-1"><i class="ph-bold ph-check-circle mr-1"></i> Топовые бренды+</div>
+                                    <div class="text-xs text-gray-400 uppercase tracking-wider">Маркетплейсы & Digital</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -460,99 +494,107 @@
                     </div>
                 </div>
 
-                <!-- Services Grid -->
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- UPGRADED: Services Grid (Hardware accelerated stagger) -->
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 gsap-stagger-grid">
                     
                     <!-- Card 1 -->
-                    <div class="glass-panel p-8 rounded-3xl flex flex-col gsap-reveal group">
-                        <div class="w-14 h-14 rounded-2xl bg-electric/10 flex items-center justify-center text-electric mb-6 group-hover:scale-110 transition-transform">
-                            <i class="ph-light ph-shopping-bag text-3xl"></i>
+                    <div class="gsap-stagger-item h-full">
+                        <div class="glass-panel p-8 rounded-3xl flex flex-col group h-full">
+                            <div class="w-14 h-14 rounded-2xl bg-electric/10 flex items-center justify-center text-electric mb-6 group-hover:scale-110 transition-transform">
+                                <i class="ph-light ph-shopping-bag text-3xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-4">Инфографика<br>для маркетплейсов</h3>
+                            <ul class="space-y-3 mb-8 text-sm text-gray-300 flex-grow">
+                                <li class="flex justify-between border-b border-white/5 pb-2">
+                                    <span>Главный слайд</span>
+                                    <span class="text-electric font-medium">1490 ₽</span>
+                                </li>
+                                <li class="flex justify-between border-b border-white/5 pb-2">
+                                    <span>Доп. слайд</span>
+                                    <span class="text-white">700 ₽</span>
+                                </li>
+                                <li class="flex justify-between border-b border-white/5 pb-2">
+                                    <span>Rich-контент</span>
+                                    <span class="text-white">от 1990 ₽</span>
+                                </li>
+                                <li class="flex justify-between pb-2">
+                                    <span>Аним. обложка</span>
+                                    <span class="text-white">от 2990 ₽</span>
+                                </li>
+                            </ul>
+                            <div class="text-xs text-gray-500 mt-auto flex items-center gap-2"><i class="ph ph-clock"></i> Срок: 3–7 дней</div>
                         </div>
-                        <h3 class="text-xl font-bold mb-4">Инфографика<br>для маркетплейсов</h3>
-                        <ul class="space-y-3 mb-8 text-sm text-gray-300 flex-grow">
-                            <li class="flex justify-between border-b border-white/5 pb-2">
-                                <span>Главный слайд</span>
-                                <span class="text-electric font-medium">1490 ₽</span>
-                            </li>
-                            <li class="flex justify-between border-b border-white/5 pb-2">
-                                <span>Доп. слайд</span>
-                                <span class="text-white">700 ₽</span>
-                            </li>
-                            <li class="flex justify-between border-b border-white/5 pb-2">
-                                <span>Rich-контент</span>
-                                <span class="text-white">от 1990 ₽</span>
-                            </li>
-                            <li class="flex justify-between pb-2">
-                                <span>Аним. обложка</span>
-                                <span class="text-white">от 2990 ₽</span>
-                            </li>
-                        </ul>
-                        <div class="text-xs text-gray-500 mt-auto flex items-center gap-2"><i class="ph ph-clock"></i> Срок: 3–7 дней</div>
                     </div>
 
                     <!-- Card 2 -->
-                    <div class="glass-panel p-8 rounded-3xl flex flex-col gsap-reveal group" style="transition-delay: 0.1s;">
-                        <div class="w-14 h-14 rounded-2xl bg-electric/10 flex items-center justify-center text-electric mb-6 group-hover:scale-110 transition-transform">
-                            <i class="ph-light ph-megaphone text-3xl"></i>
+                    <div class="gsap-stagger-item h-full">
+                        <div class="glass-panel p-8 rounded-3xl flex flex-col group h-full">
+                            <div class="w-14 h-14 rounded-2xl bg-electric/10 flex items-center justify-center text-electric mb-6 group-hover:scale-110 transition-transform">
+                                <i class="ph-light ph-megaphone text-3xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-4">Реклама &<br>Продвижение</h3>
+                            <ul class="space-y-3 mb-8 text-sm text-gray-300 flex-grow">
+                                <li class="flex justify-between border-b border-white/5 pb-2">
+                                    <span>Статичные баннеры</span>
+                                    <span class="text-electric font-medium">от 1490 ₽</span>
+                                </li>
+                                <li class="flex justify-between pb-2">
+                                    <span>2D анимация</span>
+                                    <span class="text-white">от 3490 ₽</span>
+                                </li>
+                            </ul>
+                            <div class="text-xs text-gray-500 mt-auto flex items-center gap-2"><i class="ph ph-clock"></i> Срок: 3–7 дней</div>
                         </div>
-                        <h3 class="text-xl font-bold mb-4">Реклама &<br>Продвижение</h3>
-                        <ul class="space-y-3 mb-8 text-sm text-gray-300 flex-grow">
-                            <li class="flex justify-between border-b border-white/5 pb-2">
-                                <span>Статичные баннеры</span>
-                                <span class="text-electric font-medium">от 1490 ₽</span>
-                            </li>
-                            <li class="flex justify-between pb-2">
-                                <span>2D анимация</span>
-                                <span class="text-white">от 3490 ₽</span>
-                            </li>
-                        </ul>
-                        <div class="text-xs text-gray-500 mt-auto flex items-center gap-2"><i class="ph ph-clock"></i> Срок: 3–7 дней</div>
                     </div>
 
                     <!-- Card 3 -->
-                    <div class="glass-panel p-8 rounded-3xl flex flex-col gsap-reveal group" style="transition-delay: 0.2s;">
-                        <div class="w-14 h-14 rounded-2xl bg-electric/10 flex items-center justify-center text-electric mb-6 group-hover:scale-110 transition-transform">
-                            <i class="ph-light ph-share-network text-3xl"></i>
+                    <div class="gsap-stagger-item h-full">
+                        <div class="glass-panel p-8 rounded-3xl flex flex-col group h-full">
+                            <div class="w-14 h-14 rounded-2xl bg-electric/10 flex items-center justify-center text-electric mb-6 group-hover:scale-110 transition-transform">
+                                <i class="ph-light ph-share-network text-3xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-4">Оформление<br>соцсетей</h3>
+                            <ul class="space-y-3 mb-8 text-sm text-gray-300 flex-grow">
+                                <li class="flex justify-between border-b border-white/5 pb-2">
+                                    <span>Оформление ВК</span>
+                                    <span class="text-electric font-medium">от 6490 ₽</span>
+                                </li>
+                                <li class="flex justify-between border-b border-white/5 pb-2">
+                                    <span>Посты для соцсетей</span>
+                                    <span class="text-white">от 1490 ₽</span>
+                                </li>
+                                <li class="flex justify-between pb-2">
+                                    <span>Превью YouTube</span>
+                                    <span class="text-white">от 1490 ₽</span>
+                                </li>
+                            </ul>
+                            <div class="text-xs text-gray-500 mt-auto flex items-center gap-2"><i class="ph ph-clock"></i> Срок: 3–7 дней</div>
                         </div>
-                        <h3 class="text-xl font-bold mb-4">Оформление<br>соцсетей</h3>
-                        <ul class="space-y-3 mb-8 text-sm text-gray-300 flex-grow">
-                            <li class="flex justify-between border-b border-white/5 pb-2">
-                                <span>Оформление ВК</span>
-                                <span class="text-electric font-medium">от 6490 ₽</span>
-                            </li>
-                            <li class="flex justify-between border-b border-white/5 pb-2">
-                                <span>Посты для соцсетей</span>
-                                <span class="text-white">от 1490 ₽</span>
-                            </li>
-                            <li class="flex justify-between pb-2">
-                                <span>Превью YouTube</span>
-                                <span class="text-white">от 1490 ₽</span>
-                            </li>
-                        </ul>
-                        <div class="text-xs text-gray-500 mt-auto flex items-center gap-2"><i class="ph ph-clock"></i> Срок: 3–7 дней</div>
                     </div>
 
                     <!-- Card 4 -->
-                    <div class="glass-panel p-8 rounded-3xl flex flex-col gsap-reveal group" style="transition-delay: 0.3s;">
-                        <div class="w-14 h-14 rounded-2xl bg-electric/10 flex items-center justify-center text-electric mb-6 group-hover:scale-110 transition-transform">
-                            <i class="ph-light ph-layout text-3xl"></i>
+                    <div class="gsap-stagger-item h-full">
+                        <div class="glass-panel p-8 rounded-3xl flex flex-col group h-full">
+                            <div class="w-14 h-14 rounded-2xl bg-electric/10 flex items-center justify-center text-electric mb-6 group-hover:scale-110 transition-transform">
+                                <i class="ph-light ph-layout text-3xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-4">Сайты &<br>Логотипы</h3>
+                            <ul class="space-y-3 mb-8 text-sm text-gray-300 flex-grow">
+                                <li class="flex justify-between border-b border-white/5 pb-2">
+                                    <span>Создание сайтов</span>
+                                    <span class="text-electric font-medium">от 15 000 ₽</span>
+                                </li>
+                                <li class="flex justify-between border-b border-white/5 pb-2">
+                                    <span>Логотип</span>
+                                    <span class="text-white">от 4990 ₽</span>
+                                </li>
+                                <li class="flex justify-between pb-2">
+                                    <span>Логотип-маскот</span>
+                                    <span class="text-white">от 7990 ₽</span>
+                                </li>
+                            </ul>
+                            <div class="text-xs text-gray-500 mt-auto flex items-center gap-2"><i class="ph ph-clock"></i> Срок: от 7 дней</div>
                         </div>
-                        <h3 class="text-xl font-bold mb-4">Сайты &<br>Логотипы</h3>
-                        <ul class="space-y-3 mb-8 text-sm text-gray-300 flex-grow">
-                            <li class="flex justify-between border-b border-white/5 pb-2">
-                                <span>Создание сайтов</span>
-                                <span class="text-electric font-medium">от 15 000 ₽</span>
-                            </li>
-                            <li class="flex justify-between border-b border-white/5 pb-2">
-                                <span>Логотип</span>
-                                <span class="text-white">от 4990 ₽</span>
-                            </li>
-                            <li class="flex justify-between pb-2">
-                                <span>Логотип-маскот</span>
-                                <span class="text-white">от 7990 ₽</span>
-                            </li>
-                        </ul>
-                        <div class="text-xs text-gray-500 mt-auto flex items-center gap-2"><i class="ph ph-clock"></i> Срок: от 7 дней</div>
                     </div>
 
                 </div>
@@ -587,116 +629,526 @@
                     <!-- Filters -->
                     <div class="flex flex-wrap justify-center gap-3 max-w-3xl mx-auto" id="portfolio-filters">
                         <button class="filter-btn active px-6 py-2 rounded-full border border-white/10 text-sm font-medium transition-all" data-filter="all">Все проекты</button>
-                        <button class="filter-btn px-6 py-2 rounded-full border border-white/10 text-gray-400 hover:text-white transition-all" data-filter="mp">Инфографика & Rich</button>
-                        <button class="filter-btn px-6 py-2 rounded-full border border-white/10 text-gray-400 hover:text-white transition-all" data-filter="ads">Креативы & Соцсети</button>
-                        <button class="filter-btn px-6 py-2 rounded-full border border-white/10 text-gray-400 hover:text-white transition-all" data-filter="web">Сайты & Лого</button>
+                        <button class="filter-btn px-6 py-2 rounded-full border border-white/10 text-gray-400 hover:text-white transition-all" data-filter="info">Инфографика</button>
+                        <button class="filter-btn px-6 py-2 rounded-full border border-white/10 text-gray-400 hover:text-white transition-all" data-filter="rich">Rich-контент</button>
+                        <button class="filter-btn px-6 py-2 rounded-full border border-white/10 text-gray-400 hover:text-white transition-all" data-filter="ads">Креативы</button>
+                        <button class="filter-btn px-6 py-2 rounded-full border border-white/10 text-gray-400 hover:text-white transition-all" data-filter="smm">Соцсети</button>
+                        <button class="filter-btn px-6 py-2 rounded-full border border-white/10 text-gray-400 hover:text-white transition-all" data-filter="web">Сайты</button>
+                        <button class="filter-btn px-6 py-2 rounded-full border border-white/10 text-gray-400 hover:text-white transition-all" data-filter="logo">Логотипы</button>
                     </div>
                 </div>
 
-                <!-- Portfolio Grid -->
-                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" id="portfolio-grid">
+                <!-- UPGRADED: Masonry Portfolio Grid (Supports tall images natively) -->
+                <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 gsap-stagger-grid" id="portfolio-grid">
                     
-                    <!-- Items (Placeholders mimicking real works) -->
-                    <div class="portfolio-item mp group cursor-pointer gsap-reveal">
-                        <div class="glass-panel rounded-2xl overflow-hidden aspect-[4/5] relative">
-                            <div class="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center p-8 text-center transition-transform duration-700 group-hover:scale-105">
-                                <div class="opacity-30 mix-blend-overlay absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmZmZmYiLz48L3N2Zz4=')]"></div>
-                                <div class="relative z-10">
-                                    <i class="ph-light ph-image text-5xl text-gray-500 mb-4 block"></i>
-                                    <span class="text-gray-400 text-sm font-medium uppercase tracking-widest">Инфографика</span>
-                                </div>
-                            </div>
-                            <div class="absolute inset-0 bg-electric/0 group-hover:bg-electric/20 transition-colors duration-300 flex flex-col justify-end p-6">
-                                <div class="translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                                    <h4 class="text-white font-bold text-xl">Wildberries Product</h4>
-                                    <p class="text-white/80 text-sm">Главный слайд + Воронка</p>
-                                </div>
-                            </div>
+                    <!-- ===================== -->
+                    <!-- ИНФОГРАФИКА (12 работ) -->
+                    <!-- ===================== -->
+                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/FLsCKXYD/579-20251105185725.jpg" alt="[Image of Инфографика]" loading="lazy" class="w-full h-auto block">
                         </div>
                     </div>
 
-                    <div class="portfolio-item ads group cursor-pointer gsap-reveal" style="transition-delay: 0.1s;">
-                        <div class="glass-panel rounded-2xl overflow-hidden aspect-[4/5] relative">
-                            <div class="absolute inset-0 bg-gradient-to-br from-slate-800 to-blue-900 flex items-center justify-center p-8 text-center transition-transform duration-700 group-hover:scale-105">
-                                <div class="relative z-10">
-                                    <i class="ph-light ph-play-circle text-5xl text-gray-500 mb-4 block"></i>
-                                    <span class="text-gray-400 text-sm font-medium uppercase tracking-widest">Реклама</span>
-                                </div>
-                            </div>
-                            <div class="absolute inset-0 bg-electric/0 group-hover:bg-electric/20 transition-colors duration-300 flex flex-col justify-end p-6">
-                                <div class="translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                                    <h4 class="text-white font-bold text-xl">VK Target Promo</h4>
-                                    <p class="text-white/80 text-sm">Анимационный креатив</p>
-                                </div>
-                            </div>
+                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/wFh0gByn/IMG-8041.jpg" alt="[Image of Инфографика]" loading="lazy" class="w-full h-auto block">
                         </div>
                     </div>
 
-                    <div class="portfolio-item web group cursor-pointer gsap-reveal" style="transition-delay: 0.2s;">
-                        <div class="glass-panel rounded-2xl overflow-hidden aspect-[4/5] relative">
-                            <div class="absolute inset-0 bg-gradient-to-br from-gray-900 to-black flex items-center justify-center p-8 text-center transition-transform duration-700 group-hover:scale-105">
-                                <div class="relative z-10">
-                                    <i class="ph-light ph-browser text-5xl text-gray-500 mb-4 block"></i>
-                                    <span class="text-gray-400 text-sm font-medium uppercase tracking-widest">Сайт</span>
-                                </div>
-                            </div>
-                            <div class="absolute inset-0 bg-electric/0 group-hover:bg-electric/20 transition-colors duration-300 flex flex-col justify-end p-6">
-                                <div class="translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                                    <h4 class="text-white font-bold text-xl">Premium Landing</h4>
-                                    <p class="text-white/80 text-sm">UI/UX + Development</p>
-                                </div>
-                            </div>
+                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/k6wSmDBj/IMG-7170.jpg" alt="[Image of Инфографика]" loading="lazy" class="w-full h-auto block">
                         </div>
                     </div>
 
-                    <div class="portfolio-item mp group cursor-pointer gsap-reveal">
-                        <div class="glass-panel rounded-2xl overflow-hidden aspect-[4/5] relative">
-                            <div class="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center p-8 text-center transition-transform duration-700 group-hover:scale-105">
-                                <div class="relative z-10">
-                                    <i class="ph-light ph-images text-5xl text-gray-500 mb-4 block"></i>
-                                    <span class="text-gray-400 text-sm font-medium uppercase tracking-widest">Rich Контент</span>
-                                </div>
-                            </div>
-                            <div class="absolute inset-0 bg-electric/0 group-hover:bg-electric/20 transition-colors duration-300 flex flex-col justify-end p-6">
-                                <div class="translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                                    <h4 class="text-white font-bold text-xl">Ozon Landing Page</h4>
-                                    <p class="text-white/80 text-sm">Сюжетный дизайн товара</p>
-                                </div>
-                            </div>
+                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/JwML7f4g/373-20250817165435.jpg" alt="" loading="lazy" class="w-full h-auto block">
                         </div>
                     </div>
 
-                    <div class="portfolio-item ads group cursor-pointer gsap-reveal" style="transition-delay: 0.1s;">
-                        <div class="glass-panel rounded-2xl overflow-hidden aspect-[4/5] relative">
-                            <div class="absolute inset-0 bg-gradient-to-br from-indigo-900 to-gray-900 flex items-center justify-center p-8 text-center transition-transform duration-700 group-hover:scale-105">
-                                <div class="relative z-10">
-                                    <i class="ph-light ph-youtube-logo text-5xl text-gray-500 mb-4 block"></i>
-                                    <span class="text-gray-400 text-sm font-medium uppercase tracking-widest">Превью YouTube</span>
-                                </div>
-                            </div>
-                            <div class="absolute inset-0 bg-electric/0 group-hover:bg-electric/20 transition-colors duration-300 flex flex-col justify-end p-6">
-                                <div class="translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                                    <h4 class="text-white font-bold text-xl">Блогер-миллионник</h4>
-                                    <p class="text-white/80 text-sm">Кликабельная обложка</p>
-                                </div>
-                            </div>
+                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/p6C8zZLn/969-20251230133150.jpg" alt="" loading="lazy" class="w-full h-auto block">
                         </div>
                     </div>
 
-                    <div class="portfolio-item web group cursor-pointer gsap-reveal" style="transition-delay: 0.2s;">
-                        <div class="glass-panel rounded-2xl overflow-hidden aspect-[4/5] relative">
-                            <div class="absolute inset-0 bg-gradient-to-br from-blue-900 to-electric/20 flex items-center justify-center p-8 text-center transition-transform duration-700 group-hover:scale-105">
-                                <div class="relative z-10">
-                                    <i class="ph-light ph-bezier-curve text-5xl text-gray-500 mb-4 block"></i>
-                                    <span class="text-gray-400 text-sm font-medium uppercase tracking-widest">Логотип</span>
+                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/6RkgYh1G/IMG-7410.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/6cjb5PS9/601-20251110164430.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/8LX6HLHN/IMG-3641.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/W4FM2HxQ/436-20250929191023.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/FLsCKXYD/579-20251105185725.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/wFh0gByn/IMG-8041.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/k6wSmDBj/IMG-7170.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <!-- ======================= -->
+                    <!-- RICH-КОНТЕНТ (10 работ) -->
+                    <!-- ======================= -->
+                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/8HHXJ0B/IMG-9007.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/jZbFs3Ky/IMG-9008.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/GvbQSwMt/IMG-9009.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/vvkNDFwf/IMG-9011.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/PGs0D1Dq/IMG-9014.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/JFRgsH6s/IMG-9192.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/3YjV7wff/IMG-9193.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/wF3tJpGW/IMG-4578.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/BHFYQSYJ/IMG-9195.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/sd0HQhnt/IMG-9196.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <!-- ======================= -->
+                    <!-- РЕКЛАМНЫЕ КРЕАТИВЫ (10 работ) -->
+                    <!-- ======================= -->
+                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/mCwt9S7m/IMG-9038.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/kgdk8WHP/IMG-9039.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/QvPPwftV/IMG-9040.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/YTyT1Yhx/IMG-9041.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/7JpF89m7/IMG-2595.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/QjCd4nnm/IMG-2607.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/8grtG5HT/IMG-9236.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/B5vqD6XT/IMG-9237.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/nMDRG9hP/IMG-9238.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/7Nk21NQS/IMG-9239.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <!-- ======================= -->
+                    <!-- ОФОРМЛЕНИЕ ВК (10 работ) -->
+                    <!-- ======================= -->
+                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/HTMwMzwK/IMG-9042.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/gMgcyT0q/IMG-9043.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/673Nd5yp/IMG-9044.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/HTDbFGHF/IMG-9045.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/wFLTkBSf/IMG-9046.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/Nd2bRd8J/IMG-6325.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/pBXg4GYr/IMG-9229.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/z90Tqv2/IMG-9231.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/cSv8mjKZ/IMG-9233.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/4nd20SMP/IMG-9234.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <!-- ======================= -->
+                    <!-- САЙТЫ (Ссылки на проекты) -->
+                    <!-- ======================= -->
+                    
+                    <div class="portfolio-item web gsap-stagger-item break-inside-avoid mb-6 block">
+                        <a href="https://ecopoint-anapa.ru" target="_blank" rel="noopener noreferrer" class="block glass-panel p-6 rounded-2xl hover:border-electric transition-colors group">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform">
+                                    <i class="ph-light ph-browser text-2xl"></i>
+                                </div>
+                                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-electric transition-colors">
+                                    <i class="ph-bold ph-arrow-up-right text-gray-400 group-hover:text-white transition-colors"></i>
                                 </div>
                             </div>
-                            <div class="absolute inset-0 bg-electric/0 group-hover:bg-electric/20 transition-colors duration-300 flex flex-col justify-end p-6">
-                                <div class="translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                                    <h4 class="text-white font-bold text-xl">IT Startup Mascot</h4>
-                                    <p class="text-white/80 text-sm">Брендинг</p>
+                            <h4 class="text-white font-bold text-xl mb-1 group-hover:text-electricLight transition-colors">Эко-Точка</h4>
+                            <p class="text-gray-400 text-sm mb-4">Мебельное производство</p>
+                            <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">
+                                ecopoint-anapa.ru
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="portfolio-item web gsap-stagger-item break-inside-avoid mb-6 block">
+                        <a href="https://chedesign.online" target="_blank" rel="noopener noreferrer" class="block glass-panel p-6 rounded-2xl hover:border-electric transition-colors group">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform">
+                                    <i class="ph-light ph-browser text-2xl"></i>
+                                </div>
+                                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-electric transition-colors">
+                                    <i class="ph-bold ph-arrow-up-right text-gray-400 group-hover:text-white transition-colors"></i>
                                 </div>
                             </div>
+                            <h4 class="text-white font-bold text-xl mb-1 group-hover:text-electricLight transition-colors">Курс К. Чебурашкина</h4>
+                            <p class="text-gray-400 text-sm mb-4">Онлайн обучение</p>
+                            <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">
+                                chedesign.online
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="portfolio-item web gsap-stagger-item break-inside-avoid mb-6 block">
+                        <a href="https://manufakturabeauty.ru" target="_blank" rel="noopener noreferrer" class="block glass-panel p-6 rounded-2xl hover:border-electric transition-colors group">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform">
+                                    <i class="ph-light ph-browser text-2xl"></i>
+                                </div>
+                                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-electric transition-colors">
+                                    <i class="ph-bold ph-arrow-up-right text-gray-400 group-hover:text-white transition-colors"></i>
+                                </div>
+                            </div>
+                            <h4 class="text-white font-bold text-xl mb-1 group-hover:text-electricLight transition-colors">Manufactura</h4>
+                            <p class="text-gray-400 text-sm mb-4">Салон красоты</p>
+                            <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">
+                                manufakturabeauty.ru
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="portfolio-item web gsap-stagger-item break-inside-avoid mb-6 block">
+                        <a href="https://supaposhta.com" target="_blank" rel="noopener noreferrer" class="block glass-panel p-6 rounded-2xl hover:border-electric transition-colors group">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform">
+                                    <i class="ph-light ph-browser text-2xl"></i>
+                                </div>
+                                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-electric transition-colors">
+                                    <i class="ph-bold ph-arrow-up-right text-gray-400 group-hover:text-white transition-colors"></i>
+                                </div>
+                            </div>
+                            <h4 class="text-white font-bold text-xl mb-1 group-hover:text-electricLight transition-colors">SUPAPOSHTA</h4>
+                            <p class="text-gray-400 text-sm mb-4">Грузоперевозки</p>
+                            <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">
+                                supaposhta.com
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="portfolio-item web gsap-stagger-item break-inside-avoid mb-6 block">
+                        <a href="https://domoteka-krd.ru" target="_blank" rel="noopener noreferrer" class="block glass-panel p-6 rounded-2xl hover:border-electric transition-colors group">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform">
+                                    <i class="ph-light ph-browser text-2xl"></i>
+                                </div>
+                                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-electric transition-colors">
+                                    <i class="ph-bold ph-arrow-up-right text-gray-400 group-hover:text-white transition-colors"></i>
+                                </div>
+                            </div>
+                            <h4 class="text-white font-bold text-xl mb-1 group-hover:text-electricLight transition-colors">Домотека</h4>
+                            <p class="text-gray-400 text-sm mb-4">Строительство домов</p>
+                            <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">
+                                domoteka-krd.ru
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="portfolio-item web gsap-stagger-item break-inside-avoid mb-6 block">
+                        <a href="https://welcome.finbazar.ru" target="_blank" rel="noopener noreferrer" class="block glass-panel p-6 rounded-2xl hover:border-electric transition-colors group">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform">
+                                    <i class="ph-light ph-browser text-2xl"></i>
+                                </div>
+                                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-electric transition-colors">
+                                    <i class="ph-bold ph-arrow-up-right text-gray-400 group-hover:text-white transition-colors"></i>
+                                </div>
+                            </div>
+                            <h4 class="text-white font-bold text-xl mb-1 group-hover:text-electricLight transition-colors">Finbazar</h4>
+                            <p class="text-gray-400 text-sm mb-4">Обучение блогерству</p>
+                            <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">
+                                welcome.finbazar.ru
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="portfolio-item web gsap-stagger-item break-inside-avoid mb-6 block">
+                        <a href="https://helsalogistics.com" target="_blank" rel="noopener noreferrer" class="block glass-panel p-6 rounded-2xl hover:border-electric transition-colors group">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform">
+                                    <i class="ph-light ph-browser text-2xl"></i>
+                                </div>
+                                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-electric transition-colors">
+                                    <i class="ph-bold ph-arrow-up-right text-gray-400 group-hover:text-white transition-colors"></i>
+                                </div>
+                            </div>
+                            <h4 class="text-white font-bold text-xl mb-1 group-hover:text-electricLight transition-colors">Helsa</h4>
+                            <p class="text-gray-400 text-sm mb-4">Грузоперевозки</p>
+                            <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">
+                                helsalogistics.com
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="portfolio-item web gsap-stagger-item break-inside-avoid mb-6 block">
+                        <a href="https://endigo.pro" target="_blank" rel="noopener noreferrer" class="block glass-panel p-6 rounded-2xl hover:border-electric transition-colors group">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform">
+                                    <i class="ph-light ph-browser text-2xl"></i>
+                                </div>
+                                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-electric transition-colors">
+                                    <i class="ph-bold ph-arrow-up-right text-gray-400 group-hover:text-white transition-colors"></i>
+                                </div>
+                            </div>
+                            <h4 class="text-white font-bold text-xl mb-1 group-hover:text-electricLight transition-colors">ENDIGO</h4>
+                            <p class="text-gray-400 text-sm mb-4">Обслуживание автомобилей</p>
+                            <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">
+                                endigo.pro
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="portfolio-item web gsap-stagger-item break-inside-avoid mb-6 block">
+                        <a href="https://cocosbeauty.shop" target="_blank" rel="noopener noreferrer" class="block glass-panel p-6 rounded-2xl hover:border-electric transition-colors group">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform">
+                                    <i class="ph-light ph-browser text-2xl"></i>
+                                </div>
+                                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-electric transition-colors">
+                                    <i class="ph-bold ph-arrow-up-right text-gray-400 group-hover:text-white transition-colors"></i>
+                                </div>
+                            </div>
+                            <h4 class="text-white font-bold text-xl mb-1 group-hover:text-electricLight transition-colors">CocosBeauty</h4>
+                            <p class="text-gray-400 text-sm mb-4">Кокосовые изделия</p>
+                            <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">
+                                cocosbeauty.shop
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="portfolio-item web gsap-stagger-item break-inside-avoid mb-6 block">
+                        <a href="https://lemme.looknewsite.ru" target="_blank" rel="noopener noreferrer" class="block glass-panel p-6 rounded-2xl hover:border-electric transition-colors group">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform">
+                                    <i class="ph-light ph-browser text-2xl"></i>
+                                </div>
+                                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-electric transition-colors">
+                                    <i class="ph-bold ph-arrow-up-right text-gray-400 group-hover:text-white transition-colors"></i>
+                                </div>
+                            </div>
+                            <h4 class="text-white font-bold text-xl mb-1 group-hover:text-electricLight transition-colors">Lemme</h4>
+                            <p class="text-gray-400 text-sm mb-4">Косметика</p>
+                            <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">
+                                lemme.looknewsite.ru
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- ======================= -->
+                    <!-- ЛОГОТИПЫ (10 работ) -->
+                    <!-- ======================= -->
+                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/7J4p4Vv4/IMG-9240.jpg" alt="[Image of Логотип]" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/208FxJYY/IMG-9241.jpg" alt="[Image of Логотип]" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/XZfZhbJF/IMG-9242.jpg" alt="[Image of Логотип]" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/tTRvm49t/IMG-9243.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/99QzsC6T/IMG-9244.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/gZDgFYJ8/IMG-9245.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/0pS1jW3X/IMG-9246.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/XZkDCQqQ/IMG-9247.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/kgRQGG11/IMG-9248.jpg" alt="" loading="lazy" class="w-full h-auto block">
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block">
+                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
+                            <img src="https://i.ibb.co/Z6SQ3vxx/IMG-9249.jpg" alt="" loading="lazy" class="w-full h-auto block">
                         </div>
                     </div>
 
@@ -725,14 +1177,15 @@
                     <div class="absolute left-[39px] md:left-1/2 top-0 bottom-0 w-[2px] bg-white/10 md:-translate-x-1/2 rounded-full"></div>
                     
                     <!-- Animated Fill Line (Controlled by GSAP) -->
-                    <div class="absolute left-[39px] md:left-1/2 top-0 bottom-0 w-[2px] bg-electric md:-translate-x-1/2 rounded-full origin-top scale-y-0 shadow-[0_0_20px_#2563FF] workflow-line-fill z-10"></div>
+                    <div class="absolute left-[39px] md:left-1/2 top-0 bottom-0 w-[2px] bg-electric md:-translate-x-1/2 rounded-full origin-top scale-y-0 shadow-[0_0_20px_#2563FF] workflow-line-fill z-10" style="will-change: transform;"></div>
 
                     <!-- Step 1 (Left Desktop / Right Mobile) -->
                     <div class="relative flex items-center justify-start md:w-1/2 md:pr-16 gsap-reveal group">
-                        <!-- Node Marker -->
-                        <div class="absolute left-[40px] md:left-auto md:right-0 w-3 h-3 bg-black border-2 border-white/30 rounded-full -translate-x-1/2 md:translate-x-1/2 z-20 transition-all duration-500 group-hover:border-electric group-hover:bg-electric group-hover:shadow-[0_0_20px_#2563FF] group-hover:scale-150"></div>
+                        <!-- Node Marker (NEW: Added 'workflow-node' class) -->
+                        <div class="workflow-node absolute left-[40px] md:left-auto md:right-0 w-3 h-3 bg-black border-2 border-white/30 rounded-full -translate-x-1/2 md:translate-x-1/2 z-20 transition-all duration-500 group-hover:border-electric group-hover:bg-electric group-hover:shadow-[0_0_20px_#2563FF] group-hover:scale-150"></div>
                         
-                        <div class="glass-panel p-8 rounded-3xl w-full ml-[80px] md:ml-0 md:mr-auto hover:-translate-y-2 transition-transform relative overflow-hidden">
+                        <!-- UPGRADED: Fixed mobile overflow with calc() width and responsive padding -->
+                        <div class="glass-panel p-6 md:p-8 rounded-3xl w-[calc(100%-64px)] ml-auto md:w-full md:ml-0 md:mr-auto hover:-translate-y-2 transition-transform relative overflow-hidden">
                             <div class="absolute -top-6 -left-4 md:-right-4 md:left-auto text-8xl font-black text-white/5 font-display select-none pointer-events-none">01</div>
                             <h4 class="text-2xl font-bold mb-3 text-electric relative z-10">Заявка</h4>
                             <p class="text-gray-400 leading-relaxed text-sm relative z-10">Связь в Telegram, обсуждение ваших задач, целей и желаемого результата. Формируем стартовое видение.</p>
@@ -743,9 +1196,10 @@
                     <!-- Step 2 (Right Desktop / Right Mobile) -->
                     <div class="relative flex items-center justify-end md:w-1/2 md:ml-auto md:pl-16 gsap-reveal group md:-mt-12">
                         <!-- Node Marker -->
-                        <div class="absolute left-[40px] md:left-0 w-3 h-3 bg-black border-2 border-white/30 rounded-full -translate-x-1/2 z-20 transition-all duration-500 group-hover:border-electric group-hover:bg-electric group-hover:shadow-[0_0_20px_#2563FF] group-hover:scale-150"></div>
+                        <div class="workflow-node absolute left-[40px] md:left-0 w-3 h-3 bg-black border-2 border-white/30 rounded-full -translate-x-1/2 z-20 transition-all duration-500 group-hover:border-electric group-hover:bg-electric group-hover:shadow-[0_0_20px_#2563FF] group-hover:scale-150"></div>
                         
-                        <div class="glass-panel p-8 rounded-3xl w-full ml-[80px] md:ml-0 hover:-translate-y-2 transition-transform relative overflow-hidden">
+                        <!-- UPGRADED: Fixed mobile overflow -->
+                        <div class="glass-panel p-6 md:p-8 rounded-3xl w-[calc(100%-64px)] ml-auto md:w-full md:ml-0 hover:-translate-y-2 transition-transform relative overflow-hidden">
                             <div class="absolute -top-6 -left-4 text-8xl font-black text-white/5 font-display select-none pointer-events-none">02</div>
                             <h4 class="text-2xl font-bold mb-3 text-white group-hover:text-electric transition-colors relative z-10">Анализ</h4>
                             <p class="text-gray-400 leading-relaxed text-sm relative z-10">Глубокое изучение ниши, прямых конкурентов и сильных сторон вашего продукта. Ищем точки отстройки.</p>
@@ -755,9 +1209,11 @@
 
                     <!-- Step 3 (Left Desktop / Right Mobile) - Highlighted Step -->
                     <div class="relative flex items-center justify-start md:w-1/2 md:pr-16 gsap-reveal group md:-mt-12 z-30">
-                        <div class="absolute left-[40px] md:left-auto md:right-0 w-3 h-3 bg-black border-2 border-white/30 rounded-full -translate-x-1/2 md:translate-x-1/2 z-20 transition-all duration-500 group-hover:border-electric group-hover:bg-electric group-hover:shadow-[0_0_20px_#2563FF] group-hover:scale-150"></div>
+                        <!-- Node Marker -->
+                        <div class="workflow-node absolute left-[40px] md:left-auto md:right-0 w-3 h-3 bg-black border-2 border-white/30 rounded-full -translate-x-1/2 md:translate-x-1/2 z-20 transition-all duration-500 group-hover:border-electric group-hover:bg-electric group-hover:shadow-[0_0_20px_#2563FF] group-hover:scale-150"></div>
                         
-                        <div class="glass-panel p-8 rounded-3xl w-full ml-[80px] md:ml-0 md:mr-auto hover:-translate-y-2 transition-transform relative overflow-hidden border-electric/40 shadow-[0_0_40px_rgba(37,99,255,0.15)]">
+                        <!-- UPGRADED: Fixed mobile overflow -->
+                        <div class="glass-panel p-6 md:p-8 rounded-3xl w-[calc(100%-64px)] ml-auto md:w-full md:ml-0 md:mr-auto hover:-translate-y-2 transition-transform relative overflow-hidden border-electric/40 shadow-[0_0_40px_rgba(37,99,255,0.15)]">
                             <div class="absolute inset-0 bg-gradient-to-br from-electric/10 to-transparent opacity-50 pointer-events-none"></div>
                             <div class="absolute -top-6 -left-4 md:-right-4 md:left-auto text-8xl font-black text-electric/10 font-display select-none pointer-events-none">03</div>
                             <h4 class="text-2xl font-bold mb-3 text-electric relative z-10">Дизайн & Концепция</h4>
@@ -768,9 +1224,11 @@
 
                     <!-- Step 4 (Right Desktop / Right Mobile) -->
                     <div class="relative flex items-center justify-end md:w-1/2 md:ml-auto md:pl-16 gsap-reveal group md:-mt-12">
-                        <div class="absolute left-[40px] md:left-0 w-3 h-3 bg-black border-2 border-white/30 rounded-full -translate-x-1/2 z-20 transition-all duration-500 group-hover:border-electric group-hover:bg-electric group-hover:shadow-[0_0_20px_#2563FF] group-hover:scale-150"></div>
+                        <!-- Node Marker -->
+                        <div class="workflow-node absolute left-[40px] md:left-0 w-3 h-3 bg-black border-2 border-white/30 rounded-full -translate-x-1/2 z-20 transition-all duration-500 group-hover:border-electric group-hover:bg-electric group-hover:shadow-[0_0_20px_#2563FF] group-hover:scale-150"></div>
                         
-                        <div class="glass-panel p-8 rounded-3xl w-full ml-[80px] md:ml-0 hover:-translate-y-2 transition-transform relative overflow-hidden">
+                        <!-- UPGRADED: Fixed mobile overflow -->
+                        <div class="glass-panel p-6 md:p-8 rounded-3xl w-[calc(100%-64px)] ml-auto md:w-full md:ml-0 hover:-translate-y-2 transition-transform relative overflow-hidden">
                             <div class="absolute -top-6 -left-4 text-8xl font-black text-white/5 font-display select-none pointer-events-none">04</div>
                             <h4 class="text-2xl font-bold mb-3 text-white group-hover:text-electric transition-colors relative z-10">Правки</h4>
                             <p class="text-gray-400 leading-relaxed text-sm relative z-10">Презентация работы, согласование деталей и внесение корректировок. Мы доводим результат до идеала.</p>
@@ -780,9 +1238,11 @@
 
                     <!-- Step 5 (Left Desktop / Right Mobile) -->
                     <div class="relative flex items-center justify-start md:w-1/2 md:pr-16 gsap-reveal group md:-mt-12">
-                        <div class="absolute left-[40px] md:left-auto md:right-0 w-3 h-3 bg-black border-2 border-white/30 rounded-full -translate-x-1/2 md:translate-x-1/2 z-20 transition-all duration-500 group-hover:border-electric group-hover:bg-electric group-hover:shadow-[0_0_20px_#2563FF] group-hover:scale-150"></div>
+                        <!-- Node Marker -->
+                        <div class="workflow-node absolute left-[40px] md:left-auto md:right-0 w-3 h-3 bg-black border-2 border-white/30 rounded-full -translate-x-1/2 md:translate-x-1/2 z-20 transition-all duration-500 group-hover:border-electric group-hover:bg-electric group-hover:shadow-[0_0_20px_#2563FF] group-hover:scale-150"></div>
                         
-                        <div class="glass-panel p-8 rounded-3xl w-full ml-[80px] md:ml-0 md:mr-auto hover:-translate-y-2 transition-transform relative overflow-hidden">
+                        <!-- UPGRADED: Fixed mobile overflow -->
+                        <div class="glass-panel p-6 md:p-8 rounded-3xl w-[calc(100%-64px)] ml-auto md:w-full md:ml-0 md:mr-auto hover:-translate-y-2 transition-transform relative overflow-hidden">
                             <div class="absolute -top-6 -left-4 md:-right-4 md:left-auto text-8xl font-black text-white/5 font-display select-none pointer-events-none">05</div>
                             <h4 class="text-2xl font-bold mb-3 text-electric relative z-10">Результат</h4>
                             <p class="text-gray-400 leading-relaxed text-sm relative z-10">Передача всех исходников и готовых материалов в высоком разрешении. Ваш проект полностью готов к запуску.</p>
@@ -800,7 +1260,8 @@
                     <!-- Animated Border -->
                     <div class="absolute inset-0 bg-gradient-to-r from-electric/10 via-electric to-electric/10 opacity-50 group-hover:opacity-100 transition-opacity duration-500 animate-spin-fast" style="width: 200%; height: 200%; top: -50%; left: -50%;"></div>
                     
-                    <div class="relative bg-black rounded-[2.5rem] p-10 md:p-16 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-10 overflow-hidden">
+                    <!-- UPGRADED: Reduced padding on mobile (p-8 instead of p-10) for safe rendering -->
+                    <div class="relative bg-black rounded-[2.5rem] p-8 md:p-16 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-10 overflow-hidden">
                         <!-- Inner Glow -->
                         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-electric/10 blur-[80px] pointer-events-none"></div>
 
@@ -860,106 +1321,118 @@
                 </div>
 
                 <!-- UPGRADED Results Dashboard (Grid on Desktop, Swipe on Mobile) -->
-                <div class="flex overflow-x-auto md:grid md:grid-cols-3 gap-6 pb-8 md:pb-0 mb-16 snap-x hide-scrollbar gsap-reveal">
+                <div class="flex overflow-x-auto md:grid md:grid-cols-3 gap-6 pb-8 md:pb-0 mb-16 snap-x hide-scrollbar gsap-stagger-grid">
                     
                     <!-- Result Card 1 -->
-                    <div class="relative glass-panel p-8 rounded-3xl min-w-[280px] md:min-w-0 flex-1 snap-center group overflow-hidden border-white/5 hover:border-electric/40 transition-colors duration-500">
-                        <div class="absolute top-0 right-0 w-32 h-32 bg-electric/10 rounded-full blur-[40px] group-hover:bg-electric/20 transition-colors"></div>
-                        
-                        <div class="flex justify-between items-center mb-10 relative z-10">
-                            <div class="text-[10px] font-mono text-white/50 group-hover:text-electric transition-colors tracking-widest border border-white/10 group-hover:border-electric/30 px-3 py-1 rounded-full">METRIC_01</div>
-                            <i class="ph-light ph-target text-2xl text-gray-500 group-hover:text-electric transition-colors"></i>
+                    <div class="gsap-stagger-item min-w-[280px] md:min-w-0 flex-1 snap-center">
+                        <div class="relative glass-panel p-8 rounded-3xl group overflow-hidden border-white/5 hover:border-electric/40 transition-colors duration-500 h-full">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-electric/10 rounded-full blur-[40px] group-hover:bg-electric/20 transition-colors"></div>
+                            
+                            <div class="flex justify-between items-center mb-10 relative z-10">
+                                <div class="text-[10px] font-mono text-white/50 group-hover:text-electric transition-colors tracking-widest border border-white/10 group-hover:border-electric/30 px-3 py-1 rounded-full">METRIC_01</div>
+                                <i class="ph-light ph-target text-2xl text-gray-500 group-hover:text-electric transition-colors"></i>
+                            </div>
+                            
+                            <div class="text-3xl md:text-4xl font-display font-black text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-electric transition-all drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+                                + Первые<br><span class="text-electric">Заказы</span>
+                            </div>
+                            <p class="text-sm text-gray-400 relative z-10 leading-relaxed">Ученики находят реальных клиентов и окупают вложения уже во время обучения.</p>
                         </div>
-                        
-                        <div class="text-3xl md:text-4xl font-display font-black text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-electric transition-all drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
-                            + Первые<br><span class="text-electric">Заказы</span>
-                        </div>
-                        <p class="text-sm text-gray-400 relative z-10 leading-relaxed">Ученики находят реальных клиентов и окупают вложения уже во время обучения.</p>
                     </div>
 
                     <!-- Result Card 2 (Highlighted) -->
-                    <div class="relative glass-panel p-8 rounded-3xl min-w-[280px] md:min-w-0 flex-1 snap-center group overflow-hidden border-electric/30 shadow-[0_0_30px_rgba(37,99,255,0.1)] hover:border-electric hover:shadow-[0_0_40px_rgba(37,99,255,0.2)] transition-all duration-500 md:-translate-y-4">
-                        <div class="absolute inset-0 bg-gradient-to-b from-electric/10 to-transparent opacity-50"></div>
-                        
-                        <div class="flex justify-between items-center mb-10 relative z-10">
-                            <div class="text-[10px] font-mono text-electric tracking-widest border border-electric px-3 py-1 rounded-full bg-electric/10 shadow-[0_0_10px_rgba(37,99,255,0.3)]">INCOME_TARGET</div>
-                            <i class="ph-light ph-chart-line-up text-2xl text-electric animate-pulse"></i>
+                    <div class="gsap-stagger-item min-w-[280px] md:min-w-0 flex-1 snap-center">
+                        <div class="relative glass-panel p-8 rounded-3xl group overflow-hidden border-electric/30 shadow-[0_0_30px_rgba(37,99,255,0.1)] hover:border-electric hover:shadow-[0_0_40px_rgba(37,99,255,0.2)] transition-all duration-500 md:-translate-y-4 h-full">
+                            <div class="absolute inset-0 bg-gradient-to-b from-electric/10 to-transparent opacity-50"></div>
+                            
+                            <div class="flex justify-between items-center mb-10 relative z-10">
+                                <div class="text-[10px] font-mono text-electric tracking-widest border border-electric px-3 py-1 rounded-full bg-electric/10 shadow-[0_0_10px_rgba(37,99,255,0.3)]">INCOME_TARGET</div>
+                                <i class="ph-light ph-chart-line-up text-2xl text-electric animate-pulse"></i>
+                            </div>
+                            
+                            <div class="text-4xl md:text-5xl font-display font-black text-white mb-3 drop-shadow-[0_0_20px_rgba(37,99,255,0.3)]">
+                                50-100<span class="text-electric">k ₽</span>
+                            </div>
+                            <p class="text-sm text-gray-300 relative z-10 leading-relaxed">Выход на стабильный доход удаленно через 2-3 месяца системной работы.</p>
+                            
+                            <!-- Animated Scanning Line -->
+                            <div class="absolute top-0 left-0 w-full h-[2px] bg-electric opacity-50 shadow-[0_0_15px_#2563FF] animate-float"></div>
                         </div>
-                        
-                        <div class="text-4xl md:text-5xl font-display font-black text-white mb-3 drop-shadow-[0_0_20px_rgba(37,99,255,0.3)]">
-                            50-100<span class="text-electric">k ₽</span>
-                        </div>
-                        <p class="text-sm text-gray-300 relative z-10 leading-relaxed">Выход на стабильный доход удаленно через 2-3 месяца системной работы.</p>
-                        
-                        <!-- Animated Scanning Line -->
-                        <div class="absolute top-0 left-0 w-full h-[2px] bg-electric opacity-50 shadow-[0_0_15px_#2563FF] animate-float"></div>
                     </div>
 
                     <!-- Result Card 3 -->
-                    <div class="relative glass-panel p-8 rounded-3xl min-w-[280px] md:min-w-0 flex-1 snap-center group overflow-hidden border-white/5 hover:border-electric/40 transition-colors duration-500">
-                        <div class="absolute bottom-0 left-0 w-32 h-32 bg-electric/10 rounded-full blur-[40px] group-hover:bg-electric/20 transition-colors"></div>
-                        
-                        <div class="flex justify-between items-center mb-10 relative z-10">
-                            <div class="text-[10px] font-mono text-white/50 group-hover:text-electric transition-colors tracking-widest border border-white/10 group-hover:border-electric/30 px-3 py-1 rounded-full">ASSET_03</div>
-                            <i class="ph-light ph-briefcase text-2xl text-gray-500 group-hover:text-electric transition-colors"></i>
+                    <div class="gsap-stagger-item min-w-[280px] md:min-w-0 flex-1 snap-center">
+                        <div class="relative glass-panel p-8 rounded-3xl group overflow-hidden border-white/5 hover:border-electric/40 transition-colors duration-500 h-full">
+                            <div class="absolute bottom-0 left-0 w-32 h-32 bg-electric/10 rounded-full blur-[40px] group-hover:bg-electric/20 transition-colors"></div>
+                            
+                            <div class="flex justify-between items-center mb-10 relative z-10">
+                                <div class="text-[10px] font-mono text-white/50 group-hover:text-electric transition-colors tracking-widest border border-white/10 group-hover:border-electric/30 px-3 py-1 rounded-full">ASSET_03</div>
+                                <i class="ph-light ph-briefcase text-2xl text-gray-500 group-hover:text-electric transition-colors"></i>
+                            </div>
+                            
+                            <div class="text-3xl md:text-4xl font-display font-black text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-electric transition-all drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+                                Сильное<br><span class="text-electric">Портфолио</span>
+                            </div>
+                            <p class="text-sm text-gray-400 relative z-10 leading-relaxed">Готовые, премиально упакованные кейсы для работы с крупными селлерами и брендами.</p>
                         </div>
-                        
-                        <div class="text-3xl md:text-4xl font-display font-black text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-electric transition-all drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
-                            Сильное<br><span class="text-electric">Портфолио</span>
-                        </div>
-                        <p class="text-sm text-gray-400 relative z-10 leading-relaxed">Готовые, премиально упакованные кейсы для работы с крупными селлерами и брендами.</p>
                     </div>
 
                 </div>
 
                 <!-- Pricing Cards -->
-                <div class="grid lg:grid-cols-3 gap-8 items-center">
+                <div class="grid lg:grid-cols-3 gap-8 items-center gsap-stagger-grid">
                     
                     <!-- Basic -->
-                    <div class="glass-panel p-8 rounded-3xl flex flex-col h-full gsap-reveal">
-                        <h3 class="text-2xl font-bold mb-2">Старт</h3>
-                        <p class="text-gray-400 text-sm mb-6 h-10">Базовый уровень для новичков. Первые заказы и портфолио.</p>
-                        <div class="text-4xl font-display font-bold mb-8">19 990 ₽</div>
-                        <ul class="space-y-4 mb-8 text-sm flex-grow">
-                            <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-electric mt-0.5"></i> Доступ к видеоурокам</li>
-                            <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-electric mt-0.5"></i> Основы инфографики Figma</li>
-                            <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-electric mt-0.5"></i> Домашние задания</li>
-                        </ul>
-                        <a href="https://t.me/vladpetroov" target="_blank" class="w-full py-4 text-center rounded-xl border border-white/20 hover:bg-white/5 transition-colors font-medium">Выбрать тариф</a>
+                    <div class="gsap-stagger-item h-full">
+                        <div class="glass-panel p-8 rounded-3xl flex flex-col h-full">
+                            <h3 class="text-2xl font-bold mb-2">Старт</h3>
+                            <p class="text-gray-400 text-sm mb-6 h-10">Базовый уровень для новичков. Первые заказы и портфолио.</p>
+                            <div class="text-4xl font-display font-bold mb-8">19 990 ₽</div>
+                            <ul class="space-y-4 mb-8 text-sm flex-grow">
+                                <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-electric mt-0.5"></i> Доступ к видеоурокам</li>
+                                <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-electric mt-0.5"></i> Основы инфографики Figma</li>
+                                <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-electric mt-0.5"></i> Домашние задания</li>
+                            </ul>
+                            <a href="https://t.me/vladpetroov" target="_blank" class="w-full py-4 text-center rounded-xl border border-white/20 hover:bg-white/5 transition-colors font-medium">Выбрать тариф</a>
+                        </div>
                     </div>
 
                     <!-- TOP/Premium -->
-                    <div class="relative rounded-3xl p-[2px] transform lg:scale-105 z-10 gsap-reveal">
-                        <div class="absolute inset-0 bg-gradient-to-b from-electric to-transparent rounded-3xl opacity-50"></div>
-                        <div class="absolute inset-0 bg-electric/20 blur-2xl -z-10 animate-pulse-slow"></div>
-                        
-                        <div class="bg-black p-8 rounded-[23px] flex flex-col h-full relative">
-                            <div class="absolute top-0 right-8 transform -translate-y-1/2 bg-electric text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-[0_0_15px_rgba(37,99,255,0.5)]">Хит продаж</div>
+                    <div class="gsap-stagger-item h-full z-10">
+                        <div class="relative rounded-3xl p-[2px] transform lg:scale-105 h-full">
+                            <div class="absolute inset-0 bg-gradient-to-b from-electric to-transparent rounded-3xl opacity-50"></div>
+                            <div class="absolute inset-0 bg-electric/20 blur-2xl -z-10 animate-pulse-slow"></div>
                             
-                            <h3 class="text-2xl font-bold mb-2 text-electric">Инфографика с Владом</h3>
-                            <p class="text-gray-400 text-sm mb-6 h-10">Персональная работа, личное наставничество и стратегия дохода.</p>
-                            <div class="text-5xl font-display font-bold mb-8">59 990 ₽</div>
-                            <ul class="space-y-4 mb-8 text-sm flex-grow">
-                                <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-electric mt-0.5"></i> <b>Всё из тарифов Старт и PRO</b></li>
-                                <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-electric mt-0.5"></i> Личные созвоны 1 на 1</li>
-                                <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-electric mt-0.5"></i> Построение личного бренда</li>
-                                <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-electric mt-0.5"></i> Гарантированный выход на результат</li>
-                            </ul>
-                            <a href="https://t.me/vladpetroov" target="_blank" class="w-full py-4 text-center rounded-xl bg-electric text-white font-bold hover:shadow-[0_0_30px_rgba(37,99,255,0.4)] transition-all">Иду на наставничество</a>
+                            <div class="bg-black p-8 rounded-[23px] flex flex-col h-full relative">
+                                <div class="absolute top-0 right-8 transform -translate-y-1/2 bg-electric text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-[0_0_15px_rgba(37,99,255,0.5)]">Хит продаж</div>
+                                
+                                <h3 class="text-2xl font-bold mb-2 text-electric">Инфографика с Владом</h3>
+                                <p class="text-gray-400 text-sm mb-6 h-10">Персональная работа, личное наставничество и стратегия дохода.</p>
+                                <div class="text-5xl font-display font-bold mb-8">59 990 ₽</div>
+                                <ul class="space-y-4 mb-8 text-sm flex-grow">
+                                    <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-electric mt-0.5"></i> <b>Всё из тарифов Старт и PRO</b></li>
+                                    <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-electric mt-0.5"></i> Личные созвоны 1 на 1</li>
+                                    <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-electric mt-0.5"></i> Построение личного бренда</li>
+                                    <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-electric mt-0.5"></i> Гарантированный выход на результат</li>
+                                </ul>
+                                <a href="https://t.me/vladpetroov" target="_blank" class="w-full py-4 text-center rounded-xl bg-electric text-white font-bold hover:shadow-[0_0_30px_rgba(37,99,255,0.4)] transition-all">Иду на наставничество</a>
+                            </div>
                         </div>
                     </div>
 
                     <!-- PRO -->
-                    <div class="glass-panel p-8 rounded-3xl flex flex-col h-full gsap-reveal">
-                        <h3 class="text-2xl font-bold mb-2">PRO</h3>
-                        <p class="text-gray-400 text-sm mb-6 h-10">Продвинутый уровень. Работа с брендами, повышение чека.</p>
-                        <div class="text-4xl font-display font-bold mb-8">29 990 ₽</div>
-                        <ul class="space-y-4 mb-8 text-sm flex-grow">
-                            <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-electric mt-0.5"></i> Всё из тарифа Старт</li>
-                            <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-electric mt-0.5"></i> Глубокие разборы работ</li>
-                            <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-electric mt-0.5"></i> Упаковка мощного портфолио</li>
-                        </ul>
-                        <a href="https://t.me/vladpetroov" target="_blank" class="w-full py-4 text-center rounded-xl border border-white/20 hover:bg-white/5 transition-colors font-medium">Выбрать тариф</a>
+                    <div class="gsap-stagger-item h-full">
+                        <div class="glass-panel p-8 rounded-3xl flex flex-col h-full">
+                            <h3 class="text-2xl font-bold mb-2">PRO</h3>
+                            <p class="text-gray-400 text-sm mb-6 h-10">Продвинутый уровень. Работа с брендами, повышение чека.</p>
+                            <div class="text-4xl font-display font-bold mb-8">29 990 ₽</div>
+                            <ul class="space-y-4 mb-8 text-sm flex-grow">
+                                <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-electric mt-0.5"></i> Всё из тарифа Старт</li>
+                                <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-electric mt-0.5"></i> Глубокие разборы работ</li>
+                                <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-electric mt-0.5"></i> Упаковка мощного портфолио</li>
+                            </ul>
+                            <a href="https://t.me/vladpetroov" target="_blank" class="w-full py-4 text-center rounded-xl border border-white/20 hover:bg-white/5 transition-colors font-medium">Выбрать тариф</a>
+                        </div>
                     </div>
 
                 </div>
@@ -1053,13 +1526,13 @@
             </div>
 
             <!-- Command Center Console -->
-            <div class="max-w-6xl w-full mx-auto relative z-10 gsap-reveal">
-                <div class="glass-panel p-8 md:p-16 lg:p-20 rounded-[3rem] md:rounded-[4rem] border-electric/30 relative overflow-hidden group shadow-[0_0_80px_rgba(37,99,255,0.1)]">
-                    
-                    <!-- Console Inner Glow -->
-                    <div class="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_top_right,rgba(37,99,255,0.15),transparent_60%)] pointer-events-none"></div>
-                    <!-- Scanning line inside console -->
-                    <div class="absolute left-0 top-0 w-[2px] h-full bg-gradient-to-b from-transparent via-electric to-transparent opacity-50 shadow-[0_0_15px_#2563FF] animate-[pulse_3s_infinite]"></div>
+            <div class="max-w-6xl w-full mx-auto relative z-10 gsap-stagger-grid">
+                <div class="gsap-stagger-item">
+                    <div class="glass-panel p-8 md:p-16 lg:p-20 rounded-[3rem] md:rounded-[4rem] border-electric/30 relative overflow-hidden group shadow-[0_0_80px_rgba(37,99,255,0.1)]">
+                        
+                        <!-- Console Inner Glow -->
+                        <div class="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_top_right,rgba(37,99,255,0.15),transparent_60%)] pointer-events-none"></div>
+                        <!-- Scanning line inside console -->
 
                     <div class="flex flex-col lg:flex-row gap-16 items-center justify-between relative z-10">
                         
@@ -1074,15 +1547,15 @@
                                 System Online // Ready
                             </div>
                             
-                            <!-- UPGRADED: Flex-col layout for perfect tight stacking without invisible line-height gaps -->
-                            <h2 class="font-display text-5xl md:text-7xl lg:text-[6rem] font-black mb-6 tracking-tighter leading-none flex flex-col items-center lg:items-start">
+                            <!-- UPGRADED: Scaled text down slightly on mobile to prevent bleed -->
+                            <h2 class="font-display text-4xl sm:text-5xl md:text-7xl lg:text-[6rem] font-black mb-6 tracking-tighter leading-none flex flex-col items-center lg:items-start">
                                 <span class="text-white">Готовы</span>
                                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-gray-100 to-gray-500 -mt-1 md:-mt-3">начать</span>
                                 <span class="relative -mt-2 md:-mt-4 lg:-mt-6">
                                     <!-- Свечение вынесено на задний фон, чтобы избежать обрезки -->
                                     <span class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[120%] w-[120%] -left-[10%] bg-electric/30 blur-[50px] rounded-full z-0 pointer-events-none"></span>
-                                    <!-- Сам текст с отступами (pr-6, pb-4) для защиты курсива от срезания -->
-                                    <span class="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-electricGlow to-electric italic font-light pr-6 pb-4 inline-block drop-shadow-[0_0_1px_rgba(37,99,255,0.5)]">проект?</span>
+                                    <!-- Сам текст с отступами (pr-2 для мобайла, pb-4) для защиты курсива от срезания без создания лишней ширины -->
+                                    <span class="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-electricGlow to-electric italic font-light pr-2 md:pr-6 pb-2 md:pb-4 inline-block drop-shadow-[0_0_1px_rgba(37,99,255,0.5)]">проект?</span>
                                 </span>
                             </h2>
                             
@@ -1093,8 +1566,8 @@
 
                         <!-- Right Interactive Area -->
                         <div class="flex flex-col gap-4 w-full lg:w-[420px] shrink-0">
-                            <!-- Main Telegram Console Button -->
-                            <a href="https://t.me/vladpetroov" target="_blank" class="relative overflow-hidden group/btn flex items-center justify-between gap-6 px-8 py-8 bg-black/50 backdrop-blur-xl border border-electric/50 rounded-[2rem] hover:bg-electric/20 hover:border-electric hover:shadow-[0_0_50px_rgba(37,99,255,0.4)] transition-all duration-500">
+                            <!-- Main Telegram Console Button (Adjusted padding for mobile) -->
+                            <a href="https://t.me/vladpetroov" target="_blank" class="relative overflow-hidden group/btn flex items-center justify-between gap-6 px-6 py-6 md:px-8 md:py-8 bg-black/50 backdrop-blur-xl border border-electric/50 rounded-[2rem] hover:bg-electric/20 hover:border-electric hover:shadow-[0_0_50px_rgba(37,99,255,0.4)] transition-all duration-500">
                                <!-- Glint effect -->
                                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-[150%] group-hover/btn:translate-x-[150%] transition-transform duration-1000 ease-in-out"></div>
                                
@@ -1315,9 +1788,28 @@
                         trigger: el,
                         start: "top 85%",
                         toggleActions: "play none none reverse"
-                    }
+                    },
+                    onComplete: () => gsap.set(el, { clearProps: "transform" }) // Предотвращает конфликты с ховером
                 }
             );
+        });
+
+        // 3.5. Grid Stagger Animation (Optimized with Batching for large lists)
+        gsap.set('.gsap-stagger-item', { autoAlpha: 0, y: 50 }); // Инициализируем начальное положение
+        
+        ScrollTrigger.batch('.gsap-stagger-item', {
+            interval: 0.1, // Время объединения в группу (batch)
+            batchMax: 3,   // Максимум элементов в одной анимации
+            start: "top 85%",
+            onEnter: batch => gsap.to(batch, {
+                autoAlpha: 1, 
+                y: 0, 
+                duration: 0.6, 
+                stagger: 0.15, 
+                ease: "power3.out",
+                overwrite: true,
+                onComplete: () => gsap.set(batch, { clearProps: "transform" })
+            })
         });
 
         // 4. Parallax effect (removed for image as per request)
@@ -1332,12 +1824,32 @@
         gsap.to(".workflow-line-fill", {
             scaleY: 1,
             ease: "none",
+            force3D: true, // Аппаратное ускорение видеокартой для плавности
             scrollTrigger: {
                 trigger: "#workflow-section",
                 start: "top 60%", // Начинаем заливку когда секция доходит до середины экрана
                 end: "bottom 80%", // Заканчиваем когда проскроллили почти всю секцию
-                scrub: 1 // Плавная привязка к скроллу с небольшим сглаживанием
+                scrub: 0.5 // Плавная привязка к скроллу (0.5s задержка устраняет лаги)
             }
+        });
+
+        // 4.6. Sequential Node Lighting
+        const workflowNodes = document.querySelectorAll('.workflow-node');
+        workflowNodes.forEach((node) => {
+            ScrollTrigger.create({
+                trigger: node,
+                start: "top 55%", // Точка пересечения линии и кружка
+                onEnter: () => {
+                    // Включаем свечение
+                    node.classList.remove('bg-black', 'border-white/30');
+                    node.classList.add('bg-electric', 'border-electric', 'shadow-[0_0_20px_#2563FF]', 'scale-150');
+                },
+                onLeaveBack: () => {
+                    // Выключаем при скролле вверх
+                    node.classList.remove('bg-electric', 'border-electric', 'shadow-[0_0_20px_#2563FF]', 'scale-150');
+                    node.classList.add('bg-black', 'border-white/30');
+                }
+            });
         });
 
         // 5. Number Counters in About section
@@ -1377,13 +1889,13 @@
                 // Animate items out, then show/hide, then animate in
                 gsap.to(portfolioItems, {
                     scale: 0.9,
-                    opacity: 0,
+                    autoAlpha: 0,
                     duration: 0.3,
                     onComplete: () => {
                         portfolioItems.forEach(item => {
                             if(filterValue === 'all' || item.classList.contains(filterValue)) {
                                 item.style.display = 'block';
-                                gsap.to(item, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.7)" });
+                                gsap.to(item, { scale: 1, autoAlpha: 1, duration: 0.4, ease: "back.out(1.7)", clearProps: "transform" });
                             } else {
                                 item.style.display = 'none';
                             }
