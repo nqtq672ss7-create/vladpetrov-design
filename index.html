@@ -1791,9 +1791,20 @@
         // FIX: Отключаем пересчет анимаций при скрытии адресной строки на мобильных
         ScrollTrigger.config({ ignoreMobileResize: true });
 
-        // FIX: Отключаем автоматическое запоминание скролла браузером (устраняет скачки при F5)
+        // FIX: Строго отключаем автоматическое запоминание скролла браузером
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
+        }
+
+        // FIX: Принудительно возвращаем наверх при обновлении страницы. 
+        // Это решает баг со скачками по рандомным блокам из-за долгой подгрузки картинок сетки.
+        window.onbeforeunload = function () {
+            window.scrollTo(0, 0);
+        };
+        
+        // На всякий случай сбрасываем скролл и при загрузке, если в ссылке нет якоря
+        if (!window.location.hash) {
+            window.scrollTo(0, 0);
         }
 
         // 1. Smooth Scroll Initiation (Lenis)
