@@ -224,29 +224,29 @@
                         <div class="absolute inset-0 opacity-60" style="background-image: linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px); background-size: 40px 40px; -webkit-mask-image: radial-gradient(circle at center, black 20%, transparent 70%); mask-image: radial-gradient(circle at center, black 20%, transparent 70%);"></div>
                         
                         <!-- Abstract Diagonal Lines -->
-                        <div class="absolute w-[150%] h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent rotate-[35deg] translate-y-[-120px]"></div>
-                        <div class="absolute w-[150%] h-[1px] bg-gradient-to-r from-transparent via-electric/50 to-transparent -rotate-[35deg] translate-y-[180px]"></div>
-                        <div class="absolute w-[1px] h-[150%] bg-gradient-to-b from-transparent via-white/20 to-transparent translate-x-[-150px]"></div>
+                        <div class="absolute w-[150%] h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent rotate-[35deg] translate-y-[-120px] animate-pulse-slow"></div>
+                        <div class="absolute w-[150%] h-[1px] bg-gradient-to-r from-transparent via-electric/50 to-transparent -rotate-[35deg] translate-y-[180px] animate-pulse-slow" style="animation-delay: 1s;"></div>
+                        <div class="absolute w-[1px] h-[150%] bg-gradient-to-b from-transparent via-white/20 to-transparent translate-x-[-150px] animate-pulse-slow" style="animation-delay: 2s;"></div>
                         
                         <!-- Geometric Wireframes -->
-                        <div class="absolute w-[280px] h-[280px] md:w-[450px] md:h-[450px] border border-white/20 rounded-3xl rotate-[15deg] translate-x-[-10%] translate-y-[10%]"></div>
-                        <div class="absolute w-[220px] h-[220px] md:w-[380px] md:h-[380px] border border-electric/40 rounded-full -rotate-[10deg] translate-x-[15%] translate-y-[-15%]"></div>
+                        <div class="absolute w-[280px] h-[280px] md:w-[450px] md:h-[450px] border border-white/20 rounded-3xl translate-x-[-10%] translate-y-[10%] animate-[spin_40s_linear_infinite]"></div>
+                        <div class="absolute w-[220px] h-[220px] md:w-[380px] md:h-[380px] border border-electric/40 rounded-full translate-x-[15%] translate-y-[-15%] animate-[spin_30s_linear_infinite_reverse]"></div>
                         
                         <!-- Crosshairs / Targeting Marks -->
-                        <div class="absolute top-[20%] left-[20%] w-10 h-10 opacity-70">
+                        <div class="absolute top-[20%] left-[20%] w-10 h-10 opacity-70 animate-[spin_20s_linear_infinite]">
                             <div class="absolute top-1/2 left-0 w-full h-[1px] bg-white"></div>
                             <div class="absolute top-0 left-1/2 w-[1px] h-full bg-white"></div>
                         </div>
-                        <div class="absolute bottom-[25%] right-[20%] w-10 h-10 opacity-70">
+                        <div class="absolute bottom-[25%] right-[20%] w-10 h-10 opacity-70 animate-[spin_15s_linear_infinite_reverse]">
                             <div class="absolute top-1/2 left-0 w-full h-[1px] bg-white"></div>
                             <div class="absolute top-0 left-1/2 w-[1px] h-full bg-white"></div>
                         </div>
                         
                         <!-- NEW: Extra technical elements -->
-                        <div class="absolute top-[30%] right-[10%] text-white/20 font-mono text-xs tracking-[0.3em]">+ + + +</div>
-                        <div class="absolute bottom-[35%] left-[10%] text-white/20 font-mono text-xs tracking-widest flex flex-col leading-4"><span>+</span><span>+</span><span>+</span></div>
-                        <div class="absolute w-[800px] h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent rotate-[60deg] translate-x-[200px] translate-y-[-100px]"></div>
-                        <div class="absolute top-[45%] left-[15%] text-electric/30 font-mono text-[10px] tracking-widest">SYS.RDY // 100%</div>
+                        <div class="absolute top-[30%] right-[10%] text-white/20 font-mono text-xs tracking-[0.3em] animate-pulse-fast">+ + + +</div>
+                        <div class="absolute bottom-[35%] left-[10%] text-white/20 font-mono text-xs tracking-widest flex flex-col leading-4 animate-pulse-slow"><span>+</span><span>+</span><span>+</span></div>
+                        <div class="absolute w-[800px] h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent rotate-[60deg] translate-x-[200px] translate-y-[-100px] animate-pulse-fast"></div>
+                        <div class="absolute top-[45%] left-[15%] text-electric/30 font-mono text-[10px] tracking-widest animate-pulse">SYS.RDY // 100%</div>
                     </div>
 
                     <!-- Decor Rings -->
@@ -256,13 +256,13 @@
                     </div>
                     
                     <!-- Glass backdrop behind image -->
-                    <div class="absolute w-[300px] h-[400px] md:w-[450px] md:h-[650px] glass-panel-static rounded-3xl rotate-6 translate-x-4 opacity-50 z-0"></div>
+                    <div class="absolute w-[300px] h-[400px] md:w-[450px] md:h-[650px] glass-panel-static rounded-3xl rotate-6 translate-x-4 opacity-50 z-0 animate-float"></div>
                     
                     <!-- Image -->
                     <img src="https://s10.iimage.su/s/27/g9NPRMPxrMg0Py7y3IFv5H8OiAsvvVDfTG2rb2DEP.png" alt="Владислав Петров" class="relative z-10 w-auto h-full max-h-[100%] md:max-h-[95%] object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] scale-[1.15] md:scale-100 origin-bottom md:origin-center">
                     
                     <!-- NEW: AI Estimate Widget -->
-                    <div class="absolute bottom-0 md:bottom-[5%] left-0 right-0 md:left-auto md:right-[10%] glass-panel p-5 rounded-2xl z-30 w-full md:w-[260px] max-w-none cursor-pointer group hover:bg-white/5 transition-all" onclick="openAIModal()">
+                    <div class="absolute bottom-0 md:bottom-[5%] left-0 right-0 md:left-auto md:right-[10%] glass-panel p-5 rounded-2xl z-30 w-full md:w-[260px] max-w-none cursor-pointer group hover:bg-white/5 transition-all animate-float" style="animation-delay: 1.5s;" onclick="openAIModal()">
                         <div class="flex items-center gap-3 mb-3">
                             <div class="w-10 h-10 rounded-full bg-electric/20 flex items-center justify-center text-electric relative overflow-hidden shrink-0">
                                 <div class="absolute inset-0 bg-electric/20 animate-pulse"></div>
@@ -343,13 +343,16 @@
                             <img src="https://s10.iimage.su/s/27/gSnvsaTxddBqQm0sz9iB73NNZjzzrCIm13zazDbUd.png" alt="Обо мне" class="relative rounded-[1.5rem] w-full object-cover aspect-[4/5] bg-deep/50 transition-all duration-700 grayscale-[20%] group-hover:grayscale-0">
                             
                             <!-- Floating Badge -->
-                            <div class="absolute -bottom-6 -right-6 glass-panel px-6 py-4 rounded-2xl flex items-center gap-4 animate-float z-30" style="animation-delay: 1.5s;">
-                                <div class="w-12 h-12 rounded-full bg-electric/20 flex items-center justify-center text-electric">
-                                    <i class="ph-fill ph-star text-2xl shadow-[0_0_15px_#2563FF]"></i>
+                            <div class="absolute bottom-6 right-6 md:bottom-8 md:right-8 bg-gradient-to-br from-[#0B0F1A] to-black border border-electric/40 px-6 py-4 rounded-2xl flex items-center gap-4 animate-float z-30 shadow-[0_0_30px_rgba(37,99,255,0.2)] overflow-hidden" style="animation-delay: 1.5s;">
+                                <!-- Внутреннее свечение плашки -->
+                                <div class="absolute inset-0 bg-gradient-to-r from-electric/20 to-transparent opacity-60 pointer-events-none"></div>
+                                
+                                <div class="relative w-12 h-12 rounded-full bg-gradient-to-br from-electric to-electricLight flex items-center justify-center text-white shadow-[0_0_20px_rgba(37,99,255,0.6)]">
+                                    <i class="ph-fill ph-star text-xl"></i>
                                 </div>
-                                <div>
-                                    <div class="text-[9px] text-electric font-mono tracking-widest uppercase">Premium_Quality</div>
-                                    <div class="font-bold text-sm">WOW-эффекта</div>
+                                <div class="relative z-10">
+                                    <div class="text-[9px] text-electricGlow font-mono tracking-widest uppercase">Premium_Quality</div>
+                                    <div class="font-bold text-sm text-white">WOW-эффекта</div>
                                 </div>
                             </div>
                         </div>
@@ -657,7 +660,7 @@
         </section>
 
         <!-- 5. WORKFLOW PROCESS -->
-        <section class="py-24 px-6 md:px-12 relative overflow-hidden">
+        <section id="workflow-section" class="py-24 px-6 md:px-12 relative overflow-hidden">
             <!-- Architectural Decor -->
             <div class="absolute inset-0 pointer-events-none z-0">
                 <div class="absolute inset-0 opacity-20" style="background-image: linear-gradient(rgba(37,99,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(37,99,255,0.1) 1px, transparent 1px); background-size: 40px 40px; -webkit-mask-image: radial-gradient(circle at center, black 10%, transparent 60%); mask-image: radial-gradient(circle at center, black 10%, transparent 60%);"></div>
@@ -667,42 +670,79 @@
                 <div class="absolute bottom-[20%] left-[20%] text-electric/20 font-mono text-xs tracking-widest">PROCESS_SEQ_05</div>
             </div>
 
-            <div class="max-w-7xl mx-auto relative z-10">
-                <h2 class="font-display text-4xl md:text-5xl font-bold text-center mb-16 gsap-reveal">Как мы <span class="text-electric italic">строим работу</span></h2>
+            <div class="max-w-5xl mx-auto relative z-10">
+                <h2 class="font-display text-4xl md:text-6xl font-bold text-center mb-24 gsap-reveal">Как мы <span class="text-electric italic">строим работу</span></h2>
                 
-                <div class="grid md:grid-cols-5 gap-6 md:gap-4 relative">
-                    <!-- Connect line (Desktop) -->
-                    <div class="hidden md:block absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-electric/50 to-transparent -translate-y-1/2 z-0"></div>
+                <!-- Vertical Timeline Container -->
+                <div class="relative flex flex-col gap-8 md:gap-16 pb-12">
+                    
+                    <!-- Background Track Line -->
+                    <div class="absolute left-[39px] md:left-1/2 top-0 bottom-0 w-[2px] bg-white/10 md:-translate-x-1/2 rounded-full"></div>
+                    
+                    <!-- Animated Fill Line (Controlled by GSAP) -->
+                    <div class="absolute left-[39px] md:left-1/2 top-0 bottom-0 w-[2px] bg-electric md:-translate-x-1/2 rounded-full origin-top scale-y-0 shadow-[0_0_20px_#2563FF] workflow-line-fill z-10"></div>
 
-                    <!-- Steps -->
-                    <div class="glass-panel p-6 rounded-3xl relative z-10 gsap-reveal flex flex-col items-center text-center">
-                        <div class="w-12 h-12 rounded-full bg-black border border-electric/30 flex items-center justify-center text-xl font-bold text-electric mb-4 shadow-[0_0_15px_rgba(37,99,255,0.2)]">1</div>
-                        <h4 class="font-bold mb-2">Заявка</h4>
-                        <p class="text-xs text-gray-400">Связь в Telegram, обсуждение задач и целей.</p>
+                    <!-- Step 1 (Left Desktop / Right Mobile) -->
+                    <div class="relative flex items-center justify-start md:w-1/2 md:pr-16 gsap-reveal group">
+                        <!-- Node Marker -->
+                        <div class="absolute left-[35px] md:left-auto md:-right-[5px] w-3 h-3 bg-black border-2 border-white/30 rounded-full md:translate-x-1/2 -translate-x-1/2 z-20 transition-all duration-500 group-hover:border-electric group-hover:bg-electric group-hover:shadow-[0_0_20px_#2563FF] group-hover:scale-150"></div>
+                        
+                        <div class="glass-panel p-8 rounded-3xl w-full ml-[80px] md:ml-0 md:mr-auto hover:-translate-y-2 transition-transform relative overflow-hidden">
+                            <div class="absolute -top-6 -left-4 md:-right-4 md:left-auto text-8xl font-black text-white/5 font-display select-none pointer-events-none">01</div>
+                            <h4 class="text-2xl font-bold mb-3 text-electric relative z-10">Заявка</h4>
+                            <p class="text-gray-400 leading-relaxed text-sm relative z-10">Связь в Telegram, обсуждение ваших задач, целей и желаемого результата. Формируем стартовое видение.</p>
+                            <div class="absolute bottom-4 right-6 text-[10px] font-mono text-white/20">INIT_PHASE</div>
+                        </div>
                     </div>
 
-                    <div class="glass-panel p-6 rounded-3xl relative z-10 gsap-reveal flex flex-col items-center text-center" style="transition-delay: 0.1s;">
-                        <div class="w-12 h-12 rounded-full bg-black border border-electric/30 flex items-center justify-center text-xl font-bold text-electric mb-4">2</div>
-                        <h4 class="font-bold mb-2">Анализ</h4>
-                        <p class="text-xs text-gray-400">Изучение ниши, конкурентов и продукта.</p>
+                    <!-- Step 2 (Right Desktop / Right Mobile) -->
+                    <div class="relative flex items-center justify-end md:w-1/2 md:ml-auto md:pl-16 gsap-reveal group md:-mt-12">
+                        <!-- Node Marker -->
+                        <div class="absolute left-[35px] md:left-[5px] w-3 h-3 bg-black border-2 border-white/30 rounded-full md:-translate-x-1/2 -translate-x-1/2 z-20 transition-all duration-500 group-hover:border-electric group-hover:bg-electric group-hover:shadow-[0_0_20px_#2563FF] group-hover:scale-150"></div>
+                        
+                        <div class="glass-panel p-8 rounded-3xl w-full ml-[80px] md:ml-0 hover:-translate-y-2 transition-transform relative overflow-hidden">
+                            <div class="absolute -top-6 -left-4 text-8xl font-black text-white/5 font-display select-none pointer-events-none">02</div>
+                            <h4 class="text-2xl font-bold mb-3 text-white group-hover:text-electric transition-colors relative z-10">Анализ</h4>
+                            <p class="text-gray-400 leading-relaxed text-sm relative z-10">Глубокое изучение ниши, прямых конкурентов и сильных сторон вашего продукта. Ищем точки отстройки.</p>
+                            <div class="absolute bottom-4 right-6 text-[10px] font-mono text-white/20">DATA_GATHERING</div>
+                        </div>
                     </div>
 
-                    <div class="glass-panel p-6 rounded-3xl relative z-10 gsap-reveal flex flex-col items-center text-center" style="transition-delay: 0.2s;">
-                        <div class="w-12 h-12 rounded-full bg-black border border-electric flex items-center justify-center text-xl font-bold text-white mb-4 shadow-[0_0_20px_rgba(37,99,255,0.5)]">3</div>
-                        <h4 class="font-bold mb-2 text-electric">Дизайн</h4>
-                        <p class="text-xs text-gray-400">Разработка концепции и визуала.</p>
+                    <!-- Step 3 (Left Desktop / Right Mobile) - Highlighted Step -->
+                    <div class="relative flex items-center justify-start md:w-1/2 md:pr-16 gsap-reveal group md:-mt-12 z-30">
+                        <div class="absolute left-[35px] md:left-auto md:-right-[5px] w-3 h-3 bg-black border-2 border-white/30 rounded-full md:translate-x-1/2 -translate-x-1/2 z-20 transition-all duration-500 group-hover:border-electric group-hover:bg-electric group-hover:shadow-[0_0_20px_#2563FF] group-hover:scale-150"></div>
+                        
+                        <div class="glass-panel p-8 rounded-3xl w-full ml-[80px] md:ml-0 md:mr-auto hover:-translate-y-2 transition-transform relative overflow-hidden border-electric/40 shadow-[0_0_40px_rgba(37,99,255,0.15)]">
+                            <div class="absolute inset-0 bg-gradient-to-br from-electric/10 to-transparent opacity-50 pointer-events-none"></div>
+                            <div class="absolute -top-6 -left-4 md:-right-4 md:left-auto text-8xl font-black text-electric/10 font-display select-none pointer-events-none">03</div>
+                            <h4 class="text-2xl font-bold mb-3 text-electric relative z-10">Дизайн & Концепция</h4>
+                            <p class="text-gray-300 leading-relaxed text-sm relative z-10">Разработка визуальной концепции, создание сочной графики и UI-элементов, которые пробивают баннерную слепоту.</p>
+                            <div class="absolute bottom-4 right-6 text-[10px] font-mono text-electric/40">CORE_EXECUTION</div>
+                        </div>
                     </div>
 
-                    <div class="glass-panel p-6 rounded-3xl relative z-10 gsap-reveal flex flex-col items-center text-center" style="transition-delay: 0.3s;">
-                        <div class="w-12 h-12 rounded-full bg-black border border-electric/30 flex items-center justify-center text-xl font-bold text-electric mb-4">4</div>
-                        <h4 class="font-bold mb-2">Правки</h4>
-                        <p class="text-xs text-gray-400">Доводим результат до идеала.</p>
+                    <!-- Step 4 (Right Desktop / Right Mobile) -->
+                    <div class="relative flex items-center justify-end md:w-1/2 md:ml-auto md:pl-16 gsap-reveal group md:-mt-12">
+                        <div class="absolute left-[35px] md:left-[5px] w-3 h-3 bg-black border-2 border-white/30 rounded-full md:-translate-x-1/2 -translate-x-1/2 z-20 transition-all duration-500 group-hover:border-electric group-hover:bg-electric group-hover:shadow-[0_0_20px_#2563FF] group-hover:scale-150"></div>
+                        
+                        <div class="glass-panel p-8 rounded-3xl w-full ml-[80px] md:ml-0 hover:-translate-y-2 transition-transform relative overflow-hidden">
+                            <div class="absolute -top-6 -left-4 text-8xl font-black text-white/5 font-display select-none pointer-events-none">04</div>
+                            <h4 class="text-2xl font-bold mb-3 text-white group-hover:text-electric transition-colors relative z-10">Правки</h4>
+                            <p class="text-gray-400 leading-relaxed text-sm relative z-10">Презентация работы, согласование деталей и внесение корректировок. Мы доводим результат до идеала.</p>
+                            <div class="absolute bottom-4 right-6 text-[10px] font-mono text-white/20">ITERATION_LOOP</div>
+                        </div>
                     </div>
 
-                    <div class="glass-panel p-6 rounded-3xl relative z-10 gsap-reveal flex flex-col items-center text-center" style="transition-delay: 0.4s;">
-                        <div class="w-12 h-12 rounded-full bg-black border border-electric/30 flex items-center justify-center text-xl font-bold text-electric mb-4 shadow-[0_0_15px_rgba(37,99,255,0.2)]">5</div>
-                        <h4 class="font-bold mb-2">Результат</h4>
-                        <p class="text-xs text-gray-400">Передача готовых материалов.</p>
+                    <!-- Step 5 (Left Desktop / Right Mobile) -->
+                    <div class="relative flex items-center justify-start md:w-1/2 md:pr-16 gsap-reveal group md:-mt-12">
+                        <div class="absolute left-[35px] md:left-auto md:-right-[5px] w-3 h-3 bg-black border-2 border-white/30 rounded-full md:translate-x-1/2 -translate-x-1/2 z-20 transition-all duration-500 group-hover:border-electric group-hover:bg-electric group-hover:shadow-[0_0_20px_#2563FF] group-hover:scale-150"></div>
+                        
+                        <div class="glass-panel p-8 rounded-3xl w-full ml-[80px] md:ml-0 md:mr-auto hover:-translate-y-2 transition-transform relative overflow-hidden">
+                            <div class="absolute -top-6 -left-4 md:-right-4 md:left-auto text-8xl font-black text-white/5 font-display select-none pointer-events-none">05</div>
+                            <h4 class="text-2xl font-bold mb-3 text-electric relative z-10">Результат</h4>
+                            <p class="text-gray-400 leading-relaxed text-sm relative z-10">Передача всех исходников и готовых материалов в высоком разрешении. Ваш проект полностью готов к запуску.</p>
+                            <div class="absolute bottom-4 right-6 text-[10px] font-mono text-white/20">DEPLOYMENT_RDY</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -774,20 +814,57 @@
                     <p class="text-gray-400 text-lg max-w-2xl mx-auto">Передаю опыт: от первых шагов в дизайне до выхода на стабильный доход 50-100к+ на фрилансе.</p>
                 </div>
 
-                <!-- Results Mini-Carousel (CSS Flex wrap on desktop, scroll on mobile) -->
-                <div class="flex overflow-x-auto gap-4 pb-8 mb-8 snap-x hide-scrollbar gsap-reveal">
-                    <div class="glass-panel p-6 rounded-2xl min-w-[280px] flex-1 snap-center">
-                        <div class="text-3xl font-display font-bold text-electric mb-2">+ Первые заказы</div>
-                        <p class="text-sm text-gray-300">Ученики находят клиентов уже во время обучения.</p>
+                <!-- UPGRADED Results Dashboard (Grid on Desktop, Swipe on Mobile) -->
+                <div class="flex overflow-x-auto md:grid md:grid-cols-3 gap-6 pb-8 md:pb-0 mb-16 snap-x hide-scrollbar gsap-reveal">
+                    
+                    <!-- Result Card 1 -->
+                    <div class="relative glass-panel p-8 rounded-3xl min-w-[280px] md:min-w-0 flex-1 snap-center group overflow-hidden border-white/5 hover:border-electric/40 transition-colors duration-500">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-electric/10 rounded-full blur-[40px] group-hover:bg-electric/20 transition-colors"></div>
+                        
+                        <div class="flex justify-between items-center mb-10 relative z-10">
+                            <div class="text-[10px] font-mono text-white/50 group-hover:text-electric transition-colors tracking-widest border border-white/10 group-hover:border-electric/30 px-3 py-1 rounded-full">METRIC_01</div>
+                            <i class="ph-light ph-target text-2xl text-gray-500 group-hover:text-electric transition-colors"></i>
+                        </div>
+                        
+                        <div class="text-3xl md:text-4xl font-display font-black text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-electric transition-all drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+                            + Первые<br><span class="text-electric">Заказы</span>
+                        </div>
+                        <p class="text-sm text-gray-400 relative z-10 leading-relaxed">Ученики находят реальных клиентов и окупают вложения уже во время обучения.</p>
                     </div>
-                    <div class="glass-panel p-6 rounded-2xl min-w-[280px] flex-1 snap-center">
-                        <div class="text-3xl font-display font-bold text-electric mb-2">50-100k ₽</div>
-                        <p class="text-sm text-gray-300">Выход на стабильный доход удаленно через 2-3 месяца.</p>
+
+                    <!-- Result Card 2 (Highlighted) -->
+                    <div class="relative glass-panel p-8 rounded-3xl min-w-[280px] md:min-w-0 flex-1 snap-center group overflow-hidden border-electric/30 shadow-[0_0_30px_rgba(37,99,255,0.1)] hover:border-electric hover:shadow-[0_0_40px_rgba(37,99,255,0.2)] transition-all duration-500 md:-translate-y-4">
+                        <div class="absolute inset-0 bg-gradient-to-b from-electric/10 to-transparent opacity-50"></div>
+                        
+                        <div class="flex justify-between items-center mb-10 relative z-10">
+                            <div class="text-[10px] font-mono text-electric tracking-widest border border-electric px-3 py-1 rounded-full bg-electric/10 shadow-[0_0_10px_rgba(37,99,255,0.3)]">INCOME_TARGET</div>
+                            <i class="ph-light ph-chart-line-up text-2xl text-electric animate-pulse"></i>
+                        </div>
+                        
+                        <div class="text-4xl md:text-5xl font-display font-black text-white mb-3 drop-shadow-[0_0_20px_rgba(37,99,255,0.3)]">
+                            50-100<span class="text-electric">k ₽</span>
+                        </div>
+                        <p class="text-sm text-gray-300 relative z-10 leading-relaxed">Выход на стабильный доход удаленно через 2-3 месяца системной работы.</p>
+                        
+                        <!-- Animated Scanning Line -->
+                        <div class="absolute top-0 left-0 w-full h-[2px] bg-electric opacity-50 shadow-[0_0_15px_#2563FF] animate-float"></div>
                     </div>
-                    <div class="glass-panel p-6 rounded-2xl min-w-[280px] flex-1 snap-center">
-                        <div class="text-3xl font-display font-bold text-electric mb-2">Сильное портфолио</div>
-                        <p class="text-sm text-gray-300">Готовые кейсы для работы с крупными селлерами.</p>
+
+                    <!-- Result Card 3 -->
+                    <div class="relative glass-panel p-8 rounded-3xl min-w-[280px] md:min-w-0 flex-1 snap-center group overflow-hidden border-white/5 hover:border-electric/40 transition-colors duration-500">
+                        <div class="absolute bottom-0 left-0 w-32 h-32 bg-electric/10 rounded-full blur-[40px] group-hover:bg-electric/20 transition-colors"></div>
+                        
+                        <div class="flex justify-between items-center mb-10 relative z-10">
+                            <div class="text-[10px] font-mono text-white/50 group-hover:text-electric transition-colors tracking-widest border border-white/10 group-hover:border-electric/30 px-3 py-1 rounded-full">ASSET_03</div>
+                            <i class="ph-light ph-briefcase text-2xl text-gray-500 group-hover:text-electric transition-colors"></i>
+                        </div>
+                        
+                        <div class="text-3xl md:text-4xl font-display font-black text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-electric transition-all drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+                            Сильное<br><span class="text-electric">Портфолио</span>
+                        </div>
+                        <p class="text-sm text-gray-400 relative z-10 leading-relaxed">Готовые, премиально упакованные кейсы для работы с крупными селлерами и брендами.</p>
                     </div>
+
                 </div>
 
                 <!-- Pricing Cards -->
@@ -895,59 +972,109 @@
             </div>
         </section>
 
-        <!-- 9. CONTACT CTA -->
-        <section id="contact" class="py-32 px-6 md:px-12 relative overflow-hidden">
+        <!-- 9. CONTACT CTA (UPGRADED) -->
+        <section id="contact" class="py-32 px-6 md:px-12 relative overflow-hidden flex items-center justify-center min-h-screen">
             <!-- Huge glowing background -->
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] md:w-[40vw] md:h-[40vw] bg-electric/20 blur-[150px] rounded-full pointer-events-none z-0"></div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[100vw] md:w-[60vw] md:h-[60vw] bg-electric/10 blur-[150px] rounded-full pointer-events-none z-0"></div>
 
-            <!-- Architectural Decor -->
-            <div class="absolute inset-0 pointer-events-none z-0">
+            <!-- Architectural Decor & Radar -->
+            <div class="absolute inset-0 pointer-events-none z-0 overflow-hidden flex items-center justify-center">
                 <!-- Grid fading up -->
-                <div class="absolute inset-0 opacity-30" style="background-image: linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px); background-size: 60px 60px; -webkit-mask-image: linear-gradient(to top, black 10%, transparent 80%); mask-image: linear-gradient(to top, black 10%, transparent 80%);"></div>
+                <div class="absolute inset-0 opacity-30" style="background-image: linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px); background-size: 60px 60px; -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 80%); mask-image: radial-gradient(circle at center, black 30%, transparent 80%);"></div>
+                
+                <!-- Giant Radar Rings -->
+                <div class="absolute w-[800px] h-[800px] border border-electric/20 rounded-full animate-spin-very-slow"></div>
+                <div class="absolute w-[1200px] h-[1200px] border border-dashed border-white/5 rounded-full animate-[spin_60s_linear_infinite_reverse]"></div>
                 
                 <!-- Crosshairs -->
-                <div class="absolute top-[20%] left-[15%] w-12 h-12 opacity-30">
+                <div class="absolute top-[20%] left-[15%] w-16 h-16 opacity-30">
                     <div class="absolute top-1/2 left-0 w-full h-[1px] bg-electric"></div>
                     <div class="absolute top-0 left-1/2 w-[1px] h-full bg-electric"></div>
                 </div>
-                <div class="absolute top-[20%] right-[15%] w-12 h-12 opacity-30">
+                <div class="absolute bottom-[20%] right-[15%] w-16 h-16 opacity-30">
                     <div class="absolute top-1/2 left-0 w-full h-[1px] bg-electric"></div>
                     <div class="absolute top-0 left-1/2 w-[1px] h-full bg-electric"></div>
                 </div>
                 
-                <!-- NEW: Extra technical elements -->
-                <div class="absolute top-[30%] left-[8%] text-electric/30 font-mono text-[10px] tracking-widest">TARGET_ACQUIRED</div>
-                <div class="absolute bottom-[10%] right-[15%] w-48 h-48 border border-white/5 rounded-full flex items-center justify-center opacity-50">
-                    <div class="w-24 h-24 border border-dashed border-electric/20 rounded-full animate-spin-slow-reverse"></div>
+                <!-- Background Marquee Text -->
+                <div class="absolute top-[15%] w-full overflow-hidden opacity-5 flex whitespace-nowrap font-display font-black text-[150px] leading-none select-none">
+                    <div class="animate-marquee inline-block">
+                        READY TO DEPLOY /// AWAITING SIGNAL /// READY TO DEPLOY /// AWAITING SIGNAL /// 
+                    </div>
+                    <div class="animate-marquee inline-block">
+                        READY TO DEPLOY /// AWAITING SIGNAL /// READY TO DEPLOY /// AWAITING SIGNAL /// 
+                    </div>
                 </div>
-                <div class="absolute top-0 left-1/2 w-[1px] h-[30%] bg-gradient-to-b from-electric/40 to-transparent"></div>
             </div>
 
-            <div class="max-w-4xl mx-auto text-center relative z-10 gsap-reveal">
-                <h2 class="font-display text-5xl md:text-8xl font-black mb-8 tracking-tighter">
-                    Готовы начать<br><span class="text-electric italic font-light">проект?</span>
-                </h2>
-                
-                <p class="text-gray-400 text-lg md:text-xl mb-12 max-w-2xl mx-auto">Свяжитесь со мной напрямую для обсуждения вашего проекта. Я всегда открыт к новым интересным задачам.</p>
+            <!-- Command Center Console -->
+            <div class="max-w-6xl w-full mx-auto relative z-10 gsap-reveal">
+                <div class="glass-panel p-8 md:p-16 lg:p-20 rounded-[3rem] md:rounded-[4rem] border-electric/30 relative overflow-hidden group shadow-[0_0_80px_rgba(37,99,255,0.1)]">
+                    
+                    <!-- Console Inner Glow -->
+                    <div class="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_top_right,rgba(37,99,255,0.15),transparent_60%)] pointer-events-none"></div>
+                    <!-- Scanning line inside console -->
+                    <div class="absolute left-0 top-0 w-[2px] h-full bg-gradient-to-b from-transparent via-electric to-transparent opacity-50 shadow-[0_0_15px_#2563FF] animate-[pulse_3s_infinite]"></div>
 
-                <div class="flex flex-col items-center gap-6">
-                    <!-- Main CTA -->
-                    <a href="https://t.me/vladpetroov" target="_blank" class="group relative inline-flex items-center justify-center gap-4 px-10 py-6 glass-panel rounded-full overflow-hidden transition-all duration-300 hover:scale-105">
-                        <div class="absolute inset-0 bg-electric/10 group-hover:bg-electric/30 transition-colors"></div>
-                        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 shadow-[inset_0_0_40px_rgba(37,99,255,0.5)] transition-opacity duration-300 rounded-full"></div>
+                    <div class="flex flex-col lg:flex-row gap-16 items-center justify-between relative z-10">
                         
-                        <i class="ph-fill ph-telegram-logo text-3xl text-electric group-hover:text-white transition-colors relative z-10"></i>
-                        <span class="text-xl md:text-2xl font-bold relative z-10 group-hover:text-white transition-colors">Написать в Telegram</span>
-                    </a>
+                        <!-- Left Text Area -->
+                        <div class="flex-1 text-center lg:text-left w-full">
+                            <!-- Status Badge -->
+                            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-electric/30 bg-electric/10 text-electric text-[10px] font-mono tracking-widest uppercase mb-8 shadow-[0_0_20px_rgba(37,99,255,0.2)]">
+                                <span class="relative flex h-2 w-2">
+                                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-electric opacity-75"></span>
+                                  <span class="relative inline-flex rounded-full h-2 w-2 bg-electric"></span>
+                                </span>
+                                System Online // Ready
+                            </div>
+                            
+                            <h2 class="font-display text-5xl md:text-7xl lg:text-[6rem] font-black mb-6 tracking-tighter leading-[1.1]">
+                                <span class="block text-white">Готовы</span>
+                                <span class="block text-transparent bg-clip-text bg-gradient-to-r from-gray-100 to-gray-500 -mt-2 md:-mt-4">начать</span>
+                                <span class="relative inline-block -mt-6 md:-mt-10">
+                                    <!-- Свечение вынесено на задний фон, чтобы избежать обрезки -->
+                                    <span class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[120%] w-[120%] -left-[10%] bg-electric/30 blur-[50px] rounded-full z-0 pointer-events-none"></span>
+                                    <!-- Сам текст с отступами (pr-6, pb-4) для защиты курсива от срезания -->
+                                    <span class="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-electricGlow to-electric italic font-light pr-6 pb-4 inline-block drop-shadow-[0_0_1px_rgba(37,99,255,0.5)]">проект?</span>
+                                </span>
+                            </h2>
+                            
+                            <p class="text-gray-400 text-lg max-w-md mx-auto lg:mx-0 leading-relaxed">
+                                Оставьте заявку, и мы обсудим, как сделать ваш продукт визуальным лидером на рынке.
+                            </p>
+                        </div>
 
-                    <!-- Social Links -->
-                    <div class="flex gap-4 mt-8">
-                        <a href="#" class="w-14 h-14 glass-panel rounded-full flex items-center justify-center hover:bg-[#0077FF]/20 hover:text-[#0077FF] hover:border-[#0077FF] transition-all" title="VK">
-                            <i class="ph-bold ph-vk-logo text-2xl"></i>
-                        </a>
-                        <a href="#" class="w-14 h-14 glass-panel rounded-full flex items-center justify-center hover:bg-[#E60023]/20 hover:text-[#E60023] hover:border-[#E60023] transition-all" title="Pinterest">
-                            <i class="ph-bold ph-pinterest-logo text-2xl"></i>
-                        </a>
+                        <!-- Right Interactive Area -->
+                        <div class="flex flex-col gap-4 w-full lg:w-[420px] shrink-0">
+                            <!-- Main Telegram Console Button -->
+                            <a href="https://t.me/vladpetroov" target="_blank" class="relative overflow-hidden group/btn flex items-center justify-between gap-6 px-8 py-8 bg-black/50 backdrop-blur-xl border border-electric/50 rounded-[2rem] hover:bg-electric/20 hover:border-electric hover:shadow-[0_0_50px_rgba(37,99,255,0.4)] transition-all duration-500">
+                               <!-- Glint effect -->
+                               <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-[150%] group-hover/btn:translate-x-[150%] transition-transform duration-1000 ease-in-out"></div>
+                               
+                               <div class="flex flex-col text-left relative z-10">
+                                   <span class="text-[10px] font-mono text-electric group-hover/btn:text-electricLight uppercase tracking-widest mb-2 transition-colors">Primary_Contact</span>
+                                   <span class="text-2xl md:text-3xl font-bold text-white tracking-tight">Telegram</span>
+                               </div>
+                               
+                               <div class="w-14 h-14 rounded-full bg-electric flex items-center justify-center relative z-10 group-hover/btn:scale-110 transition-transform duration-500 shadow-[0_0_20px_rgba(37,99,255,0.6)]">
+                                   <i class="ph-bold ph-arrow-up-right text-2xl text-white"></i>
+                               </div>
+                            </a>
+
+                            <!-- Secondary Social Grid -->
+                            <div class="grid grid-cols-2 gap-4">
+                                <a href="#" class="flex items-center justify-center gap-3 p-5 bg-black/30 border border-white/10 backdrop-blur-md rounded-[1.5rem] hover:border-[#0077FF] hover:bg-[#0077FF]/10 transition-all duration-300 group/soc">
+                                    <i class="ph-fill ph-vk-logo text-2xl text-gray-500 group-hover/soc:text-[#0077FF] group-hover/soc:scale-110 transition-all"></i>
+                                    <span class="font-bold text-sm text-gray-400 group-hover/soc:text-white transition-colors">VKontakte</span>
+                                </a>
+                                <a href="#" class="flex items-center justify-center gap-3 p-5 bg-black/30 border border-white/10 backdrop-blur-md rounded-[1.5rem] hover:border-[#E60023] hover:bg-[#E60023]/10 transition-all duration-300 group/soc">
+                                    <i class="ph-fill ph-pinterest-logo text-2xl text-gray-500 group-hover/soc:text-[#E60023] group-hover/soc:scale-110 transition-all"></i>
+                                    <span class="font-bold text-sm text-gray-400 group-hover/soc:text-white transition-colors">Pinterest</span>
+                                </a>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -989,9 +1116,83 @@
             </div>
         </div>
 
-        <!-- Footer -->
-        <footer class="py-8 border-t border-white/10 text-center text-sm text-gray-500">
-            <p>&copy; 2024 VP-DESIGN. Владислав Петров. Все права защищены.</p>
+        <!-- UPGRADED FOOTER -->
+        <footer class="relative bg-black pt-24 pb-8 border-t border-white/10 overflow-hidden z-10">
+            <!-- Architectural Decor -->
+            <div class="absolute inset-0 pointer-events-none z-0">
+                <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[300px] bg-electric/10 blur-[120px] rounded-t-full opacity-50"></div>
+                <div class="absolute inset-0 opacity-20" style="background-image: linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 60px 60px; -webkit-mask-image: linear-gradient(to top, black 20%, transparent 80%); mask-image: linear-gradient(to top, black 20%, transparent 80%);"></div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+                
+                <!-- Massive Brand Text -->
+                <div class="w-full overflow-hidden mb-16 flex justify-center gsap-reveal">
+                    <h2 class="text-[14vw] md:text-[12vw] leading-none font-display font-black text-transparent bg-clip-text bg-gradient-to-b from-white/10 to-transparent select-none tracking-tighter">VP-DESIGN</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16 gsap-reveal">
+                    <!-- Brand & Status -->
+                    <div class="md:col-span-5 flex flex-col gap-6">
+                        <a href="#" class="font-display font-bold text-2xl tracking-wider flex items-center gap-3 group w-max">
+                            <span class="w-3 h-3 rounded-full bg-electric group-hover:shadow-[0_0_15px_#2563FF] transition-all"></span>
+                            VP-DESIGN
+                        </a>
+                        <p class="text-gray-400 text-sm leading-relaxed max-w-sm">
+                            Создаю премиальные интерфейсы и визуальные концепции, которые продают. От идеи до wow-эффекта.
+                        </p>
+                        <!-- Status Badge -->
+                        <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 bg-white/5 w-max">
+                            <span class="relative flex h-2 w-2">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-electric opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-electric"></span>
+                            </span>
+                            <span class="text-[10px] font-mono text-white/80 uppercase tracking-widest">Available for projects</span>
+                        </div>
+                    </div>
+
+                    <!-- Navigation -->
+                    <div class="md:col-span-2 md:col-start-8 flex flex-col gap-4">
+                        <h4 class="text-white font-bold mb-2 font-mono text-[10px] tracking-widest uppercase">Навигация</h4>
+                        <a href="#hero" class="text-gray-400 hover:text-electric transition-colors text-sm w-max">Главная</a>
+                        <a href="#about" class="text-gray-400 hover:text-electric transition-colors text-sm w-max">Обо мне</a>
+                        <a href="#portfolio" class="text-gray-400 hover:text-electric transition-colors text-sm w-max">Портфолио</a>
+                        <a href="#services" class="text-gray-400 hover:text-electric transition-colors text-sm w-max">Услуги</a>
+                    </div>
+
+                    <!-- Socials -->
+                    <div class="md:col-span-2 flex flex-col gap-4">
+                        <h4 class="text-white font-bold mb-2 font-mono text-[10px] tracking-widest uppercase">Соцсети</h4>
+                        <a href="https://t.me/vladpetroov" target="_blank" class="text-gray-400 hover:text-electric transition-colors text-sm flex items-center gap-2 w-max group">
+                            <i class="ph-fill ph-telegram-logo group-hover:scale-110 transition-transform"></i> Telegram
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-[#0077FF] transition-colors text-sm flex items-center gap-2 w-max group">
+                            <i class="ph-fill ph-vk-logo group-hover:scale-110 transition-transform"></i> VKontakte
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-[#E60023] transition-colors text-sm flex items-center gap-2 w-max group">
+                            <i class="ph-fill ph-pinterest-logo group-hover:scale-110 transition-transform"></i> Pinterest
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Bottom Line -->
+                <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
+                    <div class="text-xs text-gray-500 flex flex-col md:flex-row items-center gap-2 md:gap-4">
+                        <span>&copy; 2024 VP-DESIGN.</span>
+                        <span class="hidden md:block w-1 h-1 bg-white/20 rounded-full"></span>
+                        <span>Владислав Петров. Все права защищены.</span>
+                    </div>
+                    
+                    <div class="text-[10px] text-electric/40 font-mono tracking-widest uppercase hidden lg:block">
+                        SYS.END // CONNECTION_SECURE
+                    </div>
+
+                    <!-- Back to top button -->
+                    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-gray-400 hover:text-electric group">
+                        <i class="ph-bold ph-arrow-up text-xl group-hover:-translate-y-1 transition-transform"></i>
+                    </button>
+                </div>
+            </div>
         </footer>
     </main>
 
@@ -1079,6 +1280,18 @@
             const yAxis = (window.innerHeight / 2 - e.pageY) / 80;
             
             // Apply only to background rings/elements if needed, here removed for general "me" animation
+        });
+
+        // 4.5. Workflow Timeline Animation
+        gsap.to(".workflow-line-fill", {
+            scaleY: 1,
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#workflow-section",
+                start: "top 60%", // Начинаем заливку когда секция доходит до середины экрана
+                end: "bottom 80%", // Заканчиваем когда проскроллили почти всю секцию
+                scrub: 1 // Плавная привязка к скроллу с небольшим сглаживанием
+            }
         });
 
         // 5. Number Counters in About section
@@ -1206,7 +1419,10 @@
                         body: JSON.stringify(payload)
                     });
 
-                    if (!response.ok) throw new Error('Network response error');
+                    if (!response.ok) {
+                        const errorData = await response.json().catch(() => ({}));
+                        throw new Error(errorData.error?.message || `Ошибка сервера: ${response.status}`);
+                    }
 
                     const data = await response.json();
                     const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
@@ -1216,7 +1432,7 @@
                     return;
                 } catch (error) {
                     if (retries === maxRetries) {
-                        outputEl.innerHTML = `<div class="text-red-400 text-sm py-4">Ошибка соединения с нейросетью. Пожалуйста, попробуйте позже или напишите Владу напрямую.</div>`;
+                        outputEl.innerHTML = `<div class="text-red-400 text-sm py-4">Ошибка: ${error.message}<br><br>Пожалуйста, попробуйте позже или напишите Владу напрямую.</div>`;
                         return;
                     }
                     await new Promise(resolve => setTimeout(resolve, delays[retries]));
