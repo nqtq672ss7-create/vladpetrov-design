@@ -207,7 +207,7 @@
     <!-- Navigation -->
     <nav class="fixed w-full z-50 top-0 pt-6 px-6 md:px-12 transition-all duration-300" id="navbar">
         <div class="max-w-7xl mx-auto flex justify-between items-center glass-panel-static rounded-full px-6 py-4 border-white/10">
-            <a href="#" class="font-display font-bold text-xl tracking-wider flex items-center gap-2 group">
+            <a href="#hero" class="font-display font-bold text-xl tracking-wider flex items-center gap-2 group">
                 <span class="w-2 h-2 rounded-full bg-electric group-hover:shadow-[0_0_15px_#2563FF] transition-all"></span>
                 VP-DESIGN
             </a>
@@ -1336,7 +1336,8 @@
                 </div>
 
                 <!-- UPGRADED Results Dashboard (Grid on Desktop, Swipe on Mobile) -->
-                <div class="flex overflow-x-auto md:grid md:grid-cols-3 gap-6 pb-8 md:pb-0 mb-16 snap-x hide-scrollbar gsap-stagger-grid">
+                <!-- FIX: Добавлены pt-10 pb-10, чтобы тени и приподнятая центральная карточка не обрезались контейнером -->
+                <div class="flex overflow-x-auto md:grid md:grid-cols-3 gap-6 pt-10 pb-10 md:pt-12 md:pb-12 mb-10 snap-x hide-scrollbar gsap-stagger-grid px-4 -mx-4 md:px-0 md:mx-0">
                     
                     <!-- Result Card 1 -->
                     <div class="gsap-stagger-item min-w-[280px] md:min-w-0 flex-1 snap-center">
@@ -1395,7 +1396,8 @@
                 </div>
 
                 <!-- Pricing Cards -->
-                <div class="grid lg:grid-cols-3 gap-8 items-center gsap-stagger-grid">
+                <!-- FIX: Добавлен py-8, чтобы тень центрального тарифа (Хит продаж) не обрезалась -->
+                <div class="grid lg:grid-cols-3 gap-8 items-center gsap-stagger-grid py-8">
                     
                     <!-- Basic -->
                     <div class="gsap-stagger-item h-full">
@@ -1598,11 +1600,11 @@
 
                             <!-- Secondary Social Grid -->
                             <div class="grid grid-cols-2 gap-4">
-                                <a href="#" class="flex items-center justify-center gap-3 p-5 bg-black/30 border border-white/10 backdrop-blur-md rounded-[1.5rem] hover:border-[#0077FF] hover:bg-[#0077FF]/10 transition-all duration-300 group/soc">
+                                <a href="javascript:void(0)" class="flex items-center justify-center gap-3 p-5 bg-black/30 border border-white/10 backdrop-blur-md rounded-[1.5rem] hover:border-[#0077FF] hover:bg-[#0077FF]/10 transition-all duration-300 group/soc">
                                     <i class="ph-fill ph-vk-logo text-2xl text-gray-500 group-hover/soc:text-[#0077FF] group-hover/soc:scale-110 transition-all"></i>
                                     <span class="font-bold text-sm text-gray-400 group-hover/soc:text-white transition-colors">VKontakte</span>
                                 </a>
-                                <a href="#" class="flex items-center justify-center gap-3 p-5 bg-black/30 border border-white/10 backdrop-blur-md rounded-[1.5rem] hover:border-[#E60023] hover:bg-[#E60023]/10 transition-all duration-300 group/soc">
+                                <a href="javascript:void(0)" class="flex items-center justify-center gap-3 p-5 bg-black/30 border border-white/10 backdrop-blur-md rounded-[1.5rem] hover:border-[#E60023] hover:bg-[#E60023]/10 transition-all duration-300 group/soc">
                                     <i class="ph-fill ph-pinterest-logo text-2xl text-gray-500 group-hover/soc:text-[#E60023] group-hover/soc:scale-110 transition-all"></i>
                                     <span class="font-bold text-sm text-gray-400 group-hover/soc:text-white transition-colors">Pinterest</span>
                                 </a>
@@ -1674,7 +1676,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16 gsap-reveal">
                     <!-- Brand & Status -->
                     <div class="md:col-span-5 flex flex-col gap-6">
-                        <a href="#" class="font-display font-bold text-2xl tracking-wider flex items-center gap-3 group w-max">
+                        <a href="#hero" class="font-display font-bold text-2xl tracking-wider flex items-center gap-3 group w-max">
                             <span class="w-3 h-3 rounded-full bg-electric group-hover:shadow-[0_0_15px_#2563FF] transition-all"></span>
                             VP-DESIGN
                         </a>
@@ -1706,10 +1708,10 @@
                         <a href="https://t.me/vladpetroov" target="_blank" class="text-gray-400 hover:text-electric transition-colors text-sm flex items-center gap-2 w-max group">
                             <i class="ph-fill ph-telegram-logo group-hover:scale-110 transition-transform"></i> Telegram
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-[#0077FF] transition-colors text-sm flex items-center gap-2 w-max group">
+                        <a href="javascript:void(0)" class="text-gray-400 hover:text-[#0077FF] transition-colors text-sm flex items-center gap-2 w-max group">
                             <i class="ph-fill ph-vk-logo group-hover:scale-110 transition-transform"></i> VKontakte
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-[#E60023] transition-colors text-sm flex items-center gap-2 w-max group">
+                        <a href="javascript:void(0)" class="text-gray-400 hover:text-[#E60023] transition-colors text-sm flex items-center gap-2 w-max group">
                             <i class="ph-fill ph-pinterest-logo group-hover:scale-110 transition-transform"></i> Pinterest
                         </a>
                     </div>
@@ -1721,6 +1723,8 @@
                         <span>&copy; 2024 VP-DESIGN.</span>
                         <span class="hidden md:block w-1 h-1 bg-white/20 rounded-full"></span>
                         <span>Владислав Петров. Все права защищены.</span>
+                        <span class="hidden md:block w-1 h-1 bg-white/20 rounded-full"></span>
+                        <a href="https://direct.yandex.ru/base/articles/obrabotka-personalnyh-dannyh-na-sajte" target="_blank" rel="noopener noreferrer" class="hover:text-electric transition-colors border-b border-transparent hover:border-electric">Политика конфиденциальности</a>
                     </div>
                     
                     <div class="text-[10px] text-electric/40 font-mono tracking-widest uppercase hidden lg:block">
@@ -1728,7 +1732,7 @@
                     </div>
 
                     <!-- Back to top button -->
-                    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-gray-400 hover:text-electric group">
+                    <button onclick="window.lenis ? window.lenis.scrollTo(0) : window.scrollTo(0,0)" class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-gray-400 hover:text-electric group shrink-0">
                         <i class="ph-bold ph-arrow-up text-xl group-hover:-translate-y-1 transition-transform"></i>
                     </button>
                 </div>
@@ -1765,6 +1769,11 @@
         // FIX: Отключаем пересчет анимаций при скрытии адресной строки на мобильных
         ScrollTrigger.config({ ignoreMobileResize: true });
 
+        // FIX: Отключаем автоматическое запоминание скролла браузером (устраняет скачки при F5)
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+
         // 1. Smooth Scroll Initiation (Lenis)
         const lenis = new Lenis({
             duration: 1.2,
@@ -1777,6 +1786,16 @@
             touchMultiplier: 2,
             infinite: false,
         })
+        
+        window.lenis = lenis; // Сохраняем глобально для кнопок
+
+        // FIX: Перехватываем клики по ссылкам-якорям (меню), чтобы их плавно крутил Lenis, а не дергал браузер
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                lenis.scrollTo(this.getAttribute('href'));
+            });
+        });
 
         // FIX: Правильная и стабильная синхронизация Lenis и GSAP
         lenis.on('scroll', ScrollTrigger.update);
@@ -1786,6 +1805,11 @@
         });
         
         gsap.ticker.lagSmoothing(0);
+
+        // Обновляем высоту анимаций после полной загрузки всех картинок
+        window.addEventListener('load', () => {
+            ScrollTrigger.refresh();
+        });
 
         // 2. Initial Hero Animations
         const tl = gsap.timeline();
