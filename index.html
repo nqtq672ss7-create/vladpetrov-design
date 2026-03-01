@@ -1833,27 +1833,25 @@
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.32/dist/lenis.min.js"></script>
 
     <script>
+        // ==========================================
+        // ULTIMATE SCROLL FIX FOR MOBILE
+        // ==========================================
+        
+        // 1. Отключаем нативное восстановление скролла браузером
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+
+        // 2. Жесткий сброс только при самом начале инициализации
+        if (!window.location.hash) {
+            window.scrollTo(0, 0);
+        }
+
         // Sync GSAP ScrollTrigger
         gsap.registerPlugin(ScrollTrigger);
         
         // FIX: Отключаем пересчет анимаций при скрытии адресной строки на мобильных
         ScrollTrigger.config({ ignoreMobileResize: true });
-
-        // FIX: Строго отключаем автоматическое запоминание скролла браузером
-        if ('scrollRestoration' in history) {
-            history.scrollRestoration = 'manual';
-        }
-
-        // FIX: Принудительно возвращаем наверх при обновлении страницы. 
-        // Это решает баг со скачками по рандомным блокам из-за долгой подгрузки картинок сетки.
-        window.onbeforeunload = function () {
-            window.scrollTo(0, 0);
-        };
-        
-        // На всякий случай сбрасываем скролл и при загрузке, если в ссылке нет якоря
-        if (!window.location.hash) {
-            window.scrollTo(0, 0);
-        }
 
         // 1. Smooth Scroll Initiation (Lenis)
         const lenis = new Lenis({
@@ -1866,11 +1864,32 @@
             smoothTouch: false,
             touchMultiplier: 2,
             infinite: false,
-        })
+        });
         
         window.lenis = lenis; // Сохраняем глобально для кнопок
 
-        // FIX: Перехватываем клики по ссылкам-якорям (меню), чтобы их плавно крутил Lenis, а не дергал браузер
+        // Сброс позиции в самом Lenis при инициализации
+        if (!window.location.hash) {
+            lenis.scrollTo(0, { immediate: true });
+        }
+
+        // FIX: Плавный и умный пересчет высоты при подгрузке картинок
+        // Используем debounce (задержку), чтобы страница не прыгала
+        let resizeTimeout;
+        const resizeObserver = new ResizeObserver(() => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                ScrollTrigger.refresh();
+            }, 300);
+        });
+
+        // Наблюдаем за контейнером портфолио, где подгружаются картинки
+        const gridToObserve = document.getElementById('portfolio-grid');
+        if (gridToObserve) {
+            resizeObserver.observe(gridToObserve);
+        }
+
+        // Перехватываем клики по ссылкам-якорям (меню), чтобы их плавно крутил Lenis
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1878,7 +1897,7 @@
             });
         });
 
-        // FIX: Правильная и стабильная синхронизация Lenis и GSAP
+        // Правильная и стабильная синхронизация Lenis и GSAP
         lenis.on('scroll', ScrollTrigger.update);
 
         gsap.ticker.add((time) => {
@@ -1887,7 +1906,8 @@
         
         gsap.ticker.lagSmoothing(0);
 
-        // Обновляем высоту анимаций после полной загрузки всех картинок
+        // При полной загрузке просто обновляем триггеры БЕЗ сброса скролла, 
+        // чтобы не кидало наверх, если пользователь уже начал листать.
         window.addEventListener('load', () => {
             ScrollTrigger.refresh();
         });
@@ -2254,7 +2274,8 @@
 ОБЯЗАТЕЛЬНО используй HTML-теги для форматирования (<b>, <ul>, <ol>, <li>, <br>). Не используй Markdown (* или #).`;
             }
 
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            // ИСПРАВЛЕНИЕ: Используем стабильную модель gemini-1.5-flash
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
             
             const payload = {
                 contents: [{ parts: [{ text: query }] }],
@@ -2279,56 +2300,56 @@
                     }
 
                     const data = await response.json();
-                    let text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                    позволять текст = данные.кандидаты?.[0]?.содержание?.части?.[0]?.текст;
                     
-                    // Cleanup any markdown that Gemini might have accidentally included
-                    if(text) {
-                        text = text.replace(/```html/g, '').replace(/```/g, '');
+                    //Очистите любую размѵтку, которрую Близнецы могла случайно включить
+                    если(текст) {
+                        текст = текст.заменять(/``html/г, '').заменять(/```/г, '');
                     }
                     
-                    outputEl.innerHTML = `<div class="text-sm text-gray-300 leading-relaxed space-y-3">${text}</div>`;
-                    inputEl.value = ''; // clear input after success
-                    return;
-                } catch (error) {
-                    if (retries === maxRetries) {
-                        outputEl.innerHTML = `<div class="text-red-400 text-sm py-4">Ошибка: ${error.message}<br><br>Пожалуйста, попробуйте позже или напишите Владу напрямую.</div>`;
-                        return;
+                    выходЭл.внутреннийHTML = `<div class="text-sm text-gray-300 ведущий-расслабленный пробел-y-3">${текст}</див>`;
+                    вводЭл.ценить = ''; // очистить ввод после успеха
+                    возвращаться;
+                } ловить (ошибка) {
+                    если (повторные попытки === maxRetries) {
+                        выходЭл.внутреннийHTML = `<div class="text-red-400 text-sm py-4">Ошибка: ${ошибка.сообщение}<br><br>ПожалѰлуйст, попробуйте позже или напишите Владу напрямую.</div>`;
+                        возвращаться;
                     }
-                    await new Promise(resolve => setTimeout(resolve, delays[retries]));
-                    retries++;
+                    ждать новый Обещать(решать => setTimeout(решать, задержки[повторные попытки]));
+                    повторные попытки++;
                 }
             }
         }
 
-        // 9. Cookie Banner Logic
-        document.addEventListener('DOMContentLoaded', () => {
-            const cookieBanner = document.getElementById('cookie-banner');
+        // 9. Логика баннра файлв cookie
+        документ.addEventListener(«DOMContentLoaded», () => {
+            константа cookieBanner = документ.getElementById('баннер-печенье');
             // Проверяем, есть ли уже согласие
-            if (!localStorage.getItem('cookieConsent')) {
+            если (!локальное хранилище.получитьЭлемент('cookieConsent')) {
                 // Если нет, показываем плашку через 2.5 секунды после загрузки
                 setTimeout(() => {
-                    if(cookieBanner) {
-                        cookieBanner.classList.remove('translate-y-[150%]', 'opacity-0');
+                    если(cookieBanner) {
+                        cookieBanner.список классов.удалять('translate-y-[150%]', 'непрозрачность-0');
                     }
                 }, 2500);
             }
         });
 
-        function acceptCookies() {
-            localStorage.setItem('cookieConsent', 'true');
-            hideCookieBanner();
+        функция принятьФайлы печенье() {
+            локальное хранилище.setItem('cookieConsent', «правда»);
+            скачатьCookieBanner();
         }
 
-        function hideCookieBanner() {
-            const cookieBanner = document.getElementById('cookie-banner');
-            if(cookieBanner) {
-                cookieBanner.classList.add('translate-y-[150%]', 'opacity-0');
-                // Удаляем из DOM после завершения анимации
+        функция скачатьCookieBanner() {
+            константа cookieBanner = документ.getElementById('баннер-печенье');
+            если(cookieBanner) {
+                cookieBanner.список классов.добавлять('translate-y-[150%]', 'непрозрачность-0');
+                //Удляѵм из DOM поЁле завершения анимации
                 setTimeout(() => {
-                    cookieBanner.style.display = 'none';
+                    cookieBanner.стиль.отображать = «нет»;
                 }, 500);
             }
         }
-    </script>
-</body>
-</html>
+    </сценарий>
+</тело>
+        </html>
