@@ -27,7 +27,7 @@
     <meta name="twitter:description" content="Создаю премиальные интерфейсы и визуальные концепции, которые продают. От идеи до wow-эффекта. Инфографика, сайты, реклама и оформление соцсетей.">
     <meta name="twitter:image" content="https://s10.iimage.su/s/28/gXGTX4oxzHqHMvEYjQmK2G2rNb5gFjumBVokjOrzB.png">
 
-    <!-- NEW: Favicon -->
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="https://s10.iimage.su/s/28/guzzXJhxvBlwG27IQdKna2qjocXg9jSgMhjqPpYa4.png">
     
     <!-- Fonts -->
@@ -182,22 +182,21 @@
                 scroll-snap-type: x mandatory;
                 gap: 1rem !important;
                 padding-bottom: 2rem;
-                /* Отрицательные отступы делают скролл от края до края экрана (Full Bleed) */
                 margin-left: -1.5rem;
                 margin-right: -1.5rem;
                 padding-left: 1.5rem;
                 padding-right: 1.5rem;
-                -ms-overflow-style: none; /* Скрытие скроллбара IE/Edge */
-                scrollbar-width: none; /* Скрытие скроллбара Firefox */
+                -ms-overflow-style: none;
+                scrollbar-width: none;
             }
             #portfolio-grid::-webkit-scrollbar {
-                display: none; /* Скрытие скроллбара Chrome/Safari */
+                display: none;
             }
             #portfolio-grid .portfolio-item {
                 width: 85vw !important;
                 max-width: 320px;
                 flex-shrink: 0;
-                scroll-snap-align: center; /* Карточки магнитятся по центру при свайпе */
+                scroll-snap-align: center;
                 margin-bottom: 0 !important;
             }
         }
@@ -222,13 +221,12 @@
 
     <!-- Ambient Background -->
     <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
-        <!-- Grid overlay (replaced SVG with sharper CSS grid and increased visibility) -->
         <div class="absolute inset-0 opacity-40" style="background-image: linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px); background-size: 60px 60px;"></div>
     </div>
 
     <!-- Navigation -->
     <nav class="fixed w-full z-50 top-0 pt-6 px-6 md:px-12 transition-all duration-300" id="navbar">
-        <div class="max-w-7xl mx-auto flex justify-between items-center glass-panel-static rounded-full px-6 py-4 border-white/10">
+        <div class="max-w-7xl mx-auto flex justify-between items-center glass-panel-static rounded-full px-6 py-4 border-white/10 relative">
             <a href="#hero" class="font-display font-bold text-xl tracking-wider flex items-center gap-2 group">
                 <span class="w-2 h-2 rounded-full bg-electric group-hover:shadow-[0_0_15px_#2563FF] transition-all"></span>
                 VP-DESIGN
@@ -243,9 +241,17 @@
             </div>
 
             <!-- Mobile Menu Btn -->
-            <button class="md:hidden text-white p-2">
-                <i class="ph ph-list text-2xl"></i>
+            <button id="mobile-menu-btn" class="md:hidden text-white p-2 transition-transform active:scale-95">
+                <i id="mobile-menu-icon" class="ph ph-list text-2xl"></i>
             </button>
+
+            <!-- Mobile Nav Dropdown -->
+            <div id="mobile-menu" class="absolute top-[110%] left-0 right-0 glass-panel-static rounded-2xl border-white/10 p-2 flex flex-col opacity-0 pointer-events-none transition-all duration-300 translate-y-[-10px] md:hidden shadow-[0_20px_40px_rgba(0,0,0,0.5)]">
+                <a href="#about" class="mobile-nav-link text-white font-medium text-center py-3 rounded-xl hover:bg-white/5 transition-colors">Обо мне</a>
+                <a href="#portfolio" class="mobile-nav-link text-white font-medium text-center py-3 rounded-xl hover:bg-white/5 transition-colors">Портфолио</a>
+                <a href="#services" class="mobile-nav-link text-white font-medium text-center py-3 rounded-xl hover:bg-white/5 transition-colors">Услуги</a>
+                <a href="#contact" class="mobile-nav-link text-white font-medium text-center py-3 rounded-xl hover:bg-white/5 transition-colors">Контакты</a>
+            </div>
         </div>
     </nav>
 
@@ -253,46 +259,30 @@
         <!-- 1. HERO BLOCK -->
         <section id="hero" class="relative min-h-[85svh] lg:min-h-[90vh] flex items-center pt-32 pb-12 px-6 md:px-12 overflow-hidden">
             
-            <!-- NEW: Full-Screen Scattered Tech Background (Replaces centralized pentagram & glow) -->
             <div class="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-                <!-- Global Fading Grid -->
                 <div class="absolute inset-0 opacity-40" style="background-image: linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 50px 50px; -webkit-mask-image: radial-gradient(ellipse at center, black 15%, transparent 75%); mask-image: radial-gradient(ellipse at center, black 15%, transparent 75%);"></div>
                 
-                <!-- Scattered Tech Elements (Spread across the screen) -->
                 <div class="absolute top-[10%] left-[5%] md:left-[15%] w-[250px] md:w-[400px] h-[250px] md:h-[400px] border border-white/5 rounded-full animate-spin-slow prlx-mouse prlx-scroll" data-depth="0.04" data-speed="0.1"></div>
-                
                 <div class="absolute bottom-[5%] left-[20%] md:left-[30%] w-[300px] md:w-[500px] h-[300px] md:h-[500px] border border-dashed border-electric/20 rounded-full animate-[spin_40s_linear_infinite_reverse] prlx-mouse prlx-scroll" data-depth="0.06" data-speed="-0.05"></div>
-                
                 <div class="absolute top-[20%] right-[10%] w-[200px] h-[200px] border border-white/10 rounded-3xl rotate-12 animate-float prlx-mouse prlx-scroll" data-depth="0.03" data-speed="0.08"></div>
-                
-                <!-- Abstract Diagonal Lines -->
                 <div class="prlx-scroll absolute w-[80%] md:w-[60%] h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent rotate-[25deg] top-[30%] left-[-20%] md:left-[-10%] animate-pulse-slow" data-speed="0.15"></div>
-                
                 <div class="prlx-scroll absolute w-[70%] md:w-[50%] h-[1px] bg-gradient-to-r from-transparent via-electric/30 to-transparent -rotate-[25deg] bottom-[25%] right-[-10%] md:right-[5%] animate-pulse-slow" style="animation-delay: 1s;" data-speed="-0.1"></div>
-                
-                <!-- Crosshairs & Marks -->
                 <div class="absolute top-[40%] left-[40%] md:right-[45%] w-8 h-8 opacity-40 animate-[spin_20s_linear_infinite] prlx-mouse" data-depth="0.05">
                     <div class="absolute top-1/2 left-0 w-full h-[1px] bg-white"></div>
                     <div class="absolute top-0 left-1/2 w-[1px] h-full bg-white"></div>
                 </div>
-                
                 <div class="absolute bottom-[30%] right-[10%] md:right-[20%] w-12 h-12 opacity-50 prlx-mouse" data-depth="0.02">
                     <div class="absolute top-0 left-0 w-3 h-3 border-t border-l border-white/40"></div>
                     <div class="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-electric/60"></div>
                 </div>
-                
-                <!-- Data text -->
                 <div class="absolute top-[25%] right-[5%] md:right-[15%] text-white/20 font-mono text-xs tracking-[0.3em] animate-pulse-fast prlx-scroll" data-speed="0.1">+ + + +</div>
-                
                 <div class="absolute bottom-[20%] left-[5%] md:left-[10%] text-electric/40 font-mono text-[10px] tracking-widest animate-pulse prlx-mouse" data-depth="0.02">SYS.RDY // VP-DESIGN</div>
             </div>
 
-            <!-- NEW: Massive Background Typography -->
             <div class="absolute top-[15%] left-[-2%] text-[12rem] lg:text-[18rem] font-display font-black text-white/[0.02] select-none pointer-events-none z-0 tracking-tighter hidden md:block leading-none">
                 CREATIVE
             </div>
 
-            <!-- NEW: Left Technical Ruler -->
             <div class="absolute left-6 top-1/4 bottom-1/4 w-[1px] bg-white/10 hidden xl:block z-0">
                 <div class="absolute top-0 left-0 w-3 h-[1px] bg-white/30"></div>
                 <div class="absolute top-[20%] left-0 w-1 h-[1px] bg-white/20"></div>
@@ -304,11 +294,7 @@
             </div>
 
             <div class="max-w-7xl mx-auto w-full grid md:grid-cols-2 gap-4 md:gap-12 items-center relative z-10 lg:-translate-y-8">
-                
-                <!-- Text Content -->
                 <div class="flex flex-col items-start z-20 relative mb-12 md:mb-0">
-                    
-                    <!-- NEW: Floating Status Badge -->
                     <div class="absolute -left-8 lg:-left-16 top-[20%] glass-panel px-3 py-1.5 rounded-lg border-white/10 animate-float hidden md:flex items-center gap-2 z-20" style="animation-delay: 0.5s;">
                         <div class="w-1.5 h-1.5 bg-electricGlow rounded-full animate-pulse shadow-[0_0_8px_#60A5FA]"></div>
                         <span class="text-[8px] font-mono text-gray-300 tracking-widest uppercase">Status: Open</span>
@@ -328,12 +314,11 @@
                         <span class="gsap-hero-title block text-electric mt-2 uppercase tracking-tighter">Digital Excellence</span>
                     </h1>
 
-                    <!-- Уменьшен отступ снизу до минимума (mb-2 md:mb-3) -->
                     <p class="gsap-hero-el text-lg md:text-xl text-gray-400 font-light max-w-lg mb-2 md:mb-3 leading-relaxed">
                         Красиво. Технологично. Эффективно.
                     </p>
 
-                    <!-- UPGRADED & FIXED: Solid Blue Button without transition conflicts -->
+                    <!-- ИСПРАВЛЕНО: Убрали transition-all и прописали конкретные свойства (transition-colors transition-transform transition-shadow) -->
                     <a href="https://t.me/vladpetroov" target="_blank" class="gsap-hero-el group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-electric text-white font-bold rounded-2xl overflow-hidden transition-colors transition-transform transition-shadow duration-300 hover:bg-electricLight shadow-[0_0_20px_rgba(37,99,255,0.4)] hover:shadow-[0_0_40px_rgba(37,99,255,0.7)] hover:-translate-y-1 active:scale-95 z-30">
                         <span class="relative flex items-center gap-2">
                             Связаться
@@ -341,7 +326,6 @@
                         </span>
                     </a>
 
-                    <!-- NEW: Social Proof Block. Увеличен отступ сверху для максимального отдаления (mt-12 md:mt-10) -->
                     <div class="gsap-hero-el mt-12 md:mt-10 flex items-center gap-4 bg-white/5 border border-white/10 rounded-2xl p-3 pr-6 backdrop-blur-sm relative z-20">
                         <div class="flex -space-x-3">
                             <div class="w-10 h-10 rounded-full border-2 border-black bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center text-[10px] text-white/50 relative z-[3] shadow-lg">AM</div>
@@ -356,16 +340,10 @@
                     </div>
                 </div>
 
-                <!-- Hero Image & AI Widget -->
                 <div class="relative w-full h-[480px] md:h-[650px] lg:h-[750px] flex justify-center items-center gsap-hero-image mt-4 md:mt-0">
-                    
-                    <!-- Soft Glass backdrop frame (toned down) -->
                     <div class="absolute w-[280px] h-[400px] md:w-[420px] md:h-[600px] glass-panel-static rounded-3xl rotate-3 translate-x-2 opacity-20 z-0 animate-float prlx-scroll" data-speed="0.05"></div>
-                    
-                    <!-- Image -->
                     <img src="https://s10.iimage.su/s/27/g9NPRMPxrMg0Py7y3IFv5H8OiAsvvVDfTG2rb2DEP.png" alt="" class="relative z-10 w-auto h-full max-h-[100%] md:max-h-[95%] object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] scale-[1.15] md:scale-100 origin-bottom md:origin-center">
                     
-                    <!-- UPGRADED: AI Assistant Widget -->
                     <div class="absolute bottom-0 md:bottom-[5%] left-0 right-0 md:left-auto md:right-[10%] glass-panel p-5 rounded-2xl z-30 w-full md:w-[260px] max-w-none cursor-pointer group hover:bg-white/5 transition-all animate-float" style="animation-delay: 1.5s;" onclick="openAIModal()">
                         <div class="flex items-center gap-3 mb-3">
                             <div class="w-10 h-10 rounded-full bg-electric/20 flex items-center justify-center text-electric relative overflow-hidden shrink-0">
@@ -382,51 +360,30 @@
                 </div>
             </div>
 
-            <!-- NEW: Scroll Down Indicator -->
             <div class="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 z-20">
                 <span class="text-[9px] font-mono tracking-widest uppercase text-electric/80 hidden md:block">Scroll</span>
                 <div class="w-[1px] h-12 md:h-16 bg-gradient-to-b from-electric via-electric/50 to-transparent animate-pulse-fast"></div>
             </div>
         </section>
 
-        <!-- 2. ABOUT ME (UPGRADED) -->
+        <!-- 2. ABOUT ME -->
         <section id="about" class="pt-12 pb-24 px-6 md:px-12 relative z-10 overflow-hidden">
-            <!-- Architectural Decor -->
             <div class="absolute inset-0 pointer-events-none z-0">
                 <div class="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] border border-white/5 rounded-full"></div>
                 <div class="absolute bottom-[20%] left-[-5%] w-[400px] h-[400px] border border-electric/10 rounded-3xl rotate-[25deg]"></div>
-                <!-- Crosshair -->
-                <div class="absolute bottom-[10%] left-[10%] w-12 h-12 opacity-20">
-                    <div class="absolute top-1/2 left-0 w-full h-[1px] bg-white"></div>
-                    <div class="absolute top-0 left-1/2 w-[1px] h-full bg-white"></div>
-                </div>
-                <!-- Extra technical elements -->
                 <div class="absolute right-[5%] top-[40%] text-electric/20 font-mono text-[10px] tracking-[0.5em]" style="writing-mode: vertical-rl;">VP-DESIGN.SYS.01</div>
-                <div class="absolute left-[-5%] bottom-[15%] w-[300px] border-t border-dashed border-white/10"></div>
-                <div class="absolute top-[20%] left-[15%] flex gap-2 opacity-20">
-                    <div class="w-1 h-1 bg-white rounded-full"></div>
-                    <div class="w-1 h-1 bg-white rounded-full"></div>
-                    <div class="w-1 h-1 bg-electric rounded-full"></div>
-                </div>
             </div>
 
             <div class="max-w-7xl mx-auto relative z-10">
                 <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-                    
-                    <!-- Image Area (The Upgrade) -->
                     <div class="lg:col-span-5 order-2 lg:order-1 relative gsap-reveal">
-                        <!-- Tech Frame Decor Around Image -->
                         <div class="absolute -inset-6 border border-white/5 rounded-[2.5rem] pointer-events-none">
                             <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-black px-4 py-1 flex gap-2 items-center">
                                 <div class="w-1.5 h-1.5 bg-electric rounded-full animate-pulse shadow-[0_0_8px_#2563FF]"></div>
                                 <div class="text-[8px] font-mono text-white/40 tracking-[0.4em]">SCANNING_ENTITY_01</div>
                             </div>
-                            <!-- Corner Accents -->
-                            <div class="absolute top-0 left-0 w-10 h-10 border-t border-l border-electric/40 rounded-tl-3xl"></div>
-                            <div class="absolute bottom-0 right-0 w-10 h-10 border-b border-r border-electric/40 rounded-br-3xl"></div>
                         </div>
 
-                        <!-- Data Tags (Filling the empty space) -->
                         <div class="absolute -left-12 top-1/4 glass-panel px-4 py-2 rounded-xl border-electric/30 animate-float z-20 hidden xl:flex items-center gap-3">
                             <div class="w-2 h-2 rounded-full bg-electric shadow-[0_0_10px_#2563FF]"></div>
                             <span class="font-mono text-[9px] text-white tracking-widest uppercase">Location: Anapa</span>
@@ -447,16 +404,12 @@
                             </div>
                         </div>
 
-                        <!-- Main Image Wrapper -->
                         <div class="relative rounded-[2rem] p-2 glass-panel-static group overflow-hidden">
                             <div class="absolute inset-0 bg-electric/15 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
                             <img src="https://s10.iimage.su/s/27/gSnvsaTxddBqQm0sz9iB73NNZjzzrCIm13zazDbUd.png" alt="" class="relative rounded-[1.5rem] w-full object-cover aspect-[4/5] bg-deep/50 transition-all duration-700 grayscale-[20%] group-hover:grayscale-0">
                             
-                            <!-- Floating Badge -->
                             <div class="absolute bottom-6 right-6 md:bottom-8 md:right-8 bg-gradient-to-br from-[#0B0F1A] to-black border border-electric/40 px-6 py-4 rounded-2xl flex items-center gap-4 animate-float z-30 shadow-[0_0_30px_rgba(37,99,255,0.2)] overflow-hidden" style="animation-delay: 1.5s;">
-                                <!-- Внутреннее свечение плашки -->
                                 <div class="absolute inset-0 bg-gradient-to-r from-electric/20 to-transparent opacity-60 pointer-events-none"></div>
-                                
                                 <div class="relative w-12 h-12 rounded-full bg-gradient-to-br from-electric to-electricLight flex items-center justify-center text-white shadow-[0_0_20px_rgba(37,99,255,0.6)]">
                                     <i class="ph-fill ph-star text-xl"></i>
                                 </div>
@@ -466,12 +419,9 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Vertical Link Line to text area -->
                         <div class="hidden lg:block absolute top-1/2 -right-16 w-16 h-[1px] bg-gradient-to-r from-electric/40 to-transparent"></div>
                     </div>
 
-                    <!-- Text Area -->
                     <div class="lg:col-span-7 order-1 lg:order-2 lg:pl-12 flex flex-col justify-center">
                         <h2 class="font-display text-4xl md:text-5xl font-bold mb-8 gsap-reveal">
                             Дизайн, который <span class="text-electric italic">работает</span> на ваш бизнес
@@ -482,7 +432,6 @@
                             <p>Учусь на графического дизайнера в B&D (Москва). Использую передовые <span class="text-electric font-medium">AI-инструменты</span> для ускорения работы и генерации уникальных концепций. Каждый проект довожу до максимального эффекта и <span class="text-electric font-medium">wow-впечатления</span>.</p>
                         </div>
 
-                        <!-- Stats Grid (UPDATED: Added blue border and + signs) -->
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 gsap-stagger-grid">
                             <div class="gsap-stagger-item">
                                 <div class="glass-panel p-6 rounded-2xl text-center border-electric/40 h-full">
@@ -496,7 +445,6 @@
                                     <div class="text-xs text-gray-400 uppercase tracking-wider">Года опыта</div>
                                 </div>
                             </div>
-                            <!-- UPGRADED: Added col-span-2 so it takes full width on mobile -->
                             <div class="gsap-stagger-item col-span-2">
                                 <div class="glass-panel p-6 rounded-2xl text-center flex flex-col justify-center items-center border-electric/40 h-full">
                                     <div class="text-sm font-medium text-electric mb-1"><i class="ph-bold ph-check-circle mr-1"></i> Топовые бренды+</div>
@@ -511,14 +459,10 @@
 
         <!-- 3. SERVICES & SOLUTIONS -->
         <section id="services" class="py-24 px-6 md:px-12 relative overflow-hidden">
-            <!-- Architectural Decor -->
             <div class="absolute inset-0 pointer-events-none z-0">
-                <!-- Fading Grid -->
                 <div class="absolute inset-0 opacity-30" style="background-image: linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 80px 80px; -webkit-mask-image: radial-gradient(ellipse at top right, black 20%, transparent 70%); mask-image: radial-gradient(ellipse at top right, black 20%, transparent 70%);"></div>
-                <!-- Abstract Lines -->
                 <div class="absolute right-[15%] top-[-10%] w-[1px] h-[500px] bg-gradient-to-b from-transparent via-electric/30 to-transparent"></div>
                 <div class="absolute left-[-10%] top-[40%] w-[50%] h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent rotate-12"></div>
-                <!-- NEW: Extra technical elements -->
                 <div class="absolute right-[5%] bottom-[10%] w-32 h-32 border-r border-b border-electric/20 rounded-br-[40px]"></div>
                 <div class="absolute left-[10%] top-[10%] w-24 h-24 border-l border-t border-white/10 rounded-tl-2xl"></div>
                 <div class="absolute top-[20%] right-[25%] text-white/10 text-xs font-mono tracking-widest">/// DATA FLOW</div>
@@ -532,9 +476,7 @@
                     </div>
                 </div>
 
-                <!-- UPGRADED: Services Grid (Hardware accelerated stagger) -->
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 gsap-stagger-grid">
-                    
                     <!-- Card 1 -->
                     <div class="gsap-stagger-item h-full">
                         <div class="glass-panel p-8 rounded-3xl flex flex-col group h-full">
@@ -634,16 +576,13 @@
                             <div class="text-xs text-gray-500 mt-auto flex items-center gap-2"><i class="ph ph-clock"></i> Срок: от 7 дней</div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
 
         <!-- 4. PORTFOLIO -->
         <section id="portfolio" class="py-24 px-6 md:px-12 relative overflow-hidden">
-            <!-- Architectural Decor -->
             <div class="absolute inset-0 pointer-events-none z-0">
-                <!-- Crosshairs -->
                 <div class="absolute top-[10%] left-[5%] w-10 h-10 opacity-30">
                     <div class="absolute top-1/2 left-0 w-full h-[1px] bg-white"></div>
                     <div class="absolute top-0 left-1/2 w-[1px] h-full bg-white"></div>
@@ -652,9 +591,7 @@
                     <div class="absolute top-1/2 left-0 w-full h-[1px] bg-white"></div>
                     <div class="absolute top-0 left-1/2 w-[1px] h-full bg-white"></div>
                 </div>
-                <!-- Diagonal beam -->
                 <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent -rotate-6"></div>
-                <!-- NEW: Extra technical elements -->
                 <div class="absolute left-0 top-[30%] w-[25%] h-[1px] bg-gradient-to-r from-electric/40 to-transparent"></div>
                 <div class="absolute right-0 bottom-[30%] w-[25%] h-[1px] bg-gradient-to-l from-white/20 to-transparent"></div>
                 <div class="absolute top-[12%] left-[12%] text-white/10 font-mono text-sm tracking-widest">[ PRJ_MATRIX ]</div>
@@ -664,7 +601,6 @@
                 <div class="text-center mb-16 gsap-reveal">
                     <h2 class="font-display text-4xl md:text-6xl font-bold text-white mb-6">Избранные <span class="text-electric italic">Работы</span></h2>
                     
-                    <!-- Filters (Убрали "Все проекты", сделали "Инфографика" активной по умолчанию) -->
                     <div class="flex flex-wrap justify-center gap-3 max-w-3xl mx-auto" id="portfolio-filters">
                         <button class="filter-btn active px-6 py-2 rounded-full border border-white/10 text-sm font-medium text-white transition-all" data-filter="info">Инфографика</button>
                         <button class="filter-btn px-6 py-2 rounded-full border border-white/10 text-gray-400 hover:text-white transition-all" data-filter="rich">Rich-контент</button>
@@ -675,530 +611,194 @@
                     </div>
                 </div>
 
-                <!-- UPGRADED: Masonry Portfolio Grid (Supports tall images natively) -->
                 <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 gsap-stagger-grid" id="portfolio-grid">
-                    
-                    <!-- ===================== -->
-                    <!-- ИНФОГРАФИКА (12 работ) -->
-                    <!-- ===================== -->
-                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/FLsCKXYD/579-20251105185725.jpg" alt="[Image of Инфографика]" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
+                    <!-- ИНФОГРАФИКА (18 работ) -->
+                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/FLsCKXYD/579-20251105185725.jpg" alt="[Image of Инфографика]" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/wFh0gByn/IMG-8041.jpg" alt="[Image of Инфографика]" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/k6wSmDBj/IMG-7170.jpg" alt="[Image of Инфографика]" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/JwML7f4g/373-20250817165435.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/p6C8zZLn/969-20251230133150.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/6RkgYh1G/IMG-7410.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/6cjb5PS9/601-20251110164430.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/8LX6HLHN/IMG-3641.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/W4FM2HxQ/436-20250929191023.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://s10.iimage.su/s/28/gWlwbUxxTlZgm6qTIGo4LuondPliEYiz93RSpnqdd.png" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://s10.iimage.su/s/28/gtywzaBxjcackdplAddDlSZz3FTvdASdTKZ5aoT1L.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://s10.iimage.su/s/28/gj3vSPLxt04V25DFbmzn43MVizIezybVPshEJHUHR.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://s10.iimage.su/s/28/gLTNFonxKUE4zX8G6DbiBNQdCtG08rb0to4qvZqDQ.png" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://s10.iimage.su/s/28/g1LsBM2xOsJP5K6lCAEebLCozqHN5noRCG6lftulW.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://s10.iimage.su/s/28/gRnGcaYxXoAruYE9VgFI6aFzP0qp3LnKoGHs5Nnd4.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://s10.iimage.su/s/28/gdngEmBxV9atc3oSwPRCw0YKsWgcqbyzshIJ6Frov.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://s10.iimage.su/s/28/gyQOSVFxRk1QWUozhCmFhIONskCqI6Rw3yZ6FY1XA.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://s10.iimage.su/s/28/gIDBjtcxN8MoTaUzb7zhHiboLlwTTr33DKy3pq5YD.jpg" alt="" loading="lazy" class="w-full"></div></div>
 
-                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/wFh0gByn/IMG-8041.jpg" alt="[Image of Инфографика]" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/k6wSmDBj/IMG-7170.jpg" alt="[Image of Инфографика]" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/JwML7f4g/373-20250817165435.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/p6C8zZLn/969-20251230133150.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/6RkgYh1G/IMG-7410.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/6cjb5PS9/601-20251110164430.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/8LX6HLHN/IMG-3641.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/W4FM2HxQ/436-20250929191023.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/FLsCKXYD/579-20251105185725.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/wFh0gByn/IMG-8041.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/k6wSmDBj/IMG-7170.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <!-- ======================= -->
                     <!-- RICH-КОНТЕНТ (10 работ) -->
-                    <!-- ======================= -->
-                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/8HHXJ0B/IMG-9007.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
+                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/8HHXJ0B/IMG-9007.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/jZbFs3Ky/IMG-9008.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/GvbQSwMt/IMG-9009.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/vvkNDFwf/IMG-9011.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/PGs0D1Dq/IMG-9014.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/JFRgsH6s/IMG-9192.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/3YjV7wff/IMG-9193.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/wF3tJpGW/IMG-4578.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/BHFYQSYJ/IMG-9195.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/sd0HQhnt/IMG-9196.jpg" alt="" loading="lazy" class="w-full"></div></div>
 
-                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/jZbFs3Ky/IMG-9008.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/GvbQSwMt/IMG-9009.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/vvkNDFwf/IMG-9011.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/PGs0D1Dq/IMG-9014.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/JFRgsH6s/IMG-9192.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/3YjV7wff/IMG-9193.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/wF3tJpGW/IMG-4578.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/BHFYQSYJ/IMG-9195.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/sd0HQhnt/IMG-9196.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <!-- ======================= -->
                     <!-- РЕКЛАМНЫЕ КРЕАТИВЫ (10 работ) -->
-                    <!-- ======================= -->
-                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/mCwt9S7m/IMG-9038.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
+                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/mCwt9S7m/IMG-9038.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/kgdk8WHP/IMG-9039.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/QvPPwftV/IMG-9040.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/YTyT1Yhx/IMG-9041.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/7JpF89m7/IMG-2595.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/QjCd4nnm/IMG-2607.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/8grtG5HT/IMG-9236.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/B5vqD6XT/IMG-9237.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/nMDRG9hP/IMG-9238.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/7Nk21NQS/IMG-9239.jpg" alt="" loading="lazy" class="w-full"></div></div>
 
-                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/kgdk8WHP/IMG-9039.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/QvPPwftV/IMG-9040.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/YTyT1Yhx/IMG-9041.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/7JpF89m7/IMG-2595.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/QjCd4nnm/IMG-2607.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/8grtG5HT/IMG-9236.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/B5vqD6XT/IMG-9237.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/nMDRG9hP/IMG-9238.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/7Nk21NQS/IMG-9239.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <!-- ======================= -->
                     <!-- ОФОРМЛЕНИЕ ВК (10 работ) -->
-                    <!-- ======================= -->
-                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/HTMwMzwK/IMG-9042.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
+                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/HTMwMzwK/IMG-9042.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/gMgcyT0q/IMG-9043.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/673Nd5yp/IMG-9044.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/HTDbFGHF/IMG-9045.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/wFLTkBSf/IMG-9046.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/Nd2bRd8J/IMG-6325.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/pBXg4GYr/IMG-9229.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/z90Tqv2/IMG-9231.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/cSv8mjKZ/IMG-9233.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/4nd20SMP/IMG-9234.jpg" alt="" loading="lazy" class="w-full"></div></div>
 
-                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/gMgcyT0q/IMG-9043.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/673Nd5yp/IMG-9044.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/HTDbFGHF/IMG-9045.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/wFLTkBSf/IMG-9046.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/Nd2bRd8J/IMG-6325.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/pBXg4GYr/IMG-9229.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/z90Tqv2/IMG-9231.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/cSv8mjKZ/IMG-9233.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/4nd20SMP/IMG-9234.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <!-- ======================= -->
-                    <!-- САЙТЫ (Ссылки на проекты) -->
-                    <!-- ======================= -->
-                    
+                    <!-- САЙТЫ (10 работ) -->
                     <div class="portfolio-item web gsap-stagger-item break-inside-avoid mb-6 block">
                         <a href="https://ecopoint-anapa.ru" target="_blank" rel="noopener noreferrer" class="block glass-panel p-6 rounded-2xl hover:border-electric transition-colors group">
                             <div class="flex items-center justify-between mb-4">
-                                <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform">
-                                    <i class="ph-light ph-browser text-2xl"></i>
-                                </div>
-                                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-electric transition-colors">
-                                    <i class="ph-bold ph-arrow-up-right text-gray-400 group-hover:text-white transition-colors"></i>
-                                </div>
+                                <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform"><i class="ph-light ph-browser text-2xl"></i></div>
+                                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-electric transition-colors"><i class="ph-bold ph-arrow-up-right text-gray-400 group-hover:text-white transition-colors"></i></div>
                             </div>
                             <h4 class="text-white font-bold text-xl mb-1 group-hover:text-electricLight transition-colors">Эко-Точка</h4>
                             <p class="text-gray-400 text-sm mb-4">Мебельное производство</p>
-                            <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">
-                                ecopoint-anapa.ru
-                            </div>
+                            <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">ecopoint-anapa.ru</div>
                         </a>
                     </div>
-
                     <div class="portfolio-item web gsap-stagger-item break-inside-avoid mb-6 block">
                         <a href="https://chedesign.online" target="_blank" rel="noopener noreferrer" class="block glass-panel p-6 rounded-2xl hover:border-electric transition-colors group">
                             <div class="flex items-center justify-between mb-4">
-                                <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform">
-                                    <i class="ph-light ph-browser text-2xl"></i>
-                                </div>
-                                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-electric transition-colors">
-                                    <i class="ph-bold ph-arrow-up-right text-gray-400 group-hover:text-white transition-colors"></i>
-                                </div>
+                                <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform"><i class="ph-light ph-browser text-2xl"></i></div>
+                                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-electric transition-colors"><i class="ph-bold ph-arrow-up-right text-gray-400 group-hover:text-white transition-colors"></i></div>
                             </div>
                             <h4 class="text-white font-bold text-xl mb-1 group-hover:text-electricLight transition-colors">Курс К. Чебурашкина</h4>
                             <p class="text-gray-400 text-sm mb-4">Онлайн обучение</p>
-                            <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">
-                                chedesign.online
-                            </div>
+                            <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">chedesign.online</div>
                         </a>
                     </div>
-
                     <div class="portfolio-item web gsap-stagger-item break-inside-avoid mb-6 block">
                         <a href="https://manufakturabeauty.ru" target="_blank" rel="noopener noreferrer" class="block glass-panel p-6 rounded-2xl hover:border-electric transition-colors group">
                             <div class="flex items-center justify-between mb-4">
-                                <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform">
-                                    <i class="ph-light ph-browser text-2xl"></i>
-                                </div>
-                                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-electric transition-colors">
-                                    <i class="ph-bold ph-arrow-up-right text-gray-400 group-hover:text-white transition-colors"></i>
-                                </div>
+                                <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform"><i class="ph-light ph-browser text-2xl"></i></div>
+                                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-electric transition-colors"><i class="ph-bold ph-arrow-up-right text-gray-400 group-hover:text-white transition-colors"></i></div>
                             </div>
                             <h4 class="text-white font-bold text-xl mb-1 group-hover:text-electricLight transition-colors">Manufactura</h4>
                             <p class="text-gray-400 text-sm mb-4">Салон красоты</p>
-                            <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">
-                                manufakturabeauty.ru
-                            </div>
+                            <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">manufakturabeauty.ru</div>
                         </a>
                     </div>
-
                     <div class="portfolio-item web gsap-stagger-item break-inside-avoid mb-6 block">
                         <a href="https://supaposhta.com" target="_blank" rel="noopener noreferrer" class="block glass-panel p-6 rounded-2xl hover:border-electric transition-colors group">
                             <div class="flex items-center justify-between mb-4">
-                                <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform">
-                                    <i class="ph-light ph-browser text-2xl"></i>
-                                </div>
-                                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-electric transition-colors">
-                                    <i class="ph-bold ph-arrow-up-right text-gray-400 group-hover:text-white transition-colors"></i>
-                                </div>
+                                <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform"><i class="ph-light ph-browser text-2xl"></i></div>
+                                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-electric transition-colors"><i class="ph-bold ph-arrow-up-right text-gray-400 group-hover:text-white transition-colors"></i></div>
                             </div>
                             <h4 class="text-white font-bold text-xl mb-1 group-hover:text-electricLight transition-colors">SUPAPOSHTA</h4>
                             <p class="text-gray-400 text-sm mb-4">Грузоперевозки</p>
-                            <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">
-                                supaposhta.com
-                            </div>
+                            <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">supaposhta.com</div>
                         </a>
                     </div>
-
                     <div class="portfolio-item web gsap-stagger-item break-inside-avoid mb-6 block">
                         <a href="https://domoteka-krd.ru" target="_blank" rel="noopener noreferrer" class="block glass-panel p-6 rounded-2xl hover:border-electric transition-colors group">
                             <div class="flex items-center justify-between mb-4">
-                                <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform">
-                                    <i class="ph-light ph-browser text-2xl"></i>
-                                </div>
-                                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-electric transition-colors">
-                                    <i class="ph-bold ph-arrow-up-right text-gray-400 group-hover:text-white transition-colors"></i>
-                                </div>
+                                <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform"><i class="ph-light ph-browser text-2xl"></i></div>
+                                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-electric transition-colors"><i class="ph-bold ph-arrow-up-right text-gray-400 group-hover:text-white transition-colors"></i></div>
                             </div>
                             <h4 class="text-white font-bold text-xl mb-1 group-hover:text-electricLight transition-colors">Домотека</h4>
                             <p class="text-gray-400 text-sm mb-4">Строительство домов</p>
-                            <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">
-                                domoteka-krd.ru
-                            </div>
+                            <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">domoteka-krd.ru</div>
                         </a>
                     </div>
-
                     <div class="portfolio-item web gsap-stagger-item break-inside-avoid mb-6 block">
                         <a href="https://welcome.finbazar.ru" target="_blank" rel="noopener noreferrer" class="block glass-panel p-6 rounded-2xl hover:border-electric transition-colors group">
                             <div class="flex items-center justify-between mb-4">
-                                <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform">
-                                    <i class="ph-light ph-browser text-2xl"></i>
-                                </div>
-                                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-electric transition-colors">
-                                    <i class="ph-bold ph-arrow-up-right text-gray-400 group-hover:text-white transition-colors"></i>
-                                </div>
+                                <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform"><i class="ph-light ph-browser text-2xl"></i></div>
+                                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-electric transition-colors"><i class="ph-bold ph-arrow-up-right text-gray-400 group-hover:text-white transition-colors"></i></div>
                             </div>
                             <h4 class="text-white font-bold text-xl mb-1 group-hover:text-electricLight transition-colors">Finbazar</h4>
                             <p class="text-gray-400 text-sm mb-4">Обучение блогерству</p>
-                            <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">
-                                welcome.finbazar.ru
-                            </div>
+                            <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">welcome.finbazar.ru</div>
                         </a>
                     </div>
-
                     <div class="portfolio-item web gsap-stagger-item break-inside-avoid mb-6 block">
                         <a href="https://helsalogistics.com" target="_blank" rel="noopener noreferrer" class="block glass-panel p-6 rounded-2xl hover:border-electric transition-colors group">
                             <div class="flex items-center justify-between mb-4">
-                                <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform">
-                                    <i class="ph-light ph-browser text-2xl"></i>
-                                </div>
-                                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-electric transition-colors">
-                                    <i class="ph-bold ph-arrow-up-right text-gray-400 group-hover:text-white transition-colors"></i>
-                                </div>
+                                <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform"><i class="ph-light ph-browser text-2xl"></i></div>
+                                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-electric transition-colors"><i class="ph-bold ph-arrow-up-right text-gray-400 group-hover:text-white transition-colors"></i></div>
                             </div>
                             <h4 class="text-white font-bold text-xl mb-1 group-hover:text-electricLight transition-colors">Helsa</h4>
                             <p class="text-gray-400 text-sm mb-4">Грузоперевозки</p>
-                            <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">
-                                helsalogistics.com
-                            </div>
+                            <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">helsalogistics.com</div>
                         </a>
                     </div>
-
                     <div class="portfolio-item web gsap-stagger-item break-inside-avoid mb-6 block">
                         <a href="https://endigo.pro" target="_blank" rel="noopener noreferrer" class="block glass-panel p-6 rounded-2xl hover:border-electric transition-colors group">
                             <div class="flex items-center justify-between mb-4">
-                                <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform">
-                                    <i class="ph-light ph-browser text-2xl"></i>
-                                </div>
-                                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-electric transition-colors">
-                                    <i class="ph-bold ph-arrow-up-right text-gray-400 group-hover:text-white transition-colors"></i>
-                                </div>
+                                <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform"><i class="ph-light ph-browser text-2xl"></i></div>
+                                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-electric transition-colors"><i class="ph-bold ph-arrow-up-right text-gray-400 group-hover:text-white transition-colors"></i></div>
                             </div>
                             <h4 class="text-white font-bold text-xl mb-1 group-hover:text-electricLight transition-colors">ENDIGO</h4>
                             <p class="text-gray-400 text-sm mb-4">Обслуживание автомобилей</p>
-                            <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">
-                                endigo.pro
-                            </div>
+                            <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">endigo.pro</div>
                         </a>
                     </div>
-
                     <div class="portfolio-item web gsap-stagger-item break-inside-avoid mb-6 block">
                         <a href="https://cocosbeauty.shop" target="_blank" rel="noopener noreferrer" class="block glass-panel p-6 rounded-2xl hover:border-electric transition-colors group">
                             <div class="flex items-center justify-between mb-4">
-                                <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform">
-                                    <i class="ph-light ph-browser text-2xl"></i>
-                                </div>
-                                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-electric transition-colors">
-                                    <i class="ph-bold ph-arrow-up-right text-gray-400 group-hover:text-white transition-colors"></i>
-                                </div>
+                                <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform"><i class="ph-light ph-browser text-2xl"></i></div>
+                                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-electric transition-colors"><i class="ph-bold ph-arrow-up-right text-gray-400 group-hover:text-white transition-colors"></i></div>
                             </div>
                             <h4 class="text-white font-bold text-xl mb-1 group-hover:text-electricLight transition-colors">CocosBeauty</h4>
                             <p class="text-gray-400 text-sm mb-4">Кокосовые изделия</p>
-                            <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">
-                                cocosbeauty.shop
-                            </div>
+                            <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">cocosbeauty.shop</div>
                         </a>
                     </div>
-
                     <div class="portfolio-item web gsap-stagger-item break-inside-avoid mb-6 block">
                         <a href="https://lemme.looknewsite.ru" target="_blank" rel="noopener noreferrer" class="block glass-panel p-6 rounded-2xl hover:border-electric transition-colors group">
                             <div class="flex items-center justify-between mb-4">
-                                <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform">
-                                    <i class="ph-light ph-browser text-2xl"></i>
-                                </div>
-                                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-electric transition-colors">
-                                    <i class="ph-bold ph-arrow-up-right text-gray-400 group-hover:text-white transition-colors"></i>
-                                </div>
+                                <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform"><i class="ph-light ph-browser text-2xl"></i></div>
+                                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-electric transition-colors"><i class="ph-bold ph-arrow-up-right text-gray-400 group-hover:text-white transition-colors"></i></div>
                             </div>
                             <h4 class="text-white font-bold text-xl mb-1 group-hover:text-electricLight transition-colors">Lemme</h4>
                             <p class="text-gray-400 text-sm mb-4">Косметика</p>
-                            <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">
-                                lemme.looknewsite.ru
-                            </div>
+                            <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">lemme.looknewsite.ru</div>
                         </a>
                     </div>
 
-                    <!-- ======================= -->
                     <!-- ЛОГОТИПЫ (10 работ) -->
-                    <!-- ======================= -->
-                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/7J4p4Vv4/IMG-9240.jpg" alt="[Image of Логотип]" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/208FxJYY/IMG-9241.jpg" alt="[Image of Логотип]" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/XZfZhbJF/IMG-9242.jpg" alt="[Image of Логотип]" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/tTRvm49t/IMG-9243.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/99QzsC6T/IMG-9244.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/gZDgFYJ8/IMG-9245.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/0pS1jW3X/IMG-9246.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/XZkDCQqQ/IMG-9247.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/kgRQGG11/IMG-9248.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
-                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block">
-                        <div class="rounded-2xl overflow-hidden relative border border-white/10">
-                            <img src="https://i.ibb.co/Z6SQ3vxx/IMG-9249.jpg" alt="" loading="lazy" class="w-full h-auto block">
-                        </div>
-                    </div>
-
+                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/7J4p4Vv4/IMG-9240.jpg" alt="[Image of Логотип]" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/208FxJYY/IMG-9241.jpg" alt="[Image of Логотип]" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/XZfZhbJF/IMG-9242.jpg" alt="[Image of Логотип]" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/tTRvm49t/IMG-9243.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/99QzsC6T/IMG-9244.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/gZDgFYJ8/IMG-9245.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/0pS1jW3X/IMG-9246.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/XZkDCQqQ/IMG-9247.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/kgRQGG11/IMG-9248.jpg" alt="" loading="lazy" class="w-full"></div></div>
+                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden border border-white/10"><img src="https://i.ibb.co/Z6SQ3vxx/IMG-9249.jpg" alt="" loading="lazy" class="w-full"></div></div>
                 </div>
             </div>
         </section>
 
         <!-- 5. WORKFLOW PROCESS -->
         <section id="workflow-section" class="py-24 px-6 md:px-12 relative overflow-hidden">
-            <!-- Architectural Decor -->
             <div class="absolute inset-0 pointer-events-none z-0">
                 <div class="absolute inset-0 opacity-20" style="background-image: linear-gradient(rgba(37,99,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(37,99,255,0.1) 1px, transparent 1px); background-size: 40px 40px; -webkit-mask-image: radial-gradient(circle at center, black 10%, transparent 60%); mask-image: radial-gradient(circle at center, black 10%, transparent 60%);"></div>
-                <!-- NEW: Extra technical elements -->
                 <div class="absolute top-0 right-[15%] w-[1px] h-full bg-gradient-to-b from-transparent via-white/5 to-transparent border-l border-dashed border-white/10"></div>
                 <div class="absolute top-0 left-[15%] w-[1px] h-full bg-gradient-to-b from-transparent via-electric/10 to-transparent border-r border-dashed border-electric/10"></div>
                 <div class="absolute bottom-[20%] left-[20%] text-electric/20 font-mono text-xs tracking-widest">PROCESS_SEQ_05</div>
@@ -1207,21 +807,12 @@
             <div class="max-w-5xl mx-auto relative z-10">
                 <h2 class="font-display text-4xl md:text-6xl font-bold text-center mb-24 gsap-reveal">Как мы <span class="text-electric italic">строим работу</span></h2>
                 
-                <!-- Vertical Timeline Container -->
                 <div class="relative flex flex-col gap-8 md:gap-16 pb-12">
-                    
-                    <!-- Background Track Line -->
                     <div class="absolute left-[39px] md:left-1/2 top-0 bottom-0 w-[2px] bg-white/10 md:-translate-x-1/2 rounded-full"></div>
-                    
-                    <!-- Animated Fill Line (Controlled by GSAP) -->
                     <div class="absolute left-[39px] md:left-1/2 top-0 bottom-0 w-[2px] bg-electric md:-translate-x-1/2 rounded-full origin-top scale-y-0 shadow-[0_0_20px_#2563FF] workflow-line-fill z-10" style="will-change: transform;"></div>
 
-                    <!-- Step 1 (Left Desktop / Right Mobile) -->
                     <div class="relative flex items-center justify-start md:w-1/2 md:pr-16 gsap-reveal group">
-                        <!-- Node Marker (NEW: Added 'workflow-node' class) -->
                         <div class="workflow-node absolute left-[40px] md:left-auto md:right-0 w-3 h-3 bg-black border-2 border-white/30 rounded-full -translate-x-1/2 md:translate-x-1/2 z-20 transition-all duration-500 group-hover:border-electric group-hover:bg-electric group-hover:shadow-[0_0_20px_#2563FF] group-hover:scale-150"></div>
-                        
-                        <!-- UPGRADED: Fixed mobile overflow with calc() width and responsive padding -->
                         <div class="glass-panel p-6 md:p-8 rounded-3xl w-[calc(100%-64px)] ml-auto md:w-full md:ml-0 md:mr-auto hover:-translate-y-2 transition-transform relative overflow-hidden">
                             <div class="absolute -top-6 -left-4 md:-right-4 md:left-auto text-8xl font-black text-white/5 font-display select-none pointer-events-none">01</div>
                             <h4 class="text-2xl font-bold mb-3 text-electric relative z-10">Заявка</h4>
@@ -1230,12 +821,8 @@
                         </div>
                     </div>
 
-                    <!-- Step 2 (Right Desktop / Right Mobile) -->
                     <div class="relative flex items-center justify-end md:w-1/2 md:ml-auto md:pl-16 gsap-reveal group md:-mt-12">
-                        <!-- Node Marker -->
                         <div class="workflow-node absolute left-[40px] md:left-0 w-3 h-3 bg-black border-2 border-white/30 rounded-full -translate-x-1/2 z-20 transition-all duration-500 group-hover:border-electric group-hover:bg-electric group-hover:shadow-[0_0_20px_#2563FF] group-hover:scale-150"></div>
-                        
-                        <!-- UPGRADED: Fixed mobile overflow -->
                         <div class="glass-panel p-6 md:p-8 rounded-3xl w-[calc(100%-64px)] ml-auto md:w-full md:ml-0 hover:-translate-y-2 transition-transform relative overflow-hidden">
                             <div class="absolute -top-6 -left-4 text-8xl font-black text-white/5 font-display select-none pointer-events-none">02</div>
                             <h4 class="text-2xl font-bold mb-3 text-white group-hover:text-electric transition-colors relative z-10">Анализ</h4>
@@ -1244,12 +831,8 @@
                         </div>
                     </div>
 
-                    <!-- Step 3 (Left Desktop / Right Mobile) - Highlighted Step -->
                     <div class="relative flex items-center justify-start md:w-1/2 md:pr-16 gsap-reveal group md:-mt-12 z-30">
-                        <!-- Node Marker -->
                         <div class="workflow-node absolute left-[40px] md:left-auto md:right-0 w-3 h-3 bg-black border-2 border-white/30 rounded-full -translate-x-1/2 md:translate-x-1/2 z-20 transition-all duration-500 group-hover:border-electric group-hover:bg-electric group-hover:shadow-[0_0_20px_#2563FF] group-hover:scale-150"></div>
-                        
-                        <!-- UPGRADED: Fixed mobile overflow -->
                         <div class="glass-panel p-6 md:p-8 rounded-3xl w-[calc(100%-64px)] ml-auto md:w-full md:ml-0 md:mr-auto hover:-translate-y-2 transition-transform relative overflow-hidden border-electric/40 shadow-[0_0_40px_rgba(37,99,255,0.15)]">
                             <div class="absolute inset-0 bg-gradient-to-br from-electric/10 to-transparent opacity-50 pointer-events-none"></div>
                             <div class="absolute -top-6 -left-4 md:-right-4 md:left-auto text-8xl font-black text-electric/10 font-display select-none pointer-events-none">03</div>
@@ -1259,12 +842,8 @@
                         </div>
                     </div>
 
-                    <!-- Step 4 (Right Desktop / Right Mobile) -->
                     <div class="relative flex items-center justify-end md:w-1/2 md:ml-auto md:pl-16 gsap-reveal group md:-mt-12">
-                        <!-- Node Marker -->
                         <div class="workflow-node absolute left-[40px] md:left-0 w-3 h-3 bg-black border-2 border-white/30 rounded-full -translate-x-1/2 z-20 transition-all duration-500 group-hover:border-electric group-hover:bg-electric group-hover:shadow-[0_0_20px_#2563FF] group-hover:scale-150"></div>
-                        
-                        <!-- UPGRADED: Fixed mobile overflow -->
                         <div class="glass-panel p-6 md:p-8 rounded-3xl w-[calc(100%-64px)] ml-auto md:w-full md:ml-0 hover:-translate-y-2 transition-transform relative overflow-hidden">
                             <div class="absolute -top-6 -left-4 text-8xl font-black text-white/5 font-display select-none pointer-events-none">04</div>
                             <h4 class="text-2xl font-bold mb-3 text-white group-hover:text-electric transition-colors relative z-10">Правки</h4>
@@ -1273,12 +852,8 @@
                         </div>
                     </div>
 
-                    <!-- Step 5 (Left Desktop / Right Mobile) -->
                     <div class="relative flex items-center justify-start md:w-1/2 md:pr-16 gsap-reveal group md:-mt-12">
-                        <!-- Node Marker -->
                         <div class="workflow-node absolute left-[40px] md:left-auto md:right-0 w-3 h-3 bg-black border-2 border-white/30 rounded-full -translate-x-1/2 md:translate-x-1/2 z-20 transition-all duration-500 group-hover:border-electric group-hover:bg-electric group-hover:shadow-[0_0_20px_#2563FF] group-hover:scale-150"></div>
-                        
-                        <!-- UPGRADED: Fixed mobile overflow -->
                         <div class="glass-panel p-6 md:p-8 rounded-3xl w-[calc(100%-64px)] ml-auto md:w-full md:ml-0 md:mr-auto hover:-translate-y-2 transition-transform relative overflow-hidden">
                             <div class="absolute -top-6 -left-4 md:-right-4 md:left-auto text-8xl font-black text-white/5 font-display select-none pointer-events-none">05</div>
                             <h4 class="text-2xl font-bold mb-3 text-electric relative z-10">Результат</h4>
@@ -1294,12 +869,9 @@
         <section class="py-12 px-6 md:px-12 relative gsap-reveal">
             <div class="max-w-5xl mx-auto">
                 <div class="relative rounded-[2.5rem] p-[1px] overflow-hidden group">
-                    <!-- Animated Border -->
                     <div class="absolute inset-0 bg-gradient-to-r from-electric/10 via-electric to-electric/10 opacity-50 group-hover:opacity-100 transition-opacity duration-500 animate-spin-fast" style="width: 200%; height: 200%; top: -50%; left: -50%;"></div>
                     
-                    <!-- UPGRADED: Reduced padding on mobile (p-8 instead of p-10) for safe rendering -->
                     <div class="relative bg-black rounded-[2.5rem] p-8 md:p-16 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-10 overflow-hidden">
-                        <!-- Inner Glow -->
                         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-electric/10 blur-[80px] pointer-events-none"></div>
 
                         <div class="relative z-10 max-w-xl">
@@ -1308,15 +880,9 @@
                             <p class="text-gray-400 text-lg mb-6 leading-relaxed">Получите скидку <span class="text-white font-medium border-b border-electric">до 20% на первый проект</span> или бесплатный бонусный слайд. Отличный способ протестировать качество и получить wow-эффект по выгодной цене.</p>
                         </div>
 
-                        <!-- NEW: Designer Checkmark element to fill space -->
                         <div class="hidden lg:flex absolute left-[62%] top-1/2 -translate-y-1/2 items-center justify-center pointer-events-none z-0">
-                            <!-- Glow -->
                             <div class="absolute inset-0 bg-electric/20 blur-[60px] rounded-full scale-[2]"></div>
-                            
-                            <!-- Orbiting Dash -->
                             <div class="absolute w-40 h-40 rounded-full border border-dashed border-electric/30 animate-spin-slow"></div>
-                            
-                            <!-- Glass Checkmark Box -->
                             <div class="relative w-24 h-24 bg-[#0B0F1A]/60 border border-electric/50 backdrop-blur-xl rounded-[2rem] rotate-12 flex items-center justify-center shadow-[0_0_40px_rgba(37,99,255,0.4)] overflow-hidden">
                                 <div class="absolute inset-0 bg-gradient-to-br from-electric/30 to-transparent opacity-50"></div>
                                 <i class="ph-bold ph-check text-5xl text-electric drop-shadow-[0_0_15px_rgba(37,99,255,0.8)] relative z-10 -rotate-12"></i>
@@ -1336,12 +902,10 @@
 
         <!-- 7. EDUCATION & RESULTS -->
         <section class="py-24 px-6 md:px-12 relative overflow-hidden">
-            <!-- Architectural Decor -->
             <div class="absolute inset-0 pointer-events-none z-0">
                 <div class="absolute left-[-15%] top-[10%] w-[600px] h-[600px] border border-electric/10 rounded-3xl rotate-[35deg]"></div>
                 <div class="absolute right-[-10%] bottom-[20%] w-[500px] h-[500px] border border-white/5 rounded-full"></div>
                 <div class="absolute top-[30%] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
-                <!-- NEW: Extra technical elements -->
                 <div class="absolute top-[15%] right-[5%] w-40 h-40 rounded-full border border-dashed border-electric/20 animate-spin-very-slow"></div>
                 <div class="absolute bottom-[10%] left-[10%] text-white/10 font-mono text-[10px] tracking-widest leading-relaxed">STATUS: MENTORING_ACTIVE<br>LEVEL: MAX</div>
                 <div class="absolute top-[50%] right-[10%] flex flex-col gap-2 opacity-20">
@@ -1357,20 +921,14 @@
                     <p class="text-gray-400 text-lg max-w-2xl mx-auto">Передаю опыт: от первых шагов в дизайне до выхода на стабильный доход 50-100к+ на фрилансе.</p>
                 </div>
 
-                <!-- UPGRADED Results Dashboard (Grid on Desktop, Swipe on Mobile) -->
-                <!-- FIX: Добавлены pt-10 pb-10, чтобы тени и приподнятая центральная карточка не обрезались контейнером -->
                 <div class="flex overflow-x-auto md:grid md:grid-cols-3 gap-6 pt-10 pb-10 md:pt-12 md:pb-12 mb-10 snap-x hide-scrollbar gsap-stagger-grid px-4 -mx-4 md:px-0 md:mx-0">
-                    
-                    <!-- Result Card 1 -->
                     <div class="gsap-stagger-item min-w-[280px] md:min-w-0 flex-1 snap-center">
                         <div class="relative glass-panel p-8 rounded-3xl group overflow-hidden border-white/5 hover:border-electric/40 transition-colors duration-500 h-full">
                             <div class="absolute top-0 right-0 w-32 h-32 bg-electric/10 rounded-full blur-[40px] group-hover:bg-electric/20 transition-colors"></div>
-                            
                             <div class="flex justify-between items-center mb-10 relative z-10">
                                 <div class="text-[10px] font-mono text-white/50 group-hover:text-electric transition-colors tracking-widest border border-white/10 group-hover:border-electric/30 px-3 py-1 rounded-full">METRIC_01</div>
                                 <i class="ph-light ph-target text-2xl text-gray-500 group-hover:text-electric transition-colors"></i>
                             </div>
-                            
                             <div class="text-3xl md:text-4xl font-display font-black text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-electric transition-all drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
                                 + Первые<br><span class="text-electric">Заказы</span>
                             </div>
@@ -1378,50 +936,37 @@
                         </div>
                     </div>
 
-                    <!-- Result Card 2 (Highlighted) -->
                     <div class="gsap-stagger-item min-w-[280px] md:min-w-0 flex-1 snap-center">
                         <div class="relative glass-panel p-8 rounded-3xl group overflow-hidden border-electric/30 shadow-[0_0_30px_rgba(37,99,255,0.1)] hover:border-electric hover:shadow-[0_0_40px_rgba(37,99,255,0.2)] transition-all duration-500 md:-translate-y-4 h-full">
                             <div class="absolute inset-0 bg-gradient-to-b from-electric/10 to-transparent opacity-50"></div>
-                            
                             <div class="flex justify-between items-center mb-10 relative z-10">
                                 <div class="text-[10px] font-mono text-electric tracking-widest border border-electric px-3 py-1 rounded-full bg-electric/10 shadow-[0_0_10px_rgba(37,99,255,0.3)]">INCOME_TARGET</div>
                                 <i class="ph-light ph-chart-line-up text-2xl text-electric animate-pulse"></i>
                             </div>
-                            
                             <div class="text-4xl md:text-5xl font-display font-black text-white mb-3 drop-shadow-[0_0_20px_rgba(37,99,255,0.3)]">
                                 50-100<span class="text-electric">k ₽</span>
                             </div>
                             <p class="text-sm text-gray-300 relative z-10 leading-relaxed">Выход на стабильный доход удаленно через 2-3 месяца системной работы.</p>
-                            
-                            <!-- Animated Scanning Line -->
                             <div class="absolute top-0 left-0 w-full h-[2px] bg-electric opacity-50 shadow-[0_0_15px_#2563FF] animate-float"></div>
                         </div>
                     </div>
 
-                    <!-- Result Card 3 -->
                     <div class="gsap-stagger-item min-w-[280px] md:min-w-0 flex-1 snap-center">
                         <div class="relative glass-panel p-8 rounded-3xl group overflow-hidden border-white/5 hover:border-electric/40 transition-colors duration-500 h-full">
                             <div class="absolute bottom-0 left-0 w-32 h-32 bg-electric/10 rounded-full blur-[40px] group-hover:bg-electric/20 transition-colors"></div>
-                            
                             <div class="flex justify-between items-center mb-10 relative z-10">
                                 <div class="text-[10px] font-mono text-white/50 group-hover:text-electric transition-colors tracking-widest border border-white/10 group-hover:border-electric/30 px-3 py-1 rounded-full">ASSET_03</div>
                                 <i class="ph-light ph-briefcase text-2xl text-gray-500 group-hover:text-electric transition-colors"></i>
                             </div>
-                            
                             <div class="text-3xl md:text-4xl font-display font-black text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-electric transition-all drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
                                 Сильное<br><span class="text-electric">Портфолио</span>
                             </div>
                             <p class="text-sm text-gray-400 relative z-10 leading-relaxed">Готовые, премиально упакованные кейсы для работы с крупными селлерами и брендами.</p>
                         </div>
                     </div>
-
                 </div>
 
-                <!-- Pricing Cards -->
-                <!-- FIX: Добавлен py-8, чтобы тень центрального тарифа (Хит продаж) не обрезалась -->
                 <div class="grid lg:grid-cols-3 gap-8 items-center gsap-stagger-grid py-8">
-                    
-                    <!-- Basic -->
                     <div class="gsap-stagger-item h-full">
                         <div class="glass-panel p-8 rounded-3xl flex flex-col h-full">
                             <h3 class="text-2xl font-bold mb-2">Старт</h3>
@@ -1436,15 +981,12 @@
                         </div>
                     </div>
 
-                    <!-- TOP/Premium -->
                     <div class="gsap-stagger-item h-full z-10">
                         <div class="relative rounded-3xl p-[2px] transform lg:scale-105 h-full">
                             <div class="absolute inset-0 bg-gradient-to-b from-electric to-transparent rounded-3xl opacity-50"></div>
                             <div class="absolute inset-0 bg-electric/20 blur-2xl -z-10 animate-pulse-slow"></div>
-                            
                             <div class="bg-black p-8 rounded-[23px] flex flex-col h-full relative">
                                 <div class="absolute top-0 right-8 transform -translate-y-1/2 bg-electric text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-[0_0_15px_rgba(37,99,255,0.5)]">Хит продаж</div>
-                                
                                 <h3 class="text-2xl font-bold mb-2 text-electric">Инфографика с Владом</h3>
                                 <p class="text-gray-400 text-sm mb-6 h-10">Персональная работа, личное наставничество и стратегия дохода.</p>
                                 <div class="text-5xl font-display font-bold mb-8">59 990 ₽</div>
@@ -1459,7 +1001,6 @@
                         </div>
                     </div>
 
-                    <!-- PRO -->
                     <div class="gsap-stagger-item h-full">
                         <div class="glass-panel p-8 rounded-3xl flex flex-col h-full">
                             <h3 class="text-2xl font-bold mb-2">PRO</h3>
@@ -1473,7 +1014,6 @@
                             <a href="https://t.me/vladpetroov" target="_blank" class="w-full py-4 text-center rounded-xl border border-white/20 hover:bg-white/5 transition-colors font-medium">Выбрать тариф</a>
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
@@ -1501,7 +1041,6 @@
                             { name: "Виктория", role: "YouTube блогер", text: "Превью огонь! Кликабельность видео выросла невероятно. Работаем дальше.", type: "Услуга" }
                         ];
 
-                        // Duplicate for seamless loop
                         const allReviews = [...reviews, ...reviews];
 
                         allReviews.forEach(r => {
@@ -1529,21 +1068,16 @@
             </div>
         </section>
 
-        <!-- 9. CONTACT CTA (UPGRADED) -->
+        <!-- 9. CONTACT CTA -->
         <section id="contact" class="py-32 px-6 md:px-12 relative overflow-hidden flex items-center justify-center min-h-screen">
-            <!-- Huge glowing background -->
             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[100vw] md:w-[60vw] md:h-[60vw] bg-electric/10 blur-[150px] rounded-full pointer-events-none z-0"></div>
 
-            <!-- Architectural Decor & Radar -->
             <div class="absolute inset-0 pointer-events-none z-0 overflow-hidden flex items-center justify-center">
-                <!-- Grid fading up -->
                 <div class="absolute inset-0 opacity-30" style="background-image: linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px); background-size: 60px 60px; -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 80%); mask-image: radial-gradient(circle at center, black 30%, transparent 80%);"></div>
                 
-                <!-- Giant Radar Rings -->
                 <div class="absolute w-[800px] h-[800px] border border-electric/20 rounded-full animate-spin-very-slow"></div>
                 <div class="absolute w-[1200px] h-[1200px] border border-dashed border-white/5 rounded-full animate-[spin_60s_linear_infinite_reverse]"></div>
                 
-                <!-- Crosshairs -->
                 <div class="absolute top-[20%] left-[15%] w-16 h-16 opacity-30">
                     <div class="absolute top-1/2 left-0 w-full h-[1px] bg-electric"></div>
                     <div class="absolute top-0 left-1/2 w-[1px] h-full bg-electric"></div>
@@ -1553,7 +1087,6 @@
                     <div class="absolute top-0 left-1/2 w-[1px] h-full bg-electric"></div>
                 </div>
                 
-                <!-- Background Marquee Text -->
                 <div class="absolute top-[15%] w-full overflow-hidden opacity-5 flex whitespace-nowrap font-display font-black text-[150px] leading-none select-none">
                     <div class="animate-marquee inline-block">
                         READY TO DEPLOY /// AWAITING SIGNAL /// READY TO DEPLOY /// AWAITING SIGNAL /// 
@@ -1564,139 +1097,108 @@
                 </div>
             </div>
 
-            <!-- Command Center Console -->
             <div class="max-w-6xl w-full mx-auto relative z-10 gsap-stagger-grid">
                 <div class="gsap-stagger-item">
                     <div class="glass-panel p-8 md:p-16 lg:p-20 rounded-[3rem] md:rounded-[4rem] border-electric/30 relative overflow-hidden group shadow-[0_0_80px_rgba(37,99,255,0.1)]">
                         
-                        <!-- Console Inner Glow -->
                         <div class="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_top_right,rgba(37,99,255,0.15),transparent_60%)] pointer-events-none"></div>
-                        <!-- Scanning line inside console -->
 
-                    <div class="flex flex-col lg:flex-row gap-16 items-center justify-between relative z-10">
-                        
-                        <!-- Left Text Area -->
-                        <div class="flex-1 text-center lg:text-left w-full">
-                            <!-- Status Badge -->
-                            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-electric/30 bg-electric/10 text-electric text-[10px] font-mono tracking-widest uppercase mb-8 shadow-[0_0_20px_rgba(37,99,255,0.2)]">
-                                <span class="relative flex h-2 w-2">
-                                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-electric opacity-75"></span>
-                                  <span class="relative inline-flex rounded-full h-2 w-2 bg-electric"></span>
-                                </span>
-                                System Online // Ready
+                        <div class="flex flex-col lg:flex-row gap-16 items-center justify-between relative z-10">
+                            <div class="flex-1 text-center lg:text-left w-full">
+                                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-electric/30 bg-electric/10 text-electric text-[10px] font-mono tracking-widest uppercase mb-8 shadow-[0_0_20px_rgba(37,99,255,0.2)]">
+                                    <span class="relative flex h-2 w-2">
+                                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-electric opacity-75"></span>
+                                      <span class="relative inline-flex rounded-full h-2 w-2 bg-electric"></span>
+                                    </span>
+                                    System Online // Ready
+                                </div>
+                                
+                                <h2 class="font-display text-4xl sm:text-5xl md:text-7xl lg:text-[6rem] font-black mb-6 tracking-tighter leading-none flex flex-col items-center lg:items-start">
+                                    <span class="text-white">Готовы</span>
+                                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-gray-100 to-gray-500 -mt-1 md:-mt-3">начать</span>
+                                    <span class="relative -mt-2 md:-mt-4 lg:-mt-6">
+                                        <span class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[120%] w-[120%] -left-[10%] bg-electric/30 blur-[50px] rounded-full z-0 pointer-events-none"></span>
+                                        <span class="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-electricGlow to-electric italic font-light pr-2 md:pr-6 pb-2 md:pb-4 inline-block drop-shadow-[0_0_1px_rgba(37,99,255,0.5)]">проект?</span>
+                                    </span>
+                                </h2>
+                                
+                                <p class="text-gray-400 text-lg max-w-md mx-auto lg:mx-0 leading-relaxed">
+                                    Оставьте заявку, и мы обсудим, как сделать ваш продукт визуальным лидером на рынке.
+                                </p>
                             </div>
-                            
-                            <!-- UPGRADED: Scaled text down slightly on mobile to prevent bleed -->
-                            <h2 class="font-display text-4xl sm:text-5xl md:text-7xl lg:text-[6rem] font-black mb-6 tracking-tighter leading-none flex flex-col items-center lg:items-start">
-                                <span class="text-white">Готовы</span>
-                                <span class="text-transparent bg-clip-text bg-gradient-to-r from-gray-100 to-gray-500 -mt-1 md:-mt-3">начать</span>
-                                <span class="relative -mt-2 md:-mt-4 lg:-mt-6">
-                                    <!-- Свечение вынесено на задний фон, чтобы избежать обрезки -->
-                                    <span class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[120%] w-[120%] -left-[10%] bg-electric/30 blur-[50px] rounded-full z-0 pointer-events-none"></span>
-                                    <!-- Сам текст с отступами (pr-2 для мобайла, pb-4) для защиты курсива от срезания без создания лишней ширины -->
-                                    <span class="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-electricGlow to-electric italic font-light pr-2 md:pr-6 pb-2 md:pb-4 inline-block drop-shadow-[0_0_1px_rgba(37,99,255,0.5)]">проект?</span>
-                                </span>
-                            </h2>
-                            
-                            <p class="text-gray-400 text-lg max-w-md mx-auto lg:mx-0 leading-relaxed">
-                                Оставьте заявку, и мы обсудим, как сделать ваш продукт визуальным лидером на рынке.
-                            </p>
-                        </div>
 
-                        <!-- Right Interactive Area -->
-                        <div class="flex flex-col gap-4 w-full lg:w-[420px] shrink-0">
-                            <!-- Main Telegram Console Button (Adjusted padding for mobile) -->
-                            <a href="https://t.me/vladpetroov" target="_blank" class="relative overflow-hidden group/btn flex items-center justify-between gap-6 px-6 py-6 md:px-8 md:py-8 bg-black/50 backdrop-blur-xl border border-electric/50 rounded-[2rem] hover:bg-electric/20 hover:border-electric hover:shadow-[0_0_50px_rgba(37,99,255,0.4)] transition-all duration-500">
-                               <!-- Glint effect -->
-                               <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-[150%] group-hover/btn:translate-x-[150%] transition-transform duration-1000 ease-in-out"></div>
-                               
-                               <div class="flex flex-col text-left relative z-10">
-                                   <span class="text-[10px] font-mono text-electric group-hover/btn:text-electricLight uppercase tracking-widest mb-2 transition-colors">Primary_Contact</span>
-                                   <span class="text-2xl md:text-3xl font-bold text-white tracking-tight">Telegram</span>
-                               </div>
-                               
-                               <div class="w-14 h-14 rounded-full bg-electric flex items-center justify-center relative z-10 group-hover/btn:scale-110 transition-transform duration-500 shadow-[0_0_20px_rgba(37,99,255,0.6)]">
-                                   <i class="ph-bold ph-arrow-up-right text-2xl text-white"></i>
-                               </div>
-                            </a>
+                            <div class="flex flex-col gap-4 w-full lg:w-[420px] shrink-0">
+                                <a href="https://t.me/vladpetroov" target="_blank" class="relative overflow-hidden group/btn flex items-center justify-between gap-6 px-6 py-6 md:px-8 md:py-8 bg-black/50 backdrop-blur-xl border border-electric/50 rounded-[2rem] hover:bg-electric/20 hover:border-electric hover:shadow-[0_0_50px_rgba(37,99,255,0.4)] transition-all duration-500">
+                                   <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-[150%] group-hover/btn:translate-x-[150%] transition-transform duration-1000 ease-in-out"></div>
+                                   <div class="flex flex-col text-left relative z-10">
+                                       <span class="text-[10px] font-mono text-electric group-hover/btn:text-electricLight uppercase tracking-widest mb-2 transition-colors">Primary_Contact</span>
+                                       <span class="text-2xl md:text-3xl font-bold text-white tracking-tight">Telegram</span>
+                                   </div>
+                                   <div class="w-14 h-14 rounded-full bg-electric flex items-center justify-center relative z-10 group-hover/btn:scale-110 transition-transform duration-500 shadow-[0_0_20px_rgba(37,99,255,0.6)]">
+                                       <i class="ph-bold ph-arrow-up-right text-2xl text-white"></i>
+                                   </div>
+                                </a>
 
-                            <!-- Secondary Social Grid -->
-                            <div class="grid grid-cols-2 gap-4">
-                                <a href="javascript:void(0)" class="flex items-center justify-center gap-3 p-5 bg-black/30 border border-white/10 backdrop-blur-md rounded-[1.5rem] hover:border-[#0077FF] hover:bg-[#0077FF]/10 transition-all duration-300 group/soc">
-                                    <i class="ph-fill ph-vk-logo text-2xl text-gray-500 group-hover/soc:text-[#0077FF] group-hover/soc:scale-110 transition-all"></i>
-                                    <span class="font-bold text-sm text-gray-400 group-hover/soc:text-white transition-colors">VKontakte</span>
-                                </a>
-                                <a href="javascript:void(0)" class="flex items-center justify-center gap-3 p-5 bg-black/30 border border-white/10 backdrop-blur-md rounded-[1.5rem] hover:border-[#E60023] hover:bg-[#E60023]/10 transition-all duration-300 group/soc">
-                                    <i class="ph-fill ph-pinterest-logo text-2xl text-gray-500 group-hover/soc:text-[#E60023] group-hover/soc:scale-110 transition-all"></i>
-                                    <span class="font-bold text-sm text-gray-400 group-hover/soc:text-white transition-colors">Pinterest</span>
-                                </a>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <a href="javascript:void(0)" class="flex items-center justify-center gap-3 p-5 bg-black/30 border border-white/10 backdrop-blur-md rounded-[1.5rem] hover:border-[#0077FF] hover:bg-[#0077FF]/10 transition-all duration-300 group/soc">
+                                        <svg viewBox="0 0 576 512" fill="currentColor" class="w-6 h-6 shrink-0 text-gray-500 group-hover/soc:text-[#0077FF] group-hover/soc:scale-110 transition-all">
+                                            <path d="M545 117.7c3.7-12.5 0-21.7-29.8-21.7h-58.9c-25 0-35.3 14.3-39.6 24.5 0 0-30.5 76.2-73.6 127.5-13.9 14.1-20.3 18.6-27.8 18.6-3.7 0-9.2-4.5-9.2-17.4v-104c0-25-7.8-35.4-26.7-35.4h-72.2c-14.3 0-23.6 11.1-23.6 21.4 0 22.3 32.2 27.5 35.5 90v107.4c0 31.7-5.5 37.3-13.1 37.3-20.3 0-69.5-75.3-98.7-162.7C101.4 125 93.9 116 68.6 116H9.4c-28.7 0-34.6 14.3-34.6 24.5 0 21.4 27.3 130 119.5 264.4C155.6 489.1 254.8 512 344 512c53.7 0 60.5-12.5 60.5-33.8v-78.1c0-25 5.3-29.9 20.3-29.9 11.1 0 30.5 5.6 60.1 34.6 34.2 35 40.5 51.2 65.5 51.2h58.9c28.7 0 43-14.7 34.7-43-9.5-29.3-43-70.5-87.7-119.5-23.1-25.9-57.4-53.7-66.6-66.6-13-16.7-9.3-24.1 0-38.9 1.1-1.5 78.4-113.6 85.2-132z"/>
+                                        </svg>
+                                        <span class="font-bold text-sm text-gray-400 group-hover/soc:text-white transition-colors">VKontakte</span>
+                                    </a>
+                                    <a href="javascript:void(0)" class="flex items-center justify-center gap-3 p-5 bg-black/30 border border-white/10 backdrop-blur-md rounded-[1.5rem] hover:border-[#E60023] hover:bg-[#E60023]/10 transition-all duration-300 group/soc">
+                                        <i class="ph-fill ph-pinterest-logo text-2xl text-gray-500 group-hover/soc:text-[#E60023] group-hover/soc:scale-110 transition-all"></i>
+                                        <span class="font-bold text-sm text-gray-400 group-hover/soc:text-white transition-colors">Pinterest</span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- AI Estimate Modal -->
+        <!-- AI Modal Logic Integration -->
         <div id="ai-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center px-4">
             <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeAIModal()"></div>
             <div id="ai-modal-content" class="relative glass-panel w-full max-w-2xl rounded-3xl p-6 md:p-8 border border-electric/30 shadow-[0_0_50px_rgba(37,99,255,0.15)] flex flex-col max-h-[90vh] transition-all duration-300">
-                <!-- Close Btn -->
                 <button onclick="closeAIModal()" class="absolute top-6 right-6 text-gray-400 hover:text-white transition-colors">
                     <i class="ph-bold ph-x text-2xl"></i>
                 </button>
-                
                 <div class="flex items-center gap-3 mb-4">
-                    <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric transition-colors duration-300" id="ai-icon-bg">
-                        <i class="ph-fill ph-robot text-2xl" id="ai-icon"></i>
-                    </div>
+                    <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric transition-colors duration-300" id="ai-icon-bg"><i class="ph-fill ph-robot text-2xl" id="ai-icon"></i></div>
                     <div>
                         <h3 class="font-display font-bold text-xl md:text-2xl" id="ai-title">AI-Консультант VP-DESIGN</h3>
                         <p class="text-xs text-electric font-mono tracking-widest mt-1" id="ai-subtitle">GEMINI LLM ENGINE</p>
                     </div>
                 </div>
-
-                <!-- NEW: AI Mode Tabs -->
                 <div class="flex gap-2 mb-4 bg-white/5 p-1 rounded-xl w-max border border-white/10">
                     <button id="tab-estimate" onclick="switchAITab('estimate')" class="px-4 py-2 rounded-lg text-sm font-medium bg-electric text-white shadow-[0_0_15px_rgba(37,99,255,0.4)] transition-all">Умная смета</button>
-                    <button id="tab-concept" onclick="switchAITab('concept')" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white transition-all flex items-center gap-1">Генератор идей ✨</button>
+                    <button id="tab-concept" onclick="switchAITab('concept')" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white transition-all">Генератор идей ✨</button>
                 </div>
-
                 <div class="flex-grow overflow-y-auto pr-2 mb-6 flex flex-col gap-4">
-                    <p class="text-sm text-gray-300" id="ai-description">Привет! Я персональный AI-ассистент Влада. Опишите, что вам нужно сделать (например: "Нужно оформить 3 карточки товара на Ozon, тематика - электроника"), и я рассчитаю ориентировочную стоимость проекта на основе прайса.</p>
-                    
+                    <p class="text-sm text-gray-300" id="ai-description">Привет! Я персональный AI-ассистент Влада. Опишите задачу, и я рассчитаю стоимость проекта.</p>
                     <div id="ai-output" class="bg-[#0B0F1A] border border-white/5 rounded-2xl p-5 min-h-[100px] text-sm text-gray-300 transition-all duration-300">
                         <div class="opacity-50 text-center italic mt-4">Здесь появится ответ нейросети...</div>
                     </div>
                 </div>
-
                 <div class="relative mt-auto">
                     <textarea id="ai-input" rows="3" class="w-full bg-[#0B0F1A] border border-white/10 rounded-2xl py-3 px-4 pb-14 text-sm text-white focus:outline-none focus:border-electric transition-colors resize-none" placeholder="Опишите вашу задачу..."></textarea>
-                    <button id="ai-submit-btn" onclick="generateAIResponse()" class="absolute bottom-3 right-3 bg-electric text-white px-5 py-2 rounded-xl text-sm font-medium hover:bg-electricLight hover:shadow-[0_0_20px_rgba(37,99,255,0.4)] transition-all flex items-center gap-2">
-                        Рассчитать
-                    </button>
+                    <button id="ai-submit-btn" onclick="generateAIResponse()" class="absolute bottom-3 right-3 bg-electric text-white px-5 py-2 rounded-xl text-sm font-medium hover:bg-electricLight transition-all">Рассчитать</button>
                 </div>
             </div>
         </div>
 
-        <!-- UPGRADED FOOTER -->
         <footer class="relative bg-black pt-24 pb-8 border-t border-white/10 overflow-hidden z-10">
-            <!-- Architectural Decor -->
             <div class="absolute inset-0 pointer-events-none z-0">
                 <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[300px] bg-electric/10 blur-[120px] rounded-t-full opacity-50"></div>
                 <div class="absolute inset-0 opacity-20" style="background-image: linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 60px 60px; -webkit-mask-image: linear-gradient(to top, black 20%, transparent 80%); mask-image: linear-gradient(to top, black 20%, transparent 80%);"></div>
             </div>
-
             <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-                
-                <!-- Massive Brand Text -->
                 <div class="w-full overflow-hidden mb-16 flex justify-center gsap-reveal">
                     <h2 class="text-[14vw] md:text-[12vw] leading-none font-display font-black text-transparent bg-clip-text bg-gradient-to-b from-white/10 to-transparent select-none tracking-tighter">VP-DESIGN</h2>
                 </div>
-
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16 gsap-reveal">
-                    <!-- Brand & Status -->
                     <div class="md:col-span-5 flex flex-col gap-6">
                         <a href="#hero" class="font-display font-bold text-2xl tracking-wider flex items-center gap-3 group w-max">
                             <span class="w-3 h-3 rounded-full bg-electric group-hover:shadow-[0_0_15px_#2563FF] transition-all"></span>
@@ -1705,7 +1207,6 @@
                         <p class="text-gray-400 text-sm leading-relaxed max-w-sm">
                             Создаю премиальные интерфейсы и визуальные концепции, которые продают. От идеи до wow-эффекта.
                         </p>
-                        <!-- Status Badge -->
                         <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 bg-white/5 w-max">
                             <span class="relative flex h-2 w-2">
                                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-electric opacity-75"></span>
@@ -1714,8 +1215,6 @@
                             <span class="text-[10px] font-mono text-white/80 uppercase tracking-widest">Available for projects</span>
                         </div>
                     </div>
-
-                    <!-- Navigation -->
                     <div class="md:col-span-2 md:col-start-8 flex flex-col gap-4">
                         <h4 class="text-white font-bold mb-2 font-mono text-[10px] tracking-widest uppercase">Навигация</h4>
                         <a href="#hero" class="text-gray-400 hover:text-electric transition-colors text-sm w-max">Главная</a>
@@ -1723,23 +1222,21 @@
                         <a href="#portfolio" class="text-gray-400 hover:text-electric transition-colors text-sm w-max">Портфолио</a>
                         <a href="#services" class="text-gray-400 hover:text-electric transition-colors text-sm w-max">Услуги</a>
                     </div>
-
-                    <!-- Socials -->
                     <div class="md:col-span-2 flex flex-col gap-4">
                         <h4 class="text-white font-bold mb-2 font-mono text-[10px] tracking-widest uppercase">Соцсети</h4>
                         <a href="https://t.me/vladpetroov" target="_blank" class="text-gray-400 hover:text-electric transition-colors text-sm flex items-center gap-2 w-max group">
                             <i class="ph-fill ph-telegram-logo group-hover:scale-110 transition-transform"></i> Telegram
                         </a>
                         <a href="javascript:void(0)" class="text-gray-400 hover:text-[#0077FF] transition-colors text-sm flex items-center gap-2 w-max group">
-                            <i class="ph-fill ph-vk-logo group-hover:scale-110 transition-transform"></i> VKontakte
+                            <svg viewBox="0 0 576 512" fill="currentColor" class="w-4 h-4 shrink-0 group-hover:scale-110 transition-transform">
+                                <path d="M545 117.7c3.7-12.5 0-21.7-29.8-21.7h-58.9c-25 0-35.3 14.3-39.6 24.5 0 0-30.5 76.2-73.6 127.5-13.9 14.1-20.3 18.6-27.8 18.6-3.7 0-9.2-4.5-9.2-17.4v-104c0-25-7.8-35.4-26.7-35.4h-72.2c-14.3 0-23.6 11.1-23.6 21.4 0 22.3 32.2 27.5 35.5 90v107.4c0 31.7-5.5 37.3-13.1 37.3-20.3 0-69.5-75.3-98.7-162.7C101.4 125 93.9 116 68.6 116H9.4c-28.7 0-34.6 14.3-34.6 24.5 0 21.4 27.3 130 119.5 264.4C155.6 489.1 254.8 512 344 512c53.7 0 60.5-12.5 60.5-33.8v-78.1c0-25 5.3-29.9 20.3-29.9 11.1 0 30.5 5.6 60.1 34.6 34.2 35 40.5 51.2 65.5 51.2h58.9c28.7 0 43-14.7 34.7-43-9.5-29.3-43-70.5-87.7-119.5-23.1-25.9-57.4-53.7-66.6-66.6-13-16.7-9.3-24.1 0-38.9 1.1-1.5 78.4-113.6 85.2-132z"/>
+                            </svg> VKontakte
                         </a>
                         <a href="javascript:void(0)" class="text-gray-400 hover:text-[#E60023] transition-colors text-sm flex items-center gap-2 w-max group">
                             <i class="ph-fill ph-pinterest-logo group-hover:scale-110 transition-transform"></i> Pinterest
                         </a>
                     </div>
                 </div>
-
-                <!-- Bottom Line -->
                 <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
                     <div class="text-xs text-gray-500 flex flex-col md:flex-row items-center gap-2 md:gap-4">
                         <span>&copy; 2024 VP-DESIGN.</span>
@@ -1748,12 +1245,7 @@
                         <span class="hidden md:block w-1 h-1 bg-white/20 rounded-full"></span>
                         <a href="https://direct.yandex.ru/base/articles/obrabotka-personalnyh-dannyh-na-sajte" target="_blank" rel="noopener noreferrer" class="hover:text-electric transition-colors border-b border-transparent hover:border-electric">Политика конфиденциальности</a>
                     </div>
-                    
-                    <div class="text-[10px] text-electric/40 font-mono tracking-widest uppercase hidden lg:block">
-                        SYS.END // CONNECTION_SECURE
-                    </div>
-
-                    <!-- Back to top button -->
+                    <div class="text-[10px] text-electric/40 font-mono tracking-widest uppercase hidden lg:block">SYS.END // CONNECTION_SECURE</div>
                     <button onclick="window.lenis ? window.lenis.scrollTo(0) : window.scrollTo(0,0)" class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-gray-400 hover:text-electric group shrink-0">
                         <i class="ph-bold ph-arrow-up text-xl group-hover:-translate-y-1 transition-transform"></i>
                     </button>
@@ -1762,67 +1254,32 @@
         </footer>
     </main>
 
-    <!-- NEW: Cookie Consent Banner -->
     <div id="cookie-banner" class="fixed bottom-4 left-4 right-4 md:left-auto md:right-8 md:bottom-8 md:max-w-sm glass-panel p-6 rounded-2xl z-[100] translate-y-[150%] opacity-0 transition-all duration-500 flex flex-col gap-4 shadow-[0_0_40px_rgba(0,0,0,0.8)]">
-        <div class="flex items-start gap-3">
-            <div class="text-electric mt-1">
-                <i class="ph-fill ph-cookie text-2xl drop-shadow-[0_0_10px_rgba(37,99,255,0.4)]"></i>
-            </div>
-            <div>
-                <h4 class="text-white font-bold text-sm mb-1">Мы используем Cookies 🍪</h4>
-                <p class="text-xs text-gray-400 leading-relaxed">Этот сайт использует куки для обеспечения лучшего пользовательского опыта и аналитики.</p>
-            </div>
-        </div>
-        <div class="flex gap-2 w-full mt-2">
-            <button onclick="acceptCookies()" class="flex-1 bg-electric text-white py-2.5 px-4 rounded-xl text-xs font-bold hover:bg-electricLight hover:shadow-[0_0_15px_rgba(37,99,255,0.4)] transition-all">Понятно</button>
-            <button onclick="hideCookieBanner()" class="bg-white/5 border border-white/10 text-gray-300 py-2.5 px-4 rounded-xl text-xs font-medium hover:bg-white/10 hover:text-white transition-all shrink-0">Закрыть</button>
-        </div>
+        <div class="flex items-start gap-3"><div class="text-electric mt-1"><i class="ph-fill ph-cookie text-2xl drop-shadow-[0_0_10px_rgba(37,99,255,0.4)]"></i></div><div><h4 class="text-white font-bold text-sm mb-1">Мы используем Cookies 🍪</h4><p class="text-xs text-gray-400 leading-relaxed">Этот сайт использует куки для обеспечения лучшего пользовательского опыта и аналитики.</p></div></div>
+        <div class="flex gap-2 w-full mt-2"><button onclick="acceptCookies()" class="flex-1 bg-electric text-white py-2.5 px-4 rounded-xl text-xs font-bold hover:bg-electricLight hover:shadow-[0_0_15px_rgba(37,99,255,0.4)] transition-all">Понятно</button><button onclick="hideCookieBanner()" class="bg-white/5 border border-white/10 text-gray-300 py-2.5 px-4 rounded-xl text-xs font-medium hover:bg-white/10 hover:text-white transition-all shrink-0">Закрыть</button></div>
     </div>
 
-    <!-- Scripts for animations and logic -->
+    <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.32/dist/lenis.min.js"></script>
 
     <script>
-        // Sync GSAP ScrollTrigger
         gsap.registerPlugin(ScrollTrigger);
-        
-        // FIX: Отключаем пересчет анимаций при скрытии адресной строки на мобильных
         ScrollTrigger.config({ ignoreMobileResize: true });
 
-        // FIX: Строго отключаем автоматическое запоминание скролла браузером
-        if ('scrollRestoration' in history) {
-            history.scrollRestoration = 'manual';
-        }
+        if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+        window.onbeforeunload = () => window.scrollTo(0, 0);
+        if (!window.location.hash) { window.scrollTo(0, 0); }
 
-        // FIX: Принудительно возвращаем наверх при обновлении страницы. 
-        // Это решает баг со скачками по рандомным блокам из-за долгой подгрузки картинок сетки.
-        window.onbeforeunload = function () {
-            window.scrollTo(0, 0);
-        };
-        
-        // На всякий случай сбрасываем скролл и при загрузке, если в ссылке нет якоря
-        if (!window.location.hash) {
-            window.scrollTo(0, 0);
-        }
+        const lenis = new Lenis({ duration: 1.2, smooth: true });
+        window.lenis = lenis;
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => lenis.raf(time * 1000));
+        gsap.ticker.lagSmoothing(0);
 
-        // 1. Smooth Scroll Initiation (Lenis)
-        const lenis = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            direction: 'vertical',
-            gestureDirection: 'vertical',
-            smooth: true,
-            mouseMultiplier: 1,
-            smoothTouch: false,
-            touchMultiplier: 2,
-            infinite: false,
-        })
-        
-        window.lenis = lenis; // Сохраняем глобально для кнопок
+        window.addEventListener('load', () => { ScrollTrigger.refresh(); });
 
-        // FIX: Перехватываем клики по ссылкам-якорям (меню), чтобы их плавно крутил Lenis, а не дергал браузер
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1830,214 +1287,97 @@
             });
         });
 
-        // FIX: Правильная и стабильная синхронизация Lenis и GSAP
-        lenis.on('scroll', ScrollTrigger.update);
-
-        gsap.ticker.add((time) => {
-            lenis.raf(time * 1000);
-        });
-        
-        gsap.ticker.lagSmoothing(0);
-
-        // Обновляем высоту анимаций после полной загрузки всех картинок
-        window.addEventListener('load', () => {
-            ScrollTrigger.refresh();
-        });
-
-        // 2. Initial Hero Animations
         const tl = gsap.timeline();
-        
-        tl.from(".gsap-hero-title", {
-            y: 50,
-            opacity: 0,
-            duration: 1,
-            stagger: 0.15,
-            ease: "power3.out",
-            delay: 0.2
-        })
-        .from(".gsap-hero-el", {
-            y: 30,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: "power2.out"
-        }, "-=0.5")
-        .from(".gsap-hero-image", {
-            opacity: 0,
-            duration: 1.5,
-            ease: "expo.out"
-        }, "-=1");
+        tl.from(".gsap-hero-title", { y: 50, opacity: 0, duration: 1, stagger: 0.15, ease: "power3.out", delay: 0.2 })
+          .from(".gsap-hero-el", { y: 30, opacity: 0, duration: 0.8, stagger: 0.1, ease: "power2.out" }, "-=0.5")
+          .from(".gsap-hero-image", { opacity: 0, duration: 1.5, ease: "expo.out" }, "-=1");
 
-        // 3. Scroll Reveals
         const revealElements = document.querySelectorAll('.gsap-reveal');
-        
         revealElements.forEach((el) => {
-            gsap.fromTo(el, 
-                { autoAlpha: 0, y: 50 },
-                { 
-                    duration: 1, 
-                    autoAlpha: 1, 
-                    y: 0, 
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: el,
-                        start: "top 85%",
-                        toggleActions: "play none none reverse"
-                    },
-                    onComplete: () => gsap.set(el, { clearProps: "transform" }) // Предотвращает конфликты с ховером
-                }
-            );
+            gsap.fromTo(el, { autoAlpha: 0, y: 50 }, { 
+                duration: 1, autoAlpha: 1, y: 0, ease: "power3.out",
+                scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none reverse" },
+                onComplete: () => gsap.set(el, { clearProps: "transform" })
+            });
         });
 
-        // 3.4 Initial Portfolio Filter (Скрываем неактивные работы при загрузке)
         const initialActiveFilter = 'info';
         document.querySelectorAll('.portfolio-item').forEach(item => {
-            if(!item.classList.contains(initialActiveFilter)) {
-                item.style.display = 'none';
-            }
+            if(!item.classList.contains(initialActiveFilter)) item.style.display = 'none';
         });
 
-        // 3.5. Grid Stagger Animation (Optimized with Batching for large lists)
-        gsap.set('.gsap-stagger-item', { autoAlpha: 0, y: 50 }); // Инициализируем начальное положение
-        
+        gsap.set('.gsap-stagger-item', { autoAlpha: 0, y: 50 });
         ScrollTrigger.batch('.gsap-stagger-item', {
-            interval: 0.1, // Время объединения в группу (batch)
-            batchMax: 3,   // Максимум элементов в одной анимации
-            start: "top 85%",
+            interval: 0.1, batchMax: 3, start: "top 85%",
             onEnter: batch => gsap.to(batch, {
-                autoAlpha: 1, 
-                y: 0, 
-                duration: 0.6, 
-                stagger: 0.15, 
-                ease: "power3.out",
-                overwrite: true,
+                autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.15, ease: "power3.out", overwrite: true,
                 onComplete: () => gsap.set(batch, { clearProps: "transform" })
             })
         });
 
-        // 4. Advanced Parallax Effects (Scroll + Mouse)
-        
-        // 4.1 Scroll Parallax (Works on ALL devices)
         gsap.utils.toArray('.prlx-scroll').forEach(layer => {
             const speed = parseFloat(layer.getAttribute('data-speed')) || 0.1;
             gsap.to(layer, {
-                y: () => -(window.innerHeight * speed),
-                ease: "none",
-                scrollTrigger: {
-                    trigger: "#hero", // Привязка к главной секции
-                    start: "top top",
-                    end: "bottom top",
-                    scrub: true,
-                    invalidateOnRefresh: true
-                }
+                y: () => -(window.innerHeight * speed), ease: "none",
+                scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: true, invalidateOnRefresh: true }
             });
         });
 
-        // 4.2 Mouse Parallax (Only active on devices with a mouse cursor)
         if (window.matchMedia("(hover: hover)").matches) {
             const heroSection = document.getElementById('hero');
-            
             heroSection.addEventListener("mousemove", (e) => {
                 const { clientX, clientY } = e;
                 const centerX = window.innerWidth / 2;
                 const centerY = window.innerHeight / 2;
-                
                 gsap.utils.toArray('.prlx-mouse').forEach(layer => {
                     const depth = parseFloat(layer.getAttribute('data-depth')) || 0.05;
-                    const moveX = (clientX - centerX) * depth;
-                    const moveY = (clientY - centerY) * depth;
-                    
-                    gsap.to(layer, {
-                        x: moveX,
-                        y: moveY,
-                        duration: 1.5,
-                        ease: "power2.out"
-                    });
+                    gsap.to(layer, { x: (clientX - centerX) * depth, y: (clientY - centerY) * depth, duration: 1.5, ease: "power2.out" });
                 });
             });
-
-            // Smooth return to center when mouse leaves
             heroSection.addEventListener("mouseleave", () => {
-                gsap.to('.prlx-mouse', {
-                    x: 0,
-                    y: 0,
-                    duration: 2,
-                    ease: "power3.out"
-                });
+                gsap.to('.prlx-mouse', { x: 0, y: 0, duration: 2, ease: "power3.out" });
             });
         }
 
-        // 4.5. Workflow Timeline Animation
         gsap.to(".workflow-line-fill", {
-            scaleY: 1,
-            ease: "none",
-            force3D: true, // Аппаратное ускорение видеокартой для плавности
-            scrollTrigger: {
-                trigger: "#workflow-section",
-                start: "top 60%", // Начинаем заливку когда секция доходит до середины экрана
-                end: "bottom 80%", // Заканчиваем когда проскроллили почти всю секцию
-                scrub: 0.5 // Плавная привязка к скроллу (0.5s задержка устраняет лаги)
-            }
+            scaleY: 1, ease: "none", force3D: true,
+            scrollTrigger: { trigger: "#workflow-section", start: "top 60%", end: "bottom 80%", scrub: 0.5 }
         });
 
-        // 4.6. Sequential Node Lighting
-        const workflowNodes = document.querySelectorAll('.workflow-node');
-        workflowNodes.forEach((node) => {
+        document.querySelectorAll('.workflow-node').forEach((node) => {
             ScrollTrigger.create({
-                trigger: node,
-                start: "top 55%", // Точка пересечения линии и кружка
+                trigger: node, start: "top 55%",
                 onEnter: () => {
-                    // Включаем свечение
                     node.classList.remove('bg-black', 'border-white/30');
                     node.classList.add('bg-electric', 'border-electric', 'shadow-[0_0_20px_#2563FF]', 'scale-150');
                 },
                 onLeaveBack: () => {
-                    // Выключаем при скролле вверх
                     node.classList.remove('bg-electric', 'border-electric', 'shadow-[0_0_20px_#2563FF]', 'scale-150');
                     node.classList.add('bg-black', 'border-white/30');
                 }
             });
         });
 
-        // 5. Number Counters in About section
-        const counters = document.querySelectorAll('.counter');
-        
         ScrollTrigger.create({
-            trigger: "#about",
-            start: "top 75%",
+            trigger: "#about", start: "top 75%",
             onEnter: () => {
-                counters.forEach(counter => {
+                document.querySelectorAll('.counter').forEach(counter => {
                     const target = +counter.getAttribute('data-target');
-                    gsap.to(counter, {
-                        innerHTML: target,
-                        duration: 2,
-                        snap: { innerHTML: 1 },
-                        ease: "power2.out"
-                    });
+                    gsap.to(counter, { innerHTML: target, duration: 2, snap: { innerHTML: 1 }, ease: "power2.out" });
                 });
             },
             once: true
         });
 
-        // 6. Portfolio Filtering
         const filterBtns = document.querySelectorAll('.filter-btn');
         const portfolioItems = document.querySelectorAll('.portfolio-item');
-
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                // Active state styling
-                filterBtns.forEach(b => b.classList.remove('active', 'text-white'));
-                filterBtns.forEach(b => b.classList.add('text-gray-400'));
-                btn.classList.add('active', 'text-white');
-                btn.classList.remove('text-gray-400');
-
+                filterBtns.forEach(b => { b.classList.remove('active', 'text-white'); b.classList.add('text-gray-400'); });
+                btn.classList.add('active', 'text-white'); btn.classList.remove('text-gray-400');
                 const filterValue = btn.getAttribute('data-filter');
-
-                // Animate items out, then show/hide, then animate in
                 gsap.to(portfolioItems, {
-                    scale: 0.9,
-                    autoAlpha: 0,
-                    duration: 0.3,
+                    scale: 0.9, autoAlpha: 0, duration: 0.3,
                     onComplete: () => {
                         portfolioItems.forEach(item => {
                             if(item.classList.contains(filterValue)) {
@@ -2047,28 +1387,42 @@
                                 item.style.display = 'none';
                             }
                         });
-                        // Refresh ScrollTrigger as height might have changed
                         ScrollTrigger.refresh();
                     }
                 });
             });
         });
 
-        // 7. Sticky Navbar styling on scroll
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('py-4');
-                navbar.classList.remove('pt-6');
-            } else {
-                navbar.classList.add('pt-6');
-                navbar.classList.remove('py-4');
-            }
+            if (window.scrollY > 50) { navbar.classList.add('py-4'); navbar.classList.remove('pt-6'); } 
+            else { navbar.classList.add('pt-6'); navbar.classList.remove('py-4'); }
         });
 
-        // 8. AI Modal Logic & Gemini Integration
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuIcon = document.getElementById('mobile-menu-icon');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+        let isMobileMenuOpen = false;
+
+        function toggleMobileMenu() {
+            isMobileMenuOpen = !isMobileMenuOpen;
+            if (isMobileMenuOpen) {
+                mobileMenu.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-[-10px]');
+                mobileMenu.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                mobileMenuIcon.classList.remove('ph-list'); mobileMenuIcon.classList.add('ph-x');
+            } else {
+                mobileMenu.classList.add('opacity-0', 'pointer-events-none', 'translate-y-[-10px]');
+                mobileMenu.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                mobileMenuIcon.classList.remove('ph-x'); mobileMenuIcon.classList.add('ph-list');
+            }
+        }
+        if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        mobileNavLinks.forEach(link => link.addEventListener('click', () => { if (isMobileMenuOpen) toggleMobileMenu(); }));
+
+        // 8. AI Modal Logic & FIXED Gemini Integration
         const apiKey = "";
-        let currentAiMode = 'estimate'; // NEW: Track AI mode
+        let currentAiMode = 'estimate';
         
         function openAIModal() {
             const modal = document.getElementById('ai-modal');
@@ -2082,170 +1436,109 @@
             gsap.to(modal, {opacity: 0, duration: 0.3, onComplete: () => modal.classList.add('hidden')});
         }
 
-        // NEW: Function to switch tabs
         function switchAITab(mode) {
             currentAiMode = mode;
             const tabEst = document.getElementById('tab-estimate');
             const tabCon = document.getElementById('tab-concept');
             const inputEl = document.getElementById('ai-input');
-            const outputEl = document.getElementById('ai-output');
             const descEl = document.getElementById('ai-description');
             const btnEl = document.getElementById('ai-submit-btn');
-            const iconBg = document.getElementById('ai-icon-bg');
-            const icon = document.getElementById('ai-icon');
-            const subtitle = document.getElementById('ai-subtitle');
-            const modalContent = document.getElementById('ai-modal-content');
 
             if (mode === 'estimate') {
                 tabEst.className = "px-4 py-2 rounded-lg text-sm font-medium bg-electric text-white shadow-[0_0_15px_rgba(37,99,255,0.4)] transition-all";
-                tabCon.className = "px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white transition-all flex items-center gap-1";
-                
-                descEl.innerHTML = 'Привет! Я персональный AI-ассистент Влада. Опишите, что вам нужно сделать (например: "Нужно оформить 3 карточки товара на Ozon"), и я рассчитаю ориентировочную стоимость проекта на основе прайса.';
-                inputEl.placeholder = "Опишите вашу задачу для расчета...";
-                btnEl.innerHTML = "Рассчитать";
-                btnEl.className = "absolute bottom-3 right-3 bg-electric text-white px-5 py-2 rounded-xl text-sm font-medium hover:bg-electricLight hover:shadow-[0_0_20px_rgba(37,99,255,0.4)] transition-all flex items-center gap-2";
-                
-                iconBg.className = "w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric transition-colors duration-300";
-                icon.className = "ph-fill ph-robot text-2xl";
-                subtitle.className = "text-xs text-electric font-mono tracking-widest mt-1";
-                subtitle.innerText = "GEMINI LLM ESTIMATOR";
-                modalContent.style.borderColor = "rgba(37,99,255,0.3)";
-                
-                outputEl.innerHTML = `<div class="opacity-50 text-center italic mt-4">Здесь появится ваш персональный расчет...</div>`;
+                tabCon.className = "px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white transition-all";
+                descEl.innerHTML = 'Привет! Я персональный AI-ассистент Влада. Опишите задачу для расчета сметы.';
+                inputEl.placeholder = "Например: Дизайн 5 слайдов для карточки Ozon...";
+                btnEl.innerText = "Рассчитать";
+                btnEl.className = "absolute bottom-3 right-3 bg-electric text-white px-5 py-2 rounded-xl text-sm font-medium transition-all";
             } else {
-                tabCon.className = "px-4 py-2 rounded-lg text-sm font-medium bg-[#9333EA] text-white shadow-[0_0_15px_rgba(147,51,234,0.4)] transition-all flex items-center gap-1";
+                tabCon.className = "px-4 py-2 rounded-lg text-sm font-medium bg-[#9333EA] text-white shadow-[0_0_15px_rgba(147,51,234,0.4)] transition-all";
                 tabEst.className = "px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white transition-all";
-                
-                descEl.innerHTML = 'AI Арт-Директор готов к работе. Напишите вашу нишу или продукт (например: "Бренд премиальной мужской одежды"), и я предложу уникальную визуальную концепцию, цвета и фишки для дизайна.';
-                inputEl.placeholder = "Введите нишу или продукт...";
-                btnEl.innerHTML = "Сгенерировать ✨";
-                btnEl.className = "absolute bottom-3 right-3 bg-[#9333EA] text-white px-5 py-2 rounded-xl text-sm font-medium hover:bg-[#A855F7] hover:shadow-[0_0_20px_rgba(147,51,234,0.4)] transition-all flex items-center gap-2";
-                
-                iconBg.className = "w-12 h-12 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-400 transition-colors duration-300";
-                icon.className = "ph-fill ph-magic-wand text-2xl";
-                subtitle.className = "text-xs text-purple-400 font-mono tracking-widest mt-1";
-                subtitle.innerText = "GEMINI LLM CREATIVE";
-                modalContent.style.borderColor = "rgba(147,51,234,0.3)";
-                
-                outputEl.innerHTML = `<div class="opacity-50 text-center italic mt-4">Ожидаю ввод для генерации концепции...</div>`;
+                descEl.innerHTML = 'AI Арт-Директор готов к работе. Напишите нишу, и я предложу визуальную концепцию.';
+                inputEl.placeholder = "Например: Бренд мужской одежды премиум-класса...";
+                btnEl.innerText = "Сгенерировать ✨";
+                btnEl.className = "absolute bottom-3 right-3 bg-[#9333EA] text-white px-5 py-2 rounded-xl text-sm font-medium transition-all";
             }
         }
 
+        // ИСПРАВЛЕНО: Стабильный и надежный вызов Gemini API
         async function generateAIResponse() {
             const inputEl = document.getElementById('ai-input');
             const outputEl = document.getElementById('ai-output');
             const query = inputEl.value.trim();
-            
             if (!query) return;
 
-            // Loading state
             const loadingColor = currentAiMode === 'estimate' ? 'text-electric' : 'text-purple-400';
-            outputEl.innerHTML = `<div class="flex items-center justify-center h-full gap-2 ${loadingColor} animate-pulse py-4"><i class="ph ph-spinner animate-spin text-xl"></i> Обработка запроса нейросетью...</div>`;
+            outputEl.innerHTML = `<div class="flex items-center justify-center gap-2 ${loadingColor} animate-pulse py-4"><i class="ph ph-spinner animate-spin text-xl"></i> Обработка запроса...</div>`;
             
-            let systemPrompt = "";
-            
-            if (currentAiMode === 'estimate') {
-                systemPrompt = `Ты — элитный AI-ассистент Владислава Петрова (VP-DESIGN). Твоя задача — анализировать запросы клиентов на дизайн и предлагать смету на основе прайса Влада.
-Прайс Влада:
-- Инфографика: Главный слайд 1490 ₽, Доп. слайд 700 ₽, Rich-контент от 1990 ₽, Аним. обложка от 2990 ₽.
-- Реклама: Статичные баннеры от 1490 ₽, 2D анимация от 3490 ₽.
-- Соцсети: Оформление ВК от 6490 ₽, Посты от 1490 ₽, Превью YouTube от 1490 ₽.
-- Сайты и Лого: Создание сайтов от 15000 ₽, Логотип от 4990 ₽, Логотип-маскот от 7990 ₽.
+            const systemPrompt = currentAiMode === 'estimate' ? 
+                `Ты — AI-ассистент VP-DESIGN. Считай смету: Инфографика (главный 1490р, доп 700р), Сайты (от 15к), Лого (от 5к). Предлагай писать Владу в Telegram (https://t.me/vladpetroov). Используй <b>, <ul>, <li>. Без Markdown.` : 
+                `Ты — арт-директор VP-DESIGN. Придумай вайб, цвета и одну фишку для ниши. Используй <b>, <ul>, <li>. Без Markdown.`;
 
-Отвечай в стиле премиум digital-студии. Будь краток и профессионален. Структура:
-1. Краткое понимание задачи.
-2. Рекомендуемые услуги и их базовая цена.
-3. Итоговая примерная стоимость (диапазон).
-4. Строгий и вежливый призыв написать Владу в Telegram (https://t.me/vladpetroov) для точного расчета.
-Используй HTML-теги для форматирования (<b>, <ul>, <ol>, <li>, <br>). Не используй Markdown.`;
-            } else {
-                systemPrompt = `Ты — топовый AI Арт-директор элитной digital-студии VP-DESIGN.
-Твоя задача: Клиент называет свою нишу или продукт. Тебе нужно придумать крутую, продающую визуальную концепцию для дизайна.
-Отвечай стильно, сочно, профессионально и вдохновляюще.
-
-Структура твоего ответа строго такая:
-1. <b>Вайб и Настроение:</b> 2 предложения о том, какие эмоции должен вызывать дизайн (например, "Дерзкий киберпанк" или "Дорогой минимализм").
-2. <b>Цветовая палитра:</b> Укажи 2-3 цвета (с их названиями и примерными HEX кодами, если уместно), которые идеально раскроют продукт.
-3. <b>Главная фишка:</b> Предложи ОДНУ нестандартную идею для дизайна (например, особая типографика, 3D элементы, необычный ракурс на обложке).
-4. Завершение: Коротко предложи написать Владу в Telegram (https://t.me/vladpetroov), чтобы воплотить эту концепцию в реальность.
-
-ОБЯЗАТЕЛЬНО используй HTML-теги для форматирования (<b>, <ul>, <ol>, <li>, <br>). Не используй Markdown (* или #).`;
-            }
-
+            // Используем самую стабильную конечную точку для среды предпросмотра
             const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
             
+            // Строгая структура полезной нагрузки, которую ожидает API
             const payload = {
-                contents: [{ parts: [{ text: query }] }],
-                systemInstruction: { parts: [{ text: systemPrompt }] }
+                contents: [{
+                    parts: [{ text: query }]
+                }],
+                systemInstruction: {
+                    parts: [{ text: systemPrompt }]
+                }
             };
 
-            let retries = 0;
-            const maxRetries = 5;
-            const delays = [1000, 2000, 4000, 8000, 16000];
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
 
-            while (retries <= maxRetries) {
-                try {
-                    const response = await fetch(url, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (!response.ok) {
-                        const errorData = await response.json().catch(() => ({}));
-                        throw new Error(errorData.error?.message || `Ошибка сервера: ${response.status}`);
-                    }
-
-                    const data = await response.json();
-                    let text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-                    
-                    // Cleanup any markdown that Gemini might have accidentally included
-                    if(text) {
-                        text = text.replace(/```html/g, '').replace(/```/g, '');
-                    }
-                    
-                    outputEl.innerHTML = `<div class="text-sm text-gray-300 leading-relaxed space-y-3">${text}</div>`;
-                    inputEl.value = ''; // clear input after success
-                    return;
-                } catch (error) {
-                    if (retries === maxRetries) {
-                        outputEl.innerHTML = `<div class="text-red-400 text-sm py-4">Ошибка: ${error.message}<br><br>Пожалуйста, попробуйте позже или напишите Владу напрямую.</div>`;
-                        return;
-                    }
-                    await new Promise(resolve => setTimeout(resolve, delays[retries]));
-                    retries++;
+                if (!response.ok) {
+                    const errData = await response.json();
+                    console.error("API Error:", errData);
+                    throw new Error(errData.error?.message || `Ошибка сервера: ${response.status}`);
                 }
+
+                const data = await response.json();
+                
+                // Надежное извлечение текста из ответа
+                if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts) {
+                    let text = data.candidates[0].content.parts[0].text;
+                    
+                    // Очистка от случайного Markdown
+                    text = text.replace(/```html/g, '').replace(/```/g, '');
+                    
+                    outputEl.innerHTML = `<div class="text-sm text-gray-300 leading-relaxed">${text}</div>`;
+                    inputEl.value = '';
+                } else {
+                    throw new Error("Неверный формат ответа от нейросети");
+                }
+                
+            } catch (error) {
+                console.error("Fetch Error:", error);
+                outputEl.innerHTML = `<div class="text-red-400 text-sm py-4 border border-red-500/30 bg-red-500/10 rounded-xl p-4">
+                    <i class="ph-fill ph-warning-circle text-lg mb-2 block"></i>
+                    <b>Ошибка подключения к нейросети.</b><br>
+                    <span class="opacity-80 text-xs mt-1 block">${error.message}</span><br>
+                    Пожалуйста, напишите Владу напрямую в Telegram.
+                </div>`;
             }
         }
 
-        // 9. Cookie Banner Logic
         document.addEventListener('DOMContentLoaded', () => {
-            const cookieBanner = document.getElementById('cookie-banner');
-            // Проверяем, есть ли уже согласие
             if (!localStorage.getItem('cookieConsent')) {
-                // Если нет, показываем плашку через 2.5 секунды после загрузки
-                setTimeout(() => {
-                    if(cookieBanner) {
-                        cookieBanner.classList.remove('translate-y-[150%]', 'opacity-0');
-                    }
-                }, 2500);
+                setTimeout(() => document.getElementById('cookie-banner').classList.remove('translate-y-[150%]', 'opacity-0'), 2500);
             }
         });
-
-        function acceptCookies() {
-            localStorage.setItem('cookieConsent', 'true');
-            hideCookieBanner();
-        }
-
+        function acceptCookies() { localStorage.setItem('cookieConsent', 'true'); hideCookieBanner(); }
         function hideCookieBanner() {
-            const cookieBanner = document.getElementById('cookie-banner');
-            if(cookieBanner) {
-                cookieBanner.classList.add('translate-y-[150%]', 'opacity-0');
-                // Удаляем из DOM после завершения анимации
-                setTimeout(() => {
-                    cookieBanner.style.display = 'none';
-                }, 500);
-            }
+            const b = document.getElementById('cookie-banner');
+            b.classList.add('translate-y-[150%]', 'opacity-0');
+            setTimeout(() => b.style.display = 'none', 500);
         }
     </script>
 </body>
