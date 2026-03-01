@@ -1265,10 +1265,15 @@
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.32/dist/lenis.min.js"></script>
 
     <script>
+        // ЖЕСТКИЙ СБРОС СКРОЛЛА СРАЗУ (блокирует попытки браузера кинуть вниз)
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+
         gsap.registerPlugin(ScrollTrigger);
         ScrollTrigger.config({ ignoreMobileResize: true });
 
-        if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
         window.onbeforeunload = () => window.scrollTo(0, 0);
         if (!window.location.hash) { window.scrollTo(0, 0); }
 
@@ -1278,12 +1283,31 @@
         gsap.ticker.add((time) => lenis.raf(time * 1000));
         gsap.ticker.lagSmoothing(0);
 
-        window.addEventListener('load', () => { ScrollTrigger.refresh(); });
+        // ФИКС СКРОЛЛА 1: Отслеживаем изменение высоты тела (когда грузятся картинки)
+        const resizeObserver = new ResizeObserver(() => ScrollTrigger.refresh());
+        resizeObserver.observe(document.body);
+
+        // ФИКС СКРОЛЛА 2: Ждем загрузку всех изображений перед финальным рефрешем
+        Promise.all(Array.from(document.images).filter(img => !img.complete).map(img => new Promise(resolve => { 
+            img.onload = img.onerror = resolve; 
+        }))).then(() => {
+            ScrollTrigger.refresh();
+        });
+
+        // ФИКС СКРОЛЛА 3: Добиваем при полной загрузке
+        window.addEventListener('load', () => { 
+            window.scrollTo(0, 0);
+            if (window.lenis) window.lenis.scrollTo(0, {immediate: true});
+            ScrollTrigger.refresh(); 
+        });
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                lenis.scrollTo(this.getAttribute('href'));
+                const targetId = this.getAttribute('href');
+                if (targetId && targetId !== '#') {
+                    lenis.scrollTo(targetId);
+                }
             });
         });
 
