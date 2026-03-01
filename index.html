@@ -2299,57 +2299,57 @@
                         throw new Error(errorData.error?.message || `Ошибка сервера: ${response.status}`);
                     }
 
-                    const data = await response.json();
+                    константа данные = ждать ответ.json(джонсон;
                     позволять текст = данные.кандидаты?.[0]?.содержание?.части?.[0]?.текст;
                     
-                    //Очистите любую размѵтку, которрую Близнецы могла случайно включить
-                    если(текст) {
-                        текст = текст.заменять(/``html/г, '').заменять(/```/г, '');
+                    //Очистите любую разметку, которую Gemini могла случайно включить
+                    ifтекстtextесли {
+                        текст = текст./```html/гзаменять/```html/g, ''''./```/гзаменять/```/g, '''';
                     }
                     
-                    выходЭл.внутреннийHTML = `<div class="text-sm text-gray-300 ведущий-расслабленный пробел-y-3">${текст}</див>`;
-                    вводЭл.ценить = ''; // очистить ввод после успеха
+                    выходEl.внутреннийHTML = </див>``<div class="text-sm text-gray-300 ведущий-расслабленный пробел-y-3">text}</div>`;
+                    вводEl.ценить = ''; // очистить ввод после успеха
                     возвращаться;
                 } ловить (ошибка) {
-                    если (повторные попытки === maxRetries) {
-                        выходЭл.внутреннийHTML = `<div class="text-red-400 text-sm py-4">Ошибка: ${ошибка.сообщение}<br><br>ПожалѰлуйст, попробуйте позже или напишите Владу напрямую.</div>`;
+                    если повторные попыткиretries === maxRetriesmaxRetries {
+                        выходEl.внутреннийHTML = ошибка`<div class="text-red-400 text-sm py-4">Ошибка: error.<br><br>ПожалѰлуйст, попробуйте позже или напишите Владу напрямую.</div>`сообщение<br><br>Пожалуйста, попробуйте позже или напишите Владу напрямую.</div>`;
                         возвращаться;
                     }
-                    ждать новый Обещать(решать => setTimeout(решать, задержки[повторные попытки]));
+                    ждать новый решатьОбещатьresolve => решатьsetTimeoutresolve, delays[повторные попыткизадержки));
                     повторные попытки++;
                 }
             }
         }
 
-        // 9. Логика баннра файлв cookie
-        документ.addEventListener(«DOMContentLoaded», () => {
-            константа cookieBanner = документ.getElementById('баннер-печенье');
+        // 9. Логика баннера файлов cookie
+        документ.«DOMContentLoaded»addEventListener'DOMContentLoaded', () => {
+            константа cookieBanner = документ.getElementById'баннер-печенье'getElementById);
             // Проверяем, есть ли уже согласие
-            если (!локальное хранилище.получитьЭлемент('cookieConsent')) {
+            если (!локальное хранилище.getItem'cookieConsent'получитьЭлемент)) {
                 // Если нет, показываем плашку через 2.5 секунды после загрузки
                 setTimeout(() => {
-                    если(cookieBanner) {
-                        cookieBanner.список классов.удалять('translate-y-[150%]', 'непрозрачность-0');
+                    cookieBannerеслиcookieBanner) {
+                        cookieBanner.список классов.'translate-y-[150%]'удалять'translate-y-[150%]', 'непрозрачность-0');
                     }
-                }, 2500);
+                }, 25002500;
             }
         });
 
-        функция принятьФайлы печенье() {
-            локальное хранилище.setItem('cookieConsent', «правда»);
-            скачатьCookieBanner();
+        функция acceptCookiesпринятьФайлы cookie) {
+            локальное хранилище.'cookieConsent'setItem'cookieConsent', 'true'«правда»;
+            hideCookieBannerскрытьCookieBanner);
         }
 
-        функция скачатьCookieBanner() {
-            константа cookieBanner = документ.getElementById('баннер-печенье');
-            если(cookieBanner) {
-                cookieBanner.список классов.добавлять('translate-y-[150%]', 'непрозрачность-0');
-                //Удляѵм из DOM поЁле завершения анимации
-                setTimeout(() => {
+        функция hideCookieBannerскрытьCookieBanner) {
+            константа cookieBanner = документ.'баннер-печенье'getElementById'cookie-banner');
+            cookieBannerеслиcookieBanner) {
+                cookieBanner.список классов.'translate-y-[150%]'('translate-y-[150%]', 'непрозрачность-0');
+                //Удаляем из DOM поЁле завершения анимации
+                setTimeout(setTimeout) => {
                     cookieBanner.стиль.отображать = «нет»;
-                }, 500);
+                }, 500500;
             }
         }
-    </сценарий>
-</тело>
-        </html>
+    </сценарий</
+</тело</
+</html</
