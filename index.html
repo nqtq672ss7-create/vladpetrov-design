@@ -105,19 +105,18 @@
 
         /* FULL MOBILE ADAPTATION & ANTI-OVERFLOW */
         html, body {
-            overflow-x: hidden !important; /* Strict horizontal lock */
+            overflow-x: hidden !important;
             width: 100%;
             max-width: 100vw;
             position: relative;
-            background-color: #000000;
+            background-color: transparent;
             color: #FFFFFF;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            -webkit-tap-highlight-color: transparent; /* No blue tap highlight on mobile */
-            overscroll-behavior-y: none; /* Prevents pull-to-refresh bounce causing layout shifts */
+            -webkit-tap-highlight-color: transparent;
+            overscroll-behavior-y: none;
         }
 
-        /* 60FPS Hardware Acceleration ONLY where strictly needed */
         .hw-accel {
             -webkit-transform: translate3d(0, 0, 0);
             transform: translate3d(0, 0, 0);
@@ -179,6 +178,39 @@
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
+        /* Portfolio 3D Enhancements - ULTRA OPTIMIZED */
+        .portfolio-item > div, .portfolio-item > a {
+            will-change: transform, opacity;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            transform: translateZ(0);
+        }
+        .portfolio-item img {
+            transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform;
+            transform-origin: center;
+        }
+        @media (hover: hover) {
+            .portfolio-item:hover img {
+                transform: scale(1.08);
+            }
+            .portfolio-item > div::after, .portfolio-item > a::after {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, transparent 50%);
+                opacity: 0;
+                transition: opacity 0.6s ease;
+                pointer-events: none;
+                z-index: 10;
+                mix-blend-mode: overlay;
+                border-radius: inherit;
+            }
+            .portfolio-item:hover > div::after, .portfolio-item:hover > a::after {
+                opacity: 1;
+            }
+        }
+
         /* Mobile Portfolio Carousel Lock */
         @media (max-width: 639px) {
             #portfolio-grid {
@@ -203,6 +235,32 @@
                 margin-bottom: 0 !important;
             }
         }
+
+        /* Footer 3D Enhancements */
+        .footer-3d-scene {
+            perspective: 1500px;
+            transform-style: preserve-3d;
+        }
+        .footer-massive-text {
+            -webkit-text-stroke: 2px rgba(255, 255, 255, 0.1);
+            color: transparent;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+        @media (hover: hover) {
+            .footer-massive-text:hover {
+                color: #FFFFFF;
+                -webkit-text-stroke: 2px transparent;
+                text-shadow: 0 20px 80px rgba(37, 99, 255, 0.6);
+                transform: scale(1.02) translateZ(50px);
+            }
+            .magnetic-btn {
+                transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+        }
+        .footer-link-wrap { overflow: hidden; display: block; width: max-content; }
+        .footer-link-inner { display: block; will-change: transform; }
     </style>
 
     <!-- Yandex.Metrika -->
@@ -218,37 +276,51 @@
     <noscript><div><img src="https://mc.yandex.ru/watch/107053423" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 
 </head>
-<body class="antialiased selection:bg-electric selection:text-white">
+<body class="antialiased selection:bg-electric selection:text-white bg-black">
 
-    <!-- Ambient Background -->
-    <div class="fixed inset-0 z-[-1] pointer-events-none hw-accel">
-        <div class="absolute inset-0 opacity-40" style="background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 60px 60px;"></div>
+    <!-- ПРЕМИАЛЬНЫЙ 3D КОСМОС -->
+    <div class="fixed inset-0 z-0 pointer-events-none hw-accel bg-[#02050A] overflow-hidden">
+        <canvas id="space-canvas" class="absolute inset-0 w-full h-full"></canvas>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#000000_100%)] opacity-80"></div>
     </div>
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 top-0 pt-6 px-6 md:px-12 transition-all duration-300 hw-accel" id="navbar">
-        <div class="max-w-7xl mx-auto flex justify-between items-center glass-panel-static rounded-full px-6 py-4 border-white/10 relative z-50">
-            <a href="#hero" class="font-display font-bold text-xl tracking-wider flex items-center gap-2 group">
-                <span class="w-2 h-2 rounded-full bg-electric group-hover:shadow-[0_0_15px_#2563FF] transition-all"></span>
-                VP-DESIGN
+    <nav class="fixed w-full z-50 top-0 pt-6 px-4 md:px-8 transition-all duration-500 hw-accel" id="navbar">
+        <div id="navbar-container" class="max-w-7xl mx-auto flex justify-between items-center bg-white/[0.02] backdrop-blur-xl rounded-full px-4 py-3 md:px-6 md:py-4 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3)] relative z-50 transition-all duration-500">
+            
+            <!-- Logo Area -->
+            <a href="#hero" class="font-display font-black text-lg md:text-xl tracking-wider flex items-center gap-3 group shrink-0">
+                <div class="relative flex items-center justify-center w-8 h-8 rounded-full bg-electric/10 border border-electric/30 overflow-hidden group-hover:border-electric transition-colors shadow-[0_0_15px_rgba(37,99,255,0.15)]">
+                    <div class="absolute inset-0 bg-electric opacity-0 group-hover:opacity-20 transition-opacity"></div>
+                    <span class="w-1.5 h-1.5 rounded-full bg-electric shadow-[0_0_10px_#2563FF] group-hover:scale-150 transition-transform duration-300"></span>
+                </div>
+                <span class="text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-electric transition-all duration-300">VP-DESIGN</span>
             </a>
             
-            <!-- Desktop Nav -->
-            <div class="hidden md:flex gap-8 text-sm font-medium text-gray-400">
-                <a href="#about" class="hover:text-white transition-colors">Обо мне</a>
-                <a href="#portfolio" class="hover:text-white transition-colors">Портфолио</a>
-                <a href="#services" class="hover:text-white transition-colors">Услуги</a>
-                <a href="#contact" class="hover:text-white transition-colors">Контакты</a>
+            <!-- Desktop Nav (Dock Style) -->
+            <div class="hidden md:flex items-center gap-1 bg-black/40 border border-white/5 rounded-full px-2 py-1.5 shadow-inner">
+                <a href="#about" class="relative px-5 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors rounded-full hover:bg-white/10">Обо мне</a>
+                <a href="#portfolio" class="relative px-5 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors rounded-full hover:bg-white/10">Портфолио</a>
+                <a href="#services" class="relative px-5 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors rounded-full hover:bg-white/10">Услуги</a>
+                <a href="#contact" class="relative px-5 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors rounded-full hover:bg-white/10">Контакты</a>
             </div>
 
-            <!-- Mobile Menu Btn -->
-            <button class="md:hidden text-white p-2 relative z-50 group" id="mobile-menu-btn" aria-label="Toggle Menu">
-                <div class="w-6 h-5 flex flex-col justify-between items-end relative">
-                    <span class="w-full h-[2px] bg-white rounded-full transition-all duration-300 origin-right" id="line-1"></span>
-                    <span class="w-[80%] h-[2px] bg-white rounded-full transition-all duration-300 group-hover:w-full" id="line-2"></span>
-                    <span class="w-full h-[2px] bg-white rounded-full transition-all duration-300 origin-right" id="line-3"></span>
-                </div>
-            </button>
+            <!-- CTA & Mobile Actions -->
+            <div class="flex items-center gap-3 shrink-0">
+                <a href="https://t.me/vladpetroov" target="_blank" class="hidden md:flex items-center gap-2 px-6 py-2.5 rounded-full bg-electric/10 border border-electric/30 text-white text-sm font-bold hover:bg-electric hover:border-electric hover:shadow-[0_0_20px_rgba(37,99,255,0.4)] transition-all duration-300 active:scale-95 group/btn">
+                    Обсудить проект
+                    <i class="ph-bold ph-arrow-up-right text-electric group-hover/btn:text-white transition-colors group-hover/btn:rotate-45 duration-300"></i>
+                </a>
+
+                <!-- Mobile Menu Btn -->
+                <button class="md:hidden text-white p-0 relative z-50 group flex items-center justify-center w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors" id="mobile-menu-btn" aria-label="Toggle Menu">
+                    <div class="w-4 h-3.5 flex flex-col justify-between items-end relative">
+                        <span class="w-full h-[2px] bg-white rounded-full transition-all duration-300 origin-right" id="line-1"></span>
+                        <span class="w-[80%] h-[2px] bg-white rounded-full transition-all duration-300 group-hover:w-full" id="line-2"></span>
+                        <span class="w-full h-[2px] bg-white rounded-full transition-all duration-300 origin-right" id="line-3"></span>
+                    </div>
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -266,17 +338,14 @@
         </div>
     </div>
 
-    <!-- MAIN WRAPPER: Ensures absolutely no horizontal bleed -->
-    <main class="overflow-hidden w-full relative">
+    <main class="overflow-hidden w-full relative z-10">
         
         <!-- 1. HERO BLOCK -->
         <section id="hero" class="relative min-h-[85svh] lg:min-h-[90vh] flex items-center pt-32 pb-12 px-6 md:px-12">
             
-            <!-- OPTIMIZED: Replaced expensive 'blur' with lightweight 'radial-gradients' -->
             <div class="absolute top-[10%] left-[-10%] w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-[radial-gradient(circle,rgba(37,99,255,0.2)_0%,transparent_60%)] animate-blob pointer-events-none z-0 hw-accel"></div>
             <div class="absolute bottom-[10%] right-[-10%] w-[350px] md:w-[500px] h-[350px] md:h-[500px] bg-[radial-gradient(circle,rgba(59,130,246,0.15)_0%,transparent_60%)] animate-blob pointer-events-none z-0 hw-accel" style="animation-delay: 2s;"></div>
 
-            <!-- Tech Background -->
             <div class="absolute inset-0 pointer-events-none z-0 overflow-hidden hw-accel">
                 <div class="absolute top-[10%] left-[5%] md:left-[15%] w-[250px] md:w-[400px] h-[250px] md:h-[400px] border border-white/5 rounded-full animate-spin-slow prlx-mouse prlx-scroll" data-depth="0.04" data-speed="0.1"></div>
                 <div class="absolute bottom-[5%] left-[20%] md:left-[30%] w-[300px] md:w-[500px] h-[300px] md:h-[500px] border border-dashed border-electric/20 rounded-full animate-[spin_40s_linear_infinite_reverse] prlx-mouse prlx-scroll" data-depth="0.06" data-speed="-0.05"></div>
@@ -290,14 +359,12 @@
                 </div>
             </div>
 
-            <!-- Massive Text -->
             <div class="absolute top-[15%] left-[-2%] text-[12rem] lg:text-[18rem] font-display font-black text-white/[0.02] select-none pointer-events-none z-0 tracking-tighter hidden md:block leading-none">
                 CREATIVE
             </div>
 
             <div class="max-w-7xl mx-auto w-full grid md:grid-cols-2 gap-4 md:gap-12 items-center relative z-10 lg:-translate-y-8">
                 
-                <!-- Text Content -->
                 <div class="flex flex-col items-start z-20 relative mb-12 md:mb-0">
                     
                     <div class="absolute -left-8 lg:-left-16 top-[20%] glass-panel px-3 py-1.5 rounded-lg border-white/10 animate-float hidden md:flex items-center gap-2 z-20 hw-accel" style="animation-delay: 0.5s;">
@@ -313,10 +380,10 @@
                         Independent Digital Designer
                     </div>
 
-                    <h1 class="font-display text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.1] mb-6 tracking-tight relative z-30">
-                        <span class="block overflow-hidden pb-2 gsap-title-wrap"><span class="gsap-hero-title block text-white/90 origin-bottom-left">VP-DESIGN —</span></span>
-                        <span class="block overflow-hidden pb-2 gsap-title-wrap"><span class="gsap-hero-title block italic font-light text-white/80 origin-bottom-left">Crafting</span></span>
-                        <span class="block overflow-hidden pb-6 gsap-title-wrap"><span class="gsap-hero-title block text-electric uppercase tracking-tighter origin-bottom-left drop-shadow-[0_0_20px_rgba(37,99,255,0.3)]">Digital Excellence</span></span>
+                    <h1 class="font-display text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.1] mb-6 tracking-tight relative z-30" style="perspective: 1500px;">
+                        <span class="block pb-2 overflow-visible" style="transform-style: preserve-3d;"><span class="word-1 block text-white/90 origin-left">VP-DESIGN —</span></span>
+                        <span class="block pb-2 overflow-visible" style="transform-style: preserve-3d;"><span class="word-2 block italic font-light text-white/80 origin-center">Crafting</span></span>
+                        <span class="block pb-6 overflow-visible" style="transform-style: preserve-3d;"><span class="word-3 block text-[#0066FF] uppercase tracking-tighter origin-right">Digital Excellence</span></span>
                     </h1>
 
                     <p class="text-lg md:text-xl font-light max-w-lg mb-6 md:mb-8 leading-relaxed flex flex-wrap items-center gap-x-3 mt-2">
@@ -354,15 +421,12 @@
                     </div>
                 </div>
 
-                <!-- Hero Image -->
                 <div class="relative w-full h-[480px] md:h-[650px] lg:h-[750px] flex justify-center items-center gsap-hero-image mt-4 md:mt-0">
                     <div class="absolute w-[280px] h-[400px] md:w-[420px] md:h-[600px] glass-panel-static rounded-3xl rotate-3 translate-x-2 opacity-20 z-0 animate-float prlx-scroll hw-accel" data-speed="0.05"></div>
-                    <!-- LCP Optimization -->
                     <img src="https://s10.iimage.su/s/27/g9NPRMPxrMg0Py7y3IFv5H8OiAsvvVDfTG2rb2DEP.png" fetchpriority="high" alt="VP-DESIGN" class="hero-main-img relative z-10 w-auto h-full max-h-[100%] md:max-h-[95%] object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] scale-[1.15] md:scale-100 origin-bottom md:origin-center hw-accel">
                 </div>
             </div>
 
-            <!-- Scroll Down Indicator -->
             <div class="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 z-20">
                 <span class="text-[9px] font-mono tracking-widest uppercase text-electric/80 hidden md:block">Scroll</span>
                 <div class="w-[1px] h-12 md:h-16 bg-gradient-to-b from-electric via-electric/50 to-transparent animate-pulse-fast hw-accel"></div>
@@ -383,7 +447,6 @@
                     
                     <div class="lg:col-span-5 relative gsap-reveal order-2 lg:order-1">
                         <div class="relative group mt-8 lg:mt-0 flex justify-center">
-                            <!-- Dynamic Aura -->
                             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] pointer-events-none z-0 flex items-center justify-center transition-all duration-1000 hw-accel group-hover:scale-105">
                                 <div class="absolute w-[60%] h-[60%] bg-[radial-gradient(circle,rgba(37,99,255,0.3)_0%,transparent_60%)] rounded-full animate-spin-slow origin-bottom-right transition-colors duration-700"></div>
                                 <div class="absolute w-[55%] h-[55%] bg-[radial-gradient(circle,rgba(59,130,246,0.25)_0%,transparent_60%)] rounded-full animate-spin-slow-reverse origin-top-left transition-colors duration-700"></div>
@@ -426,7 +489,6 @@
                         </div>
                     </div>
 
-                    <!-- Content -->
                     <div class="lg:col-span-7 flex flex-col justify-center order-1 lg:order-2 lg:pl-10">
                         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-electric/30 bg-electric/5 text-[10px] font-mono text-electric uppercase tracking-widest mb-6 w-max gsap-reveal">
                             <i class="ph-duotone ph-identification-card text-sm"></i> About Identity
@@ -455,7 +517,6 @@
                             </ul>
                         </div>
 
-                        <!-- Stats Dashboard -->
                         <div class="grid grid-cols-2 md:grid-cols-3 gap-4 gsap-stagger-grid">
                             <div class="gsap-stagger-item h-full">
                                 <div class="glass-panel p-6 rounded-2xl border-white/5 hover:border-electric/50 transition-colors relative overflow-hidden group h-full">
@@ -515,7 +576,6 @@
                     </div>
                 </div>
 
-                <!-- Services Grid -->
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 gsap-stagger-grid relative z-20">
                     
                     <div class="gsap-stagger-item h-full">
@@ -696,255 +756,255 @@
                 <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 gsap-stagger-grid" id="portfolio-grid">
                     
                     <!-- ИНФОГРАФИКА -->
-                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/FLsCKXYD/579-20251105185725.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/wFh0gByn/IMG-8041.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/k6wSmDBj/IMG-7170.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/JwML7f4g/373-20250817165435.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/p6C8zZLn/969-20251230133150.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/6RkgYh1G/IMG-7410.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/6cjb5PS9/601-20251110164430.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/8LX6HLHN/IMG-3641.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/W4FM2HxQ/436-20250929191023.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://s10.iimage.su/s/04/gdMBG4uxzQsnA1DqcSt2JytgzCvqzGN0luOznn1y1.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://s10.iimage.su/s/04/gw4UBZXxtDaPioeol7HhS7Iq6gWO2oTokFXlgUcT4.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://s10.iimage.su/s/04/gVgmGI8xK8MhtFFngy8FGJMBmNa1dsottDnD92Mbp.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://s10.iimage.su/s/04/gu6bFi1xpXC0UMrJ1zLXug2Rfwlyr6Q3Yws3Nq7ia.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://s10.iimage.su/s/04/guiSxHpx4cLIupyz19sHT3BoPjizA99gpnVuYaWZb.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://s10.iimage.su/s/04/giTHkd2xHpnSAts7GFnAHplobQSrczr9wtDdvjA7n.png" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://s10.iimage.su/s/04/gsOdORQxSRYR70XqfHez7EMLMzAgzRkTRqZ8k9laC.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://s10.iimage.su/s/04/g9Y8dAEx9nT9s6OD27J5gzs4hBpkWWqUehcegEPM0.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item info gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://s10.iimage.su/s/04/g0myYXwxdvoczLiiqQNzamltLeMuyCaX6rzHBPKTy.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
 
                     <!-- RICH-КОНТЕНТ -->
-                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item rich break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/8HHXJ0B/IMG-9007.jpg" alt="Rich-контент" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item rich break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/jZbFs3Ky/IMG-9008.jpg" alt="Rich-контент" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item rich break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/GvbQSwMt/IMG-9009.jpg" alt="Rich-контент" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item rich break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/vvkNDFwf/IMG-9011.jpg" alt="Rich-контент" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item rich break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/PGs0D1Dq/IMG-9014.jpg" alt="Rich-контент" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item rich break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/JFRgsH6s/IMG-9192.jpg" alt="Rich-контент" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item rich break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/3YjV7wff/IMG-9193.jpg" alt="Rich-контент" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item rich break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/wF3tJpGW/IMG-4578.jpg" alt="Rich-контент" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item rich break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/BHFYQSYJ/IMG-9195.jpg" alt="Rich-контент" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item rich gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item rich break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/sd0HQhnt/IMG-9196.jpg" alt="Rich-контент" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
 
                     <!-- РЕКЛАМНЫЕ КРЕАТИВЫ -->
-                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item ads break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/mCwt9S7m/IMG-9038.jpg" alt="Креативы" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item ads break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/kgdk8WHP/IMG-9039.jpg" alt="Креативы" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item ads break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/QvPPwftV/IMG-9040.jpg" alt="Креативы" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item ads break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/YTyT1Yhx/IMG-9041.jpg" alt="Креативы" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item ads break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/7JpF89m7/IMG-2595.jpg" alt="Креативы" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item ads break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/QjCd4nnm/IMG-2607.jpg" alt="Креативы" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item ads break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/8grtG5HT/IMG-9236.jpg" alt="Креативы" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item ads break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/B5vqD6XT/IMG-9237.jpg" alt="Креативы" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item ads break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/nMDRG9hP/IMG-9238.jpg" alt="Креативы" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item ads gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item ads break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/7Nk21NQS/IMG-9239.jpg" alt="Креативы" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
 
                     <!-- ОФОРМЛЕНИЕ ВК -->
-                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item smm break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/HTMwMzwK/IMG-9042.jpg" alt="Соцсети" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item smm break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/gMgcyT0q/IMG-9043.jpg" alt="Соцсети" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item smm break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/673Nd5yp/IMG-9044.jpg" alt="Соцсети" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item smm break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/HTDbFGHF/IMG-9045.jpg" alt="Соцсети" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item smm break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/wFLTkBSf/IMG-9046.jpg" alt="Соцсети" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item smm break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/Nd2bRd8J/IMG-6325.jpg" alt="Соцсети" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item smm break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/pBXg4GYr/IMG-9229.jpg" alt="Соцсети" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item smm break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/z90Tqv2/IMG-9231.jpg" alt="Соцсети" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item smm break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/cSv8mjKZ/IMG-9233.jpg" alt="Соцсети" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item smm gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item smm break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/4nd20SMP/IMG-9234.jpg" alt="Соцсети" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
 
                     <!-- САЙТЫ -->
-                    <div class="portfolio-item web gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item web break-inside-avoid mb-6 block">
                         <a href="https://ecopoint-anapa.ru" target="_blank" rel="noopener noreferrer" class="block glass-panel p-6 rounded-2xl hover:border-electric transition-colors group">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform">
@@ -959,7 +1019,7 @@
                             <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">ecopoint-anapa.ru</div>
                         </a>
                     </div>
-                    <div class="portfolio-item web gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item web break-inside-avoid mb-6 block">
                         <a href="https://chedesign.online" target="_blank" rel="noopener noreferrer" class="block glass-panel p-6 rounded-2xl hover:border-electric transition-colors group">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform">
@@ -974,7 +1034,7 @@
                             <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">chedesign.online</div>
                         </a>
                     </div>
-                    <div class="portfolio-item web gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item web break-inside-avoid mb-6 block">
                         <a href="https://manufakturabeauty.ru" target="_blank" rel="noopener noreferrer" class="block glass-panel p-6 rounded-2xl hover:border-electric transition-colors group">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform">
@@ -989,7 +1049,7 @@
                             <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">manufakturabeauty.ru</div>
                         </a>
                     </div>
-                    <div class="portfolio-item web gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item web break-inside-avoid mb-6 block">
                         <a href="https://supaposhta.com" target="_blank" rel="noopener noreferrer" class="block glass-panel p-6 rounded-2xl hover:border-electric transition-colors group">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform">
@@ -1004,7 +1064,7 @@
                             <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">supaposhta.com</div>
                         </a>
                     </div>
-                    <div class="portfolio-item web gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item web break-inside-avoid mb-6 block">
                         <a href="https://domoteka-krd.ru" target="_blank" rel="noopener noreferrer" class="block glass-panel p-6 rounded-2xl hover:border-electric transition-colors group">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform">
@@ -1019,7 +1079,7 @@
                             <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">domoteka-krd.ru</div>
                         </a>
                     </div>
-                    <div class="portfolio-item web gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item web break-inside-avoid mb-6 block">
                         <a href="https://welcome.finbazar.ru" target="_blank" rel="noopener noreferrer" class="block glass-panel p-6 rounded-2xl hover:border-electric transition-colors group">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform">
@@ -1034,7 +1094,7 @@
                             <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">welcome.finbazar.ru</div>
                         </a>
                     </div>
-                    <div class="portfolio-item web gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item web break-inside-avoid mb-6 block">
                         <a href="https://helsalogistics.com" target="_blank" rel="noopener noreferrer" class="block glass-panel p-6 rounded-2xl hover:border-electric transition-colors group">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform">
@@ -1049,7 +1109,7 @@
                             <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">helsalogistics.com</div>
                         </a>
                     </div>
-                    <div class="portfolio-item web gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item web break-inside-avoid mb-6 block">
                         <a href="https://endigo.pro" target="_blank" rel="noopener noreferrer" class="block glass-panel p-6 rounded-2xl hover:border-electric transition-colors group">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform">
@@ -1064,7 +1124,7 @@
                             <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">endigo.pro</div>
                         </a>
                     </div>
-                    <div class="portfolio-item web gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item web break-inside-avoid mb-6 block">
                         <a href="https://cocosbeauty.shop" target="_blank" rel="noopener noreferrer" class="block glass-panel p-6 rounded-2xl hover:border-electric transition-colors group">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform">
@@ -1079,7 +1139,7 @@
                             <div class="text-[11px] font-mono text-electric/70 truncate border-t border-white/5 pt-4">cocosbeauty.shop</div>
                         </a>
                     </div>
-                    <div class="portfolio-item web gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item web break-inside-avoid mb-6 block">
                         <a href="https://lemme.looknewsite.ru" target="_blank" rel="noopener noreferrer" class="block glass-panel p-6 rounded-2xl hover:border-electric transition-colors group">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center text-electric group-hover:scale-110 transition-transform">
@@ -1096,52 +1156,52 @@
                     </div>
 
                     <!-- ЛОГОТИПЫ -->
-                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item logo break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/7J4p4Vv4/IMG-9240.jpg" alt="Логотипы" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item logo break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/208FxJYY/IMG-9241.jpg" alt="Логотипы" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item logo break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/XZfZhbJF/IMG-9242.jpg" alt="Логотипы" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item logo break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/tTRvm49t/IMG-9243.jpg" alt="Логотипы" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item logo break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/99QzsC6T/IMG-9244.jpg" alt="Логотипы" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item logo break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/gZDgFYJ8/IMG-9245.jpg" alt="Логотипы" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item logo break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/0pS1jW3X/IMG-9246.jpg" alt="Логотипы" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item logo break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/XZkDCQqQ/IMG-9247.jpg" alt="Логотипы" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item logo break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/kgRQGG11/IMG-9248.jpg" alt="Логотипы" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
                     </div>
-                    <div class="portfolio-item logo gsap-stagger-item break-inside-avoid mb-6 block">
+                    <div class="portfolio-item logo break-inside-avoid mb-6 block">
                         <div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]">
                             <img src="https://i.ibb.co/Z6SQ3vxx/IMG-9249.jpg" alt="Логотипы" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover">
                         </div>
@@ -1620,59 +1680,76 @@
             </div>
         </section>
 
-        <!-- FOOTER -->
-        <footer class="relative bg-black pt-24 pb-8 border-t border-white/10 overflow-hidden z-10">
+        <!-- FOOTER (AWWWARDS LEVEL) -->
+        <footer id="footer" class="relative bg-[#02050A] pt-32 pb-8 border-t border-white/5 overflow-hidden z-10 footer-3d-scene">
+            <!-- Deep 3D Space Background Aura -->
             <div class="absolute inset-0 pointer-events-none z-0">
-                <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[300px] bg-[radial-gradient(ellipse,rgba(37,99,255,0.15)_0%,transparent_70%)] rounded-t-full opacity-50"></div>
-                <div class="absolute inset-0 opacity-20" style="background-image: linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 60px 60px; -webkit-mask-image: linear-gradient(to top, black 20%, transparent 80%); mask-image: linear-gradient(to top, black 20%, transparent 80%);"></div>
+                <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[150vw] h-[600px] bg-[radial-gradient(ellipse_at_bottom,rgba(37,99,255,0.15)_0%,transparent_60%)] rounded-t-[100%] opacity-80 pointer-events-none prlx-scroll" data-speed="0.05"></div>
+                <div class="absolute inset-0 opacity-20" style="background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 60px 60px; -webkit-mask-image: linear-gradient(to top, black 10%, transparent 80%); mask-image: linear-gradient(to top, black 10%, transparent 80%);"></div>
             </div>
 
             <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-                <div class="w-full overflow-hidden mb-16 flex justify-center gsap-reveal">
-                    <h2 class="text-[14vw] md:text-[12vw] leading-none font-display font-black text-transparent bg-clip-text bg-gradient-to-b from-white/10 to-transparent select-none tracking-tighter">VP-DESIGN</h2>
+                
+                <!-- MASSIVE 3D INTERACTIVE LOGO -->
+                <div class="w-full flex justify-center items-center mb-24 relative z-0 h-[15vh] md:h-[25vh]">
+                    <h2 class="footer-massive-text text-[16vw] md:text-[14vw] leading-none font-display font-black text-center select-none tracking-tighter w-full cursor-default">
+                        VP-DESIGN
+                    </h2>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16 gsap-reveal">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16 relative z-10">
                     <div class="md:col-span-5 flex flex-col gap-6">
-                        <a href="#hero" class="font-display font-bold text-2xl tracking-wider flex items-center gap-3 group w-max">
-                            <span class="w-3 h-3 rounded-full bg-electric group-hover:shadow-[0_0_15px_#2563FF] transition-shadow"></span>
-                            VP-DESIGN
-                        </a>
-                        <p class="text-gray-400 text-sm leading-relaxed max-w-sm">
-                            Создаю премиальные интерфейсы и визуальные концепции, которые продают. От идеи до wow-эффекта.
-                        </p>
-                        <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 bg-white/5 w-max">
-                            <span class="relative flex h-2 w-2">
-                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-electric opacity-75"></span>
-                                <span class="relative inline-flex rounded-full h-2 w-2 bg-electric"></span>
-                            </span>
-                            <span class="text-[10px] font-mono text-white/80 uppercase tracking-widest">Available for projects</span>
+                        <div class="footer-link-wrap">
+                            <a href="#hero" class="footer-link-inner font-display font-bold text-2xl tracking-wider flex items-center gap-3 group w-max">
+                                <span class="w-3 h-3 rounded-full bg-electric group-hover:shadow-[0_0_20px_#2563FF] transition-shadow"></span>
+                                VP-DESIGN
+                            </a>
+                        </div>
+                        <div class="footer-link-wrap">
+                            <p class="footer-link-inner text-gray-400 text-sm leading-relaxed max-w-sm">
+                                Создаю премиальные интерфейсы и визуальные концепции, которые продают. От идеи до wow-эффекта.
+                            </p>
+                        </div>
+                        <div class="footer-link-wrap mt-2">
+                            <div class="footer-link-inner inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 bg-white/5 w-max">
+                                <span class="relative flex h-2 w-2">
+                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-electric opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-electric"></span>
+                                </span>
+                                <span class="text-[10px] font-mono text-white/80 uppercase tracking-widest">Available for projects</span>
+                            </div>
                         </div>
                     </div>
 
                     <div class="md:col-span-2 md:col-start-8 flex flex-col gap-4">
-                        <h4 class="text-white font-bold mb-2 font-mono text-[10px] tracking-widest uppercase">Навигация</h4>
-                        <a href="#hero" class="text-gray-400 hover:text-electric transition-colors text-sm w-max">Главная</a>
-                        <a href="#about" class="text-gray-400 hover:text-electric transition-colors text-sm w-max">Обо мне</a>
-                        <a href="#portfolio" class="text-gray-400 hover:text-electric transition-colors text-sm w-max">Портфолио</a>
-                        <a href="#services" class="text-gray-400 hover:text-electric transition-colors text-sm w-max">Услуги</a>
+                        <div class="footer-link-wrap"><h4 class="footer-link-inner text-white font-bold mb-2 font-mono text-[10px] tracking-widest uppercase text-electric">Навигация</h4></div>
+                        <div class="footer-link-wrap"><a href="#hero" class="footer-link-inner text-gray-400 hover:text-white transition-colors text-sm flex items-center gap-2 w-max hover:translate-x-2 duration-300">Главная</a></div>
+                        <div class="footer-link-wrap"><a href="#about" class="footer-link-inner text-gray-400 hover:text-white transition-colors text-sm flex items-center gap-2 w-max hover:translate-x-2 duration-300">Обо мне</a></div>
+                        <div class="footer-link-wrap"><a href="#portfolio" class="footer-link-inner text-gray-400 hover:text-white transition-colors text-sm flex items-center gap-2 w-max hover:translate-x-2 duration-300">Портфолио</a></div>
+                        <div class="footer-link-wrap"><a href="#services" class="footer-link-inner text-gray-400 hover:text-white transition-colors text-sm flex items-center gap-2 w-max hover:translate-x-2 duration-300">Услуги</a></div>
                     </div>
 
                     <div class="md:col-span-2 flex flex-col gap-4">
-                        <h4 class="text-white font-bold mb-2 font-mono text-[10px] tracking-widest uppercase">Соцсети</h4>
-                        <a href="https://t.me/vladpetroov" target="_blank" class="text-gray-400 hover:text-electric transition-colors text-sm flex items-center gap-2 w-max group">
-                            <i class="ph-fill ph-telegram-logo group-hover:scale-110 transition-transform hw-accel"></i> Telegram
-                        </a>
-                        <a href="javascript:void(0)" class="text-gray-400 hover:text-[#0077FF] transition-colors text-sm flex items-center gap-2 w-max group">
-                            <span class="font-display font-black text-base group-hover:scale-110 transition-transform tracking-tighter hw-accel">VK</span> ВКонтакте
-                        </a>
-                        <a href="javascript:void(0)" class="text-gray-400 hover:text-[#E60023] transition-colors text-sm flex items-center gap-2 w-max group">
-                            <i class="ph-fill ph-pinterest-logo group-hover:scale-110 transition-transform hw-accel"></i> Pinterest
-                        </a>
+                        <div class="footer-link-wrap"><h4 class="footer-link-inner text-white font-bold mb-2 font-mono text-[10px] tracking-widest uppercase text-electric">Соцсети</h4></div>
+                        <div class="footer-link-wrap">
+                            <a href="https://t.me/vladpetroov" target="_blank" class="footer-link-inner text-gray-400 hover:text-white transition-colors text-sm flex items-center gap-2 w-max group hover:translate-x-2 duration-300">
+                                <i class="ph-fill ph-telegram-logo text-electric group-hover:drop-shadow-[0_0_10px_rgba(37,99,255,0.8)] transition-all text-lg"></i> Telegram
+                            </a>
+                        </div>
+                        <div class="footer-link-wrap">
+                            <a href="javascript:void(0)" class="footer-link-inner text-gray-400 hover:text-white transition-colors text-sm flex items-center gap-2 w-max group hover:translate-x-2 duration-300">
+                                <span class="font-display font-black text-base tracking-tighter text-[#0077FF] group-hover:drop-shadow-[0_0_10px_rgba(0,119,255,0.8)] transition-all">VK</span> ВКонтакте
+                            </a>
+                        </div>
+                        <div class="footer-link-wrap">
+                            <a href="javascript:void(0)" class="footer-link-inner text-gray-400 hover:text-white transition-colors text-sm flex items-center gap-2 w-max group hover:translate-x-2 duration-300">
+                                <i class="ph-fill ph-pinterest-logo text-[#E60023] group-hover:drop-shadow-[0_0_10px_rgba(230,0,35,0.8)] transition-all text-lg"></i> Pinterest
+                            </a>
+                        </div>
                     </div>
                 </div>
 
-                <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
                     <div class="text-xs text-gray-500 flex flex-col md:flex-row items-center gap-2 md:gap-4 text-center md:text-left">
                         <span>&copy; 2024 VP-DESIGN.</span>
                         <span class="hidden md:block w-1 h-1 bg-white/20 rounded-full"></span>
@@ -1685,7 +1762,7 @@
                         SYS.END // CONNECTION_SECURE
                     </div>
 
-                    <button onclick="window.lenis ? window.lenis.scrollTo(0) : window.scrollTo(0,0)" class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-gray-400 hover:text-electric active:scale-95 group shrink-0">
+                    <button onclick="window.lenis ? window.lenis.scrollTo(0) : window.scrollTo(0,0)" class="magnetic-btn w-14 h-14 rounded-full bg-white/5 border border-white/10 backdrop-blur-xl flex items-center justify-center text-white hover:bg-electric hover:border-electric hover:shadow-[0_0_30px_rgba(37,99,255,0.4)] active:scale-95 group shrink-0 transition-colors duration-300">
                         <i class="ph-bold ph-arrow-up text-xl group-hover:-translate-y-1 transition-transform hw-accel"></i>
                     </button>
                 </div>
@@ -1735,11 +1812,102 @@
             gestureOrientation: 'vertical',
             smoothWheel: true,
             wheelMultiplier: 1, 
-            smoothTouch: false, // Обязательно false для идеального тач-скролла на iPhone/Android
-            syncTouch: false,   // Убирает лаги при свайпе
+            smoothTouch: false,
+            syncTouch: false,
             touchMultiplier: 2,
         });
         window.lenis = lenis;
+
+        // === 3D SPACE PARTICLES CONSTELLATION ===
+        const spaceCanvas = document.getElementById('space-canvas');
+        if (spaceCanvas) {
+            const ctx = spaceCanvas.getContext('2d');
+            let spaceWidth, spaceHeight;
+            let particles = [];
+            let spaceMouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
+            let spaceScrollY = 0, targetSpaceScrollY = 0;
+
+            const particleColors = ['#2563FF', '#60A5FA', '#FFFFFF', '#0044FF'];
+
+            function initSpace() {
+                spaceWidth = spaceCanvas.width = window.innerWidth;
+                spaceHeight = spaceCanvas.height = window.innerHeight;
+                particles = [];
+                const particleCount = window.innerWidth < 768 ? 50 : 120;
+                
+                for(let i=0; i<particleCount; i++) {
+                    particles.push({
+                        x: Math.random() * spaceWidth,
+                        y: Math.random() * spaceHeight,
+                        z: Math.random() * 0.8 + 0.2,
+                        size: Math.random() * 1.5 + 0.5,
+                        color: particleColors[Math.floor(Math.random() * particleColors.length)],
+                        vx: (Math.random() - 0.5) * 0.4,
+                        vy: (Math.random() - 0.5) * 0.4,
+                    });
+                }
+            }
+
+            function animateSpace() {
+                ctx.clearRect(0, 0, spaceWidth, spaceHeight);
+                
+                spaceMouse.x += (spaceMouse.targetX - spaceMouse.x) * 0.05;
+                spaceMouse.y += (spaceMouse.targetY - spaceMouse.y) * 0.05;
+                spaceScrollY += (targetSpaceScrollY - spaceScrollY) * 0.1;
+
+                for(let i = 0; i < particles.length; i++) {
+                    let p = particles[i];
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    let pX = p.x - (spaceMouse.x * p.z * 120);
+                    let pY = p.y - (spaceScrollY * p.z * 0.4) - (spaceMouse.y * p.z * 120);
+
+                    pX = ((pX % spaceWidth) + spaceWidth) % spaceWidth;
+                    pY = ((pY % spaceHeight) + spaceHeight) % spaceHeight;
+
+                    for(let j = i + 1; j < particles.length; j++) {
+                        let p2 = particles[j];
+                        let p2X = p2.x - (spaceMouse.x * p2.z * 120);
+                        let p2Y = p2.y - (spaceScrollY * p2.z * 0.4) - (spaceMouse.y * p2.z * 120);
+                        
+                        p2X = ((p2X % spaceWidth) + spaceWidth) % spaceWidth;
+                        p2Y = ((p2Y % spaceHeight) + spaceHeight) % spaceHeight;
+
+                        let dx = pX - p2X;
+                        let dy = pY - p2Y;
+                        let dist = Math.sqrt(dx*dx + dy*dy);
+
+                        if(dist < 130) {
+                            ctx.beginPath();
+                            ctx.strokeStyle = p.color;
+                            ctx.globalAlpha = (1 - dist/130) * 0.25 * p.z;
+                            ctx.lineWidth = 1;
+                            ctx.moveTo(pX, pY);
+                            ctx.lineTo(p2X, p2Y);
+                            ctx.stroke();
+                        }
+                    }
+
+                    ctx.beginPath();
+                    ctx.arc(pX, pY, p.size * p.z, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.globalAlpha = p.z * 0.8 + 0.2; 
+                    ctx.fill();
+                }
+
+                requestAnimationFrame(animateSpace);
+            }
+
+            window.addEventListener('resize', initSpace);
+            window.addEventListener('mousemove', (e) => {
+                spaceMouse.targetX = (e.clientX / window.innerWidth) * 2 - 1;
+                spaceMouse.targetY = (e.clientY / window.innerHeight) * 2 - 1;
+            });
+
+            initSpace();
+            animateSpace();
+        }
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -1748,11 +1916,14 @@
             });
         });
 
-        lenis.on('scroll', ScrollTrigger.update);
+        lenis.on('scroll', (e) => {
+            ScrollTrigger.update();
+            targetSpaceScrollY = window.scrollY;
+        });
+        
         gsap.ticker.add((time) => { lenis.raf(time * 1000); });
         gsap.ticker.lagSmoothing(0);
 
-        // Перерасчет позиций GSAP после загрузки тяжелых элементов портфолио (избавляет от прыжков скролла)
         window.addEventListener('load', () => { 
             setTimeout(() => { ScrollTrigger.refresh(); }, 500); 
         });
@@ -1799,20 +1970,16 @@
 
         // Анимации первого экрана
         const tl = gsap.timeline();
-        tl.from(".gsap-hero-title", { yPercent: 120, rotation: 5, opacity: 0, duration: 1.4, stagger: 0.15, ease: "expo.out", delay: 0.2 })
+        
+        tl.from(".word-1", { x: -200, z: -100, rotationY: -45, opacity: 0, duration: 1.4, ease: "expo.out", force3D: true, delay: 0.2 })
+          .from(".word-2", { y: 100, z: -400, rotationX: -80, opacity: 0, duration: 1.6, ease: "expo.out", force3D: true }, "-=1.0")
+          .from(".word-3", { x: 200, z: 100, rotationY: 45, opacity: 0, duration: 1.4, ease: "expo.out", force3D: true }, "-=1.3")
           .from(".hero-keyword", { y: 20, opacity: 0, duration: 0.8, stagger: 0.15, ease: "back.out(2)" }, "-=0.8")
-          .from(".gsap-hero-el", { y: 30, opacity: 0, duration: 0.8, stagger: 0.1, ease: "power2.out", clearProps: "all" }, "-=0.6")
-          .from(".hero-action-el", { y: 30, opacity: 0, duration: 0.8, stagger: 0.15, ease: "power2.out", clearProps: "all" }, "-=0.6")
-          .from(".gsap-hero-image", { y: 100, scale: 0.95, opacity: 0, duration: 1.5, ease: "expo.out", clearProps: "all" }, "-=1.2");
+          .from(".gsap-hero-el", { y: 30, opacity: 0, duration: 0.8, stagger: 0.1, ease: "power2.out", clearProps: "all" }, "-=0.8")
+          .from(".hero-action-el", { y: 30, opacity: 0, duration: 0.8, stagger: 0.15, ease: "power2.out", clearProps: "all" }, "-=0.8")
+          .from(".gsap-hero-image", { y: 100, scale: 0.95, opacity: 0, duration: 1.5, ease: "expo.out", clearProps: "all" }, "-=1.4");
 
         gsap.to(".hero-main-img", { y: -15, duration: 3, ease: "sine.inOut", yoyo: true, repeat: -1 });
-
-        const titleWraps = document.querySelectorAll('.gsap-title-wrap');
-        if(titleWraps.length >= 3) {
-            gsap.to(titleWraps[0], { x: -80, opacity: 0, scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: 1 }});
-            gsap.to(titleWraps[1], { x: 60, opacity: 0, scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: 1 }});
-            gsap.to(titleWraps[2], { x: -100, opacity: 0, scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: 1 }});
-        }
 
         gsap.fromTo(".about-title-line", { y: 50, opacity: 0, rotateX: -40 }, { y: 0, opacity: 1, rotateX: 0, duration: 1.2, stagger: 0.2, ease: "back.out(1.5)", scrollTrigger: { trigger: ".about-title", start: "top 85%", toggleActions: "play none none reverse" }});
         gsap.fromTo(".services-title-line", { y: 50, opacity: 0, rotateX: -40 }, { y: 0, opacity: 1, rotateX: 0, duration: 1.2, stagger: 0.2, ease: "back.out(1.5)", scrollTrigger: { trigger: ".services-title", start: "top 85%", toggleActions: "play none none reverse" }});
@@ -1828,15 +1995,46 @@
             if(!item.classList.contains(initialActiveFilter)) item.style.display = 'none';
         });
 
-        gsap.set('.gsap-stagger-item', { autoAlpha: 0, y: 50 });
-        ScrollTrigger.batch('.gsap-stagger-item', {
+        gsap.set('.gsap-stagger-item:not(.portfolio-item)', { autoAlpha: 0, y: 50 });
+        ScrollTrigger.batch('.gsap-stagger-item:not(.portfolio-item)', {
             interval: 0.1, batchMax: 3, start: "top 85%",
             onEnter: batch => gsap.to(batch, { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.15, ease: "power3.out", overwrite: true, onComplete: () => gsap.set(batch, { clearProps: "transform" }) })
         });
 
+        const portfolioInners = gsap.utils.toArray('.portfolio-item > div, .portfolio-item > a');
+        gsap.set(portfolioInners, { opacity: 0, y: 120, z: -300, rotationX: 45, rotationY: -10, scale: 0.8, transformPerspective: 1500 });
+        
+        ScrollTrigger.batch('.portfolio-item', {
+            interval: 0.1, batchMax: 3, start: "top 85%", 
+            onEnter: batch => {
+                const targets = batch.map(el => el.firstElementChild);
+                gsap.to(targets, { opacity: 1, y: 0, z: 0, rotationX: 0, rotationY: 0, scale: 1, duration: 1.4, stagger: 0.15, ease: "back.out(1.2)", force3D: true, overwrite: true });
+            }
+        });
+
+        if (window.matchMedia("(hover: hover)").matches) {
+            const portfolioCards = document.querySelectorAll('.portfolio-item > div, .portfolio-item > a');
+            portfolioCards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = ((y - centerY) / centerY) * -12;
+                    const rotateY = ((x - centerX) / centerX) * 12;
+                    
+                    gsap.to(card, { rotationX: rotateX, rotationY: rotateY, transformPerspective: 1500, ease: "power2.out", duration: 0.4 });
+                });
+                card.addEventListener('mouseleave', () => {
+                    gsap.to(card, { rotationX: 0, rotationY: 0, duration: 1, ease: "elastic.out(1, 0.3)" });
+                });
+            });
+        }
+
         gsap.utils.toArray('.prlx-scroll').forEach(layer => {
             const speed = parseFloat(layer.getAttribute('data-speed')) || 0.1;
-            gsap.to(layer, { y: () => -(window.innerHeight * speed), ease: "none", scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: true, invalidateOnRefresh: true }});
+            gsap.to(layer, { y: () => -(window.innerHeight * speed), ease: "none", scrollTrigger: { trigger: "body", start: "top top", end: "bottom top", scrub: true, invalidateOnRefresh: true }});
         });
 
         if (window.matchMedia("(hover: hover)").matches) {
@@ -1893,13 +2091,19 @@
                 btn.classList.add('active', 'text-white'); btn.classList.remove('text-gray-400');
                 const filterValue = btn.getAttribute('data-filter');
 
-                gsap.to(portfolioItems, {
-                    scale: 0.9, autoAlpha: 0, duration: 0.3,
+                const visibleInners = Array.from(portfolioItems).filter(item => item.style.display !== 'none').map(item => item.firstElementChild);
+
+                gsap.to(visibleInners, {
+                    scale: 0.8, opacity: 0, rotationX: -45, z: -200, duration: 0.4, ease: "power2.in", force3D: true,
                     onComplete: () => {
                         portfolioItems.forEach(item => {
                             if(item.classList.contains(filterValue)) {
-                                item.style.display = 'block';
-                                gsap.to(item, { scale: 1, autoAlpha: 1, duration: 0.4, ease: "back.out(1.7)", clearProps: "transform" });
+                                item.style.display = 'block'; 
+                                const inner = item.firstElementChild; 
+                                gsap.fromTo(inner, 
+                                    { scale: 0.8, opacity: 0, rotationX: 45, z: -300, y: 100, transformPerspective: 1500 },
+                                    { scale: 1, opacity: 1, rotationX: 0, z: 0, y: 0, duration: 1.2, ease: "back.out(1.2)", force3D: true }
+                                );
                             } else {
                                 item.style.display = 'none';
                             }
@@ -1911,9 +2115,19 @@
         });
 
         const navbar = document.getElementById('navbar');
+        const navContainer = document.getElementById('navbar-container');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) { navbar.classList.add('py-4'); navbar.classList.remove('pt-6'); } 
-            else { navbar.classList.add('pt-6'); navbar.classList.remove('py-4'); }
+            if (window.scrollY > 50) { 
+                navbar.classList.add('pt-3'); 
+                navbar.classList.remove('pt-6'); 
+                navContainer.classList.add('bg-[#050505]/80', 'border-electric/30', 'shadow-[0_10px_40px_rgba(37,99,255,0.15)]');
+                navContainer.classList.remove('bg-white/[0.02]', 'border-white/10', 'shadow-[0_8px_32px_rgba(0,0,0,0.3)]');
+            } else { 
+                navbar.classList.add('pt-6'); 
+                navbar.classList.remove('pt-3'); 
+                navContainer.classList.remove('bg-[#050505]/80', 'border-electric/30', 'shadow-[0_10px_40px_rgba(37,99,255,0.15)]');
+                navContainer.classList.add('bg-white/[0.02]', 'border-white/10', 'shadow-[0_8px_32px_rgba(0,0,0,0.3)]');
+            }
         });
 
         // Cookies
@@ -1964,6 +2178,82 @@
                 setTimeout(() => ScrollTrigger.refresh(), 300);
             });
         });
+
+        // === 3D FOOTER ANIMATIONS ===
+        gsap.fromTo(".footer-massive-text", 
+            { rotationX: -60, y: 150, z: -300, opacity: 0, transformPerspective: 1500 },
+            { 
+                rotationX: 0, y: 0, z: 0, opacity: 1, 
+                duration: 1.5, ease: "power3.out",
+                scrollTrigger: {
+                    trigger: "#footer",
+                    start: "top 85%",
+                    toggleActions: "play none none reverse"
+                }
+            }
+        );
+
+        gsap.fromTo(".footer-link-inner",
+            { y: "150%", rotationZ: 5 },
+            {
+                y: "0%", rotationZ: 0,
+                duration: 0.8, stagger: 0.05, ease: "power3.out",
+                scrollTrigger: {
+                    trigger: "#footer",
+                    start: "top 60%",
+                    toggleActions: "play none none reverse"
+                }
+            }
+        );
+
+        if (window.matchMedia("(hover: hover)").matches) {
+            const footerSec = document.getElementById('footer');
+            const footerText = document.querySelector('.footer-massive-text');
+            const magneticBtn = document.querySelector('.magnetic-btn');
+            
+            footerSec.addEventListener('mousemove', (e) => {
+                const rect = footerSec.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = ((y - centerY) / centerY) * -12;
+                const rotateY = ((x - centerX) / centerX) * 12;
+
+                gsap.to(footerText, {
+                    rotationX: rotateX,
+                    rotationY: rotateY,
+                    transformPerspective: 1500,
+                    ease: "power2.out",
+                    duration: 0.4
+                });
+
+                if(magneticBtn) {
+                    const btnRect = magneticBtn.getBoundingClientRect();
+                    const btnCenterX = btnRect.left + btnRect.width / 2;
+                    const btnCenterY = btnRect.top + btnRect.height / 2;
+                    const distX = e.clientX - btnCenterX;
+                    const distY = e.clientY - btnCenterY;
+                    
+                    if (Math.abs(distX) < 100 && Math.abs(distY) < 100) {
+                        gsap.to(magneticBtn, {
+                            x: distX * 0.3,
+                            y: distY * 0.3,
+                            duration: 0.3,
+                            ease: "power2.out"
+                        });
+                    } else {
+                        gsap.to(magneticBtn, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" });
+                    }
+                }
+            });
+
+            footerSec.addEventListener('mouseleave', () => {
+                gsap.to(footerText, { rotationX: 0, rotationY: 0, duration: 1, ease: "elastic.out(1, 0.3)" });
+                if(magneticBtn) gsap.to(magneticBtn, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" });
+            });
+        }
     </script>
 </body>
 </html>
