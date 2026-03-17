@@ -91,6 +91,13 @@
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         .portfolio-item > div, .portfolio-item > a { will-change: transform, opacity; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform: translateZ(0); }
         
+        /* Smooth Fade-in Image Loading */
+        .portfolio-item img { 
+            transition: opacity 0.6s ease-out, transform 1s cubic-bezier(0.16, 1, 0.3, 1); 
+            will-change: transform, opacity; 
+            transform-origin: center; 
+        }
+        
         /* Custom Premium Cursor */
         @media (pointer: fine) {
             body, a, button, .portfolio-item { cursor: none !important; }
@@ -197,30 +204,16 @@
 
     <!-- ENTRY PRELOADER -->
     <div id="preloader" class="fixed inset-0 z-[10000] bg-[#02050A] flex flex-col items-center justify-center hw-accel">
-        <!-- Технические декорации по углам -->
-        <div class="absolute top-8 left-8 text-[10px] font-mono text-electric/50 tracking-[0.3em] uppercase hidden md:block">System_Init //</div>
-        <div class="absolute bottom-8 right-8 text-[10px] font-mono text-electric/50 tracking-[0.3em] uppercase hidden md:block">VP_Design_OS</div>
-
-        <div class="relative z-10 flex flex-col items-center justify-center w-full px-8 preloader-content">
-            <!-- Иконка бренда (как в навигации) -->
-            <div class="w-12 h-12 rounded-full bg-electric/10 border border-electric/30 flex items-center justify-center mb-8 shadow-[0_0_20px_rgba(37,99,255,0.15)]">
-                <span class="w-2.5 h-2.5 rounded-full bg-electric shadow-[0_0_10px_#2563FF] animate-pulse"></span>
-            </div>
-
-            <!-- Проценты загрузки -->
-            <div class="flex items-baseline mb-12">
-                <span id="preloader-text" class="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500 font-display font-black text-7xl md:text-8xl tracking-tighter tabular-nums drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">0</span>
-                <span class="text-electric font-display font-light text-3xl md:text-5xl ml-1 drop-shadow-[0_0_10px_rgba(37,99,255,0.5)]">%</span>
-            </div>
-
-            <!-- Прогресс-бар -->
-            <div class="w-full max-w-xs h-[2px] bg-white/10 rounded-full overflow-hidden relative">
-                <div id="preloader-bar" class="absolute top-0 left-0 h-full bg-gradient-to-r from-electricLight to-electric w-0 rounded-full shadow-[0_0_15px_#2563FF]"></div>
+        <div class="relative z-10 flex flex-col items-center justify-center preloader-content px-6 text-center">
+            <!-- Conversational Text (Inter font) -->
+            <div class="font-sans text-gray-300 text-lg md:text-xl font-medium mb-6">
+                Подожди-ка, сайт сейчас загрузится 🪄✨
             </div>
             
-            <div class="w-full max-w-xs flex justify-between mt-4">
-                <span class="text-[9px] font-mono text-gray-500 uppercase tracking-widest">Loading assets</span>
-                <span class="text-[9px] font-mono text-electric uppercase tracking-widest animate-pulse">Please wait</span>
+            <!-- Loading Counter -->
+            <div class="flex items-baseline">
+                <span id="preloader-text" class="text-white font-sans font-bold text-6xl md:text-8xl tracking-tighter tabular-nums drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">0</span>
+                <span class="text-electric font-sans font-bold text-3xl md:text-5xl ml-1 drop-shadow-[0_0_10px_rgba(37,99,255,0.5)]">%</span>
             </div>
         </div>
     </div>
@@ -596,28 +589,135 @@
                 </div>
 
                 <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 gsap-stagger-grid" id="portfolio-grid">
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/gzHfqCix9oakZjKBN2Pa0kypBnX08vPwqVjGvPN5b.png" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/gAK0P1CxaLeBNnqrkaDKTwzuiCmZJm6jM3Cctl5Lc.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/gfqfjUtxKyc6SmAIAsMZrhfFctm3Sc8Vk3PNS4mDw.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/gV8pLHzxU4sWJJDwOIvYRL36UeS8nIvIJ5GI5zB55.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/g0XvJsxx4Iwm19uBgf1QhTQHSX1TEcLilc9kE6BQo.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/gLTUgm4xXrAisYzaAjn5lyS58DUoSdjsfUpmRbjoY.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/g4HmAjqx788ZIn8YDQWdAMzp4UTetre0fIcLENHlU.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/g9rjlGfxwuUT8CrbBJgzOgntF5cFJLGu9s5q4TmNn.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/gyxwJwWxmAeBr1eb4iCvZuCsr9GS8Ji8oA8cMJ388.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/gs1lURRxOIne1dBOIn0y3DJDrvAhPvS7h9PLQhbQa.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/gFdxDpuxfoZb8dH3XC98ImNyVSyzq3ziuCtcoDDAB.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/g9a92FixIwdXCJWpmOV75pstyFSlGzWjsgCKB6yrr.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/gBWGe44x5yAA1zrt4ojulb5zdoaAVdCGpRTOHLNj9.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/gahWGSOxzORlmTYE6y0WZAgM7ZkE3EJRJOLQfaYZn.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/g9OnSmFxYgVwuQnWCR8vpVIzLPpcdzuUvF1gcZmcE.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/gtBcPtDxlyFFmBNHy2OG0VDH19slEycthOFkMhsOF.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/gvJ1TakxfWOLu0RcHebNlIoYevt6BA3C1WdFTG7yg.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/gASYEq0xkTCMEbmtz5gALUKLqBi1M1uRPjnSouH6L.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/g4OrbAVxmVT7RdKUkA5XLBY4DcA2K67QLriYI6U3j.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/gN23UGdx9EMVhBS5rGUzeIjtehyiw0B7GSq5i39b4.png" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/gnZsaV3x0ezkF6NBzcqAtWQ97S7dmyCwnBBWuulUO.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
+                    <!-- УМНАЯ ЗАГРУЗКА ИНФОГРАФИКИ (ОРИГИНАЛЫ) -->
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
+                        <div class="image-wrapper rounded-2xl overflow-hidden relative border border-white/10 bg-[#0A0A0A] min-h-[250px] animate-pulse flex items-center justify-center">
+                            <i class="ph-duotone ph-image text-3xl text-white/10 absolute"></i>
+                            <img data-src="https://s10.iimage.su/s/17/gzHfqCix9oakZjKBN2Pa0kypBnX08vPwqVjGvPN5b.png" alt="Инфографика" decoding="async" class="lazy-image w-full h-auto block object-cover opacity-0 relative z-10">
+                        </div>
+                    </div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
+                        <div class="image-wrapper rounded-2xl overflow-hidden relative border border-white/10 bg-[#0A0A0A] min-h-[250px] animate-pulse flex items-center justify-center">
+                            <i class="ph-duotone ph-image text-3xl text-white/10 absolute"></i>
+                            <img data-src="https://s10.iimage.su/s/17/gAK0P1CxaLeBNnqrkaDKTwzuiCmZJm6jM3Cctl5Lc.jpg" alt="Инфографика" decoding="async" class="lazy-image w-full h-auto block object-cover opacity-0 relative z-10">
+                        </div>
+                    </div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
+                        <div class="image-wrapper rounded-2xl overflow-hidden relative border border-white/10 bg-[#0A0A0A] min-h-[250px] animate-pulse flex items-center justify-center">
+                            <i class="ph-duotone ph-image text-3xl text-white/10 absolute"></i>
+                            <img data-src="https://s10.iimage.su/s/17/gfqfjUtxKyc6SmAIAsMZrhfFctm3Sc8Vk3PNS4mDw.jpg" alt="Инфографика" decoding="async" class="lazy-image w-full h-auto block object-cover opacity-0 relative z-10">
+                        </div>
+                    </div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
+                        <div class="image-wrapper rounded-2xl overflow-hidden relative border border-white/10 bg-[#0A0A0A] min-h-[250px] animate-pulse flex items-center justify-center">
+                            <i class="ph-duotone ph-image text-3xl text-white/10 absolute"></i>
+                            <img data-src="https://s10.iimage.su/s/17/gV8pLHzxU4sWJJDwOIvYRL36UeS8nIvIJ5GI5zB55.jpg" alt="Инфографика" decoding="async" class="lazy-image w-full h-auto block object-cover opacity-0 relative z-10">
+                        </div>
+                    </div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
+                        <div class="image-wrapper rounded-2xl overflow-hidden relative border border-white/10 bg-[#0A0A0A] min-h-[250px] animate-pulse flex items-center justify-center">
+                            <i class="ph-duotone ph-image text-3xl text-white/10 absolute"></i>
+                            <img data-src="https://s10.iimage.su/s/17/g0XvJsxx4Iwm19uBgf1QhTQHSX1TEcLilc9kE6BQo.jpg" alt="Инфографика" decoding="async" class="lazy-image w-full h-auto block object-cover opacity-0 relative z-10">
+                        </div>
+                    </div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
+                        <div class="image-wrapper rounded-2xl overflow-hidden relative border border-white/10 bg-[#0A0A0A] min-h-[250px] animate-pulse flex items-center justify-center">
+                            <i class="ph-duotone ph-image text-3xl text-white/10 absolute"></i>
+                            <img data-src="https://s10.iimage.su/s/17/gLTUgm4xXrAisYzaAjn5lyS58DUoSdjsfUpmRbjoY.jpg" alt="Инфографика" decoding="async" class="lazy-image w-full h-auto block object-cover opacity-0 relative z-10">
+                        </div>
+                    </div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
+                        <div class="image-wrapper rounded-2xl overflow-hidden relative border border-white/10 bg-[#0A0A0A] min-h-[250px] animate-pulse flex items-center justify-center">
+                            <i class="ph-duotone ph-image text-3xl text-white/10 absolute"></i>
+                            <img data-src="https://s10.iimage.su/s/17/g4HmAjqx788ZIn8YDQWdAMzp4UTetre0fIcLENHlU.jpg" alt="Инфографика" decoding="async" class="lazy-image w-full h-auto block object-cover opacity-0 relative z-10">
+                        </div>
+                    </div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
+                        <div class="image-wrapper rounded-2xl overflow-hidden relative border border-white/10 bg-[#0A0A0A] min-h-[250px] animate-pulse flex items-center justify-center">
+                            <i class="ph-duotone ph-image text-3xl text-white/10 absolute"></i>
+                            <img data-src="https://s10.iimage.su/s/17/g9rjlGfxwuUT8CrbBJgzOgntF5cFJLGu9s5q4TmNn.jpg" alt="Инфографика" decoding="async" class="lazy-image w-full h-auto block object-cover opacity-0 relative z-10">
+                        </div>
+                    </div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
+                        <div class="image-wrapper rounded-2xl overflow-hidden relative border border-white/10 bg-[#0A0A0A] min-h-[250px] animate-pulse flex items-center justify-center">
+                            <i class="ph-duotone ph-image text-3xl text-white/10 absolute"></i>
+                            <img data-src="https://s10.iimage.su/s/17/gyxwJwWxmAeBr1eb4iCvZuCsr9GS8Ji8oA8cMJ388.jpg" alt="Инфографика" decoding="async" class="lazy-image w-full h-auto block object-cover opacity-0 relative z-10">
+                        </div>
+                    </div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
+                        <div class="image-wrapper rounded-2xl overflow-hidden relative border border-white/10 bg-[#0A0A0A] min-h-[250px] animate-pulse flex items-center justify-center">
+                            <i class="ph-duotone ph-image text-3xl text-white/10 absolute"></i>
+                            <img data-src="https://s10.iimage.su/s/17/gs1lURRxOIne1dBOIn0y3DJDrvAhPvS7h9PLQhbQa.jpg" alt="Инфографика" decoding="async" class="lazy-image w-full h-auto block object-cover opacity-0 relative z-10">
+                        </div>
+                    </div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
+                        <div class="image-wrapper rounded-2xl overflow-hidden relative border border-white/10 bg-[#0A0A0A] min-h-[250px] animate-pulse flex items-center justify-center">
+                            <i class="ph-duotone ph-image text-3xl text-white/10 absolute"></i>
+                            <img data-src="https://s10.iimage.su/s/17/gFdxDpuxfoZb8dH3XC98ImNyVSyzq3ziuCtcoDDAB.jpg" alt="Инфографика" decoding="async" class="lazy-image w-full h-auto block object-cover opacity-0 relative z-10">
+                        </div>
+                    </div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
+                        <div class="image-wrapper rounded-2xl overflow-hidden relative border border-white/10 bg-[#0A0A0A] min-h-[250px] animate-pulse flex items-center justify-center">
+                            <i class="ph-duotone ph-image text-3xl text-white/10 absolute"></i>
+                            <img data-src="https://s10.iimage.su/s/17/g9a92FixIwdXCJWpmOV75pstyFSlGzWjsgCKB6yrr.jpg" alt="Инфографика" decoding="async" class="lazy-image w-full h-auto block object-cover opacity-0 relative z-10">
+                        </div>
+                    </div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
+                        <div class="image-wrapper rounded-2xl overflow-hidden relative border border-white/10 bg-[#0A0A0A] min-h-[250px] animate-pulse flex items-center justify-center">
+                            <i class="ph-duotone ph-image text-3xl text-white/10 absolute"></i>
+                            <img data-src="https://s10.iimage.su/s/17/gBWGe44x5yAA1zrt4ojulb5zdoaAVdCGpRTOHLNj9.jpg" alt="Инфографика" decoding="async" class="lazy-image w-full h-auto block object-cover opacity-0 relative z-10">
+                        </div>
+                    </div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
+                        <div class="image-wrapper rounded-2xl overflow-hidden relative border border-white/10 bg-[#0A0A0A] min-h-[250px] animate-pulse flex items-center justify-center">
+                            <i class="ph-duotone ph-image text-3xl text-white/10 absolute"></i>
+                            <img data-src="https://s10.iimage.su/s/17/gahWGSOxzORlmTYE6y0WZAgM7ZkE3EJRJOLQfaYZn.jpg" alt="Инфографика" decoding="async" class="lazy-image w-full h-auto block object-cover opacity-0 relative z-10">
+                        </div>
+                    </div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
+                        <div class="image-wrapper rounded-2xl overflow-hidden relative border border-white/10 bg-[#0A0A0A] min-h-[250px] animate-pulse flex items-center justify-center">
+                            <i class="ph-duotone ph-image text-3xl text-white/10 absolute"></i>
+                            <img data-src="https://s10.iimage.su/s/17/g9OnSmFxYgVwuQnWCR8vpVIzLPpcdzuUvF1gcZmcE.jpg" alt="Инфографика" decoding="async" class="lazy-image w-full h-auto block object-cover opacity-0 relative z-10">
+                        </div>
+                    </div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
+                        <div class="image-wrapper rounded-2xl overflow-hidden relative border border-white/10 bg-[#0A0A0A] min-h-[250px] animate-pulse flex items-center justify-center">
+                            <i class="ph-duotone ph-image text-3xl text-white/10 absolute"></i>
+                            <img data-src="https://s10.iimage.su/s/17/gtBcPtDxlyFFmBNHy2OG0VDH19slEycthOFkMhsOF.jpg" alt="Инфографика" decoding="async" class="lazy-image w-full h-auto block object-cover opacity-0 relative z-10">
+                        </div>
+                    </div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
+                        <div class="image-wrapper rounded-2xl overflow-hidden relative border border-white/10 bg-[#0A0A0A] min-h-[250px] animate-pulse flex items-center justify-center">
+                            <i class="ph-duotone ph-image text-3xl text-white/10 absolute"></i>
+                            <img data-src="https://s10.iimage.su/s/17/gvJ1TakxfWOLu0RcHebNlIoYevt6BA3C1WdFTG7yg.jpg" alt="Инфографика" decoding="async" class="lazy-image w-full h-auto block object-cover opacity-0 relative z-10">
+                        </div>
+                    </div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
+                        <div class="image-wrapper rounded-2xl overflow-hidden relative border border-white/10 bg-[#0A0A0A] min-h-[250px] animate-pulse flex items-center justify-center">
+                            <i class="ph-duotone ph-image text-3xl text-white/10 absolute"></i>
+                            <img data-src="https://s10.iimage.su/s/17/gASYEq0xkTCMEbmtz5gALUKLqBi1M1uRPjnSouH6L.jpg" alt="Инфографика" decoding="async" class="lazy-image w-full h-auto block object-cover opacity-0 relative z-10">
+                        </div>
+                    </div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
+                        <div class="image-wrapper rounded-2xl overflow-hidden relative border border-white/10 bg-[#0A0A0A] min-h-[250px] animate-pulse flex items-center justify-center">
+                            <i class="ph-duotone ph-image text-3xl text-white/10 absolute"></i>
+                            <img data-src="https://s10.iimage.su/s/17/g4OrbAVxmVT7RdKUkA5XLBY4DcA2K67QLriYI6U3j.jpg" alt="Инфографика" decoding="async" class="lazy-image w-full h-auto block object-cover opacity-0 relative z-10">
+                        </div>
+                    </div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
+                        <div class="image-wrapper rounded-2xl overflow-hidden relative border border-white/10 bg-[#0A0A0A] min-h-[250px] animate-pulse flex items-center justify-center">
+                            <i class="ph-duotone ph-image text-3xl text-white/10 absolute"></i>
+                            <img data-src="https://s10.iimage.su/s/17/gN23UGdx9EMVhBS5rGUzeIjtehyiw0B7GSq5i39b4.png" alt="Инфографика" decoding="async" class="lazy-image w-full h-auto block object-cover opacity-0 relative z-10">
+                        </div>
+                    </div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block">
+                        <div class="image-wrapper rounded-2xl overflow-hidden relative border border-white/10 bg-[#0A0A0A] min-h-[250px] animate-pulse flex items-center justify-center">
+                            <i class="ph-duotone ph-image text-3xl text-white/10 absolute"></i>
+                            <img data-src="https://s10.iimage.su/s/17/gnZsaV3x0ezkF6NBzcqAtWQ97S7dmyCwnBBWuulUO.jpg" alt="Инфографика" decoding="async" class="lazy-image w-full h-auto block object-cover opacity-0 relative z-10">
+                        </div>
+                    </div>
 
+                    <!-- Остальные блоки остаются без изменений -->
                     <div class="portfolio-item rich break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://i.ibb.co/8HHXJ0B/IMG-9007.jpg" alt="Rich-контент" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
                     <div class="portfolio-item rich break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://i.ibb.co/jZbFs3Ky/IMG-9008.jpg" alt="Rich-контент" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
                     <div class="portfolio-item rich break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://i.ibb.co/GvbQSwMt/IMG-9009.jpg" alt="Rich-контент" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
@@ -1306,7 +1406,6 @@
 
         // --- PRELOADER & ENTRY SEQUENCE ---
         const preloader = document.getElementById('preloader');
-        const preloaderBar = document.getElementById('preloader-bar');
         const preloaderText = document.getElementById('preloader-text');
         
         let loadProgress = 0;
@@ -1315,11 +1414,10 @@
             if (loadProgress >= 100) {
                 loadProgress = 100;
                 clearInterval(loadInterval);
-                gsap.to(preloaderBar, { width: "100%", duration: 0.2 });
                 preloaderText.innerText = "100";
                 
                 setTimeout(() => {
-                    // Растворяем элементы прелоадера (цифры, полоску)
+                    // Растворяем элементы прелоадера (текст, цифры)
                     gsap.to(".preloader-content", { opacity: 0, y: -20, duration: 0.4, ease: "power2.in" });
                     
                     // Шторка улетает вверх с задержкой
@@ -1329,7 +1427,6 @@
                     setTimeout(initHeroAnimation, 400);
                 }, 400);
             } else {
-                gsap.to(preloaderBar, { width: loadProgress + "%", duration: 0.1 });
                 preloaderText.innerText = loadProgress;
             }
         }, 30);
@@ -1450,20 +1547,55 @@
             const cookieBanner = document.getElementById('cookie-banner');
             if (!localStorage.getItem('cookieConsent')) setTimeout(() => { if(cookieBanner) cookieBanner.classList.remove('translate-y-[150%]', 'opacity-0'); }, 2500);
             
-            // ФИКС ТЕЛЕПОРТОВ: Обновление триггеров скролла после загрузки каждой картинки
-            let refreshTimeout;
-            const debouncedRefresh = () => {
-                clearTimeout(refreshTimeout);
-                refreshTimeout = setTimeout(() => ScrollTrigger.refresh(), 150);
-            };
+            // УМНАЯ ЛЕНИВАЯ ЗАГРУЗКА (INTERSECTION OBSERVER) ДЛЯ ИНФОГРАФИКИ
+            const lazyImages = document.querySelectorAll('.lazy-image');
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        
+                        const onImageLoad = () => {
+                            img.classList.remove('opacity-0');
+                            img.classList.add('loaded'); // КРИТИЧЕСКИЙ ФИКС: Снимаем размытие (blur)
+                            const wrapper = img.closest('.image-wrapper');
+                            if (wrapper) {
+                                wrapper.classList.remove('animate-pulse', 'min-h-[250px]');
+                                const icon = wrapper.querySelector('i');
+                                if (icon) icon.style.display = 'none'; // Прячем иконку загрузки
+                            }
+                            // Обновляем высоту для сетки и скролла
+                            clearTimeout(window.refreshTimeout);
+                            window.refreshTimeout = setTimeout(() => ScrollTrigger.refresh(), 150);
+                        };
 
-            document.querySelectorAll('img').forEach(img => {
+                        img.src = img.getAttribute('data-src'); // Подставляем тяжелый оригинал
+                        
+                        // Защита: если картинка загрузилась мгновенно (из кэша телефона)
+                        if (img.complete) {
+                            onImageLoad();
+                        } else {
+                            img.onload = onImageLoad;
+                        }
+                        
+                        observer.unobserve(img);
+                    }
+                });
+            }, { 
+                rootMargin: '400px 0px', // Начинаем грузить картинку за 400px до того, как она покажется на экране
+                threshold: 0.01 
+            });
+
+            lazyImages.forEach(img => imageObserver.observe(img));
+
+            // Старая загрузка для остальных изображений портфолио
+            document.querySelectorAll('#portfolio-grid img:not(.lazy-image)').forEach(img => {
                 if(img.complete) {
                     img.classList.add('loaded');
                 } else {
                     img.addEventListener('load', () => { 
                         img.classList.add('loaded');
-                        debouncedRefresh(); // Пересчитываем высоту страницы
+                        clearTimeout(window.refreshTimeout);
+                        window.refreshTimeout = setTimeout(() => ScrollTrigger.refresh(), 150);
                     });
                 }
             });
@@ -1524,7 +1656,10 @@
             if (parent && !parent.querySelector('a')) {
                 img.addEventListener('click', () => {
                     isLightboxOpen = true;
-                    lightboxImg.src = img.src;
+                    
+                    // БЕРЕМ ОРИГИНАЛЬНОЕ ВЫСОКОЕ КАЧЕСТВО, ЕСЛИ ОНО ЕСТЬ В DATA-SRC (для умной загрузки)
+                    lightboxImg.src = img.getAttribute('data-src') || img.src;
+                    
                     if(window.lenis) window.lenis.stop();
                     
                     lightbox.classList.remove('pointer-events-none');
