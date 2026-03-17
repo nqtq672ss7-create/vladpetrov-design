@@ -58,8 +58,20 @@
 
     <style>
         :root { --glass-border: rgba(255, 255, 255, 0.08); --electric-glow: 0 0 30px rgba(37, 99, 255, 0.3); }
-        html, body { overflow-x: hidden !important; width: 100%; max-width: 100vw; position: relative; background-color: transparent; color: #FFFFFF; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; -webkit-tap-highlight-color: transparent; overscroll-behavior-y: none; }
-        .hw-accel { transform: translate3d(0, 0, 0); backface-visibility: hidden; perspective: 1000px; }
+        html, body { 
+            overflow-x: hidden !important; 
+            width: 100%; 
+            max-width: 100vw; 
+            position: relative; 
+            background-color: transparent; 
+            color: #FFFFFF; 
+            -webkit-font-smoothing: antialiased; 
+            -moz-osx-font-smoothing: grayscale; 
+            -webkit-tap-highlight-color: transparent; 
+            overscroll-behavior-y: none; 
+            scroll-behavior: auto !important; /* КРИТИЧЕСКИЙ ФИКС ДЛЯ ПЛАВНОГО СКРОЛЛА */
+        }
+        .hw-accel { transform: translateZ(0); backface-visibility: hidden; will-change: transform; } /* УБРАНА ПЕРСПЕКТИВА, ВЫЗЫВАВШАЯ ЛАГИ GPU */
         html.lenis { height: auto; }
         .lenis.lenis-smooth { scroll-behavior: auto; }
         .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
@@ -82,15 +94,20 @@
         /* Custom Premium Cursor */
         @media (pointer: fine) {
             body, a, button, .portfolio-item { cursor: none !important; }
-            #cursor, #cursor-follower { display: block; }
+            #cursor, #cursor-follower, #view-cursor { display: flex; }
         }
         @media (pointer: coarse) {
-            #cursor, #cursor-follower { display: none !important; }
+            #cursor, #cursor-follower, #view-cursor { display: none !important; }
         }
         #cursor { position: fixed; top: 0; left: 0; width: 6px; height: 6px; background: #2563FF; border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: background 0.2s; mix-blend-mode: screen; }
-        #cursor-follower { position: fixed; top: 0; left: 0; width: 36px; height: 36px; border: 1px solid rgba(37,99,255, 0.5); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s, background 0.2s, border-color 0.2s; }
+        #cursor-follower { position: fixed; top: 0; left: 0; width: 36px; height: 36px; border: 1px solid rgba(37,99,255, 0.5); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s, background 0.2s, border-color 0.2s, opacity 0.2s; }
+        #view-cursor { position: fixed; top: 0; left: 0; width: 64px; height: 64px; border-radius: 50%; background: #2563FF; color: white; align-items: center; justify-content: center; pointer-events: none; z-index: 10000; transform: translate(-50%, -50%) scale(0.5); opacity: 0; transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s; font-family: monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.1em; box-shadow: 0 0 20px rgba(37,99,255,0.6); }
+        
         .cursor-hover #cursor { background: transparent; }
         .cursor-hover #cursor-follower { width: 60px; height: 60px; background: rgba(37,99,255, 0.15); border-color: #2563FF; backdrop-filter: blur(2px); }
+        
+        .portfolio-hover #cursor, .portfolio-hover #cursor-follower { opacity: 0 !important; }
+        .portfolio-hover #view-cursor { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 
         /* Smooth Blur-up Image Loading */
         .portfolio-item img { 
@@ -120,6 +137,13 @@
         .footer-link-inner { display: block; will-change: transform; }
         .cyber-logo { -webkit-text-stroke: 2px #2563FF; text-shadow: 0 0 40px rgba(37,99,255,0.6), inset 0 0 20px rgba(37,99,255,0.4); position: relative; }
         .cyber-logo::before { content: "VP"; position: absolute; inset: 0; -webkit-text-stroke: 1px #00F0FF; filter: blur(8px); opacity: 0.8; z-index: -1; }
+        
+        /* Subtle Film Grain Overlay */
+        .bg-noise {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+            opacity: 0.04; pointer-events: none; z-index: 9990; mix-blend-mode: overlay;
+        }
     </style>
 
     <script type="text/javascript">
@@ -127,12 +151,79 @@
         ym(107053423, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/107053423" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+    <!-- ANTI-INSPECT / ANTI-COPY SCRIPT -->
+    <script>
+        // Блокировка правой кнопки мыши
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // Блокировка горячих клавиш панели разработчика
+        document.addEventListener('keydown', function(e) {
+            // F12
+            if (e.key === 'F12') {
+                e.preventDefault();
+            }
+            // Ctrl+Shift+I / Cmd+Option+I (DevTools)
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'I') {
+                e.preventDefault();
+            }
+            // Ctrl+Shift+J / Cmd+Option+J (Console)
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'J') {
+                e.preventDefault();
+            }
+            // Ctrl+Shift+C / Cmd+Option+C (Inspect Element)
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'C') {
+                e.preventDefault();
+            }
+            // Ctrl+U / Cmd+U (View Source)
+            if ((e.ctrlKey || e.metaKey) && e.key === 'u') {
+                e.preventDefault();
+            }
+        });
+    </script>
 </head>
 <body class="antialiased selection:bg-electric selection:text-white bg-black">
 
     <!-- Custom Cursor DOM -->
     <div id="cursor"></div>
     <div id="cursor-follower"></div>
+    <div id="view-cursor" class="hidden">OPEN</div>
+
+    <!-- PREMIUM FILM GRAIN -->
+    <div class="bg-noise hw-accel"></div>
+
+    <!-- SCROLL PROGRESS BAR -->
+    <div id="scroll-progress" class="fixed top-0 left-0 h-[2px] bg-electric z-[10000] shadow-[0_0_15px_#2563FF] origin-left scale-x-0 hw-accel w-full pointer-events-none"></div>
+
+    <!-- ENTRY PRELOADER -->
+    <div id="preloader" class="fixed inset-0 z-[10000] bg-[#02050A] flex flex-col items-center justify-center hw-accel">
+        <!-- Технические декорации по углам -->
+        <div class="absolute top-8 left-8 text-[10px] font-mono text-electric/50 tracking-[0.3em] uppercase hidden md:block">System_Init //</div>
+        <div class="absolute bottom-8 right-8 text-[10px] font-mono text-electric/50 tracking-[0.3em] uppercase hidden md:block">VP_Design_OS</div>
+
+        <div class="relative z-10 flex flex-col items-center justify-center w-full px-8 preloader-content">
+            <!-- Иконка бренда (как в навигации) -->
+            <div class="w-12 h-12 rounded-full bg-electric/10 border border-electric/30 flex items-center justify-center mb-8 shadow-[0_0_20px_rgba(37,99,255,0.15)]">
+                <span class="w-2.5 h-2.5 rounded-full bg-electric shadow-[0_0_10px_#2563FF] animate-pulse"></span>
+            </div>
+
+            <!-- Проценты загрузки -->
+            <div class="flex items-baseline mb-12">
+                <span id="preloader-text" class="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500 font-display font-black text-7xl md:text-8xl tracking-tighter tabular-nums drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">0</span>
+                <span class="text-electric font-display font-light text-3xl md:text-5xl ml-1 drop-shadow-[0_0_10px_rgba(37,99,255,0.5)]">%</span>
+            </div>
+
+            <!-- Прогресс-бар -->
+            <div class="w-full max-w-xs h-[2px] bg-white/10 rounded-full overflow-hidden relative">
+                <div id="preloader-bar" class="absolute top-0 left-0 h-full bg-gradient-to-r from-electricLight to-electric w-0 rounded-full shadow-[0_0_15px_#2563FF]"></div>
+            </div>
+            
+            <div class="w-full max-w-xs flex justify-between mt-4">
+                <span class="text-[9px] font-mono text-gray-500 uppercase tracking-widest">Loading assets</span>
+                <span class="text-[9px] font-mono text-electric uppercase tracking-widest animate-pulse">Please wait</span>
+            </div>
+        </div>
+    </div>
 
     <div class="fixed inset-0 z-0 pointer-events-none hw-accel bg-[#02050A] overflow-hidden">
         <canvas id="space-canvas" class="absolute inset-0 w-full h-full"></canvas>
@@ -150,14 +241,14 @@
             </a>
             
             <div class="hidden md:flex items-center gap-1 bg-black/40 border border-white/5 rounded-full px-2 py-1.5 shadow-inner">
-                <a href="#about" class="relative px-5 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors rounded-full hover:bg-white/10">Обо мне</a>
-                <a href="#portfolio" class="relative px-5 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors rounded-full hover:bg-white/10">Портфолио</a>
-                <a href="#services" class="relative px-5 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors rounded-full hover:bg-white/10">Услуги</a>
-                <a href="#contact" class="relative px-5 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors rounded-full hover:bg-white/10">Контакты</a>
+                <a href="#about" class="nav-link relative px-5 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors rounded-full hover:bg-white/10">Обо мне</a>
+                <a href="#portfolio" class="nav-link relative px-5 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors rounded-full hover:bg-white/10">Портфолио</a>
+                <a href="#services" class="nav-link relative px-5 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors rounded-full hover:bg-white/10">Услуги</a>
+                <a href="#contact" class="nav-link relative px-5 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors rounded-full hover:bg-white/10">Контакты</a>
             </div>
 
             <div class="flex items-center gap-3 shrink-0">
-                <a href="https://t.me/vladpetroov" target="_blank" class="hidden md:flex items-center gap-2 px-6 py-2.5 rounded-full bg-electric/10 border border-electric/30 text-white text-sm font-bold hover:bg-electric hover:border-electric hover:shadow-[0_0_20px_rgba(37,99,255,0.4)] transition-all duration-300 active:scale-95 group/btn">
+                <a href="https://t.me/vladpetroov" target="_blank" class="magnetic-btn hidden md:flex items-center gap-2 px-6 py-2.5 rounded-full bg-electric/10 border border-electric/30 text-white text-sm font-bold hover:bg-electric hover:border-electric hover:shadow-[0_0_20px_rgba(37,99,255,0.4)] transition-all duration-300 active:scale-95 group/btn">
                     Обсудить проект <i class="ph-bold ph-arrow-up-right text-electric group-hover/btn:text-white transition-colors group-hover/btn:rotate-45 duration-300"></i>
                 </a>
                 <button class="md:hidden text-white p-0 relative z-50 group flex items-center justify-center w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors" id="mobile-menu-btn" aria-label="Toggle Menu">
@@ -207,12 +298,6 @@
                             <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-electric opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-electric"></span></span>
                             Independent Digital Designer
                         </div>
-                        <div class="gsap-hero-el inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full glass-panel-static border-[#00F0FF]/30 cursor-default bg-white/5 hover:bg-white/10 transition-colors shadow-[0_0_15px_rgba(0,240,255,0.05)]">
-                            <div class="w-4 h-4 md:w-5 md:h-5 rounded-full bg-[#00F0FF]/20 flex items-center justify-center border border-[#00F0FF]/30 shadow-[0_0_10px_rgba(0,240,255,0.2)]">
-                                <i class="ph-fill ph-handshake text-[#00F0FF] text-[10px] md:text-xs"></i>
-                            </div>
-                            <span class="text-[10px] md:text-xs text-gray-400 uppercase tracking-widest font-mono">Официальный партнер <span class="text-white font-bold ml-0.5">Web3</span></span>
-                        </div>
                     </div>
 
                     <h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl leading-[1.05] mb-4 md:mb-6 tracking-tighter relative z-30 font-sans">
@@ -238,23 +323,28 @@
                         </div>
                     </div>
 
-                    <div class="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-5 z-30 relative w-full">
+                    <div class="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-4 z-30 relative w-full">
                         <a href="https://t.me/vladpetroov" target="_blank" class="magnetic-btn hero-action-el group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-electric text-white font-bold rounded-2xl overflow-hidden transition-all duration-300 hover:bg-electricLight shadow-[0_0_20px_rgba(37,99,255,0.4)] hover:shadow-[0_0_40px_rgba(37,99,255,0.7)] active:scale-95 shrink-0">
                             <span class="relative flex items-center gap-2">Стать клиентом <i class="ph-bold ph-arrow-up-right transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"></i></span>
                         </a>
                     </div>
                 </div>
 
+                <!-- 3D MOUSE PARALLAX CONTAINER -->
                 <div class="relative w-full h-[480px] md:h-[650px] lg:h-[750px] flex justify-center items-center gsap-hero-image mt-4 md:mt-0">
-                    <div class="parallax-element absolute top-[55%] md:top-[45%] left-0 sm:-left-10 md:-left-20 lg:-left-32 z-40 hw-accel">
-                        <div class="animate-float flex items-center gap-4" style="animation-delay: 1s;">
-                            <div class="absolute inset-0 bg-electric/20 blur-2xl rounded-full scale-[1.5] pointer-events-none"></div>
-                            <div class="absolute top-1/2 left-[20px] md:left-[24px] -translate-y-1/2 w-16 h-16 md:w-20 md:h-20 border border-dashed border-electric/40 rounded-full animate-[spin_10s_linear_infinite] pointer-events-none z-0"></div>
-                            <div class="relative glass-panel p-3 md:p-4 rounded-2xl border-white/10 flex items-center gap-3 md:gap-4 shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-10">
-                                <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center shadow-inner overflow-hidden relative">
-                                    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.4),transparent_60%)]"></div><i class="ph-duotone ph-aperture text-xl md:text-2xl text-white drop-shadow-md"></i>
+                    
+                    <!-- Inner Parallax Content -->
+                    <div class="parallax-element-inner absolute inset-0 flex justify-center items-center pointer-events-none z-40">
+                        <div class="absolute top-[55%] md:top-[45%] left-0 sm:-left-10 md:-left-20 lg:-left-32 hw-accel">
+                            <div class="animate-float flex items-center gap-4" style="animation-delay: 1s;">
+                                <div class="absolute inset-0 bg-electric/20 blur-2xl rounded-full scale-[1.5] pointer-events-none"></div>
+                                <div class="absolute top-1/2 left-[20px] md:left-[24px] -translate-y-1/2 w-16 h-16 md:w-20 md:h-20 border border-dashed border-electric/40 rounded-full animate-[spin_10s_linear_infinite] pointer-events-none z-0"></div>
+                                <div class="relative glass-panel p-3 md:p-4 rounded-2xl border-white/10 flex items-center gap-3 md:gap-4 shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-10">
+                                    <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center shadow-inner overflow-hidden relative">
+                                        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.4),transparent_60%)]"></div><i class="ph-duotone ph-aperture text-xl md:text-2xl text-white drop-shadow-md"></i>
+                                    </div>
+                                    <div class="flex flex-col hidden sm:flex"><span class="text-[9px] font-mono text-electricGlow uppercase tracking-[0.2em] mb-1">Visual</span><span class="text-white font-bold text-xs md:text-sm tracking-wide leading-none">Engineering</span></div>
                                 </div>
-                                <div class="flex flex-col hidden sm:flex"><span class="text-[9px] font-mono text-electricGlow uppercase tracking-[0.2em] mb-1">Visual</span><span class="text-white font-bold text-xs md:text-sm tracking-wide leading-none">Engineering</span></div>
                             </div>
                         </div>
                     </div>
@@ -264,7 +354,10 @@
                     </div>
                     
                     <div class="absolute w-[280px] h-[400px] md:w-[420px] md:h-[600px] glass-panel-static rounded-3xl rotate-3 translate-x-2 opacity-20 z-0 animate-float hw-accel"></div>
-                    <img src="https://s10.iimage.su/s/27/g9NPRMPxrMg0Py7y3IFv5H8OiAsvvVDfTG2rb2DEP.png" fetchpriority="high" alt="VP-DESIGN" class="hero-main-img relative z-10 w-auto h-full max-h-[100%] md:max-h-[95%] object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] scale-[1.15] md:scale-100 origin-bottom md:origin-center hw-accel">
+                    
+                    <div class="hero-img-wrapper relative z-10 w-auto h-full max-h-[100%] md:max-h-[95%] perspective-[1500px]">
+                        <img src="https://s10.iimage.su/s/27/g9NPRMPxrMg0Py7y3IFv5H8OiAsvvVDfTG2rb2DEP.png" fetchpriority="high" alt="VP-DESIGN" class="hero-main-img object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] scale-[1.15] md:scale-100 origin-bottom md:origin-center hw-accel w-full h-full">
+                    </div>
                 </div>
             </div>
         </section>
@@ -289,7 +382,7 @@
                                 <div class="absolute w-[90%] h-[90%] rounded-full border border-electric/10 border-t-electric/50 border-r-electric/30 animate-[spin_15s_linear_infinite] transition-colors duration-700"></div>
                             </div>
                             
-                            <div class="relative z-10 w-[90%] max-w-[400px]">
+                            <div id="about-img-wrap" class="relative z-10 w-[90%] max-w-[400px]">
                                 <img src="https://s10.iimage.su/s/27/gSnvsaTxddBqQm0sz9iB73NNZjzzrCIm13zazDbUd.png" decoding="async" alt="Влад Петров" class="w-full object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.8)] relative z-10 hw-accel">
                                 <div class="absolute -right-4 md:-right-8 top-12 glass-panel px-4 py-2 rounded-xl border-white/10 animate-float z-20 shadow-xl hidden sm:flex items-center gap-2 hw-accel">
                                     <i class="ph-duotone ph-map-pin text-electric text-lg"></i><span class="font-mono text-[10px] text-white tracking-widest uppercase">Anapa / RU</span>
@@ -405,13 +498,13 @@
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 gsap-stagger-grid relative z-20">
                     <div class="gsap-stagger-item h-full">
                         <div class="relative p-[1px] rounded-[2rem] bg-gradient-to-b from-white/5 to-transparent hover:from-electric/40 hover:to-electric/5 transition-colors duration-500 group h-full">
-                            <div class="bg-[#020202] rounded-[31px] p-8 h-full flex flex-col relative z-10">
+                            <div class="bg-[#020202] rounded-[31px] p-8 h-full flex flex-col relative z-10 overflow-hidden">
                                 <div class="absolute inset-0 rounded-[31px] overflow-hidden pointer-events-none z-0"><div class="absolute top-0 right-0 w-32 h-32 bg-electric/5 rounded-full blur-3xl group-hover:bg-electric/20 transition-colors duration-500"></div></div>
                                 <div class="w-14 h-14 rounded-2xl bg-[#0A0A0A] border border-white/5 flex items-center justify-center text-electric mb-6 group-hover:scale-110 group-hover:bg-electric/10 group-hover:border-electric/30 group-hover:shadow-[0_0_20px_rgba(37,99,255,0.2)] transition-all duration-500 relative z-10"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="drop-shadow-[0_0_10px_rgba(37,99,255,0.5)]"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
                                 <h3 class="text-xl font-bold mb-6 text-white group-hover:text-electric transition-colors duration-300 relative z-10">Инфографика<br>для маркетплейсов</h3>
                                 <ul class="space-y-4 mb-8 text-sm flex-grow relative z-10">
-                                    <li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-gray-400">Главный слайд</span><span class="text-electric font-bold">1490 ₽</span></li>
-                                    <li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-gray-400">Доп. слайд</span><span class="text-electric font-medium">700 ₽</span></li>
+                                    <li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-gray-400">Главный слайд</span><span class="text-electric font-bold">1500 ₽</span></li>
+                                    <li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-gray-400">Доп. слайд</span><span class="text-electric font-medium">800 ₽</span></li>
                                     <li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-gray-400">Rich-контент</span><span class="text-electric font-medium">от 1990 ₽</span></li>
                                     <li class="flex items-center justify-between pb-2"><span class="text-gray-400">Аним. обложка</span><span class="text-electric font-medium">от 2990 ₽</span></li>
                                 </ul>
@@ -424,7 +517,7 @@
                     </div>
                     <div class="gsap-stagger-item h-full">
                         <div class="relative p-[1px] rounded-[2rem] bg-gradient-to-b from-white/5 to-transparent hover:from-electric/40 hover:to-electric/5 transition-colors duration-500 group h-full">
-                            <div class="bg-[#020202] rounded-[31px] p-8 h-full flex flex-col relative z-10">
+                            <div class="bg-[#020202] rounded-[31px] p-8 h-full flex flex-col relative z-10 overflow-hidden">
                                 <div class="absolute inset-0 rounded-[31px] overflow-hidden pointer-events-none z-0"><div class="absolute top-0 right-0 w-32 h-32 bg-electric/5 rounded-full blur-3xl group-hover:bg-electric/20 transition-colors duration-500"></div></div>
                                 <div class="w-14 h-14 rounded-2xl bg-[#0A0A0A] border border-white/5 flex items-center justify-center text-electric mb-6 group-hover:scale-110 group-hover:bg-electric/10 group-hover:border-electric/30 group-hover:shadow-[0_0_20px_rgba(37,99,255,0.2)] transition-all duration-500 relative z-10"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="drop-shadow-[0_0_10px_rgba(37,99,255,0.5)]"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></div>
                                 <h3 class="text-xl font-bold mb-6 text-white group-hover:text-electric transition-colors duration-300 relative z-10">Реклама &<br>Продвижение</h3>
@@ -441,7 +534,7 @@
                     </div>
                     <div class="gsap-stagger-item h-full">
                         <div class="relative p-[1px] rounded-[2rem] bg-gradient-to-b from-white/5 to-transparent hover:from-electric/40 hover:to-electric/5 transition-colors duration-500 group h-full">
-                            <div class="bg-[#020202] rounded-[31px] p-8 h-full flex flex-col relative z-10">
+                            <div class="bg-[#020202] rounded-[31px] p-8 h-full flex flex-col relative z-10 overflow-hidden">
                                 <div class="absolute inset-0 rounded-[31px] overflow-hidden pointer-events-none z-0"><div class="absolute top-0 right-0 w-32 h-32 bg-electric/5 rounded-full blur-3xl group-hover:bg-electric/20 transition-colors duration-500"></div></div>
                                 <div class="w-14 h-14 rounded-2xl bg-[#0A0A0A] border border-white/5 flex items-center justify-center text-electric mb-6 group-hover:scale-110 group-hover:bg-electric/10 group-hover:border-electric/30 group-hover:shadow-[0_0_20px_rgba(37,99,255,0.2)] transition-all duration-500 relative z-10"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="drop-shadow-[0_0_10px_rgba(37,99,255,0.5)]"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg></div>
                                 <h3 class="text-xl font-bold mb-6 text-white group-hover:text-electric transition-colors duration-300 relative z-10">Оформление<br>соцсетей</h3>
@@ -459,7 +552,7 @@
                     </div>
                     <div class="gsap-stagger-item h-full">
                         <div class="relative p-[1px] rounded-[2rem] bg-gradient-to-b from-white/5 to-transparent hover:from-electric/40 hover:to-electric/5 transition-colors duration-500 group h-full">
-                            <div class="bg-[#020202] rounded-[31px] p-8 h-full flex flex-col relative z-10">
+                            <div class="bg-[#020202] rounded-[31px] p-8 h-full flex flex-col relative z-10 overflow-hidden">
                                 <div class="absolute inset-0 rounded-[31px] overflow-hidden pointer-events-none z-0"><div class="absolute top-0 right-0 w-32 h-32 bg-electric/5 rounded-full blur-3xl group-hover:bg-electric/20 transition-colors duration-500"></div></div>
                                 <div class="w-14 h-14 rounded-2xl bg-[#0A0A0A] border border-white/5 flex items-center justify-center text-electric mb-6 group-hover:scale-110 group-hover:bg-electric/10 group-hover:border-electric/30 group-hover:shadow-[0_0_20px_rgba(37,99,255,0.2)] transition-all duration-500 relative z-10"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="drop-shadow-[0_0_10px_rgba(37,99,255,0.5)]"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><line x1="3" x2="21" y1="9" y2="9"/><line x1="9" x2="9" y1="21" y2="9"/></svg></div>
                                 <h3 class="text-xl font-bold mb-6 text-white group-hover:text-electric transition-colors duration-300 relative z-10">Сайты &<br>Логотипы</h3>
@@ -503,24 +596,27 @@
                 </div>
 
                 <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 gsap-stagger-grid" id="portfolio-grid">
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://i.ibb.co/FLsCKXYD/579-20251105185725.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://i.ibb.co/wFh0gByn/IMG-8041.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://i.ibb.co/k6wSmDBj/IMG-7170.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://i.ibb.co/JwML7f4g/373-20250817165435.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://i.ibb.co/p6C8zZLn/969-20251230133150.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://i.ibb.co/6RkgYh1G/IMG-7410.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://i.ibb.co/6cjb5PS9/601-20251110164430.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://i.ibb.co/8LX6HLHN/IMG-3641.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://i.ibb.co/W4FM2HxQ/436-20250929191023.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/04/gdMBG4uxzQsnA1DqcSt2JytgzCvqzGN0luOznn1y1.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/04/gw4UBZXxtDaPioeol7HhS7Iq6gWO2oTokFXlgUcT4.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/04/gVgmGI8xK8MhtFFngy8FGJMBmNa1dsottDnD92Mbp.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/04/gu6bFi1xpXC0UMrJ1zLXug2Rfwlyr6Q3Yws3Nq7ia.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/04/guiSxHpx4cLIupyz19sHT3BoPjizA99gpnVuYaWZb.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/04/giTHkd2xHpnSAts7GFnAHplobQSrczr9wtDdvjA7n.png" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/04/gsOdORQxSRYR70XqfHez7EMLMzAgzRkTRqZ8k9laC.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/04/g9Y8dAEx9nT9s6OD27J5gzs4hBpkWWqUehcegEPM0.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
-                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/04/g0myYXwxdvoczLiiqQNzamltLeMuyCaX6rzHBPKTy.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/gzHfqCix9oakZjKBN2Pa0kypBnX08vPwqVjGvPN5b.png" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/gAK0P1CxaLeBNnqrkaDKTwzuiCmZJm6jM3Cctl5Lc.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/gfqfjUtxKyc6SmAIAsMZrhfFctm3Sc8Vk3PNS4mDw.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/gV8pLHzxU4sWJJDwOIvYRL36UeS8nIvIJ5GI5zB55.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/g0XvJsxx4Iwm19uBgf1QhTQHSX1TEcLilc9kE6BQo.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/gLTUgm4xXrAisYzaAjn5lyS58DUoSdjsfUpmRbjoY.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/g4HmAjqx788ZIn8YDQWdAMzp4UTetre0fIcLENHlU.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/g9rjlGfxwuUT8CrbBJgzOgntF5cFJLGu9s5q4TmNn.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/gyxwJwWxmAeBr1eb4iCvZuCsr9GS8Ji8oA8cMJ388.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/gs1lURRxOIne1dBOIn0y3DJDrvAhPvS7h9PLQhbQa.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/gFdxDpuxfoZb8dH3XC98ImNyVSyzq3ziuCtcoDDAB.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/g9a92FixIwdXCJWpmOV75pstyFSlGzWjsgCKB6yrr.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/gBWGe44x5yAA1zrt4ojulb5zdoaAVdCGpRTOHLNj9.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/gahWGSOxzORlmTYE6y0WZAgM7ZkE3EJRJOLQfaYZn.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/g9OnSmFxYgVwuQnWCR8vpVIzLPpcdzuUvF1gcZmcE.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/gtBcPtDxlyFFmBNHy2OG0VDH19slEycthOFkMhsOF.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/gvJ1TakxfWOLu0RcHebNlIoYevt6BA3C1WdFTG7yg.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/gASYEq0xkTCMEbmtz5gALUKLqBi1M1uRPjnSouH6L.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/g4OrbAVxmVT7RdKUkA5XLBY4DcA2K67QLriYI6U3j.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/gN23UGdx9EMVhBS5rGUzeIjtehyiw0B7GSq5i39b4.png" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
+                    <div class="portfolio-item info break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://s10.iimage.su/s/17/gnZsaV3x0ezkF6NBzcqAtWQ97S7dmyCwnBBWuulUO.jpg" alt="Инфографика" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
 
                     <div class="portfolio-item rich break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://i.ibb.co/8HHXJ0B/IMG-9007.jpg" alt="Rich-контент" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
                     <div class="portfolio-item rich break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://i.ibb.co/jZbFs3Ky/IMG-9008.jpg" alt="Rich-контент" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
@@ -634,7 +730,7 @@
                             <div class="relative w-24 h-24 bg-[#0B0F1A]/60 border border-electric/50 backdrop-blur-xl rounded-[2rem] rotate-12 flex items-center justify-center shadow-[0_0_40px_rgba(37,99,255,0.4)] overflow-hidden"><div class="absolute inset-0 bg-gradient-to-br from-electric/30 to-transparent opacity-50"></div><i class="ph-bold ph-check text-5xl text-electric drop-shadow-[0_0_15px_rgba(37,99,255,0.8)] relative z-10 -rotate-12"></i></div>
                         </div>
                         <div class="relative z-10 shrink-0">
-                            <a href="https://t.me/vladpetroov" target="_blank" class="inline-flex items-center justify-center gap-3 px-8 py-5 bg-electric text-white font-bold rounded-2xl transition-all hover:bg-electricLight hover:shadow-[0_0_40px_rgba(37,99,255,0.6)] active:scale-95">Забрать бонус <i class="ph-bold ph-telegram-logo text-xl"></i></a>
+                            <a href="https://t.me/vladpetroov" target="_blank" class="magnetic-btn inline-flex items-center justify-center gap-3 px-8 py-5 bg-electric text-white font-bold rounded-2xl transition-all hover:bg-electricLight hover:shadow-[0_0_40px_rgba(37,99,255,0.6)] active:scale-95">Забрать бонус <i class="ph-bold ph-telegram-logo text-xl"></i></a>
                         </div>
                     </div>
                 </div>
@@ -710,7 +806,7 @@
                                     <li class="flex items-start gap-3"><i class="ph-duotone ph-check-circle text-electric mt-0.5 text-lg"></i> Построение личного бренда</li>
                                     <li class="flex items-start gap-3"><i class="ph-duotone ph-check-circle text-electric mt-0.5 text-lg"></i> Гарантированный выход на результат</li>
                                 </ul>
-                                <a href="https://t.me/vladpetroov" target="_blank" class="w-full py-4 text-center rounded-xl bg-electric text-white font-bold hover:bg-electricLight hover:shadow-[0_0_30px_rgba(37,99,255,0.4)] transition-all hover:-translate-y-1 active:scale-95 block">Иду на наставничество</a>
+                                <a href="https://t.me/vladpetroov" target="_blank" class="magnetic-btn w-full py-4 text-center rounded-xl bg-electric text-white font-bold hover:bg-electricLight hover:shadow-[0_0_30px_rgba(37,99,255,0.4)] transition-all hover:-translate-y-1 active:scale-95 block">Иду на наставничество</a>
                             </div>
                         </div>
                     </div>
@@ -765,14 +861,14 @@
                 <h2 class="font-display text-4xl md:text-6xl font-bold text-white mb-4 leading-tight">Отзывы клиентов <br class="hidden md:block"> <span class="text-transparent bg-clip-text bg-gradient-to-r from-gray-100 to-gray-500 italic font-light">& учеников</span></h2>
             </div>
 
-            <div class="marquee-container relative w-full overflow-hidden flex flex-col gap-6 py-8 hw-accel perspective-[2000px]">
+            <div class="marquee-container relative w-full overflow-hidden flex flex-col gap-6 py-8 hw-accel perspective-[2000px] group">
                 <div class="flex shrink-0 w-max">
-                    <div class="flex shrink-0 animate-marquee gap-6 pr-6 w-max hw-accel marquee-track" id="marquee-group-1a"></div>
-                    <div class="flex shrink-0 animate-marquee gap-6 pr-6 w-max hw-accel marquee-track" aria-hidden="true" id="marquee-group-1b"></div>
+                    <div class="flex shrink-0 animate-marquee gap-6 pr-6 w-max hw-accel marquee-track group-hover:[animation-play-state:paused]" id="marquee-group-1a"></div>
+                    <div class="flex shrink-0 animate-marquee gap-6 pr-6 w-max hw-accel marquee-track group-hover:[animation-play-state:paused]" aria-hidden="true" id="marquee-group-1b"></div>
                 </div>
                 <div class="flex shrink-0 w-max ml-[-300px] md:ml-[-500px]">
-                    <div class="flex shrink-0 animate-[marquee_60s_linear_infinite_reverse] gap-6 pr-6 w-max hw-accel marquee-track" id="marquee-group-2a"></div>
-                    <div class="flex shrink-0 animate-[marquee_60s_linear_infinite_reverse] gap-6 pr-6 w-max hw-accel marquee-track" aria-hidden="true" id="marquee-group-2b"></div>
+                    <div class="flex shrink-0 animate-[marquee_60s_linear_infinite_reverse] gap-6 pr-6 w-max hw-accel marquee-track group-hover:[animation-play-state:paused]" id="marquee-group-2a"></div>
+                    <div class="flex shrink-0 animate-[marquee_60s_linear_infinite_reverse] gap-6 pr-6 w-max hw-accel marquee-track group-hover:[animation-play-state:paused]" aria-hidden="true" id="marquee-group-2b"></div>
                 </div>
             </div>
 
@@ -877,7 +973,7 @@
                             </div>
 
                             <div class="flex flex-col gap-4 w-full lg:w-[420px] shrink-0">
-                                <a href="https://t.me/vladpetroov" target="_blank" class="relative overflow-hidden group/btn flex items-center justify-between gap-6 px-6 py-6 md:px-8 md:py-8 bg-black/50 backdrop-blur-xl border border-electric/50 rounded-[2rem] hover:bg-electric/20 hover:border-electric hover:shadow-[0_0_50px_rgba(37,99,255,0.4)] active:scale-95 transition-all duration-500">
+                                <a href="https://t.me/vladpetroov" target="_blank" class="magnetic-btn relative overflow-hidden group/btn flex items-center justify-between gap-6 px-6 py-6 md:px-8 md:py-8 bg-black/50 backdrop-blur-xl border border-electric/50 rounded-[2rem] hover:bg-electric/20 hover:border-electric hover:shadow-[0_0_50px_rgba(37,99,255,0.4)] active:scale-95 transition-all duration-500">
                                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-[150%] group-hover/btn:translate-x-[150%] transition-transform duration-1000 ease-in-out hw-accel"></div>
                                    <div class="flex flex-col text-left relative z-10">
                                        <span class="text-[10px] font-mono text-electric group-hover/btn:text-electricLight uppercase tracking-widest mb-2 transition-colors">Primary_Contact</span>
@@ -886,12 +982,12 @@
                                    <div class="w-14 h-14 rounded-full bg-electric flex items-center justify-center relative z-10 group-hover/btn:scale-110 transition-transform duration-500 shadow-[0_0_20px_rgba(37,99,255,0.6)] hw-accel"><i class="ph-bold ph-arrow-up-right text-2xl text-white"></i></div>
                                 </a>
                                 <div class="grid grid-cols-2 gap-4">
-                                    <a href="javascript:void(0)" class="flex items-center justify-center gap-3 p-5 bg-black/30 border border-white/10 backdrop-blur-md rounded-[1.5rem] hover:border-[#0077FF] hover:bg-[#0077FF]/10 active:scale-95 transition-all duration-300 group/soc">
+                                    <a href="javascript:void(0)" class="magnetic-btn flex items-center justify-center gap-3 p-5 bg-black/30 border border-white/10 backdrop-blur-md rounded-[1.5rem] hover:border-[#0077FF] hover:bg-[#0077FF]/10 active:scale-95 transition-all duration-300 group/soc">
                                         <span class="font-display font-black text-xl text-gray-500 group-hover/soc:text-[#0077FF] group-hover/soc:scale-110 transition-transform tracking-tighter hw-accel">VK</span>
                                         <span class="font-bold text-sm text-gray-400 group-hover/soc:text-white transition-colors hidden sm:block">ВКонтакте</span>
                                         <span class="font-bold text-sm text-gray-400 group-hover/soc:text-white transition-colors sm:hidden">ВК</span>
                                     </a>
-                                    <a href="javascript:void(0)" class="flex items-center justify-center gap-3 p-5 bg-black/30 border border-white/10 backdrop-blur-md rounded-[1.5rem] hover:border-[#E60023] hover:bg-[#E60023]/10 active:scale-95 transition-all duration-300 group/soc">
+                                    <a href="javascript:void(0)" class="magnetic-btn flex items-center justify-center gap-3 p-5 bg-black/30 border border-white/10 backdrop-blur-md rounded-[1.5rem] hover:border-[#E60023] hover:bg-[#E60023]/10 active:scale-95 transition-all duration-300 group/soc">
                                         <i class="ph-fill ph-pinterest-logo text-[28px] text-gray-500 group-hover/soc:text-[#E60023] group-hover/soc:scale-110 transition-transform hw-accel"></i>
                                         <span class="font-bold text-sm text-gray-400 group-hover/soc:text-white transition-colors">Pinterest</span>
                                     </a>
@@ -964,6 +1060,17 @@
         </div>
     </div>
 
+    <!-- PREMIUM LIGHTBOX -->
+    <div id="lightbox" class="fixed inset-0 z-[100] flex items-center justify-center opacity-0 pointer-events-none hw-accel">
+        <div id="lightbox-bg" class="absolute inset-0 bg-[#02050A]/90 backdrop-blur-xl cursor-pointer"></div>
+        <div id="lightbox-content" class="relative z-10 max-w-[95vw] max-h-[95vh] md:max-w-[90vw] md:max-h-[90vh] flex items-center justify-center opacity-0 scale-95">
+            <img id="lightbox-img" src="" alt="Portfolio Fullscreen" class="max-w-full max-h-[90vh] object-contain rounded-xl shadow-[0_0_60px_rgba(0,0,0,0.6)]">
+        </div>
+        <button id="lightbox-close" class="magnetic-btn absolute top-6 right-6 md:top-10 md:right-10 w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-electric hover:border-electric transition-all z-20 shadow-lg">
+            <i class="ph-bold ph-x text-xl pointer-events-none"></i>
+        </button>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.32/dist/lenis.min.js"></script>
@@ -973,6 +1080,11 @@
         gsap.registerPlugin(ScrollTrigger);
         ScrollTrigger.config({ ignoreMobileResize: true });
 
+        // TAB ATTENTION TRICK
+        const docTitle = document.title;
+        window.addEventListener("blur", () => document.title = "Вернись, проект ждет! 🚀");
+        window.addEventListener("focus", () => document.title = docTitle);
+
         if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
         window.onbeforeunload = () => window.scrollTo(0, 0);
         if (!window.location.hash) window.scrollTo(0, 0);
@@ -981,12 +1093,14 @@
         if (window.matchMedia("(pointer: fine)").matches) {
             const cursor = document.getElementById('cursor');
             const follower = document.getElementById('cursor-follower');
+            const viewCursor = document.getElementById('view-cursor');
             let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
             let followerX = mouseX, followerY = mouseY;
             
             document.addEventListener('mousemove', (e) => {
                 mouseX = e.clientX; mouseY = e.clientY;
                 gsap.to(cursor, { x: mouseX, y: mouseY, duration: 0.1, force3D: true });
+                if(viewCursor) gsap.to(viewCursor, { x: mouseX, y: mouseY, duration: 0.15, force3D: true });
             });
             
             gsap.ticker.add(() => {
@@ -995,10 +1109,17 @@
                 gsap.set(follower, { x: followerX, y: followerY, force3D: true });
             });
 
-            // Hover effect for clickable elements
-            document.querySelectorAll('a, button, .portfolio-item, .faq-btn').forEach(el => {
+            document.querySelectorAll('a, button, .faq-btn, #lightbox-bg').forEach(el => {
                 el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
                 el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+            });
+
+            document.querySelectorAll('.portfolio-item img').forEach(img => {
+                const parent = img.closest('.portfolio-item');
+                if (parent && !parent.querySelector('a')) {
+                    img.addEventListener('mouseenter', () => document.body.classList.add('portfolio-hover'));
+                    img.addEventListener('mouseleave', () => document.body.classList.remove('portfolio-hover'));
+                }
             });
 
             // Global Magnetic Buttons logic
@@ -1013,25 +1134,70 @@
                     gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" });
                 });
             });
+            
+            // HERO MOUSE 3D PARALLAX
+            const heroSectionContainer = document.getElementById('hero');
+            const heroImgWrapper = document.querySelector('.hero-img-wrapper');
+            const parallaxElement = document.querySelector('.parallax-element-inner');
+
+            if (heroSectionContainer && heroImgWrapper && parallaxElement) {
+                heroSectionContainer.addEventListener('mousemove', (e) => {
+                    const x = (e.clientX / window.innerWidth - 0.5) * 2; 
+                    const y = (e.clientY / window.innerHeight - 0.5) * 2;
+                    
+                    gsap.to(heroImgWrapper, { rotationY: x * 8, rotationX: -y * 8, x: x * 30, y: y * 30, duration: 1, ease: "power2.out" });
+                    gsap.to(parallaxElement, { x: -x * 50, y: -y * 50, duration: 1.5, ease: "power2.out" });
+                });
+                
+                heroSectionContainer.addEventListener('mouseleave', () => {
+                    gsap.to(heroImgWrapper, { rotationY: 0, rotationX: 0, x: 0, y: 0, duration: 1.5, ease: "elastic.out(1, 0.3)" });
+                    gsap.to(parallaxElement, { x: 0, y: 0, duration: 1.5, ease: "elastic.out(1, 0.3)" });
+                });
+            }
         }
 
-        // ИСПРАВЛЕНИЕ: Убран normalizeWheel (вызывал прыжки/телепорты) и настроен lerp
         const lenis = new Lenis({
-            lerp: 0.08,
+            lerp: 0.1, /* УВЕЛИЧЕНА ОТЗЫВЧИВОСТЬ, ЧТОБЫ СКРОЛЛ НЕ БЫЛ "ВЯЗКИМ" */
             wheelMultiplier: 1,
             smoothTouch: false,
             syncTouch: false
         });
         window.lenis = lenis;
-
-        // ИСПРАВЛЕНИЕ: Жесткая привязка ScrollTrigger к циклу Lenis
-        lenis.on('scroll', ScrollTrigger.update);
         
-        gsap.ticker.add((time) => {
-            lenis.raf(time * 1000);
+        // SCROLL SPY LOGIC
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        lenis.on('scroll', () => {
+            ScrollTrigger.update();
+            const scrollY = window.scrollY;
+            let currentId = '';
+            
+            sections.forEach(sec => {
+                const top = sec.offsetTop - window.innerHeight / 3;
+                const bottom = top + sec.offsetHeight;
+                if (scrollY >= top && scrollY <= bottom) {
+                    currentId = sec.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('text-white', 'bg-white/10');
+                link.classList.add('text-gray-400');
+                if (link.getAttribute('href') === '#' + currentId) {
+                    link.classList.add('text-white', 'bg-white/10');
+                    link.classList.remove('text-gray-400');
+                }
+            });
         });
         
+        gsap.ticker.add((time) => { lenis.raf(time * 1000); });
         gsap.ticker.lagSmoothing(0);
+
+        // SCROLL PROGRESS BAR
+        gsap.to("#scroll-progress", {
+            scaleX: 1, ease: "none", scrollTrigger: { scrub: 0.3 }
+        });
 
         const spaceCanvas = document.getElementById('space-canvas');
         if (spaceCanvas) {
@@ -1040,7 +1206,6 @@
             const particleColors = ['#2563FF', '#60A5FA', '#FFFFFF', '#0044FF'];
             let isCanvasVisible = true;
 
-            // Intersection Observer to pause canvas when not in view (Saves CPU/GPU)
             const observer = new IntersectionObserver((entries) => {
                 isCanvasVisible = entries[0].isIntersecting;
             }, { threshold: 0 });
@@ -1100,7 +1265,6 @@
                 requestAnimationFrame(animateSpace);
             }
             
-            // ИСПРАВЛЕНИЕ: Перерисовываем Canvas только если изменилась ширина (игнорируем панель адреса на мобильных)
             let lastWindowWidth = window.innerWidth;
             window.addEventListener('resize', () => {
                 if (window.innerWidth !== lastWindowWidth) {
@@ -1118,11 +1282,6 @@
                 lenis.scrollTo(this.getAttribute('href'), { offset: -50, duration: 1.2 });
             });
         });
-
-        lenis.on('scroll', () => ScrollTrigger.update());
-        gsap.ticker.add((time) => lenis.raf(time * 1000));
-        gsap.ticker.lagSmoothing(0);
-        window.addEventListener('load', () => setTimeout(() => ScrollTrigger.refresh(), 500));
 
         const mobileMenuBtn = document.getElementById('mobile-menu-btn'), mobileMenu = document.getElementById('mobile-menu'), mobileLinks = document.querySelectorAll('.mobile-link');
         let isMenuOpen = false;
@@ -1145,18 +1304,50 @@
         mobileMenuBtn.addEventListener('click', toggleMenu);
         mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
 
-        // Премиальная анимация героя (expo.out)
-        const tl = gsap.timeline({ defaults: { ease: "expo.out", force3D: true } });
-        tl.fromTo([".word-1", ".word-2", ".word-3"], { y: 60, autoAlpha: 0, rotateX: -15 }, { y: 0, autoAlpha: 1, rotateX: 0, duration: 1.5, stagger: 0.1, delay: 0.1 })
-          .fromTo(".hero-keyword", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.1 }, "-=1.0")
-          .fromTo(".gsap-hero-el", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.1 }, "-=0.8")
-          .fromTo(".hero-action-el", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.1 }, "-=0.8")
-          .fromTo(".gsap-hero-image", { y: 40, scale: 0.95, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 1.5, ease: "power3.out" }, "-=1.2");
+        // --- PRELOADER & ENTRY SEQUENCE ---
+        const preloader = document.getElementById('preloader');
+        const preloaderBar = document.getElementById('preloader-bar');
+        const preloaderText = document.getElementById('preloader-text');
+        
+        let loadProgress = 0;
+        const loadInterval = setInterval(() => {
+            loadProgress += Math.floor(Math.random() * 8) + 2;
+            if (loadProgress >= 100) {
+                loadProgress = 100;
+                clearInterval(loadInterval);
+                gsap.to(preloaderBar, { width: "100%", duration: 0.2 });
+                preloaderText.innerText = "100";
+                
+                setTimeout(() => {
+                    // Растворяем элементы прелоадера (цифры, полоску)
+                    gsap.to(".preloader-content", { opacity: 0, y: -20, duration: 0.4, ease: "power2.in" });
+                    
+                    // Шторка улетает вверх с задержкой
+                    gsap.to(preloader, { yPercent: -100, duration: 1.2, ease: "expo.inOut", delay: 0.2, onComplete: () => preloader.style.display = 'none' });
+                    
+                    // Запуск появления первого экрана
+                    setTimeout(initHeroAnimation, 400);
+                }, 400);
+            } else {
+                gsap.to(preloaderBar, { width: loadProgress + "%", duration: 0.1 });
+                preloaderText.innerText = loadProgress;
+            }
+        }, 30);
 
-        gsap.to(".hero-main-img", { y: -15, duration: 3, ease: "sine.inOut", yoyo: true, repeat: -1, force3D: true });
-        gsap.to(".parallax-element", { y: -150, ease: "none", force3D: true, scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: 1.2 }});
+        function initHeroAnimation() {
+            const tl = gsap.timeline({ defaults: { ease: "expo.out", force3D: true }, delay: 0.4 });
+            tl.fromTo([".word-1", ".word-2", ".word-3"], { y: 60, autoAlpha: 0, rotateX: -15 }, { y: 0, autoAlpha: 1, rotateX: 0, duration: 1.5, stagger: 0.1 })
+              .fromTo(".hero-keyword", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.1 }, "-=1.0")
+              .fromTo(".gsap-hero-el", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.1 }, "-=0.8")
+              .fromTo(".hero-action-el", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.1 }, "-=0.8")
+              .fromTo(".gsap-hero-image", { y: 40, scale: 0.95, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 1.5, ease: "power3.out" }, "-=1.2");
 
-        // Летящие заголовки секций
+            gsap.to(".hero-main-img", { y: -15, duration: 3, ease: "sine.inOut", yoyo: true, repeat: -1, force3D: true });
+            
+            // ABOUT IMAGE PARALLAX
+            gsap.to("#about-img-wrap", { y: 50, ease: "none", force3D: true, scrollTrigger: { trigger: "#about", start: "top bottom", end: "bottom top", scrub: true }});
+        }
+
         gsap.utils.toArray(".about-title-line, .services-title-line").forEach(el => gsap.set(el, { y: 60, autoAlpha: 0, rotateX: -30 }));
         ScrollTrigger.batch(".about-title-line", { onEnter: batch => gsap.to(batch, { y: 0, autoAlpha: 1, rotateX: 0, duration: 1.2, stagger: 0.1, ease: "power3.out", overwrite: true }), start: "top 85%" });
         ScrollTrigger.batch(".services-title-line", { onEnter: batch => gsap.to(batch, { y: 0, autoAlpha: 1, rotateX: 0, duration: 1.2, stagger: 0.1, ease: "power3.out", overwrite: true }), start: "top 85%" });
@@ -1169,23 +1360,17 @@
         const initialActiveFilter = 'info';
         document.querySelectorAll('.portfolio-item').forEach(item => { if(!item.classList.contains(initialActiveFilter)) item.style.display = 'none'; });
 
-        // Строгая установка начальных состояний ПЕРЕД скроллом для избежания "прыжков"
         gsap.set('.gsap-stagger-item:not(.portfolio-item)', { autoAlpha: 0, y: 50 });
         const portfolioInners = gsap.utils.toArray('.portfolio-item > div, .portfolio-item > a');
         gsap.set(portfolioInners, { autoAlpha: 0, y: 50, rotationX: 10, scale: 0.95, transformPerspective: 1500 });
 
-        // Идеально синхронизированный батчинг
         ScrollTrigger.batch('.gsap-stagger-item:not(.portfolio-item)', {
-            interval: 0.15, // Увеличенный интервал для группировки карточек в единый поток
-            batchMax: 4,
-            start: "top 85%",
+            interval: 0.15, batchMax: 4, start: "top 85%",
             onEnter: batch => gsap.to(batch, { autoAlpha: 1, y: 0, duration: 1.2, stagger: 0.1, ease: "power3.out", force3D: true, overwrite: true })
         });
 
         ScrollTrigger.batch('.portfolio-item', {
-            interval: 0.15, 
-            batchMax: 6, // Группируем до 6 карточек (два ряда) для красивого стаггера
-            start: "top 85%", 
+            interval: 0.15, batchMax: 6, start: "top 85%", 
             onEnter: batch => {
                 const targets = batch.map(el => el.firstElementChild);
                 gsap.to(targets, { autoAlpha: 1, y: 0, rotationX: 0, scale: 1, duration: 1.2, stagger: 0.1, ease: "power3.out", force3D: true, overwrite: true });
@@ -1240,10 +1425,8 @@
                             }
                         });
                         
-                        // Групповая анимация появления отфильтрованных карточек
                         gsap.set(newVisibleInners, { scale: 0.9, opacity: 0, rotationX: 30, z: -150, y: 50, transformPerspective: 1500 });
                         gsap.to(newVisibleInners, { scale: 1, opacity: 1, rotationX: 0, z: 0, y: 0, duration: 1.2, stagger: 0.05, ease: "power3.out", force3D: true });
-                        
                         setTimeout(() => ScrollTrigger.refresh(), 100);
                     }
                 });
@@ -1267,10 +1450,22 @@
             const cookieBanner = document.getElementById('cookie-banner');
             if (!localStorage.getItem('cookieConsent')) setTimeout(() => { if(cookieBanner) cookieBanner.classList.remove('translate-y-[150%]', 'opacity-0'); }, 2500);
             
-            // Плавное появление картинок портфолио после их загрузки
-            document.querySelectorAll('#portfolio-grid img').forEach(img => {
-                if(img.complete) img.classList.add('loaded');
-                else img.addEventListener('load', () => img.classList.add('loaded'));
+            // ФИКС ТЕЛЕПОРТОВ: Обновление триггеров скролла после загрузки каждой картинки
+            let refreshTimeout;
+            const debouncedRefresh = () => {
+                clearTimeout(refreshTimeout);
+                refreshTimeout = setTimeout(() => ScrollTrigger.refresh(), 150);
+            };
+
+            document.querySelectorAll('img').forEach(img => {
+                if(img.complete) {
+                    img.classList.add('loaded');
+                } else {
+                    img.addEventListener('load', () => { 
+                        img.classList.add('loaded');
+                        debouncedRefresh(); // Пересчитываем высоту страницы
+                    });
+                }
             });
         });
         function acceptCookies() { localStorage.setItem('cookieConsent', 'true'); hideCookieBanner(); }
@@ -1304,7 +1499,7 @@
                     icon.classList.remove('text-gray-500');
                     if (!isHighlighted) { item.classList.replace('border-white/5', 'border-electric'); }
                 }
-                setTimeout(() => ScrollTrigger.refresh(), 400); // Даем больше времени браузеру из-за плавных анимаций
+                setTimeout(() => ScrollTrigger.refresh(), 400); 
             });
         });
 
@@ -1314,6 +1509,71 @@
             { y: 80, opacity: 0, rotationX: 15 },
             { y: 0, opacity: 1, rotationX: 0, duration: 1.2, stagger: 0.1, ease: "expo.out", scrollTrigger: { trigger: "#footer .grid", start: "top 90%", toggleActions: "play none none reverse" } }
         );
+
+        // --- PREMIUM LIGHTBOX LOGIC ---
+        const lightbox = document.getElementById('lightbox');
+        const lightboxBg = document.getElementById('lightbox-bg');
+        const lightboxContent = document.getElementById('lightbox-content');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxClose = document.getElementById('lightbox-close');
+        let isLightboxOpen = false;
+
+        document.querySelectorAll('.portfolio-item img').forEach(img => {
+            img.style.cursor = 'pointer';
+            const parent = img.closest('.portfolio-item');
+            if (parent && !parent.querySelector('a')) {
+                img.addEventListener('click', () => {
+                    isLightboxOpen = true;
+                    lightboxImg.src = img.src;
+                    if(window.lenis) window.lenis.stop();
+                    
+                    lightbox.classList.remove('pointer-events-none');
+                    gsap.to(lightbox, { opacity: 1, duration: 0.4, ease: "power2.out" });
+                    gsap.fromTo(lightboxContent, 
+                        { opacity: 0, scale: 0.85, y: 20 }, 
+                        { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "expo.out", delay: 0.1 }
+                    );
+                });
+            }
+        });
+
+        const closeLightbox = () => {
+            if (!isLightboxOpen) return;
+            isLightboxOpen = false;
+            
+            gsap.to(lightboxContent, { opacity: 0, scale: 0.95, y: -20, duration: 0.4, ease: "power2.in" });
+            gsap.to(lightbox, { opacity: 0, duration: 0.4, delay: 0.1, ease: "power2.in", onComplete: () => {
+                lightbox.classList.add('pointer-events-none');
+                setTimeout(() => { lightboxImg.src = ''; }, 100);
+                if(window.lenis) window.lenis.start();
+            }});
+        };
+
+        if(lightboxBg) lightboxBg.addEventListener('click', closeLightbox);
+        if(lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isLightboxOpen) closeLightbox(); });
+
+        // --- DYNAMIC SPOTLIGHT GLOW ДЛЯ КАРТОЧЕК УСЛУГ ---
+        if (window.matchMedia("(hover: hover)").matches) {
+            document.querySelectorAll('#services .gsap-stagger-item > div > div').forEach(card => {
+                const bgContainer = card.querySelector('.absolute.inset-0');
+                if(bgContainer) {
+                    const spotlight = document.createElement('div');
+                    spotlight.className = 'absolute w-[300px] h-[300px] bg-electric/20 rounded-full blur-[60px] pointer-events-none opacity-0 transition-opacity duration-500 z-0 mix-blend-screen';
+                    spotlight.style.transform = 'translate(-50%, -50%)';
+                    bgContainer.appendChild(spotlight);
+
+                    card.addEventListener('mouseenter', () => spotlight.style.opacity = '1');
+                    card.addEventListener('mouseleave', () => spotlight.style.opacity = '0');
+                    card.addEventListener('mousemove', (e) => {
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        gsap.to(spotlight, { x: x, y: y, duration: 0.6, ease: "power3.out", overwrite: "auto" });
+                    });
+                }
+            });
+        }
     </script>
 </body>
 </html>
