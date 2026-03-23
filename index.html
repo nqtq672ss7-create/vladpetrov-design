@@ -97,24 +97,6 @@
             will-change: transform, opacity; 
             transform-origin: center; 
         }
-        
-        /* Custom Premium Cursor */
-        @media (pointer: fine) {
-            body, a, button, .portfolio-item { cursor: none !important; }
-            #cursor, #cursor-follower, #view-cursor { display: flex; }
-        }
-        @media (pointer: coarse) {
-            #cursor, #cursor-follower, #view-cursor { display: none !important; }
-        }
-        #cursor { position: fixed; top: 0; left: 0; width: 6px; height: 6px; background: #2563FF; border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: background 0.2s; mix-blend-mode: screen; }
-        #cursor-follower { position: fixed; top: 0; left: 0; width: 36px; height: 36px; border: 1px solid rgba(37,99,255, 0.5); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s, background 0.2s, border-color 0.2s, opacity 0.2s; }
-        #view-cursor { position: fixed; top: 0; left: 0; width: 64px; height: 64px; border-radius: 50%; background: #2563FF; color: white; align-items: center; justify-content: center; pointer-events: none; z-index: 10000; transform: translate(-50%, -50%) scale(0.5); opacity: 0; transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s; font-family: monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.1em; box-shadow: 0 0 20px rgba(37,99,255,0.6); }
-        
-        .cursor-hover #cursor { background: transparent; }
-        .cursor-hover #cursor-follower { width: 60px; height: 60px; background: rgba(37,99,255, 0.15); border-color: #2563FF; backdrop-filter: blur(2px); }
-        
-        .portfolio-hover #cursor, .portfolio-hover #cursor-follower { opacity: 0 !important; }
-        .portfolio-hover #view-cursor { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 
         /* Smooth Blur-up Image Loading */
         .portfolio-item img { 
@@ -190,11 +172,6 @@
     </script>
 </head>
 <body class="antialiased selection:bg-electric selection:text-white bg-black">
-
-    <!-- Custom Cursor DOM -->
-    <div id="cursor"></div>
-    <div id="cursor-follower"></div>
-    <div id="view-cursor" class="hidden">OPEN</div>
 
     <!-- PREMIUM FILM GRAIN -->
     <div class="bg-noise hw-accel"></div>
@@ -1189,39 +1166,8 @@
         window.onbeforeunload = () => window.scrollTo(0, 0);
         if (!window.location.hash) window.scrollTo(0, 0);
 
-        // --- Custom Cursor & Magnetic Buttons ---
+        // --- Magnetic Buttons & Parallax ---
         if (window.matchMedia("(pointer: fine)").matches) {
-            const cursor = document.getElementById('cursor');
-            const follower = document.getElementById('cursor-follower');
-            const viewCursor = document.getElementById('view-cursor');
-            let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
-            let followerX = mouseX, followerY = mouseY;
-            
-            document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX; mouseY = e.clientY;
-                gsap.to(cursor, { x: mouseX, y: mouseY, duration: 0.1, force3D: true });
-                if(viewCursor) gsap.to(viewCursor, { x: mouseX, y: mouseY, duration: 0.15, force3D: true });
-            });
-            
-            gsap.ticker.add(() => {
-                followerX += (mouseX - followerX) * 0.15;
-                followerY += (mouseY - followerY) * 0.15;
-                gsap.set(follower, { x: followerX, y: followerY, force3D: true });
-            });
-
-            document.querySelectorAll('a, button, .faq-btn, #lightbox-bg').forEach(el => {
-                el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-                el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
-            });
-
-            document.querySelectorAll('.portfolio-item img').forEach(img => {
-                const parent = img.closest('.portfolio-item');
-                if (parent && !parent.querySelector('a')) {
-                    img.addEventListener('mouseenter', () => document.body.classList.add('portfolio-hover'));
-                    img.addEventListener('mouseleave', () => document.body.classList.remove('portfolio-hover'));
-                }
-            });
-
             // Global Magnetic Buttons logic
             document.querySelectorAll('.magnetic-btn').forEach(btn => {
                 btn.addEventListener('mousemove', (e) => {
