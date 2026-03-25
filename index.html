@@ -34,7 +34,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;800;900&family=Orbitron:wght@500;700;900&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Manrope:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;800;900&family=Orbitron:wght@500;700;900&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
     
     <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -43,7 +43,7 @@
             theme: {
                 extend: {
                     colors: { deep: '#000000', electric: '#2563FF', electricLight: '#3B82F6', electricGlow: '#60A5FA', deepAccent: '#1E3A8A' },
-                    fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Outfit', 'sans-serif'], tech: ['Orbitron', 'sans-serif'], modern: ['Syne', 'sans-serif'] },
+                    fontFamily: { sans: ['Manrope', 'Inter', 'sans-serif'], display: ['Outfit', 'sans-serif'], tech: ['Orbitron', 'sans-serif'], modern: ['Syne', 'sans-serif'] },
                     backgroundImage: { 'glass': 'linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%)', 'glass-hover': 'linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%)' },
                     animation: { 'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite', 'pulse-fast': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite', 'float': 'float 6s ease-in-out infinite', 'marquee': 'marquee 60s linear infinite', 'spin-slow': 'spin 20s linear infinite', 'spin-reverse': 'spin 15s linear infinite reverse', 'spin-slow-reverse': 'spin 20s linear infinite reverse', 'spin-fast': 'spin 4s linear infinite', 'spin-very-slow': 'spin 30s linear infinite', 'blob': 'blob 15s infinite alternate' },
                     keyframes: {
@@ -69,9 +69,9 @@
             -moz-osx-font-smoothing: grayscale; 
             -webkit-tap-highlight-color: transparent; 
             overscroll-behavior-y: none; 
-            scroll-behavior: auto !important; /* КРИТИЧЕСКИЙ ФИКС ДЛЯ ПЛАВНОГО СКРОЛЛА */
+            scroll-behavior: auto !important; 
         }
-        .hw-accel { transform: translateZ(0); backface-visibility: hidden; will-change: transform; } /* УБРАНА ПЕРСПЕКТИВА, ВЫЗЫВАВШАЯ ЛАГИ GPU */
+        .hw-accel { transform: translateZ(0); backface-visibility: hidden; will-change: transform; } 
         html.lenis { height: auto; }
         .lenis.lenis-smooth { scroll-behavior: auto; }
         .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
@@ -133,6 +133,11 @@
             background: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
             opacity: 0.04; pointer-events: none; z-index: 9990; mix-blend-mode: overlay;
         }
+
+        /* Modal Scrollbar */
+        .legal-scroll::-webkit-scrollbar { width: 4px; }
+        .legal-scroll::-webkit-scrollbar-track { background: transparent; }
+        .legal-scroll::-webkit-scrollbar-thumb { background: #2563FF; border-radius: 10px; }
     </style>
 
     <script type="text/javascript">
@@ -178,22 +183,6 @@
 
     <!-- SCROLL PROGRESS BAR -->
     <div id="scroll-progress" class="fixed top-0 left-0 h-[2px] bg-electric z-[10000] shadow-[0_0_15px_#2563FF] origin-left scale-x-0 hw-accel w-full pointer-events-none"></div>
-
-    <!-- ENTRY PRELOADER -->
-    <div id="preloader" class="fixed inset-0 z-[10000] bg-[#02050A] flex flex-col items-center justify-center hw-accel">
-        <div class="relative z-10 flex flex-col items-center justify-center preloader-content px-6 text-center">
-            <!-- Conversational Text (Inter font) -->
-            <div class="font-sans text-gray-300 text-lg md:text-xl font-medium mb-6">
-                Подожди-ка, сайт сейчас загрузится 🪄✨
-            </div>
-            
-            <!-- Loading Counter -->
-            <div class="flex items-baseline">
-                <span id="preloader-text" class="text-white font-sans font-bold text-6xl md:text-8xl tracking-tighter tabular-nums drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">0</span>
-                <span class="text-electric font-sans font-bold text-3xl md:text-5xl ml-1 drop-shadow-[0_0_10px_rgba(37,99,255,0.5)]">%</span>
-            </div>
-        </div>
-    </div>
 
     <div class="fixed inset-0 z-0 pointer-events-none hw-accel bg-[#02050A] overflow-hidden">
         <canvas id="space-canvas" class="absolute inset-0 w-full h-full"></canvas>
@@ -328,9 +317,38 @@
                     <div class="hero-img-wrapper relative z-10 w-auto h-full max-h-[100%] md:max-h-[95%] perspective-[1500px]">
                         <img src="https://s10.iimage.su/s/27/g9NPRMPxrMg0Py7y3IFv5H8OiAsvvVDfTG2rb2DEP.png" fetchpriority="high" alt="VP-DESIGN" class="hero-main-img object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] scale-[1.15] md:scale-100 origin-bottom md:origin-center hw-accel w-full h-full">
                     </div>
+
+                    <!-- PORTFOLIO ACTION WIDGET ON HERO PHOTO -->
+                    <a href="#portfolio" class="absolute bottom-4 md:bottom-10 left-[45%] md:left-auto md:-right-4 -translate-x-1/2 md:translate-x-0 z-50 magnetic-btn group flex items-center gap-3 pr-6 pl-2 py-2 bg-[#05050A]/90 backdrop-blur-xl border border-white/10 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] hover:border-electric hover:shadow-[0_0_40px_rgba(37,99,255,0.4)] transition-all duration-500 hw-accel animate-float" style="animation-delay: 0.8s;">
+                        <div class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-electric flex items-center justify-center text-white relative group-hover:scale-110 group-hover:bg-electricLight transition-all duration-300 shadow-[0_0_15px_rgba(37,99,255,0.5)]">
+                            <div class="absolute inset-0 rounded-full border border-electric animate-ping opacity-50"></div>
+                            <i class="ph-fill ph-play text-xl md:text-2xl ml-1 relative z-10"></i>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-[9px] md:text-[10px] text-electric font-mono tracking-[0.2em] uppercase mb-0.5 leading-none">Portfolio</span>
+                            <span class="text-sm md:text-base font-bold text-white leading-none whitespace-nowrap">Смотреть работы</span>
+                        </div>
+                    </a>
                 </div>
             </div>
         </section>
+
+        <!-- TRUST MARQUEE -->
+        <div class="w-full bg-electric/5 border-y border-white/5 py-3 md:py-4 overflow-hidden relative z-10 flex">
+            <div class="absolute inset-0 bg-gradient-to-r from-[#000000] via-transparent to-[#000000] z-10 pointer-events-none"></div>
+            <div class="flex shrink-0 animate-marquee items-center gap-8 pr-8 w-max hw-accel">
+                <div class="flex items-center gap-3 text-sm md:text-base text-gray-400 font-medium"><i class="ph-fill ph-check-circle text-electric"></i> Конверсия инфографики до 25%</div><span class="text-white/20">•</span>
+                <div class="flex items-center gap-3 text-sm md:text-base text-gray-400 font-medium"><i class="ph-fill ph-lightning text-electric"></i> Скорость загрузки сайтов 99/100</div><span class="text-white/20">•</span>
+                <div class="flex items-center gap-3 text-sm md:text-base text-gray-400 font-medium"><i class="ph-fill ph-trend-up text-electric"></i> Рост продаж на маркетплейсах x2</div><span class="text-white/20">•</span>
+                <div class="flex items-center gap-3 text-sm md:text-base text-gray-400 font-medium"><i class="ph-fill ph-star text-electric"></i> Топ РФ по Rich-контенту</div><span class="text-white/20">•</span>
+            </div>
+            <div class="flex shrink-0 animate-marquee items-center gap-8 pr-8 w-max hw-accel" aria-hidden="true">
+                <div class="flex items-center gap-3 text-sm md:text-base text-gray-400 font-medium"><i class="ph-fill ph-check-circle text-electric"></i> Конверсия инфографики до 25%</div><span class="text-white/20">•</span>
+                <div class="flex items-center gap-3 text-sm md:text-base text-gray-400 font-medium"><i class="ph-fill ph-lightning text-electric"></i> Скорость загрузки сайтов 99/100</div><span class="text-white/20">•</span>
+                <div class="flex items-center gap-3 text-sm md:text-base text-gray-400 font-medium"><i class="ph-fill ph-trend-up text-electric"></i> Рост продаж на маркетплейсах x2</div><span class="text-white/20">•</span>
+                <div class="flex items-center gap-3 text-sm md:text-base text-gray-400 font-medium"><i class="ph-fill ph-star text-electric"></i> Топ РФ по Rich-контенту</div><span class="text-white/20">•</span>
+            </div>
+        </div>
 
         <section id="about" class="pt-24 pb-32 px-6 md:px-12 relative z-10">
             <div class="absolute inset-0 pointer-events-none z-0 flex items-center justify-center">
@@ -354,14 +372,18 @@
                             
                             <div id="about-img-wrap" class="relative z-10 w-[90%] max-w-[400px]">
                                 <img src="https://s10.iimage.su/s/27/gSnvsaTxddBqQm0sz9iB73NNZjzzrCIm13zazDbUd.png" decoding="async" alt="Влад Петров" class="w-full object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.8)] relative z-10 hw-accel">
+                                
+                                <!-- Floating Labels -->
                                 <div class="absolute -right-4 md:-right-8 top-12 glass-panel px-4 py-2 rounded-xl border-white/10 animate-float z-20 shadow-xl hidden sm:flex items-center gap-2 hw-accel">
                                     <i class="ph-duotone ph-map-pin text-electric text-lg"></i><span class="font-mono text-[10px] text-white tracking-widest uppercase">Anapa / RU</span>
                                 </div>
-                                <div class="absolute -left-6 md:-left-12 bottom-20 bg-black/80 backdrop-blur-xl border border-electric/30 px-5 py-3 rounded-2xl animate-float z-30 shadow-[0_0_30px_rgba(37,99,255,0.15)] flex items-center gap-4 hw-accel" style="animation-delay: 1.5s;">
+                                <div class="absolute -left-6 md:-left-12 bottom-28 bg-black/80 backdrop-blur-xl border border-electric/30 px-5 py-3 rounded-2xl animate-float z-30 shadow-[0_0_30px_rgba(37,99,255,0.15)] flex items-center gap-4 hw-accel" style="animation-delay: 1.5s;">
                                     <div class="w-10 h-10 rounded-full bg-electric/10 flex items-center justify-center text-electric border border-electric/20"><i class="ph-duotone ph-graduation-cap text-2xl"></i></div>
                                     <div><div class="text-[9px] text-gray-400 font-mono tracking-widest uppercase">Education</div><div class="font-bold text-sm text-white">B&D Институт</div></div>
                                 </div>
-                                <div class="absolute -bottom-6 left-1/2 -translate-x-1/2 w-[90%] glass-panel px-6 py-4 rounded-2xl border-white/10 z-30 flex justify-between items-center shadow-2xl hw-accel">
+                                
+                                <!-- Core Stack Box -->
+                                <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[90%] glass-panel px-6 py-4 rounded-2xl border-white/10 z-30 flex justify-between items-center shadow-2xl hw-accel">
                                     <div class="flex flex-col"><span class="text-[10px] text-electric font-mono tracking-widest uppercase mb-1">Core Stack</span><span class="text-xs font-bold text-white tracking-wider">UI/UX • AI • Motion</span></div>
                                     <div class="flex gap-1"><div class="w-1.5 h-4 bg-electric/30 rounded-sm"></div><div class="w-1.5 h-6 bg-electric/60 rounded-sm"></div><div class="w-1.5 h-8 bg-electric rounded-sm shadow-[0_0_10px_#2563FF]"></div></div>
                                 </div>
@@ -465,75 +487,136 @@
                     </div>
                 </div>
 
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 gsap-stagger-grid relative z-20">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 gsap-stagger-grid relative z-20">
+                    <!-- КАРТОЧКА 1: ИНФОГРАФИКА -->
                     <div class="gsap-stagger-item h-full">
-                        <div class="relative p-[1px] rounded-[2rem] bg-gradient-to-b from-white/5 to-transparent hover:from-electric/40 hover:to-electric/5 transition-colors duration-500 group h-full">
-                            <div class="bg-[#020202] rounded-[31px] p-8 h-full flex flex-col relative z-10 overflow-hidden">
-                                <div class="absolute inset-0 rounded-[31px] overflow-hidden pointer-events-none z-0"><div class="absolute top-0 right-0 w-32 h-32 bg-electric/5 rounded-full blur-3xl group-hover:bg-electric/20 transition-colors duration-500"></div></div>
-                                <div class="w-14 h-14 rounded-2xl bg-[#0A0A0A] border border-white/5 flex items-center justify-center text-electric mb-6 group-hover:scale-110 group-hover:bg-electric/10 group-hover:border-electric/30 group-hover:shadow-[0_0_20px_rgba(37,99,255,0.2)] transition-all duration-500 relative z-10"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="drop-shadow-[0_0_10px_rgba(37,99,255,0.5)]"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
-                                <h3 class="text-xl font-bold mb-6 text-white group-hover:text-electric transition-colors duration-300 relative z-10">Инфографика<br>для маркетплейсов</h3>
-                                <ul class="space-y-4 mb-8 text-sm flex-grow relative z-10">
-                                    <li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-gray-400">Главный слайд</span><span class="text-electric font-bold">1500 ₽</span></li>
-                                    <li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-gray-400">Доп. слайд</span><span class="text-electric font-medium">800 ₽</span></li>
-                                    <li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-gray-400">Rich-контент</span><span class="text-electric font-medium">от 1990 ₽</span></li>
-                                    <li class="flex items-center justify-between pb-2"><span class="text-gray-400">Аним. обложка</span><span class="text-electric font-medium">от 2990 ₽</span></li>
-                                </ul>
-                                <div class="mt-auto pt-2 relative z-10">
-                                    <div class="text-[11px] text-gray-500 font-mono flex items-center gap-2 mb-4"><i class="ph-bold ph-clock"></i> Срок: 3–7 дней</div>
-                                    <a href="https://t.me/vladpetroov" target="_blank" class="block w-full py-3.5 rounded-xl bg-electric text-white text-center text-sm font-bold shadow-[0_0_15px_rgba(37,99,255,0.3)] hover:bg-electricLight hover:shadow-[0_0_25px_rgba(37,99,255,0.5)] transition-all duration-300 active:scale-95">Заказать</a>
+                        <div class="relative p-[1px] rounded-[2.5rem] bg-gradient-to-br from-white/10 to-transparent hover:from-electric/50 hover:to-electric/10 transition-colors duration-500 group overflow-hidden h-full shadow-lg hover:shadow-[0_0_40px_rgba(37,99,255,0.15)]">
+                            <div class="bg-[#050508] rounded-[39px] p-8 md:p-10 flex flex-col xl:flex-row gap-8 relative z-10 overflow-hidden h-full">
+                                <div class="absolute top-[-20%] right-[-10%] w-64 h-64 bg-electric/10 rounded-full blur-[60px] group-hover:bg-electric/25 transition-all duration-700 pointer-events-none"></div>
+                                <div class="absolute inset-0 opacity-[0.02] group-hover:opacity-[0.05] transition-opacity duration-500" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 20px 20px;"></div>
+                                
+                                <!-- Левая часть: Инфо -->
+                                <div class="xl:w-5/12 flex flex-col relative z-10">
+                                    <div class="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-electric mb-6 group-hover:scale-110 group-hover:bg-electric/10 group-hover:border-electric/30 transition-all duration-500 shadow-inner">
+                                        <i class="ph-duotone ph-presentation-chart text-3xl drop-shadow-[0_0_10px_rgba(37,99,255,0.5)]"></i>
+                                    </div>
+                                    <h3 class="text-2xl md:text-3xl font-bold mb-3 text-white group-hover:text-electric transition-colors duration-300">Инфографика</h3>
+                                    <p class="text-gray-400 text-sm leading-relaxed mb-6">Дизайн карточек для маркетплейсов, который пробивает баннерную слепоту и х2 увеличивает CTR.</p>
+                                    <div class="mt-auto inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-electric/10 border border-electric/20 text-electric text-[10px] font-mono uppercase tracking-widest w-max shadow-[0_0_15px_rgba(37,99,255,0.2)]">
+                                        <i class="ph-fill ph-fire text-sm animate-pulse"></i> Хит продаж
+                                    </div>
+                                </div>
+
+                                <!-- Правая часть: Цены -->
+                                <div class="xl:w-7/12 flex flex-col relative z-10 border-t xl:border-t-0 xl:border-l border-white/5 xl:pl-8 pt-6 xl:pt-0">
+                                    <ul class="space-y-4 mb-8 text-sm flex-grow">
+                                        <li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-gray-400">Главный слайд</span><span class="text-white font-bold">1500 ₽</span></li>
+                                        <li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-gray-400">Доп. слайд</span><span class="text-gray-300 font-medium">800 ₽</span></li>
+                                        <li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-electric font-medium">Пакет (от 6 слайдов)</span><span class="text-[#00F0FF] font-bold drop-shadow-[0_0_8px_rgba(0,240,255,0.4)]">Выгодно</span></li>
+                                        <li class="flex items-center justify-between pb-2"><span class="text-gray-400">Rich-контент (блок)</span><span class="text-gray-300 font-medium">600 ₽</span></li>
+                                    </ul>
+                                    <div class="flex items-center justify-between gap-4 mt-auto pt-2">
+                                        <div class="text-[11px] text-gray-500 font-mono flex items-center gap-2"><i class="ph-bold ph-clock text-electric"></i> 3–7 дней</div>
+                                        <a href="https://t.me/vladpetroov" target="_blank" class="magnetic-btn px-6 py-3 rounded-xl bg-electric text-white text-sm font-bold shadow-[0_0_15px_rgba(37,99,255,0.3)] hover:bg-electricLight hover:shadow-[0_0_25px_rgba(37,99,255,0.5)] transition-all duration-300 active:scale-95">Заказать</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- КАРТОЧКА 2: САЙТЫ И ЛОГОТИПЫ (PLATINUM EDITION) -->
                     <div class="gsap-stagger-item h-full">
-                        <div class="relative p-[1px] rounded-[2rem] bg-gradient-to-b from-white/5 to-transparent hover:from-electric/40 hover:to-electric/5 transition-colors duration-500 group h-full">
-                            <div class="bg-[#020202] rounded-[31px] p-8 h-full flex flex-col relative z-10 overflow-hidden">
-                                <div class="absolute inset-0 rounded-[31px] overflow-hidden pointer-events-none z-0"><div class="absolute top-0 right-0 w-32 h-32 bg-electric/5 rounded-full blur-3xl group-hover:bg-electric/20 transition-colors duration-500"></div></div>
-                                <div class="w-14 h-14 rounded-2xl bg-[#0A0A0A] border border-white/5 flex items-center justify-center text-electric mb-6 group-hover:scale-110 group-hover:bg-electric/10 group-hover:border-electric/30 group-hover:shadow-[0_0_20px_rgba(37,99,255,0.2)] transition-all duration-500 relative z-10"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="drop-shadow-[0_0_10px_rgba(37,99,255,0.5)]"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></div>
-                                <h3 class="text-xl font-bold mb-6 text-white group-hover:text-electric transition-colors duration-300 relative z-10">Реклама &<br>Продвижение</h3>
-                                <ul class="space-y-4 mb-8 text-sm flex-grow relative z-10">
-                                    <li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-gray-400">Статичные баннеры</span><span class="text-electric font-bold">от 1490 ₽</span></li>
-                                    <li class="flex items-center justify-between pb-2"><span class="text-gray-400">2D анимация</span><span class="text-electric font-medium">от 3490 ₽</span></li>
-                                </ul>
-                                <div class="mt-auto pt-2 relative z-10">
-                                    <div class="text-[11px] text-gray-500 font-mono flex items-center gap-2 mb-4"><i class="ph-bold ph-clock"></i> Срок: 3–7 дней</div>
-                                    <a href="https://t.me/vladpetroov" target="_blank" class="block w-full py-3.5 rounded-xl bg-electric text-white text-center text-sm font-bold shadow-[0_0_15px_rgba(37,99,255,0.3)] hover:bg-electricLight hover:shadow-[0_0_25px_rgba(37,99,255,0.5)] transition-all duration-300 active:scale-95">Заказать</a>
+                        <div class="relative p-[1px] rounded-[2.5rem] bg-gradient-to-br from-white/10 to-transparent hover:from-white/40 transition-colors duration-500 group overflow-hidden h-full shadow-lg hover:shadow-[0_0_40px_rgba(255,255,255,0.1)]">
+                            <div class="bg-[#050508] rounded-[39px] p-8 md:p-10 flex flex-col xl:flex-row gap-8 relative z-10 overflow-hidden h-full">
+                                <div class="absolute bottom-[-20%] left-[-10%] w-64 h-64 bg-white/5 rounded-full blur-[60px] group-hover:bg-white/10 transition-all duration-700 pointer-events-none"></div>
+                                <div class="absolute inset-0 opacity-[0.02] group-hover:opacity-[0.05] transition-opacity duration-500" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 20px 20px;"></div>
+                                
+                                <!-- Левая часть: Инфо -->
+                                <div class="xl:w-5/12 flex flex-col relative z-10">
+                                    <div class="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white mb-6 group-hover:scale-110 group-hover:bg-white/10 group-hover:border-white/30 transition-all duration-500 shadow-inner">
+                                        <i class="ph-duotone ph-browsers text-3xl drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]"></i>
+                                    </div>
+                                    <h3 class="text-2xl md:text-3xl font-bold mb-3 text-gray-200 group-hover:text-white transition-colors duration-300">Сайты & Лого</h3>
+                                    <p class="text-gray-400 text-sm leading-relaxed mb-6">Создание премиальных лендингов под ключ и разработка фирменного стиля.</p>
+                                    <div class="mt-auto inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/10 border border-white/20 text-white text-[10px] font-mono uppercase tracking-widest w-max shadow-[0_0_15px_rgba(255,255,255,0.15)]">
+                                        <i class="ph-fill ph-crown text-sm"></i> Premium
+                                    </div>
+                                </div>
+
+                                <!-- Правая часть: Цены -->
+                                <div class="xl:w-7/12 flex flex-col relative z-10 border-t xl:border-t-0 xl:border-l border-white/5 xl:pl-8 pt-6 xl:pt-0">
+                                    <ul class="space-y-4 mb-8 text-sm flex-grow">
+                                        <li class="flex items-center justify-between border-b border-white/5 group-hover:border-white/20 pb-3 transition-colors"><span class="text-gray-400">Создание сайтов</span><span class="text-white font-bold">от 15 000 ₽</span></li>
+                                        <li class="flex items-center justify-between border-b border-white/5 group-hover:border-white/20 pb-3 transition-colors"><span class="text-gray-400">Логотип классика</span><span class="text-gray-300 font-medium">от 4990 ₽</span></li>
+                                        <li class="flex items-center justify-between border-b border-white/5 group-hover:border-white/20 pb-3 transition-colors"><span class="text-gray-400">Логотип-маскот</span><span class="text-gray-300 font-medium">от 7990 ₽</span></li>
+                                    </ul>
+                                    <div class="flex items-center justify-between gap-4 mt-auto pt-2">
+                                        <div class="text-[11px] text-gray-500 font-mono flex items-center gap-2"><i class="ph-bold ph-clock text-white"></i> от 7 дней</div>
+                                        <a href="https://t.me/vladpetroov" target="_blank" class="magnetic-btn px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm font-bold hover:bg-white hover:text-black hover:shadow-[0_0_25px_rgba(255,255,255,0.4)] transition-all duration-300 active:scale-95">Заказать</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- КАРТОЧКА 3: ОФОРМЛЕНИЕ СОЦСЕТЕЙ -->
                     <div class="gsap-stagger-item h-full">
-                        <div class="relative p-[1px] rounded-[2rem] bg-gradient-to-b from-white/5 to-transparent hover:from-electric/40 hover:to-electric/5 transition-colors duration-500 group h-full">
-                            <div class="bg-[#020202] rounded-[31px] p-8 h-full flex flex-col relative z-10 overflow-hidden">
-                                <div class="absolute inset-0 rounded-[31px] overflow-hidden pointer-events-none z-0"><div class="absolute top-0 right-0 w-32 h-32 bg-electric/5 rounded-full blur-3xl group-hover:bg-electric/20 transition-colors duration-500"></div></div>
-                                <div class="w-14 h-14 rounded-2xl bg-[#0A0A0A] border border-white/5 flex items-center justify-center text-electric mb-6 group-hover:scale-110 group-hover:bg-electric/10 group-hover:border-electric/30 group-hover:shadow-[0_0_20px_rgba(37,99,255,0.2)] transition-all duration-500 relative z-10"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="drop-shadow-[0_0_10px_rgba(37,99,255,0.5)]"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg></div>
-                                <h3 class="text-xl font-bold mb-6 text-white group-hover:text-electric transition-colors duration-300 relative z-10">Оформление<br>соцсетей</h3>
-                                <ul class="space-y-4 mb-8 text-sm flex-grow relative z-10">
-                                    <li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-gray-400">Оформление ВК</span><span class="text-electric font-bold">от 6490 ₽</span></li>
-                                    <li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-gray-400">Посты для соцсетей</span><span class="text-electric font-medium">от 1490 ₽</span></li>
-                                    <li class="flex items-center justify-between pb-2"><span class="text-gray-400">Превью YouTube</span><span class="text-electric font-medium">от 1490 ₽</span></li>
-                                </ul>
-                                <div class="mt-auto pt-2 relative z-10">
-                                    <div class="text-[11px] text-gray-500 font-mono flex items-center gap-2 mb-4"><i class="ph-bold ph-clock"></i> Срок: 3–7 дней</div>
-                                    <a href="https://t.me/vladpetroov" target="_blank" class="block w-full py-3.5 rounded-xl bg-electric text-white text-center text-sm font-bold shadow-[0_0_15px_rgba(37,99,255,0.3)] hover:bg-electricLight hover:shadow-[0_0_25px_rgba(37,99,255,0.5)] transition-all duration-300 active:scale-95">Заказать</a>
+                        <div class="relative p-[1px] rounded-[2.5rem] bg-gradient-to-br from-white/10 to-transparent hover:from-electric/50 hover:to-electric/10 transition-colors duration-500 group overflow-hidden h-full shadow-lg hover:shadow-[0_0_40px_rgba(37,99,255,0.15)]">
+                            <div class="bg-[#050508] rounded-[39px] p-8 md:p-10 flex flex-col xl:flex-row gap-8 relative z-10 overflow-hidden h-full">
+                                <div class="absolute top-[-20%] right-[-10%] w-64 h-64 bg-electric/10 rounded-full blur-[60px] group-hover:bg-electric/20 transition-all duration-700 pointer-events-none"></div>
+                                <div class="absolute inset-0 opacity-[0.02] group-hover:opacity-[0.05] transition-opacity duration-500" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 20px 20px;"></div>
+                                
+                                <!-- Левая часть: Инфо -->
+                                <div class="xl:w-5/12 flex flex-col relative z-10">
+                                    <div class="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-electric mb-6 group-hover:scale-110 group-hover:bg-electric/10 group-hover:border-electric/30 transition-all duration-500 shadow-inner">
+                                        <i class="ph-duotone ph-instagram-logo text-3xl drop-shadow-[0_0_10px_rgba(37,99,255,0.5)]"></i>
+                                    </div>
+                                    <h3 class="text-2xl md:text-3xl font-bold mb-3 text-white group-hover:text-electric transition-colors duration-300">Оформление соцсетей</h3>
+                                    <p class="text-gray-400 text-sm leading-relaxed mb-6">Упаковка групп ВК, Telegram-каналов и превью для YouTube.</p>
+                                </div>
+
+                                <!-- Правая часть: Цены -->
+                                <div class="xl:w-7/12 flex flex-col relative z-10 border-t xl:border-t-0 xl:border-l border-white/5 xl:pl-8 pt-6 xl:pt-0">
+                                    <ul class="space-y-4 mb-8 text-sm flex-grow">
+                                        <li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-gray-400">Оформление ВК</span><span class="text-white font-bold">от 6490 ₽</span></li>
+                                        <li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-gray-400">Посты для соцсетей</span><span class="text-gray-300 font-medium">от 1490 ₽</span></li>
+                                        <li class="flex items-center justify-between pb-2"><span class="text-gray-400">Превью YouTube</span><span class="text-gray-300 font-medium">от 1490 ₽</span></li>
+                                    </ul>
+                                    <div class="flex items-center justify-between gap-4 mt-auto pt-2">
+                                        <div class="text-[11px] text-gray-500 font-mono flex items-center gap-2"><i class="ph-bold ph-clock text-electric"></i> 3–7 дней</div>
+                                        <a href="https://t.me/vladpetroov" target="_blank" class="magnetic-btn px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm font-bold hover:bg-electric hover:border-electric hover:shadow-[0_0_20px_rgba(37,99,255,0.4)] transition-all duration-300 active:scale-95">Заказать</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- КАРТОЧКА 4: РЕКЛАМА И ПРОДВИЖЕНИЕ -->
                     <div class="gsap-stagger-item h-full">
-                        <div class="relative p-[1px] rounded-[2rem] bg-gradient-to-b from-white/5 to-transparent hover:from-electric/40 hover:to-electric/5 transition-colors duration-500 group h-full">
-                            <div class="bg-[#020202] rounded-[31px] p-8 h-full flex flex-col relative z-10 overflow-hidden">
-                                <div class="absolute inset-0 rounded-[31px] overflow-hidden pointer-events-none z-0"><div class="absolute top-0 right-0 w-32 h-32 bg-electric/5 rounded-full blur-3xl group-hover:bg-electric/20 transition-colors duration-500"></div></div>
-                                <div class="w-14 h-14 rounded-2xl bg-[#0A0A0A] border border-white/5 flex items-center justify-center text-electric mb-6 group-hover:scale-110 group-hover:bg-electric/10 group-hover:border-electric/30 group-hover:shadow-[0_0_20px_rgba(37,99,255,0.2)] transition-all duration-500 relative z-10"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="drop-shadow-[0_0_10px_rgba(37,99,255,0.5)]"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><line x1="3" x2="21" y1="9" y2="9"/><line x1="9" x2="9" y1="21" y2="9"/></svg></div>
-                                <h3 class="text-xl font-bold mb-6 text-white group-hover:text-electric transition-colors duration-300 relative z-10">Сайты &<br>Логотипы</h3>
-                                <ul class="space-y-4 mb-8 text-sm flex-grow relative z-10">
-                                    <li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-gray-400">Создание сайтов</span><span class="text-electric font-bold">от 15 000 ₽</span></li>
-                                    <li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-gray-400">Логотип</span><span class="text-electric font-medium">от 4990 ₽</span></li>
-                                    <li class="flex items-center justify-between pb-2"><span class="text-gray-400">Логотип-маскот</span><span class="text-electric font-medium">от 7990 ₽</span></li>
-                                </ul>
-                                <div class="mt-auto pt-2 relative z-10">
-                                    <div class="text-[11px] text-gray-500 font-mono flex items-center gap-2 mb-4"><i class="ph-bold ph-clock"></i> Срок: от 7 дней</div>
-                                    <a href="https://t.me/vladpetroov" target="_blank" class="block w-full py-3.5 rounded-xl bg-electric text-white text-center text-sm font-bold shadow-[0_0_15px_rgba(37,99,255,0.3)] hover:bg-electricLight hover:shadow-[0_0_25px_rgba(37,99,255,0.5)] transition-all duration-300 active:scale-95">Заказать</a>
+                        <div class="relative p-[1px] rounded-[2.5rem] bg-gradient-to-br from-white/10 to-transparent hover:from-electric/50 hover:to-electric/10 transition-colors duration-500 group overflow-hidden h-full shadow-lg hover:shadow-[0_0_40px_rgba(37,99,255,0.15)]">
+                            <div class="bg-[#050508] rounded-[39px] p-8 md:p-10 flex flex-col xl:flex-row gap-8 relative z-10 overflow-hidden h-full">
+                                <div class="absolute bottom-[-20%] right-[-10%] w-64 h-64 bg-electric/10 rounded-full blur-[60px] group-hover:bg-electric/20 transition-all duration-700 pointer-events-none"></div>
+                                <div class="absolute inset-0 opacity-[0.02] group-hover:opacity-[0.05] transition-opacity duration-500" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 20px 20px;"></div>
+                                
+                                <!-- Левая часть: Инфо -->
+                                <div class="xl:w-5/12 flex flex-col relative z-10">
+                                    <div class="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-electric mb-6 group-hover:scale-110 group-hover:bg-electric/10 group-hover:border-electric/30 transition-all duration-500 shadow-inner">
+                                        <i class="ph-duotone ph-megaphone text-3xl drop-shadow-[0_0_10px_rgba(37,99,255,0.5)]"></i>
+                                    </div>
+                                    <h3 class="text-2xl md:text-3xl font-bold mb-3 text-white group-hover:text-electric transition-colors duration-300">Реклама & Креативы</h3>
+                                    <p class="text-gray-400 text-sm leading-relaxed mb-6">Создание сочных баннеров и моушн-анимации для таргета, снижающих цену клика.</p>
+                                </div>
+
+                                <!-- Правая часть: Цены -->
+                                <div class="xl:w-7/12 flex flex-col relative z-10 border-t xl:border-t-0 xl:border-l border-white/5 xl:pl-8 pt-6 xl:pt-0">
+                                    <ul class="space-y-4 mb-8 text-sm flex-grow">
+                                        <li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-gray-400">Статичные баннеры</span><span class="text-white font-bold">от 1490 ₽</span></li>
+                                        <li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-gray-400">2D анимация</span><span class="text-gray-300 font-medium">от 3490 ₽</span></li>
+                                    </ul>
+                                    <div class="flex items-center justify-between gap-4 mt-auto pt-2">
+                                        <div class="text-[11px] text-gray-500 font-mono flex items-center gap-2"><i class="ph-bold ph-clock text-electric"></i> 3–7 дней</div>
+                                        <a href="https://t.me/vladpetroov" target="_blank" class="magnetic-btn px-6 py-3 rounded-xl bg-electric text-white text-sm font-bold shadow-[0_0_15px_rgba(37,99,255,0.3)] hover:bg-electricLight hover:shadow-[0_0_25px_rgba(37,99,255,0.5)] transition-all duration-300 active:scale-95">Заказать</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -766,25 +849,75 @@
                     <div class="absolute left-[39px] md:left-[calc(50%-1px)] top-0 bottom-0 w-[2px] bg-white/10 rounded-full"></div>
                     <div class="absolute left-[39px] md:left-[calc(50%-1px)] top-0 bottom-0 w-[2px] bg-electric rounded-full shadow-[0_0_20px_#2563FF] workflow-line-fill z-10 origin-top" style="transform: scaleY(0);"></div>
 
+                    <!-- ШАГ 01 -->
                     <div class="relative flex items-center justify-start md:w-1/2 md:pr-16 gsap-reveal group">
                         <div class="workflow-node absolute left-[40px] md:left-auto md:right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-black border-2 border-white/30 rounded-full -translate-x-1/2 md:translate-x-1/2 z-20 transition-all duration-500 group-hover:border-electric group-hover:bg-electric group-hover:shadow-[0_0_20px_#2563FF] group-hover:scale-150"></div>
-                        <div class="glass-panel p-6 md:p-8 rounded-3xl w-[calc(100%-64px)] ml-auto md:w-full md:ml-0 md:mr-auto hover:-translate-y-2 transition-transform relative overflow-hidden"><div class="absolute -top-6 -left-4 md:-right-4 md:left-auto text-8xl font-black text-white/5 font-display select-none pointer-events-none">01</div><h4 class="text-2xl font-bold mb-3 text-electric relative z-10">Заявка</h4><p class="text-gray-400 leading-relaxed text-sm relative z-10">Связь в Telegram, обсуждение ваших <span class="text-electric">задач, целей и желаемого результата</span>. Формируем стартовое видение.</p></div>
+                        <div class="glass-panel p-6 md:p-8 rounded-[2.5rem] w-[calc(100%-64px)] ml-auto md:w-full md:ml-0 md:mr-auto hover:-translate-y-2 transition-transform relative overflow-hidden group/card bg-[#05050A] border-white/5 hover:border-electric/40 hover:shadow-[0_0_40px_rgba(37,99,255,0.15)]">
+                            <div class="absolute inset-0 opacity-[0.02] group-hover/card:opacity-[0.05] transition-opacity duration-500" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 16px 16px;"></div>
+                            
+                            <div class="flex items-center gap-4 mb-5 relative z-10">
+                                <div class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-2xl font-display font-black text-gray-500 group-hover/card:text-electric group-hover/card:bg-electric/10 group-hover/card:border-electric/30 transition-all duration-500 shadow-inner shrink-0">01</div>
+                                <h4 class="text-xl md:text-2xl font-bold text-white group-hover/card:text-electric transition-colors">Заявка</h4>
+                            </div>
+                            <p class="text-gray-400 leading-relaxed text-sm relative z-10">Связь в Telegram, обсуждение ваших <span class="text-white font-medium">задач, целей и желаемого результата</span>. Формируем стартовое видение.</p>
+                        </div>
                     </div>
+
+                    <!-- ШАГ 02 -->
                     <div class="relative flex items-center justify-end md:w-1/2 md:ml-auto md:pl-16 gsap-reveal group md:-mt-12">
                         <div class="workflow-node absolute left-[40px] md:left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-black border-2 border-white/30 rounded-full -translate-x-1/2 z-20 transition-all duration-500 group-hover:border-electric group-hover:bg-electric group-hover:shadow-[0_0_20px_#2563FF] group-hover:scale-150"></div>
-                        <div class="glass-panel p-6 md:p-8 rounded-3xl w-[calc(100%-64px)] ml-auto md:w-full md:ml-0 hover:-translate-y-2 transition-transform relative overflow-hidden"><div class="absolute -top-6 -left-4 text-8xl font-black text-white/5 font-display select-none pointer-events-none">02</div><h4 class="text-2xl font-bold mb-3 text-white group-hover:text-electric transition-colors relative z-10">Анализ</h4><p class="text-gray-400 leading-relaxed text-sm relative z-10">Глубокое изучение ниши, прямых конкурентов и сильных сторон вашего продукта. Ищем <span class="text-electric">точки отстройки</span>.</p></div>
+                        <div class="glass-panel p-6 md:p-8 rounded-[2.5rem] w-[calc(100%-64px)] ml-auto md:w-full md:ml-0 hover:-translate-y-2 transition-transform relative overflow-hidden group/card bg-[#05050A] border-white/5 hover:border-electric/40 hover:shadow-[0_0_40px_rgba(37,99,255,0.15)]">
+                            <div class="absolute inset-0 opacity-[0.02] group-hover/card:opacity-[0.05] transition-opacity duration-500" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 16px 16px;"></div>
+                            
+                            <div class="flex items-center gap-4 mb-5 relative z-10">
+                                <div class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-2xl font-display font-black text-gray-500 group-hover/card:text-electric group-hover/card:bg-electric/10 group-hover/card:border-electric/30 transition-all duration-500 shadow-inner shrink-0">02</div>
+                                <h4 class="text-xl md:text-2xl font-bold text-white group-hover/card:text-electric transition-colors">Анализ</h4>
+                            </div>
+                            <p class="text-gray-400 leading-relaxed text-sm relative z-10">Глубокое изучение ниши, прямых конкурентов и сильных сторон вашего продукта. Ищем <span class="text-white font-medium">точки отстройки</span>.</p>
+                        </div>
                     </div>
+
+                    <!-- ШАГ 03 (АКЦЕНТ) -->
                     <div class="relative flex items-center justify-start md:w-1/2 md:pr-16 gsap-reveal group md:-mt-12 z-30">
                         <div class="workflow-node absolute left-[40px] md:left-auto md:right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-black border-2 border-white/30 rounded-full -translate-x-1/2 md:translate-x-1/2 z-20 transition-all duration-500 group-hover:border-electric group-hover:bg-electric group-hover:shadow-[0_0_20px_#2563FF] group-hover:scale-150"></div>
-                        <div class="glass-panel p-6 md:p-8 rounded-3xl w-[calc(100%-64px)] ml-auto md:w-full md:ml-0 md:mr-auto hover:-translate-y-2 transition-transform relative overflow-hidden border-electric/40 shadow-[0_0_40px_rgba(37,99,255,0.15)]"><div class="absolute inset-0 bg-gradient-to-br from-electric/10 to-transparent opacity-50 pointer-events-none"></div><div class="absolute -top-6 -left-4 md:-right-4 md:left-auto text-8xl font-black text-electric/10 font-display select-none pointer-events-none">03</div><h4 class="text-2xl font-bold mb-3 text-electric relative z-10">Дизайн & Концепция</h4><p class="text-gray-300 leading-relaxed text-sm relative z-10">Разработка визуальной концепции, создание сочной графики и UI-элементов, которые <span class="text-electric">пробивают баннерную слепоту</span>.</p></div>
+                        <div class="glass-panel p-6 md:p-8 rounded-[2.5rem] w-[calc(100%-64px)] ml-auto md:w-full md:ml-0 md:mr-auto hover:-translate-y-2 transition-transform relative overflow-hidden group/card bg-[#05050A] border-electric/40 shadow-[0_0_40px_rgba(37,99,255,0.15)] hover:shadow-[0_0_60px_rgba(37,99,255,0.3)]">
+                            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(37,99,255,0.15),transparent_60%)] pointer-events-none"></div>
+                            <div class="absolute inset-0 opacity-[0.03] group-hover/card:opacity-[0.05] transition-opacity duration-500" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 16px 16px;"></div>
+                            
+                            <div class="flex items-center gap-4 mb-5 relative z-10">
+                                <div class="w-14 h-14 rounded-2xl bg-electric/20 border border-electric/40 flex items-center justify-center text-2xl font-display font-black text-electric group-hover/card:bg-electric group-hover/card:text-white transition-all duration-500 shadow-[0_0_15px_rgba(37,99,255,0.4)] shrink-0">03</div>
+                                <h4 class="text-xl md:text-2xl font-bold text-electric group-hover/card:text-white transition-colors drop-shadow-sm">Дизайн & Концепция</h4>
+                            </div>
+                            <p class="text-gray-300 leading-relaxed text-sm relative z-10">Разработка визуальной концепции, создание сочной графики и UI-элементов, которые <span class="text-white font-bold">пробивают баннерную слепоту</span>.</p>
+                        </div>
                     </div>
+
+                    <!-- ШАГ 04 -->
                     <div class="relative flex items-center justify-end md:w-1/2 md:ml-auto md:pl-16 gsap-reveal group md:-mt-12">
                         <div class="workflow-node absolute left-[40px] md:left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-black border-2 border-white/30 rounded-full -translate-x-1/2 z-20 transition-all duration-500 group-hover:border-electric group-hover:bg-electric group-hover:shadow-[0_0_20px_#2563FF] group-hover:scale-150"></div>
-                        <div class="glass-panel p-6 md:p-8 rounded-3xl w-[calc(100%-64px)] ml-auto md:w-full md:ml-0 hover:-translate-y-2 transition-transform relative overflow-hidden"><div class="absolute -top-6 -left-4 text-8xl font-black text-white/5 font-display select-none pointer-events-none">04</div><h4 class="text-2xl font-bold mb-3 text-white group-hover:text-electric transition-colors relative z-10">Правки</h4><p class="text-gray-400 leading-relaxed text-sm relative z-10">Презентация работы, согласование деталей и внесение корректировок. Мы доводим результат <span class="text-electric">до идеала</span>.</p></div>
+                        <div class="glass-panel p-6 md:p-8 rounded-[2.5rem] w-[calc(100%-64px)] ml-auto md:w-full md:ml-0 hover:-translate-y-2 transition-transform relative overflow-hidden group/card bg-[#05050A] border-white/5 hover:border-electric/40 hover:shadow-[0_0_40px_rgba(37,99,255,0.15)]">
+                            <div class="absolute inset-0 opacity-[0.02] group-hover/card:opacity-[0.05] transition-opacity duration-500" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 16px 16px;"></div>
+                            
+                            <div class="flex items-center gap-4 mb-5 relative z-10">
+                                <div class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-2xl font-display font-black text-gray-500 group-hover/card:text-electric group-hover/card:bg-electric/10 group-hover/card:border-electric/30 transition-all duration-500 shadow-inner shrink-0">04</div>
+                                <h4 class="text-xl md:text-2xl font-bold text-white group-hover/card:text-electric transition-colors">Правки</h4>
+                            </div>
+                            <p class="text-gray-400 leading-relaxed text-sm relative z-10">Презентация работы, согласование деталей и внесение корректировок. Мы доводим результат <span class="text-white font-medium">до идеала</span>.</p>
+                        </div>
                     </div>
+
+                    <!-- ШАГ 05 -->
                     <div class="relative flex items-center justify-start md:w-1/2 md:pr-16 gsap-reveal group md:-mt-12">
                         <div class="workflow-node absolute left-[40px] md:left-auto md:right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-black border-2 border-white/30 rounded-full -translate-x-1/2 md:translate-x-1/2 z-20 transition-all duration-500 group-hover:border-electric group-hover:bg-electric group-hover:shadow-[0_0_20px_#2563FF] group-hover:scale-150"></div>
-                        <div class="glass-panel p-6 md:p-8 rounded-3xl w-[calc(100%-64px)] ml-auto md:w-full md:ml-0 md:mr-auto hover:-translate-y-2 transition-transform relative overflow-hidden"><div class="absolute -top-6 -left-4 md:-right-4 md:left-auto text-8xl font-black text-white/5 font-display select-none pointer-events-none">05</div><h4 class="text-2xl font-bold mb-3 text-electric relative z-10">Результат</h4><p class="text-gray-400 leading-relaxed text-sm relative z-10">Передача всех исходников и готовых материалов в высоком разрешении. Ваш проект <span class="text-electric">полностью готов к запуску</span>.</p></div>
+                        <div class="glass-panel p-6 md:p-8 rounded-[2.5rem] w-[calc(100%-64px)] ml-auto md:w-full md:ml-0 md:mr-auto hover:-translate-y-2 transition-transform relative overflow-hidden group/card bg-[#05050A] border-white/5 hover:border-electric/40 hover:shadow-[0_0_40px_rgba(37,99,255,0.15)]">
+                            <div class="absolute inset-0 opacity-[0.02] group-hover/card:opacity-[0.05] transition-opacity duration-500" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 16px 16px;"></div>
+                            
+                            <div class="flex items-center gap-4 mb-5 relative z-10">
+                                <div class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-2xl font-display font-black text-gray-500 group-hover/card:text-electric group-hover/card:bg-electric/10 group-hover/card:border-electric/30 transition-all duration-500 shadow-inner shrink-0">05</div>
+                                <h4 class="text-xl md:text-2xl font-bold text-white group-hover/card:text-electric transition-colors">Результат</h4>
+                            </div>
+                            <p class="text-gray-400 leading-relaxed text-sm relative z-10">Передача всех исходников и готовых материалов в высоком разрешении. Ваш проект <span class="text-white font-medium">полностью готов к запуску</span>.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -855,51 +988,116 @@
                     </div>
                 </div>
 
-                <div class="grid lg:grid-cols-3 gap-8 items-center gsap-stagger-grid py-8">
+                <!-- NEW PREMIUM TIER PRICING BLOCK -->
+                <div class="grid lg:grid-cols-3 gap-6 lg:gap-8 items-center py-8 relative z-20">
+                    
+                    <!-- ТАРИФ: СТАРТ -->
                     <div class="gsap-stagger-item h-full">
-                        <div class="glass-panel p-8 rounded-3xl flex flex-col h-full hover:border-white/20 transition-colors duration-300">
-                            <h3 class="text-2xl font-bold mb-2">Старт</h3>
-                            <p class="text-gray-400 text-sm mb-6 h-10">Базовый уровень для новичков. Первые заказы и портфолио.</p>
-                            <div class="text-4xl font-display font-bold mb-8">19 990 ₽</div>
-                            <ul class="space-y-4 mb-8 text-sm flex-grow">
-                                <li class="flex items-start gap-3"><i class="ph-duotone ph-check-circle text-electric mt-0.5 text-lg"></i> Доступ к видеоурокам</li>
-                                <li class="flex items-start gap-3"><i class="ph-duotone ph-check-circle text-electric mt-0.5 text-lg"></i> Основы инфографики Figma</li>
-                                <li class="flex items-start gap-3"><i class="ph-duotone ph-check-circle text-electric mt-0.5 text-lg"></i> Домашние задания</li>
-                            </ul>
-                            <a href="https://t.me/vladpetroov" target="_blank" class="w-full py-4 text-center rounded-xl border border-white/20 hover:bg-white/10 hover:border-white/30 transition-all font-medium active:scale-95">Выбрать тариф</a>
-                        </div>
-                    </div>
-                    <div class="gsap-stagger-item h-full z-10">
-                        <div class="relative rounded-3xl p-[2px] transform lg:scale-105 h-full">
-                            <div class="absolute inset-0 bg-gradient-to-b from-electric to-transparent rounded-3xl opacity-50 pointer-events-none"></div>
-                            <div class="bg-[#050505] p-8 rounded-[23px] flex flex-col h-full relative z-10">
-                                <div class="absolute top-0 right-8 transform -translate-y-1/2 bg-electric text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-[0_0_15px_rgba(37,99,255,0.5)]">Хит продаж</div>
-                                <h3 class="text-2xl font-bold mb-2 text-electric">Инфографика с Владом</h3>
-                                <p class="text-gray-400 text-sm mb-6 h-10">Персональная работа, личное наставничество и стратегия дохода.</p>
-                                <div class="text-5xl font-display font-bold mb-8">59 990 ₽</div>
-                                <ul class="space-y-4 mb-8 text-sm flex-grow">
-                                    <li class="flex items-start gap-3"><i class="ph-duotone ph-check-circle text-electric mt-0.5 text-lg"></i> <b>Всё из тарифов Старт и PRO</b></li>
-                                    <li class="flex items-start gap-3"><i class="ph-duotone ph-check-circle text-electric mt-0.5 text-lg"></i> Личные созвоны 1 на 1</li>
-                                    <li class="flex items-start gap-3"><i class="ph-duotone ph-check-circle text-electric mt-0.5 text-lg"></i> Построение личного бренда</li>
-                                    <li class="flex items-start gap-3"><i class="ph-duotone ph-check-circle text-electric mt-0.5 text-lg"></i> Гарантированный выход на результат</li>
+                        <div class="relative p-[1px] rounded-[2.5rem] bg-gradient-to-b from-white/10 to-transparent hover:from-white/20 transition-all duration-500 h-full group">
+                            <div class="bg-[#05050A] rounded-[calc(2.5rem-1px)] p-8 md:p-10 h-full flex flex-col relative z-10">
+                                <h3 class="text-2xl md:text-3xl font-bold text-white mb-2">Старт</h3>
+                                <p class="text-gray-500 text-sm mb-6 h-12 leading-relaxed">Базовый уровень для новичков. Первые заказы и портфолио.</p>
+                                <div class="text-4xl font-display font-black text-gray-200 mb-8">19 990 ₽</div>
+                                <div class="w-full h-[1px] bg-white/5 mb-8 group-hover:bg-white/10 transition-colors"></div>
+                                <ul class="space-y-4 mb-10 flex-grow text-sm">
+                                    <li class="flex items-center gap-4 text-gray-400 group-hover:text-gray-300 transition-colors">
+                                        <div class="w-6 h-6 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shrink-0"><i class="ph-bold ph-check text-gray-500 text-[10px] group-hover:text-white transition-colors"></i></div>
+                                        Доступ к видеоурокам
+                                    </li>
+                                    <li class="flex items-center gap-4 text-gray-400 group-hover:text-gray-300 transition-colors">
+                                        <div class="w-6 h-6 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shrink-0"><i class="ph-bold ph-check text-gray-500 text-[10px] group-hover:text-white transition-colors"></i></div>
+                                        Инфографика в Figma
+                                    </li>
+                                    <li class="flex items-center gap-4 text-gray-400 group-hover:text-gray-300 transition-colors">
+                                        <div class="w-6 h-6 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shrink-0"><i class="ph-bold ph-check text-gray-500 text-[10px] group-hover:text-white transition-colors"></i></div>
+                                        Домашние задания
+                                    </li>
                                 </ul>
-                                <a href="https://t.me/vladpetroov" target="_blank" class="magnetic-btn w-full py-4 text-center rounded-xl bg-electric text-white font-bold hover:bg-electricLight hover:shadow-[0_0_30px_rgba(37,99,255,0.4)] transition-all hover:-translate-y-1 active:scale-95 block">Иду на наставничество</a>
+                                <a href="https://t.me/vladpetroov" target="_blank" class="w-full py-4 rounded-xl border border-white/10 text-gray-300 font-medium text-center hover:bg-white/5 hover:border-white/20 hover:text-white transition-all active:scale-95 mt-auto">Выбрать Старт</a>
                             </div>
                         </div>
                     </div>
-                    <div class="gsap-stagger-item h-full">
-                        <div class="glass-panel p-8 rounded-3xl flex flex-col h-full hover:border-white/20 transition-colors duration-300">
-                            <h3 class="text-2xl font-bold mb-2">PRO</h3>
-                            <p class="text-gray-400 text-sm mb-6 h-10">Продвинутый уровень. Работа с брендами, повышение чека.</p>
-                            <div class="text-4xl font-display font-bold mb-8">29 990 ₽</div>
-                            <ul class="space-y-4 mb-8 text-sm flex-grow">
-                                <li class="flex items-start gap-3"><i class="ph-duotone ph-check-circle text-electric mt-0.5 text-lg"></i> Всё из тарифа Старт</li>
-                                <li class="flex items-start gap-3"><i class="ph-duotone ph-check-circle text-electric mt-0.5 text-lg"></i> Глубокие разборы работ</li>
-                                <li class="flex items-start gap-3"><i class="ph-duotone ph-check-circle text-electric mt-0.5 text-lg"></i> Упаковка мощного портфолио</li>
-                            </ul>
-                            <a href="https://t.me/vladpetroov" target="_blank" class="w-full py-4 text-center rounded-xl border border-white/20 hover:bg-white/10 hover:border-white/30 transition-all font-medium active:scale-95">Выбрать тариф</a>
+
+                    <!-- FLAGSHIP: НАСТАВНИЧЕСТВО -->
+                    <div class="gsap-stagger-item relative z-30 lg:-mt-6 lg:-mb-6 h-full lg:h-auto">
+                        <div class="relative rounded-[2.5rem] p-[1px] h-full lg:h-[105%] group overflow-hidden bg-gradient-to-b from-electric via-electric/40 to-transparent hover:from-electricLight transition-all duration-500 shadow-[0_20px_80px_rgba(37,99,255,0.2)] hover:shadow-[0_20px_100px_rgba(37,99,255,0.3)]">
+                            <!-- Background Glow & Mesh -->
+                            <div class="absolute inset-0 bg-[#02040A] rounded-[calc(2.5rem-1px)] z-0"></div>
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(37,99,255,0.15),transparent_50%)] z-0 pointer-events-none"></div>
+                            <div class="absolute inset-0 opacity-[0.03] z-0" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 16px 16px;"></div>
+                            
+                            <div class="rounded-[calc(2.5rem-1px)] p-8 md:p-12 h-full flex flex-col relative z-10">
+                                
+                                <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+                                    <span class="px-4 py-1.5 rounded-full bg-electric border border-electricLight text-white text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 shadow-[0_0_20px_rgba(37,99,255,0.5)]">
+                                        <i class="ph-fill ph-star text-white"></i> Хит продаж
+                                    </span>
+                                    <span class="px-3 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-[10px] font-mono uppercase tracking-widest flex items-center gap-1.5">
+                                        <i class="ph-fill ph-fire animate-pulse"></i> 2 места
+                                    </span>
+                                </div>
+                                
+                                <h3 class="text-3xl md:text-4xl font-display font-black text-white mb-3 tracking-tight">Личное<br>наставничество</h3>
+                                <p class="text-gray-300 text-sm mb-8 h-12 leading-relaxed">Индивидуальная работа до результата. Разбор ошибок, портфолио и стратегия выхода на чеки x3.</p>
+                                
+                                <div class="text-5xl md:text-6xl font-display font-black text-white mb-8 drop-shadow-md">59 990 ₽</div>
+                                
+                                <div class="w-full h-[1px] bg-gradient-to-r from-electric via-electric/20 to-transparent mb-8"></div>
+                                
+                                <ul class="space-y-5 mb-10 flex-grow text-sm">
+                                     <li class="flex items-start gap-4 text-white font-medium">
+                                        <div class="w-7 h-7 rounded-full bg-electric text-white flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(37,99,255,0.5)]"><i class="ph-bold ph-check text-[12px]"></i></div>
+                                        Всё из тарифов Старт и PRO
+                                    </li>
+                                    <li class="flex items-start gap-4 text-gray-200">
+                                        <div class="w-7 h-7 rounded-full bg-white/10 border border-white/20 text-electric flex items-center justify-center shrink-0"><i class="ph-bold ph-check text-[12px]"></i></div>
+                                        Личные созвоны 1 на 1
+                                    </li>
+                                    <li class="flex items-start gap-4 text-gray-200">
+                                        <div class="w-7 h-7 rounded-full bg-white/10 border border-white/20 text-electric flex items-center justify-center shrink-0"><i class="ph-bold ph-check text-[12px]"></i></div>
+                                        Построение личного бренда
+                                    </li>
+                                    <li class="flex items-start gap-4 text-gray-200">
+                                        <div class="w-7 h-7 rounded-full bg-white/10 border border-white/20 text-electric flex items-center justify-center shrink-0"><i class="ph-bold ph-check text-[12px]"></i></div>
+                                        Ведение до первых стабильных заказов
+                                    </li>
+                                </ul>
+                                
+                                <a href="https://t.me/vladpetroov" target="_blank" class="magnetic-btn w-full py-5 rounded-2xl bg-electric text-white font-bold text-center hover:bg-electricLight hover:-translate-y-1 transition-all active:scale-95 shadow-[0_0_30px_rgba(37,99,255,0.4)] relative overflow-hidden group/btn mt-auto">
+                                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-[150%] group-hover/btn:translate-x-[150%] transition-transform duration-1000 ease-in-out"></div>
+                                    Начать работу лично
+                                </a>
+                            </div>
                         </div>
                     </div>
+
+                    <!-- ТАРИФ: PRO -->
+                    <div class="gsap-stagger-item h-full">
+                        <div class="relative p-[1px] rounded-[2.5rem] bg-gradient-to-b from-white/10 to-transparent hover:from-white/20 transition-all duration-500 h-full group">
+                            <div class="bg-[#05050A] rounded-[calc(2.5rem-1px)] p-8 md:p-10 h-full flex flex-col relative z-10">
+                                <h3 class="text-2xl md:text-3xl font-bold text-white mb-2">PRO</h3>
+                                <p class="text-gray-500 text-sm mb-6 h-12 leading-relaxed">Продвинутый уровень. Глубокая проработка и повышение чека.</p>
+                                <div class="text-4xl font-display font-black text-gray-200 mb-8">29 990 ₽</div>
+                                <div class="w-full h-[1px] bg-white/5 mb-8 group-hover:bg-white/10 transition-colors"></div>
+                                <ul class="space-y-4 mb-10 flex-grow text-sm">
+                                    <li class="flex items-center gap-4 text-gray-400 group-hover:text-gray-300 transition-colors">
+                                        <div class="w-6 h-6 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shrink-0"><i class="ph-bold ph-check text-gray-500 text-[10px] group-hover:text-white transition-colors"></i></div>
+                                        Вся база из "Старта"
+                                    </li>
+                                    <li class="flex items-center gap-4 text-gray-400 group-hover:text-gray-300 transition-colors">
+                                        <div class="w-6 h-6 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shrink-0"><i class="ph-bold ph-check text-gray-500 text-[10px] group-hover:text-white transition-colors"></i></div>
+                                        Глубокие разборы работ
+                                    </li>
+                                    <li class="flex items-center gap-4 text-gray-400 group-hover:text-gray-300 transition-colors">
+                                        <div class="w-6 h-6 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shrink-0"><i class="ph-bold ph-check text-gray-500 text-[10px] group-hover:text-white transition-colors"></i></div>
+                                        Упаковка мощного портфолио
+                                    </li>
+                                </ul>
+                                <a href="https://t.me/vladpetroov" target="_blank" class="w-full py-4 rounded-xl border border-white/10 text-gray-300 font-medium text-center hover:bg-white/5 hover:border-white/20 hover:text-white transition-all active:scale-95 mt-auto">Выбрать PRO</a>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -919,7 +1117,7 @@
 
                 <div class="flex flex-col gap-4 gsap-stagger-grid">
                     <div class="faq-item gsap-stagger-item glass-panel rounded-2xl overflow-hidden border-electric/30 bg-electric/5 transition-colors duration-300"><button class="faq-btn w-full px-6 py-6 flex items-center justify-between text-left focus:outline-none group"><span class="font-bold text-lg text-white flex items-center gap-3"><i class="ph-duotone ph-file-text text-electric text-2xl drop-shadow-[0_0_10px_rgba(37,99,255,0.5)] shrink-0"></i><span>Вы работаете официально? Оформляем ли мы договор?</span></span><i class="ph-bold ph-plus text-electric text-xl transition-transform duration-300 transform shrink-0 ml-4"></i></button><div class="faq-content h-0 overflow-hidden transition-all duration-300 ease-in-out"><div class="px-6 pb-6 pt-2 text-gray-300 text-sm md:text-base leading-relaxed md:ml-[44px]"><strong class="text-electric">Да, я работаю официально и предоставляю все закрывающие документы.</strong><br><br>Мы можем заключить договор оказания услуг (как с физ. лицом, так и с ИП/ООО). В договоре фиксируются точные сроки, стоимость, количество правок и гарантии качества. Это обеспечивает полную прозрачность и безопасность для обеих сторон.</div></div></div>
-                    <div class="faq-item gsap-stagger-item glass-panel rounded-2xl overflow-hidden border-white/5 hover:border-electric/30 transition-colors duration-300"><button class="faq-btn w-full px-6 py-6 flex items-center justify-between text-left focus:outline-none group"><span class="font-bold text-lg text-white flex items-center gap-3"><span class="w-6 text-center text-electric/50 font-mono text-sm group-hover:text-electric transition-colors shrink-0">02</span><span>Что от меня нужно для старта работы?</span></span><i class="ph-bold ph-plus text-gray-500 group-hover:text-electric text-xl transition-transform duration-300 transform shrink-0 ml-4"></i></button><div class="faq-content h-0 overflow-hidden transition-all duration-300 ease-in-out"><div class="px-6 pb-6 pt-2 text-gray-400 text-sm md:text-base leading-relaxed md:ml-[36px]">Минимально — фотографии вашего продукта (в хорошем качестве) и базовое понимание преимуществ товара. Если у вас нет готового ТЗ (технического задания) — ничего страшного. Я проведу бриф, проанализирую конкурентов и предложу концепцию, которая выделит вас на рынке.</div></div></div>
+                    <div class="faq-item gsap-stagger-item glass-panel rounded-2xl overflow-hidden border-white/5 hover:border-electric/30 transition-colors duration-300"><button class="faq-btn w-full px-6 py-6 flex items-center justify-between text-left focus:outline-none group"><span class="font-bold text-lg text-white flex items-center gap-3"><span class="w-6 text-center text-electric/50 font-mono text-sm group-hover:text-electric transition-colors shrink-0">02</span><span>Что от меня нужно для стабработы?</span></span><i class="ph-bold ph-plus text-gray-500 group-hover:text-electric text-xl transition-transform duration-300 transform shrink-0 ml-4"></i></button><div class="faq-content h-0 overflow-hidden transition-all duration-300 ease-in-out"><div class="px-6 pb-6 pt-2 text-gray-400 text-sm md:text-base leading-relaxed md:ml-[36px]">Минимально — фотографии вашего продукта (в хорошем качестве) и базовое понимание преимуществ товара. Если у вас нет готового ТЗ (технического задания) — ничего страшного. Я проведу бриф, проанализирую конкурентов и предложу концепцию, которая выделит вас на рынке.</div></div></div>
                     <div class="faq-item gsap-stagger-item glass-panel rounded-2xl overflow-hidden border-white/5 hover:border-electric/30 transition-colors duration-300"><button class="faq-btn w-full px-6 py-6 flex items-center justify-between text-left focus:outline-none group"><span class="font-bold text-lg text-white flex items-center gap-3"><span class="w-6 text-center text-electric/50 font-mono text-sm group-hover:text-electric transition-colors shrink-0">03</span><span>Как происходит процесс оплаты?</span></span><i class="ph-bold ph-plus text-gray-500 group-hover:text-electric text-xl transition-transform duration-300 transform shrink-0 ml-4"></i></button><div class="faq-content h-0 overflow-hidden transition-all duration-300 ease-in-out"><div class="px-6 pb-6 pt-2 text-gray-400 text-sm md:text-base leading-relaxed md:ml-[36px]">Стандартная схема работы: <strong class="text-electric">50% предоплата</strong> перед началом анализа и отрисовки концепции, и <strong class="text-electric">50% постоплата</strong> после полного утверждения финального макета, перед передачей вам исходников и файлов в высоком разрешении.</div></div></div>
                     <div class="faq-item gsap-stagger-item glass-panel rounded-2xl overflow-hidden border-white/5 hover:border-electric/30 transition-colors duration-300"><button class="faq-btn w-full px-6 py-6 flex items-center justify-between text-left focus:outline-none group"><span class="font-bold text-lg text-white flex items-center gap-3"><span class="w-6 text-center text-electric/50 font-mono text-sm group-hover:text-electric transition-colors shrink-0">04</span><span>А если мне не понравится результат? Сколько правок можно внести?</span></span><i class="ph-bold ph-plus text-gray-500 group-hover:text-electric text-xl transition-transform duration-300 transform shrink-0 ml-4"></i></button><div class="faq-content h-0 overflow-hidden transition-all duration-300 ease-in-out"><div class="px-6 pb-6 pt-2 text-gray-400 text-sm md:text-base leading-relaxed md:ml-[36px]">Мой процесс начинается с тщательного анализа рынка и подбора референсов, поэтому вероятность "совсем не попасть в ожидания" крайне мала. В стоимость каждого проекта включено <strong class="text-electric">до 3-х итераций бесплатных правок</strong>. Мы доработаем дизайн до идеала.</div></div></div>
                     <div class="faq-item gsap-stagger-item glass-panel rounded-2xl overflow-hidden border-white/5 hover:border-electric/30 transition-colors duration-300"><button class="faq-btn w-full px-6 py-6 flex items-center justify-between text-left focus:outline-none group"><span class="font-bold text-lg text-white flex items-center gap-3"><span class="w-6 text-center text-electric/50 font-mono text-sm group-hover:text-electric transition-colors shrink-0">05</span><span>Какие средние сроки выполнения работы?</span></span><i class="ph-bold ph-plus text-gray-500 group-hover:text-electric text-xl transition-transform duration-300 transform shrink-0 ml-4"></i></button><div class="faq-content h-0 overflow-hidden transition-all duration-300 ease-in-out"><div class="px-6 pb-6 pt-2 text-gray-400 text-sm md:text-base leading-relaxed md:ml-[36px]">Сроки зависят от объема задач. Инфографика одной карточки товара (главный + доп. слайды) в среднем занимает <strong class="text-electric">от 3 до 5 дней</strong>. Разработка полноценного логотипа или сайта — <strong class="text-electric">от 7 до 14 дней</strong>. Если вам нужно "еще вчера", мы можем обсудить ускоренный тариф.</div></div></div>
@@ -1021,7 +1219,7 @@
             <div class="max-w-6xl w-full mx-auto relative z-10 gsap-stagger-grid">
                 <div class="gsap-stagger-item">
                     <div class="glass-panel p-6 md:p-12 lg:p-20 rounded-[3rem] md:rounded-[4rem] border-electric/30 relative overflow-hidden group shadow-[0_0_80px_rgba(37,99,255,0.1)] hover:shadow-[0_0_100px_rgba(37,99,255,0.2)] transition-shadow duration-700">
-                        <div class="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_top_right,rgba(37,99,255,0.15),transparent_60%)] pointer-events-none"></div>
+                        <div class="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle,rgba(37,99,255,0.15),transparent_60%)] pointer-events-none"></div>
 
                         <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center justify-between relative z-10">
                             <div class="flex-1 text-center lg:text-left w-full">
@@ -1118,9 +1316,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-col md:flex-row justify-between items-center gap-4 pt-6 mt-8 border-t border-white/10 text-xs text-gray-500 relative z-10">
+                <div class="flex flex-col lg:flex-row justify-between items-center gap-6 pt-6 mt-8 border-t border-white/10 text-xs text-gray-500 relative z-10">
                     <div class="flex flex-col sm:flex-row items-center gap-2"><span>&copy; 2024 VP-DESIGN.</span><span class="hidden sm:block">Все права защищены.</span></div>
-                    <div class="flex flex-col sm:flex-row items-center gap-4 md:gap-6"><span class="font-mono text-[10px] tracking-widest uppercase text-electric/40 hidden lg:block">SYS.END // SECURE</span><a href="https://direct.yandex.ru/base/articles/obrabotka-personalnyh-dannyh-na-sajte" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Политика конфиденциальности</a></div>
+                    <div class="flex flex-wrap justify-center lg:justify-end items-center gap-4 md:gap-6">
+                        <span class="font-mono text-[10px] tracking-widest uppercase text-electric/40 hidden xl:block">SYS.END // SECURE</span>
+                        <button onclick="openLegalModal('offer')" class="hover:text-white transition-colors uppercase tracking-wider text-[10px] font-bold">Оферта</button>
+                        <button onclick="openLegalModal('terms')" class="hover:text-white transition-colors uppercase tracking-wider text-[10px] font-bold">Пользовательское соглашение</button>
+                        <button onclick="openLegalModal('privacy')" class="hover:text-white transition-colors uppercase tracking-wider text-[10px] font-bold">Политика конфиденциальности</button>
+                    </div>
                 </div>
             </div>
         </footer>
@@ -1148,6 +1351,31 @@
         </button>
     </div>
 
+    <!-- LEGAL DOCUMENTS MODAL -->
+    <div id="legal-modal" class="fixed inset-0 z-[150] flex items-center justify-center opacity-0 pointer-events-none hw-accel">
+        <div id="legal-bg" class="absolute inset-0 bg-[#02050A]/95 backdrop-blur-xl cursor-pointer"></div>
+        <div id="legal-content-wrap" class="relative z-10 w-full max-w-4xl max-h-[85vh] bg-[#05050A] border border-white/10 rounded-3xl shadow-[0_0_60px_rgba(0,0,0,0.8)] flex flex-col opacity-0 scale-95">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between p-6 md:p-8 border-b border-white/10 shrink-0">
+                <h2 id="legal-title" class="text-2xl md:text-3xl font-display font-bold text-white tracking-tight">Документ</h2>
+                <button id="legal-close" class="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-electric hover:border-electric hover:shadow-[0_0_20px_rgba(37,99,255,0.4)] transition-all">
+                    <i class="ph-bold ph-x text-xl"></i>
+                </button>
+            </div>
+            <!-- Modal Body -->
+            <div id="legal-body" class="p-6 md:p-8 overflow-y-auto legal-scroll text-gray-300 text-sm md:text-base leading-relaxed space-y-6">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MOBILE FLOATING CTA -->
+    <div class="md:hidden fixed bottom-4 left-4 right-4 z-[40] transition-transform duration-500 translate-y-[150%]" id="mobile-fab">
+        <a href="https://t.me/vladpetroov" target="_blank" class="flex items-center justify-center gap-2 w-full py-3.5 bg-electric/95 backdrop-blur-xl text-white font-bold rounded-2xl border border-electric/50 shadow-[0_0_30px_rgba(37,99,255,0.4)] active:scale-95 transition-all text-sm">
+            Обсудить проект <i class="ph-bold ph-telegram-logo text-lg"></i>
+        </a>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.32/dist/lenis.min.js"></script>
@@ -1168,7 +1396,6 @@
 
         // --- Magnetic Buttons & Parallax ---
         if (window.matchMedia("(pointer: fine)").matches) {
-            // Global Magnetic Buttons logic
             document.querySelectorAll('.magnetic-btn').forEach(btn => {
                 btn.addEventListener('mousemove', (e) => {
                     const rect = btn.getBoundingClientRect();
@@ -1181,7 +1408,6 @@
                 });
             });
             
-            // HERO MOUSE 3D PARALLAX
             const heroSectionContainer = document.getElementById('hero');
             const heroImgWrapper = document.querySelector('.hero-img-wrapper');
             const parallaxElement = document.querySelector('.parallax-element-inner');
@@ -1203,16 +1429,12 @@
         }
 
         const lenis = new Lenis({
-            lerp: 0.1, /* УВЕЛИЧЕНА ОТЗЫВЧИВОСТЬ, ЧТОБЫ СКРОЛЛ НЕ БЫЛ "ВЯЗКИМ" */
-            wheelMultiplier: 1,
-            smoothTouch: false,
-            syncTouch: false
+            lerp: 0.08, 
+            wheelMultiplier: 0.9, 
+            smoothTouch: false, 
+            syncTouch: true 
         });
         window.lenis = lenis;
-        
-        // SCROLL SPY LOGIC
-        const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('.nav-link');
         
         lenis.on('scroll', () => {
             ScrollTrigger.update();
@@ -1240,7 +1462,6 @@
         gsap.ticker.add((time) => { lenis.raf(time * 1000); });
         gsap.ticker.lagSmoothing(0);
 
-        // SCROLL PROGRESS BAR
         gsap.to("#scroll-progress", {
             scaleX: 1, ease: "none", scrollTrigger: { scrub: 0.3 }
         });
@@ -1249,14 +1470,21 @@
         if (spaceCanvas) {
             const ctx = spaceCanvas.getContext('2d');
             let spaceWidth, spaceHeight, particles = [];
-            const particleColors = ['#2563FF', '#60A5FA', '#FFFFFF', '#0044FF'];
+            let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+            let targetMouseX = mouseX, targetMouseY = mouseY;
+            let time = 0;
             let isCanvasVisible = true;
 
-            const observer = new IntersectionObserver((entries) => {
-                isCanvasVisible = entries[0].isIntersecting;
-            }, { threshold: 0 });
-            const heroSection = document.getElementById('hero');
-            if(heroSection) observer.observe(heroSection);
+            if (window.matchMedia("(pointer: fine)").matches) {
+                document.addEventListener('mousemove', (e) => {
+                    targetMouseX = e.clientX;
+                    targetMouseY = e.clientY;
+                });
+            }
+
+            document.addEventListener("visibilitychange", () => {
+                isCanvasVisible = !document.hidden;
+            });
 
             function initSpace() {
                 const dpr = window.devicePixelRatio || 1;
@@ -1266,13 +1494,17 @@
                 spaceCanvas.height = spaceHeight * dpr;
                 ctx.scale(dpr, dpr);
                 particles = [];
-                const particleCount = window.innerWidth < 768 ? 40 : 100;
+                
+                const particleCount = window.innerWidth < 768 ? 40 : 120;
                 for(let i=0; i<particleCount; i++) {
                     particles.push({
-                        x: Math.random() * spaceWidth, y: Math.random() * spaceHeight,
-                        z: Math.random() * 0.8 + 0.2, size: Math.random() * 1.5 + 0.5,
-                        color: particleColors[Math.floor(Math.random() * particleColors.length)],
-                        vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4
+                        x: Math.random() * spaceWidth, 
+                        y: Math.random() * spaceHeight,
+                        size: Math.random() * 1.5 + 0.5,
+                        speedY: Math.random() * 0.4 + 0.1,
+                        speedX: (Math.random() - 0.5) * 0.2,
+                        opacity: Math.random() * 0.5 + 0.1,
+                        glow: Math.random() > 0.85
                     });
                 }
             }
@@ -1280,31 +1512,40 @@
             function animateSpace() {
                 if (isCanvasVisible) {
                     ctx.clearRect(0, 0, spaceWidth, spaceHeight);
+                    time += 0.01;
+                    
+                    mouseX += (targetMouseX - mouseX) * 0.05;
+                    mouseY += (targetMouseY - mouseY) * 0.05;
+                    
+                    const parallaxX = (mouseX / spaceWidth - 0.5) * 20;
+                    const parallaxY = (mouseY / spaceHeight - 0.5) * 20;
+
                     for(let i = 0; i < particles.length; i++) {
                         let p = particles[i];
-                        p.x += p.vx; p.y += p.vy;
-                        let pX = ((p.x % spaceWidth) + spaceWidth) % spaceWidth;
-                        let pY = ((p.y % spaceHeight) + spaceHeight) % spaceHeight;
+                        
+                        p.y -= p.speedY;
+                        p.x += p.speedX;
 
-                        for(let j = i + 1; j < particles.length; j++) {
-                            let p2 = particles[j];
-                            let p2X = ((p2.x % spaceWidth) + spaceWidth) % spaceWidth;
-                            let p2Y = ((p2.y % spaceHeight) + spaceHeight) % spaceHeight;
+                        if(p.y < -10) p.y = spaceHeight + 10;
+                        if(p.x < -10) p.x = spaceWidth + 10;
+                        if(p.x > spaceWidth + 10) p.x = -10;
 
-                            let dx = pX - p2X, dy = pY - p2Y, dist = Math.sqrt(dx*dx + dy*dy);
-                            if(dist < 130) {
-                                ctx.beginPath();
-                                ctx.strokeStyle = p.color;
-                                ctx.globalAlpha = (1 - dist/130) * 0.25 * p.z;
-                                ctx.lineWidth = 1;
-                                ctx.moveTo(pX, pY); ctx.lineTo(p2X, p2Y);
-                                ctx.stroke();
-                            }
-                        }
+                        const drawX = p.x + parallaxX * p.size;
+                        const drawY = p.y + parallaxY * p.size;
+                        const currentOpacity = Math.max(0.1, p.opacity + Math.sin(time + p.x * 0.01) * 0.2);
+
                         ctx.beginPath();
-                        ctx.arc(pX, pY, p.size * p.z, 0, Math.PI * 2);
-                        ctx.fillStyle = p.color;
-                        ctx.globalAlpha = p.z * 0.8 + 0.2; 
+                        ctx.arc(drawX, drawY, p.size, 0, Math.PI * 2);
+                        
+                        if (p.glow) {
+                            ctx.shadowBlur = 10;
+                            ctx.shadowColor = '#00F0FF';
+                            ctx.fillStyle = `rgba(255, 255, 255, ${currentOpacity + 0.4})`;
+                        } else {
+                            ctx.shadowBlur = 0;
+                            ctx.fillStyle = `rgba(160, 190, 255, ${currentOpacity})`;
+                        }
+                        
                         ctx.fill();
                     }
                 }
@@ -1350,88 +1591,77 @@
         mobileMenuBtn.addEventListener('click', toggleMenu);
         mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
 
-        // --- PRELOADER & ENTRY SEQUENCE ---
-        const preloader = document.getElementById('preloader');
-        const preloaderText = document.getElementById('preloader-text');
-        
-        let loadProgress = 0;
-        const loadInterval = setInterval(() => {
-            loadProgress += Math.floor(Math.random() * 8) + 2;
-            if (loadProgress >= 100) {
-                loadProgress = 100;
-                clearInterval(loadInterval);
-                preloaderText.innerText = "100";
-                
-                setTimeout(() => {
-                    // Растворяем элементы прелоадера (текст, цифры)
-                    gsap.to(".preloader-content", { opacity: 0, y: -20, duration: 0.4, ease: "power2.in" });
-                    
-                    // Шторка улетает вверх с задержкой
-                    gsap.to(preloader, { yPercent: -100, duration: 1.2, ease: "expo.inOut", delay: 0.2, onComplete: () => preloader.style.display = 'none' });
-                    
-                    // Запуск появления первого экрана
-                    setTimeout(initHeroAnimation, 400);
-                }, 400);
-            } else {
-                preloaderText.innerText = loadProgress;
-            }
-        }, 30);
-
         function initHeroAnimation() {
-            const tl = gsap.timeline({ defaults: { ease: "expo.out", force3D: true }, delay: 0.4 });
-            tl.fromTo([".word-1", ".word-2", ".word-3"], { y: 60, autoAlpha: 0, rotateX: -15 }, { y: 0, autoAlpha: 1, rotateX: 0, duration: 1.5, stagger: 0.1 })
+            const tl = gsap.timeline({ defaults: { ease: "power4.out", force3D: true }, delay: 0.2 });
+
+            gsap.set(".word-1", { x: -80, opacity: 0, rotateY: 25, transformPerspective: 1000 });
+            gsap.set(".word-2", { x: 80, opacity: 0, rotateY: -25, transformPerspective: 1000 });
+            gsap.set(".word-3", { y: 60, opacity: 0, scale: 0.9 });
+            gsap.set(".gsap-hero-image", { x: 80, scale: 0.9, opacity: 0, rotateY: -15, transformPerspective: 1500 });
+
+            tl.to(".word-1", { x: 0, opacity: 1, rotateY: 0, duration: 1.6 })
+              .to(".word-2", { x: 0, opacity: 1, rotateY: 0, duration: 1.6 }, "-=1.4")
+              .to(".word-3", { y: 0, opacity: 1, scale: 1, duration: 1.4, ease: "back.out(1.2)" }, "-=1.2")
               .fromTo(".hero-keyword", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.1 }, "-=1.0")
-              .fromTo(".gsap-hero-el", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.1 }, "-=0.8")
-              .fromTo(".hero-action-el", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.1 }, "-=0.8")
-              .fromTo(".gsap-hero-image", { y: 40, scale: 0.95, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 1.5, ease: "power3.out" }, "-=1.2");
+              .fromTo(".gsap-hero-el", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.1 }, "-=0.8")
+              .fromTo(".hero-action-el", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.1 }, "-=0.8")
+              .to(".gsap-hero-image", { x: 0, scale: 1, opacity: 1, rotateY: 0, duration: 2, ease: "expo.out" }, "-=1.8");
 
             gsap.to(".hero-main-img", { y: -15, duration: 3, ease: "sine.inOut", yoyo: true, repeat: -1, force3D: true });
             
-            // ABOUT IMAGE PARALLAX
             gsap.to("#about-img-wrap", { y: 50, ease: "none", force3D: true, scrollTrigger: { trigger: "#about", start: "top bottom", end: "bottom top", scrub: true }});
         }
+
+        // Start animation right away
+        window.addEventListener('load', () => {
+            initHeroAnimation();
+        });
 
         gsap.utils.toArray(".about-title-line, .services-title-line").forEach(el => gsap.set(el, { y: 60, autoAlpha: 0, rotateX: -30 }));
         ScrollTrigger.batch(".about-title-line", { onEnter: batch => gsap.to(batch, { y: 0, autoAlpha: 1, rotateX: 0, duration: 1.2, stagger: 0.1, ease: "power3.out", overwrite: true }), start: "top 85%" });
         ScrollTrigger.batch(".services-title-line", { onEnter: batch => gsap.to(batch, { y: 0, autoAlpha: 1, rotateX: 0, duration: 1.2, stagger: 0.1, ease: "power3.out", overwrite: true }), start: "top 85%" });
 
         gsap.utils.toArray('.gsap-reveal').forEach(el => {
-            gsap.set(el, { autoAlpha: 0, y: 40 });
-            gsap.to(el, { duration: 1.2, autoAlpha: 1, y: 0, ease: "power3.out", force3D: true, scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none reverse" } });
+            if(el.closest('#workflow-steps')) return; 
+            gsap.set(el, { autoAlpha: 0, y: 80, rotationX: -25, scale: 0.9, transformPerspective: 1200 });
+            gsap.to(el, { duration: 1.6, autoAlpha: 1, y: 0, rotationX: 0, scale: 1, ease: "expo.out", force3D: true, scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none reverse" } });
         });
 
         const initialActiveFilter = 'info';
         document.querySelectorAll('.portfolio-item').forEach(item => { if(!item.classList.contains(initialActiveFilter)) item.style.display = 'none'; });
 
-        gsap.set('.gsap-stagger-item:not(.portfolio-item)', { autoAlpha: 0, y: 50 });
-        const portfolioInners = gsap.utils.toArray('.portfolio-item > div, .portfolio-item > a');
-        gsap.set(portfolioInners, { autoAlpha: 0, y: 50, rotationX: 10, scale: 0.95, transformPerspective: 1500 });
-
+        gsap.set('.gsap-stagger-item:not(.portfolio-item)', { autoAlpha: 0, y: 100, rotationX: -20, scale: 0.85, transformPerspective: 1500 });
         ScrollTrigger.batch('.gsap-stagger-item:not(.portfolio-item)', {
-            interval: 0.15, batchMax: 4, start: "top 85%",
-            onEnter: batch => gsap.to(batch, { autoAlpha: 1, y: 0, duration: 1.2, stagger: 0.1, ease: "power3.out", force3D: true, overwrite: true })
+            interval: 0.12, batchMax: 4, start: "top 85%",
+            onEnter: batch => gsap.to(batch, { autoAlpha: 1, y: 0, rotationX: 0, scale: 1, duration: 1.6, stagger: 0.15, ease: "expo.out", force3D: true, overwrite: true })
         });
 
+        const portfolioInners = gsap.utils.toArray('.portfolio-item > div, .portfolio-item > a');
+        gsap.set(portfolioInners, { autoAlpha: 0, y: 80, rotationX: 25, scale: 0.85, transformPerspective: 1500 });
         ScrollTrigger.batch('.portfolio-item', {
             interval: 0.15, batchMax: 6, start: "top 85%", 
             onEnter: batch => {
                 const targets = batch.map(el => el.firstElementChild);
-                gsap.to(targets, { autoAlpha: 1, y: 0, rotationX: 0, scale: 1, duration: 1.2, stagger: 0.1, ease: "power3.out", force3D: true, overwrite: true });
+                gsap.to(targets, { autoAlpha: 1, y: 0, rotationX: 0, scale: 1, duration: 1.5, stagger: 0.1, ease: "back.out(1.2)", force3D: true, overwrite: true });
             }
         });
 
-        if (window.matchMedia("(hover: hover)").matches) {
-            document.querySelectorAll('.portfolio-item > div, .portfolio-item > a').forEach(card => {
-                card.addEventListener('mousemove', (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left, y = e.clientY - rect.top;
-                    gsap.to(card, { rotationX: ((y - rect.height/2) / (rect.height/2)) * -12, rotationY: ((x - rect.width/2) / (rect.width/2)) * 12, transformPerspective: 1500, ease: "power2.out", duration: 0.4 });
-                });
-                card.addEventListener('mouseleave', () => gsap.to(card, { rotationX: 0, rotationY: 0, duration: 1, ease: "elastic.out(1, 0.3)" }));
-            });
-        }
-
         gsap.fromTo(".workflow-line-fill", { scaleY: 0 }, { scaleY: 1, ease: "none", scrollTrigger: { trigger: "#workflow-steps", start: "top 50%", end: "bottom 50%", scrub: true } });
+
+        gsap.utils.toArray('#workflow-steps .group').forEach((step) => {
+            const isLeft = step.classList.contains('justify-start');
+            const panel = step.querySelector('.glass-panel');
+            const node = step.querySelector('.workflow-node');
+            
+            gsap.set(step, { autoAlpha: 1 });
+            gsap.set(panel, { autoAlpha: 0, x: isLeft ? -100 : 100, y: 40, rotationY: isLeft ? 20 : -20, transformPerspective: 1200 });
+            gsap.set(node, { scale: 0, opacity: 0 });
+
+            const tl = gsap.timeline({ scrollTrigger: { trigger: step, start: "top 85%", toggleActions: "play none none reverse" } });
+            
+            tl.to(node, { scale: 1, opacity: 1, duration: 0.6, ease: "back.out(2)" })
+              .to(panel, { duration: 1.5, autoAlpha: 1, x: 0, y: 0, rotationY: 0, ease: "expo.out", force3D: true }, "-=0.4");
+        });
 
         document.querySelectorAll('.workflow-node').forEach((node) => {
             ScrollTrigger.create({
@@ -1477,15 +1707,18 @@
         });
 
         const navbar = document.getElementById('navbar'), navContainer = document.getElementById('navbar-container');
+        const mobileFab = document.getElementById('mobile-fab');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) { 
                 navbar.classList.replace('pt-6', 'pt-3'); 
                 navContainer.classList.add('bg-[#050505]/80', 'border-electric/30', 'shadow-[0_10px_40px_rgba(37,99,255,0.15)]');
                 navContainer.classList.remove('bg-white/[0.02]', 'border-white/10', 'shadow-[0_8px_32px_rgba(0,0,0,0.3)]');
+                if(mobileFab) mobileFab.classList.remove('translate-y-[150%]');
             } else { 
                 navbar.classList.replace('pt-3', 'pt-6'); 
                 navContainer.classList.remove('bg-[#050505]/80', 'border-electric/30', 'shadow-[0_10px_40px_rgba(37,99,255,0.15)]');
                 navContainer.classList.add('bg-white/[0.02]', 'border-white/10', 'shadow-[0_8px_32px_rgba(0,0,0,0.3)]');
+                if(mobileFab) mobileFab.classList.add('translate-y-[150%]');
             }
         });
 
@@ -1493,59 +1726,43 @@
             const cookieBanner = document.getElementById('cookie-banner');
             if (!localStorage.getItem('cookieConsent')) setTimeout(() => { if(cookieBanner) cookieBanner.classList.remove('translate-y-[150%]', 'opacity-0'); }, 2500);
             
-            // УМНАЯ ЛЕНИВАЯ ЗАГРУЗКА (INTERSECTION OBSERVER) ДЛЯ ИНФОГРАФИКИ
             const lazyImages = document.querySelectorAll('.lazy-image');
             const imageObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const img = entry.target;
-                        
                         const onImageLoad = () => {
                             img.classList.remove('opacity-0');
-                            img.classList.add('loaded'); // КРИТИЧЕСКИЙ ФИКС: Снимаем размытие (blur)
+                            img.classList.add('loaded'); 
                             const wrapper = img.closest('.image-wrapper');
                             if (wrapper) {
                                 wrapper.classList.remove('animate-pulse', 'min-h-[250px]');
                                 const icon = wrapper.querySelector('i');
-                                if (icon) icon.style.display = 'none'; // Прячем иконку загрузки
+                                if (icon) icon.style.display = 'none'; 
                             }
-                            // Обновляем высоту для сетки и скролла
                             clearTimeout(window.refreshTimeout);
                             window.refreshTimeout = setTimeout(() => ScrollTrigger.refresh(), 150);
                         };
-
-                        img.src = img.getAttribute('data-src'); // Подставляем тяжелый оригинал
-                        
-                        // Защита: если картинка загрузилась мгновенно (из кэша телефона)
-                        if (img.complete) {
-                            onImageLoad();
-                        } else {
-                            img.onload = onImageLoad;
-                        }
-                        
+                        img.src = img.getAttribute('data-src'); 
+                        if (img.complete) onImageLoad();
+                        else img.onload = onImageLoad;
                         observer.unobserve(img);
                     }
                 });
-            }, { 
-                rootMargin: '400px 0px', // Начинаем грузить картинку за 400px до того, как она покажется на экране
-                threshold: 0.01 
-            });
+            }, { rootMargin: '400px 0px', threshold: 0.01 });
 
             lazyImages.forEach(img => imageObserver.observe(img));
 
-            // Старая загрузка для остальных изображений портфолио
             document.querySelectorAll('#portfolio-grid img:not(.lazy-image)').forEach(img => {
-                if(img.complete) {
+                if(img.complete) img.classList.add('loaded');
+                else img.addEventListener('load', () => { 
                     img.classList.add('loaded');
-                } else {
-                    img.addEventListener('load', () => { 
-                        img.classList.add('loaded');
-                        clearTimeout(window.refreshTimeout);
-                        window.refreshTimeout = setTimeout(() => ScrollTrigger.refresh(), 150);
-                    });
-                }
+                    clearTimeout(window.refreshTimeout);
+                    window.refreshTimeout = setTimeout(() => ScrollTrigger.refresh(), 150);
+                });
             });
         });
+
         function acceptCookies() { localStorage.setItem('cookieConsent', 'true'); hideCookieBanner(); }
         function hideCookieBanner() {
             const cookieBanner = document.getElementById('cookie-banner');
@@ -1581,14 +1798,11 @@
             });
         });
 
-        gsap.to(".footer-grid", { backgroundPosition: "0px 60px", duration: 2, ease: "none", repeat: -1 });
-
-        gsap.fromTo("#footer .glass-panel",
-            { y: 80, opacity: 0, rotationX: 15 },
-            { y: 0, opacity: 1, rotationX: 0, duration: 1.2, stagger: 0.1, ease: "expo.out", scrollTrigger: { trigger: "#footer .grid", start: "top 90%", toggleActions: "play none none reverse" } }
+        gsap.fromTo("#footer .max-w-7xl > div",
+            { y: 80, opacity: 0, rotationX: -15, scale: 0.95, transformPerspective: 1200 },
+            { y: 0, opacity: 1, rotationX: 0, scale: 1, duration: 1.5, stagger: 0.15, ease: "expo.out", scrollTrigger: { trigger: "#footer", start: "top 90%", toggleActions: "play none none reverse" } }
         );
 
-        // --- PREMIUM LIGHTBOX LOGIC ---
         const lightbox = document.getElementById('lightbox');
         const lightboxBg = document.getElementById('lightbox-bg');
         const lightboxContent = document.getElementById('lightbox-content');
@@ -1602,18 +1816,11 @@
             if (parent && !parent.querySelector('a')) {
                 img.addEventListener('click', () => {
                     isLightboxOpen = true;
-                    
-                    // БЕРЕМ ОРИГИНАЛЬНОЕ ВЫСОКОЕ КАЧЕСТВО, ЕСЛИ ОНО ЕСТЬ В DATA-SRC (для умной загрузки)
                     lightboxImg.src = img.getAttribute('data-src') || img.src;
-                    
                     if(window.lenis) window.lenis.stop();
-                    
                     lightbox.classList.remove('pointer-events-none');
                     gsap.to(lightbox, { opacity: 1, duration: 0.4, ease: "power2.out" });
-                    gsap.fromTo(lightboxContent, 
-                        { opacity: 0, scale: 0.85, y: 20 }, 
-                        { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "expo.out", delay: 0.1 }
-                    );
+                    gsap.fromTo(lightboxContent, { opacity: 0, scale: 0.85, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "expo.out", delay: 0.1 });
                 });
             }
         });
@@ -1621,7 +1828,6 @@
         const closeLightbox = () => {
             if (!isLightboxOpen) return;
             isLightboxOpen = false;
-            
             gsap.to(lightboxContent, { opacity: 0, scale: 0.95, y: -20, duration: 0.4, ease: "power2.in" });
             gsap.to(lightbox, { opacity: 0, duration: 0.4, delay: 0.1, ease: "power2.in", onComplete: () => {
                 lightbox.classList.add('pointer-events-none');
@@ -1632,9 +1838,13 @@
 
         if(lightboxBg) lightboxBg.addEventListener('click', closeLightbox);
         if(lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
-        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isLightboxOpen) closeLightbox(); });
+        document.addEventListener('keydown', (e) => { 
+            if (e.key === 'Escape') {
+                if (isLightboxOpen) closeLightbox();
+                if (!legalModal.classList.contains('pointer-events-none')) closeLegalModal();
+            } 
+        });
 
-        // --- DYNAMIC SPOTLIGHT GLOW ДЛЯ КАРТОЧЕК УСЛУГ ---
         if (window.matchMedia("(hover: hover)").matches) {
             document.querySelectorAll('#services .gsap-stagger-item > div > div').forEach(card => {
                 const bgContainer = card.querySelector('.absolute.inset-0');
@@ -1643,7 +1853,6 @@
                     spotlight.className = 'absolute w-[300px] h-[300px] bg-electric/20 rounded-full blur-[60px] pointer-events-none opacity-0 transition-opacity duration-500 z-0 mix-blend-screen';
                     spotlight.style.transform = 'translate(-50%, -50%)';
                     bgContainer.appendChild(spotlight);
-
                     card.addEventListener('mouseenter', () => spotlight.style.opacity = '1');
                     card.addEventListener('mouseleave', () => spotlight.style.opacity = '0');
                     card.addEventListener('mousemove', (e) => {
@@ -1655,6 +1864,51 @@
                 }
             });
         }
+
+        const legalTexts = {
+            offer: {
+                title: "Публичная оферта",
+                content: `<h3 class="text-white text-xl font-bold mb-4">1. Общие положения</h3><p class="mb-4">Настоящая публичная оферта является официальным предложением независимого дизайнера (Исполнителя) заключить договор на оказание услуг дизайна...</p><h3 class="text-white text-xl font-bold mb-4 mt-8">2. Предмет оферты</h3><p class="mb-4">Исполнитель обязуется по заданию Заказчика оказать услуги по разработке визуальных концепций...</p><h3 class="text-electric text-xl font-bold mb-4 mt-8">3. Порядок расчетов (Оплата)</h3><p class="mb-4">3.1. Услуги оказываются на условиях <strong class="text-white">50% предоплаты</strong> до начала выполнения работ...</p>`
+            },
+            terms: {
+                title: "Пользовательское соглашение",
+                content: `<h3 class="text-white text-xl font-bold mb-4">1. Использование сайта</h3><p class="mb-4">Настоящее Соглашение определяет правила использования веб-сайта vp-design.ru...</p>`
+            },
+            privacy: {
+                title: "Политика конфиденциальности",
+                content: `<h3 class="text-white text-xl font-bold mb-4">1. Сбор и обработка данных</h3><p class="mb-4">Я, Петров Владислав (Владелец сайта), с уважением отношусь к конфиденциальности ваших данных...</p>`
+            }
+        };
+
+        const legalModal = document.getElementById('legal-modal');
+        const legalBg = document.getElementById('legal-bg');
+        const legalContentWrap = document.getElementById('legal-content-wrap');
+        const legalTitle = document.getElementById('legal-title');
+        const legalBody = document.getElementById('legal-body');
+        const legalCloseBtn = document.getElementById('legal-close');
+
+        window.openLegalModal = (type) => {
+            const data = legalTexts[type];
+            if (!data) return;
+            legalTitle.innerText = data.title;
+            legalBody.innerHTML = data.content;
+            if(window.lenis) window.lenis.stop();
+            legalModal.classList.remove('pointer-events-none');
+            gsap.to(legalModal, { opacity: 1, duration: 0.3, ease: "power2.out" });
+            gsap.to(legalContentWrap, { opacity: 1, scale: 1, duration: 0.5, ease: "expo.out", delay: 0.1 });
+        };
+
+        window.closeLegalModal = () => {
+            gsap.to(legalContentWrap, { opacity: 0, scale: 0.95, duration: 0.3, ease: "power2.in" });
+            gsap.to(legalModal, { opacity: 0, duration: 0.3, delay: 0.1, ease: "power2.in", onComplete: () => {
+                legalModal.classList.add('pointer-events-none');
+                if(window.lenis) window.lenis.start();
+                legalBody.innerHTML = '';
+            }});
+        };
+
+        if(legalBg) legalBg.addEventListener('click', closeLegalModal);
+        if(legalCloseBtn) legalCloseBtn.addEventListener('click', closeLegalModal);
     </script>
 </body>
 </html>
