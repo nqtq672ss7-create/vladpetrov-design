@@ -71,6 +71,11 @@
             overscroll-behavior-y: none; 
             scroll-behavior: auto !important; 
         }
+        @media (max-width: 768px) {
+            .bg-noise { display: none !important; }
+            .animate-blob { animation: none !important; }
+            .glass-panel { backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+        }
         .hw-accel { transform: translateZ(0); backface-visibility: hidden; will-change: transform; } 
         html.lenis { height: auto; }
         .lenis.lenis-smooth { scroll-behavior: auto; }
@@ -91,19 +96,11 @@
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         .portfolio-item > div, .portfolio-item > a { will-change: transform, opacity; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform: translateZ(0); }
         
-        /* Smooth Fade-in Image Loading */
         .portfolio-item img { 
-            transition: opacity 0.6s ease-out, transform 1s cubic-bezier(0.16, 1, 0.3, 1); 
-            will-change: transform, opacity; 
+            transition: opacity 0.6s ease-out, filter 0.8s ease-out, transform 1s cubic-bezier(0.16, 1, 0.3, 1); 
+            will-change: transform, opacity, filter; 
             transform-origin: center; 
-        }
-
-        /* Smooth Blur-up Image Loading */
-        .portfolio-item img { 
-            transition: filter 0.8s ease-out, transform 1s cubic-bezier(0.16, 1, 0.3, 1); 
-            will-change: transform, filter; 
-            transform-origin: center; 
-            filter: blur(10px) brightness(0.8); 
+            filter: blur(10px) brightness(0.8);
         }
         .portfolio-item img.loaded { filter: blur(0) brightness(1); }
         
@@ -122,22 +119,12 @@
             .footer-massive-text:hover { color: #FFFFFF; -webkit-text-stroke: 2px transparent; text-shadow: 0 20px 80px rgba(37, 99, 255, 0.6); transform: scale(1.02) translateZ(50px); }
             .magnetic-btn { transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
         }
-        .footer-link-wrap { overflow: hidden; display: block; width: max-content; }
-        .footer-link-inner { display: block; will-change: transform; }
-        .cyber-logo { -webkit-text-stroke: 2px #2563FF; text-shadow: 0 0 40px rgba(37,99,255,0.6), inset 0 0 20px rgba(37,99,255,0.4); position: relative; }
-        .cyber-logo::before { content: "VP"; position: absolute; inset: 0; -webkit-text-stroke: 1px #00F0FF; filter: blur(8px); opacity: 0.8; z-index: -1; }
         
-        /* Subtle Film Grain Overlay */
         .bg-noise {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
             opacity: 0.04; pointer-events: none; z-index: 9990; mix-blend-mode: overlay;
         }
-
-        /* Modal Scrollbar */
-        .legal-scroll::-webkit-scrollbar { width: 4px; }
-        .legal-scroll::-webkit-scrollbar-track { background: transparent; }
-        .legal-scroll::-webkit-scrollbar-thumb { background: #2563FF; border-radius: 10px; }
     </style>
 
     <script type="text/javascript">
@@ -146,31 +133,10 @@
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/107053423" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 
-    <!-- ANTI-INSPECT / ANTI-COPY SCRIPT -->
     <script>
-        // Блокировка правой кнопки мыши
         document.addEventListener('contextmenu', event => event.preventDefault());
-
-        // Блокировка горячих клавиш панели разработчика
         document.addEventListener('keydown', function(e) {
-            // F12
-            if (e.key === 'F12') {
-                e.preventDefault();
-            }
-            // Ctrl+Shift+I / Cmd+Option+I (DevTools)
-            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'I') {
-                e.preventDefault();
-            }
-            // Ctrl+Shift+J / Cmd+Option+J (Console)
-            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'J') {
-                e.preventDefault();
-            }
-            // Ctrl+Shift+C / Cmd+Option+C (Inspect Element)
-            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'C') {
-                e.preventDefault();
-            }
-            // Ctrl+U / Cmd+U (View Source)
-            if ((e.ctrlKey || e.metaKey) && e.key === 'u') {
+            if (e.key === 'F12' || ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) || ((e.ctrlKey || e.metaKey) && e.key === 'u')) {
                 e.preventDefault();
             }
         });
@@ -178,10 +144,8 @@
 </head>
 <body class="antialiased selection:bg-electric selection:text-white bg-black">
 
-    <!-- PREMIUM FILM GRAIN -->
     <div class="bg-noise hw-accel"></div>
 
-    <!-- SCROLL PROGRESS BAR -->
     <div id="scroll-progress" class="fixed top-0 left-0 h-[2px] bg-electric z-[10000] shadow-[0_0_15px_#2563FF] origin-left scale-x-0 hw-accel w-full pointer-events-none"></div>
 
     <div class="fixed inset-0 z-0 pointer-events-none hw-accel bg-[#02050A] overflow-hidden">
@@ -289,10 +253,7 @@
                     </div>
                 </div>
 
-                <!-- 3D MOUSE PARALLAX CONTAINER -->
                 <div class="relative w-full h-[480px] md:h-[650px] lg:h-[750px] flex justify-center items-center gsap-hero-image mt-4 md:mt-0">
-                    
-                    <!-- Inner Parallax Content -->
                     <div class="parallax-element-inner absolute inset-0 flex justify-center items-center pointer-events-none z-40">
                         <div class="absolute top-[55%] md:top-[45%] left-0 sm:-left-10 md:-left-20 lg:-left-32 hw-accel">
                             <div class="animate-float flex items-center gap-4" style="animation-delay: 1s;">
@@ -318,7 +279,6 @@
                         <img src="https://s10.iimage.su/s/27/g9NPRMPxrMg0Py7y3IFv5H8OiAsvvVDfTG2rb2DEP.png" fetchpriority="high" alt="VP-DESIGN" class="hero-main-img object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] scale-[1.15] md:scale-100 origin-bottom md:origin-center hw-accel w-full h-full">
                     </div>
 
-                    <!-- PORTFOLIO ACTION WIDGET ON HERO PHOTO -->
                     <a href="#portfolio" class="absolute bottom-4 md:bottom-10 left-[45%] md:left-auto md:-right-4 -translate-x-1/2 md:translate-x-0 z-50 magnetic-btn group flex items-center gap-3 pr-6 pl-2 py-2 bg-[#05050A]/90 backdrop-blur-xl border border-white/10 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] hover:border-electric hover:shadow-[0_0_40px_rgba(37,99,255,0.4)] transition-all duration-500 hw-accel animate-float" style="animation-delay: 0.8s;">
                         <div class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-electric flex items-center justify-center text-white relative group-hover:scale-110 group-hover:bg-electricLight transition-all duration-300 shadow-[0_0_15px_rgba(37,99,255,0.5)]">
                             <div class="absolute inset-0 rounded-full border border-electric animate-ping opacity-50"></div>
@@ -373,7 +333,6 @@
                             <div id="about-img-wrap" class="relative z-10 w-[90%] max-w-[400px]">
                                 <img src="https://s10.iimage.su/s/27/gSnvsaTxddBqQm0sz9iB73NNZjzzrCIm13zazDbUd.png" decoding="async" alt="Влад Петров" class="w-full object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.8)] relative z-10 hw-accel">
                                 
-                                <!-- Floating Labels -->
                                 <div class="absolute -right-4 md:-right-8 top-12 glass-panel px-4 py-2 rounded-xl border-white/10 animate-float z-20 shadow-xl hidden sm:flex items-center gap-2 hw-accel">
                                     <i class="ph-duotone ph-map-pin text-electric text-lg"></i><span class="font-mono text-[10px] text-white tracking-widest uppercase">Anapa / RU</span>
                                 </div>
@@ -382,7 +341,6 @@
                                     <div><div class="text-[9px] text-gray-400 font-mono tracking-widest uppercase">Education</div><div class="font-bold text-sm text-white">B&D Институт</div></div>
                                 </div>
                                 
-                                <!-- Core Stack Box -->
                                 <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[90%] glass-panel px-6 py-4 rounded-2xl border-white/10 z-30 flex justify-between items-center shadow-2xl hw-accel">
                                     <div class="flex flex-col"><span class="text-[10px] text-electric font-mono tracking-widest uppercase mb-1">Core Stack</span><span class="text-xs font-bold text-white tracking-wider">UI/UX • AI • Motion</span></div>
                                     <div class="flex gap-1"><div class="w-1.5 h-4 bg-electric/30 rounded-sm"></div><div class="w-1.5 h-6 bg-electric/60 rounded-sm"></div><div class="w-1.5 h-8 bg-electric rounded-sm shadow-[0_0_10px_#2563FF]"></div></div>
@@ -495,7 +453,6 @@
                                 <div class="absolute top-[-20%] right-[-10%] w-64 h-64 bg-electric/10 rounded-full blur-[60px] group-hover:bg-electric/25 transition-all duration-700 pointer-events-none"></div>
                                 <div class="absolute inset-0 opacity-[0.02] group-hover:opacity-[0.05] transition-opacity duration-500" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 20px 20px;"></div>
                                 
-                                <!-- Левая часть: Инфо -->
                                 <div class="xl:w-5/12 flex flex-col relative z-10">
                                     <div class="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-electric mb-6 group-hover:scale-110 group-hover:bg-electric/10 group-hover:border-electric/30 transition-all duration-500 shadow-inner">
                                         <i class="ph-duotone ph-presentation-chart text-3xl drop-shadow-[0_0_10px_rgba(37,99,255,0.5)]"></i>
@@ -507,12 +464,11 @@
                                     </div>
                                 </div>
 
-                                <!-- Правая часть: Цены -->
                                 <div class="xl:w-7/12 flex flex-col relative z-10 border-t xl:border-t-0 xl:border-l border-white/5 xl:pl-8 pt-6 xl:pt-0">
                                     <ul class="space-y-4 mb-8 text-sm flex-grow">
                                         <li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-gray-400">Главный слайд</span><span class="text-white font-bold">1500 ₽</span></li>
                                         <li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-gray-400">Доп. слайд</span><span class="text-gray-300 font-medium">800 ₽</span></li>
-                                        <li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-electric font-medium">Пакет (от 6 слайдов)</span><span class="text-[#00F0FF] font-bold drop-shadow-[0_0_8px_rgba(0,240,255,0.4)]">Выгодно</span></li>
+                                        <li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-electric font-medium">Пакет (от 6 слайдов)</span><span class="text-electricLight font-bold drop-shadow-[0_0_8px_rgba(59,130,246,0.4)]">Выгодно</span></li>
                                         <li class="flex items-center justify-between pb-2"><span class="text-gray-400">Rich-контент (блок)</span><span class="text-gray-300 font-medium">600 ₽</span></li>
                                     </ul>
                                     <div class="flex items-center justify-between gap-4 mt-auto pt-2">
@@ -524,35 +480,33 @@
                         </div>
                     </div>
 
-                    <!-- КАРТОЧКА 2: САЙТЫ И ЛОГОТИПЫ (PLATINUM EDITION) -->
+                    <!-- КАРТОЧКА 2: САЙТЫ И ЛОГОТИПЫ -->
                     <div class="gsap-stagger-item h-full">
-                        <div class="relative p-[1px] rounded-[2.5rem] bg-gradient-to-br from-white/10 to-transparent hover:from-white/40 transition-colors duration-500 group overflow-hidden h-full shadow-lg hover:shadow-[0_0_40px_rgba(255,255,255,0.1)]">
+                        <div class="relative p-[1px] rounded-[2.5rem] bg-gradient-to-br from-white/10 to-transparent hover:from-electric/50 hover:to-electric/10 transition-colors duration-500 group overflow-hidden h-full shadow-lg hover:shadow-[0_0_40px_rgba(37,99,255,0.15)]">
                             <div class="bg-[#050508] rounded-[39px] p-8 md:p-10 flex flex-col xl:flex-row gap-8 relative z-10 overflow-hidden h-full">
-                                <div class="absolute bottom-[-20%] left-[-10%] w-64 h-64 bg-white/5 rounded-full blur-[60px] group-hover:bg-white/10 transition-all duration-700 pointer-events-none"></div>
+                                <div class="absolute bottom-[-20%] left-[-10%] w-64 h-64 bg-electric/10 rounded-full blur-[60px] group-hover:bg-electric/25 transition-all duration-700 pointer-events-none"></div>
                                 <div class="absolute inset-0 opacity-[0.02] group-hover:opacity-[0.05] transition-opacity duration-500" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 20px 20px;"></div>
                                 
-                                <!-- Левая часть: Инфо -->
                                 <div class="xl:w-5/12 flex flex-col relative z-10">
-                                    <div class="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white mb-6 group-hover:scale-110 group-hover:bg-white/10 group-hover:border-white/30 transition-all duration-500 shadow-inner">
-                                        <i class="ph-duotone ph-browsers text-3xl drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]"></i>
+                                    <div class="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-electric mb-6 group-hover:scale-110 group-hover:bg-electric/10 group-hover:border-electric/30 transition-all duration-500 shadow-inner">
+                                        <i class="ph-duotone ph-browsers text-3xl drop-shadow-[0_0_10px_rgba(37,99,255,0.5)]"></i>
                                     </div>
-                                    <h3 class="text-2xl md:text-3xl font-bold mb-3 text-gray-200 group-hover:text-white transition-colors duration-300">Сайты & Лого</h3>
+                                    <h3 class="text-2xl md:text-3xl font-bold mb-3 text-white group-hover:text-electric transition-colors duration-300">Сайты & Лого</h3>
                                     <p class="text-gray-400 text-sm leading-relaxed mb-6">Создание премиальных лендингов под ключ и разработка фирменного стиля.</p>
-                                    <div class="mt-auto inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/10 border border-white/20 text-white text-[10px] font-mono uppercase tracking-widest w-max shadow-[0_0_15px_rgba(255,255,255,0.15)]">
+                                    <div class="mt-auto inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-electric/10 border border-electric/20 text-electric text-[10px] font-mono uppercase tracking-widest w-max shadow-[0_0_15px_rgba(37,99,255,0.2)]">
                                         <i class="ph-fill ph-crown text-sm"></i> Premium
                                     </div>
                                 </div>
 
-                                <!-- Правая часть: Цены -->
                                 <div class="xl:w-7/12 flex flex-col relative z-10 border-t xl:border-t-0 xl:border-l border-white/5 xl:pl-8 pt-6 xl:pt-0">
                                     <ul class="space-y-4 mb-8 text-sm flex-grow">
-                                        <li class="flex items-center justify-between border-b border-white/5 group-hover:border-white/20 pb-3 transition-colors"><span class="text-gray-400">Создание сайтов</span><span class="text-white font-bold">от 15 000 ₽</span></li>
-                                        <li class="flex items-center justify-between border-b border-white/5 group-hover:border-white/20 pb-3 transition-colors"><span class="text-gray-400">Логотип классика</span><span class="text-gray-300 font-medium">от 4990 ₽</span></li>
-                                        <li class="flex items-center justify-between border-b border-white/5 group-hover:border-white/20 pb-3 transition-colors"><span class="text-gray-400">Логотип-маскот</span><span class="text-gray-300 font-medium">от 7990 ₽</span></li>
+                                        <li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-gray-400">Создание сайтов</span><span class="text-white font-bold">от 15 000 ₽</span></li>
+                                        <li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-gray-400">Логотип классика</span><span class="text-gray-300 font-medium">от 4990 ₽</span></li>
+                                        <li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-gray-400">Логотип-маскот</span><span class="text-gray-300 font-medium">от 7990 ₽</span></li>
                                     </ul>
                                     <div class="flex items-center justify-between gap-4 mt-auto pt-2">
-                                        <div class="text-[11px] text-gray-500 font-mono flex items-center gap-2"><i class="ph-bold ph-clock text-white"></i> от 7 дней</div>
-                                        <a href="https://t.me/vladpetroov" target="_blank" class="magnetic-btn px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm font-bold hover:bg-white hover:text-black hover:shadow-[0_0_25px_rgba(255,255,255,0.4)] transition-all duration-300 active:scale-95">Заказать</a>
+                                        <div class="text-[11px] text-gray-500 font-mono flex items-center gap-2"><i class="ph-bold ph-clock text-electric"></i> от 7 дней</div>
+                                        <a href="https://t.me/vladpetroov" target="_blank" class="magnetic-btn px-6 py-3 rounded-xl bg-electric text-white text-sm font-bold shadow-[0_0_15px_rgba(37,99,255,0.3)] hover:bg-electricLight hover:shadow-[0_0_25px_rgba(37,99,255,0.5)] transition-all duration-300 active:scale-95">Заказать</a>
                                     </div>
                                 </div>
                             </div>
@@ -566,7 +520,6 @@
                                 <div class="absolute top-[-20%] right-[-10%] w-64 h-64 bg-electric/10 rounded-full blur-[60px] group-hover:bg-electric/20 transition-all duration-700 pointer-events-none"></div>
                                 <div class="absolute inset-0 opacity-[0.02] group-hover:opacity-[0.05] transition-opacity duration-500" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 20px 20px;"></div>
                                 
-                                <!-- Левая часть: Инфо -->
                                 <div class="xl:w-5/12 flex flex-col relative z-10">
                                     <div class="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-electric mb-6 group-hover:scale-110 group-hover:bg-electric/10 group-hover:border-electric/30 transition-all duration-500 shadow-inner">
                                         <i class="ph-duotone ph-instagram-logo text-3xl drop-shadow-[0_0_10px_rgba(37,99,255,0.5)]"></i>
@@ -575,7 +528,6 @@
                                     <p class="text-gray-400 text-sm leading-relaxed mb-6">Упаковка групп ВК, Telegram-каналов и превью для YouTube.</p>
                                 </div>
 
-                                <!-- Правая часть: Цены -->
                                 <div class="xl:w-7/12 flex flex-col relative z-10 border-t xl:border-t-0 xl:border-l border-white/5 xl:pl-8 pt-6 xl:pt-0">
                                     <ul class="space-y-4 mb-8 text-sm flex-grow">
                                         <li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-gray-400">Оформление ВК</span><span class="text-white font-bold">от 6490 ₽</span></li>
@@ -598,7 +550,6 @@
                                 <div class="absolute bottom-[-20%] right-[-10%] w-64 h-64 bg-electric/10 rounded-full blur-[60px] group-hover:bg-electric/20 transition-all duration-700 pointer-events-none"></div>
                                 <div class="absolute inset-0 opacity-[0.02] group-hover:opacity-[0.05] transition-opacity duration-500" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 20px 20px;"></div>
                                 
-                                <!-- Левая часть: Инфо -->
                                 <div class="xl:w-5/12 flex flex-col relative z-10">
                                     <div class="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-electric mb-6 group-hover:scale-110 group-hover:bg-electric/10 group-hover:border-electric/30 transition-all duration-500 shadow-inner">
                                         <i class="ph-duotone ph-megaphone text-3xl drop-shadow-[0_0_10px_rgba(37,99,255,0.5)]"></i>
@@ -607,7 +558,6 @@
                                     <p class="text-gray-400 text-sm leading-relaxed mb-6">Создание сочных баннеров и моушн-анимации для таргета, снижающих цену клика.</p>
                                 </div>
 
-                                <!-- Правая часть: Цены -->
                                 <div class="xl:w-7/12 flex flex-col relative z-10 border-t xl:border-t-0 xl:border-l border-white/5 xl:pl-8 pt-6 xl:pt-0">
                                     <ul class="space-y-4 mb-8 text-sm flex-grow">
                                         <li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-gray-400">Статичные баннеры</span><span class="text-white font-bold">от 1490 ₽</span></li>
@@ -649,7 +599,7 @@
                 </div>
 
                 <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 gsap-stagger-grid" id="portfolio-grid">
-                    <!-- УМНАЯ ЗАГРУЗКА ИНФОГРАФИКИ (ОРИГИНАЛЫ) -->
+                    <!-- УМНАЯ ЗАГРУЗКА ИНФОГРАФИКИ -->
                     <div class="portfolio-item info break-inside-avoid mb-6 block">
                         <div class="image-wrapper rounded-2xl overflow-hidden relative border border-white/10 bg-[#0A0A0A] min-h-[250px] animate-pulse flex items-center justify-center">
                             <i class="ph-duotone ph-image text-3xl text-white/10 absolute"></i>
@@ -777,7 +727,6 @@
                         </div>
                     </div>
 
-                    <!-- Остальные блоки остаются без изменений -->
                     <div class="portfolio-item rich break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://i.ibb.co/8HHXJ0B/IMG-9007.jpg" alt="Rich-контент" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
                     <div class="portfolio-item rich break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://i.ibb.co/jZbFs3Ky/IMG-9008.jpg" alt="Rich-контент" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
                     <div class="portfolio-item rich break-inside-avoid mb-6 block"><div class="rounded-2xl overflow-hidden relative border border-white/10 bg-[#050505]"><img src="https://i.ibb.co/GvbQSwMt/IMG-9009.jpg" alt="Rich-контент" loading="lazy" decoding="async" class="w-full h-auto block min-h-[200px] object-cover"></div></div>
@@ -988,7 +937,6 @@
                     </div>
                 </div>
 
-                <!-- NEW PREMIUM TIER PRICING BLOCK -->
                 <div class="grid lg:grid-cols-3 gap-6 lg:gap-8 items-center py-8 relative z-20">
                     
                     <!-- ТАРИФ: СТАРТ -->
@@ -1021,7 +969,6 @@
                     <!-- FLAGSHIP: НАСТАВНИЧЕСТВО -->
                     <div class="gsap-stagger-item relative z-30 lg:-mt-6 lg:-mb-6 h-full lg:h-auto">
                         <div class="relative rounded-[2.5rem] p-[1px] h-full lg:h-[105%] group overflow-hidden bg-gradient-to-b from-electric via-electric/40 to-transparent hover:from-electricLight transition-all duration-500 shadow-[0_20px_80px_rgba(37,99,255,0.2)] hover:shadow-[0_20px_100px_rgba(37,99,255,0.3)]">
-                            <!-- Background Glow & Mesh -->
                             <div class="absolute inset-0 bg-[#02040A] rounded-[calc(2.5rem-1px)] z-0"></div>
                             <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(37,99,255,0.15),transparent_50%)] z-0 pointer-events-none"></div>
                             <div class="absolute inset-0 opacity-[0.03] z-0" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 16px 16px;"></div>
@@ -1138,12 +1085,12 @@
 
             <div class="marquee-container relative w-full overflow-hidden flex flex-col gap-6 py-8 hw-accel perspective-[2000px] group">
                 <div class="flex shrink-0 w-max">
-                    <div class="flex shrink-0 animate-marquee gap-6 pr-6 w-max hw-accel marquee-track group-hover:[animation-play-state:paused]" id="marquee-group-1a"></div>
-                    <div class="flex shrink-0 animate-marquee gap-6 pr-6 w-max hw-accel marquee-track group-hover:[animation-play-state:paused]" aria-hidden="true" id="marquee-group-1b"></div>
+                    <div class="flex shrink-0 animate-marquee gap-6 pr-6 w-max hw-accel marquee-track" id="marquee-group-1a"></div>
+                    <div class="flex shrink-0 animate-marquee gap-6 pr-6 w-max hw-accel marquee-track" aria-hidden="true" id="marquee-group-1b"></div>
                 </div>
                 <div class="flex shrink-0 w-max ml-[-300px] md:ml-[-500px]">
-                    <div class="flex shrink-0 animate-[marquee_60s_linear_infinite_reverse] gap-6 pr-6 w-max hw-accel marquee-track group-hover:[animation-play-state:paused]" id="marquee-group-2a"></div>
-                    <div class="flex shrink-0 animate-[marquee_60s_linear_infinite_reverse] gap-6 pr-6 w-max hw-accel marquee-track group-hover:[animation-play-state:paused]" aria-hidden="true" id="marquee-group-2b"></div>
+                    <div class="flex shrink-0 animate-[marquee_60s_linear_infinite_reverse] gap-6 pr-6 w-max hw-accel marquee-track" id="marquee-group-2a"></div>
+                    <div class="flex shrink-0 animate-[marquee_60s_linear_infinite_reverse] gap-6 pr-6 w-max hw-accel marquee-track" aria-hidden="true" id="marquee-group-2b"></div>
                 </div>
             </div>
 
@@ -1170,7 +1117,7 @@
                     else if (r.type === 'Сайты') { badgeStyle = 'bg-gradient-to-r from-[#00D1FF]/20 to-[#00D1FF]/5 border-[#00D1FF]/40 text-[#CFFAFE] shadow-[0_0_15px_rgba(0,209,255,0.2)]'; dotStyle = 'bg-[#00D1FF] shadow-[0_0_8px_#00D1FF]'; }
                     else { badgeStyle = 'bg-gradient-to-r from-electric/20 to-electric/5 border-electric/40 text-electricGlow shadow-[0_0_15px_rgba(37,99,255,0.2)]'; dotStyle = 'bg-electric shadow-[0_0_8px_#2563FF]'; }
 
-                    return `<div class="review-card relative w-[320px] sm:w-[350px] md:w-[400px] shrink-0 h-full cursor-default" style="perspective: 1500px;"><div class="card-inner w-full h-full glass-panel p-6 sm:p-8 rounded-3xl flex flex-col relative overflow-hidden group/card border-white/5 hover:border-electric/50 transition-colors duration-500 bg-[#050505]/90 hover:shadow-[0_0_40px_rgba(37,99,255,0.15)] will-change-transform" style="transform-style: preserve-3d;"><div class="card-glow absolute inset-0 bg-gradient-to-br from-electric/20 to-transparent opacity-0 transition-opacity duration-500 pointer-events-none blur-2xl z-0" style="transform: translateZ(-10px);"></div><i class="ph-fill ph-quotes text-[100px] sm:text-[120px] absolute -top-4 sm:-top-6 -right-2 sm:-right-4 text-white/5 group-hover/card:text-white/10 transition-colors duration-500 pointer-events-none" style="transform: translateZ(-20px);"></i><div class="flex items-center justify-between mb-6 relative z-10" style="transform: translateZ(30px);"><div class="flex items-center gap-4"><div class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-[#0A0A0A] to-[#111] border border-white/10 group-hover/card:border-electric/40 flex items-center justify-center font-display font-black text-white group-hover/card:text-electric text-xl transition-colors duration-500 group-hover/card:shadow-[0_0_15px_rgba(37,99,255,0.2)]">${r.name[0]}</div><div><div class="font-bold text-white tracking-wide text-base sm:text-lg">${r.name}</div><div class="text-[10px] sm:text-xs text-electric/80 font-mono tracking-widest uppercase mt-0.5">${r.role}</div></div></div></div><p class="text-sm md:text-base text-gray-300 leading-relaxed mb-8 flex-grow relative z-10 italic drop-shadow-md" style="transform: translateZ(40px);">"${r.text}"</p><div class="flex items-center justify-between mt-auto relative z-10 pt-4 border-t border-white/5" style="transform: translateZ(30px);"><div class="flex gap-1 text-electric text-base sm:text-lg drop-shadow-[0_0_10px_rgba(37,99,255,0.4)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div><div class="flex items-center gap-2 text-[9px] sm:text-[10px] px-3 py-1.5 rounded-full font-mono tracking-widest uppercase border backdrop-blur-md transition-all duration-300 ${badgeStyle}"><span class="w-1.5 h-1.5 rounded-full animate-pulse ${dotStyle}"></span>${r.type}</div></div></div></div>`;
+                    return `<div class="review-card relative w-[320px] sm:w-[350px] md:w-[400px] shrink-0 h-full cursor-default group/wrap" style="perspective: 1500px;"><div class="card-inner w-full h-full p-[1px] rounded-[2.5rem] bg-gradient-to-br from-white/10 to-transparent group-hover/wrap:from-electric/50 group-hover/wrap:to-electric/10 transition-colors duration-500 relative group/card will-change-transform shadow-lg group-hover/wrap:shadow-[0_0_40px_rgba(37,99,255,0.15)]" style="transform-style: preserve-3d;"><div class="bg-[#05050A] w-full h-full rounded-[calc(2.5rem-1px)] p-6 sm:p-8 flex flex-col relative overflow-hidden" style="transform: translateZ(0);"><div class="absolute inset-0 opacity-[0.02] group-hover/card:opacity-[0.05] transition-opacity duration-500 pointer-events-none" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 16px 16px;"></div><div class="card-glow absolute -top-16 -right-16 w-32 h-32 bg-electric/20 rounded-full blur-[40px] opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 pointer-events-none z-0" style="transform: translateZ(-10px);"></div><i class="ph-fill ph-quotes text-[80px] sm:text-[100px] absolute -top-2 sm:-top-4 -right-2 sm:-right-4 text-white/5 group-hover/card:text-electric/10 transition-colors duration-500 pointer-events-none z-0 rotate-12" style="transform: translateZ(-20px);"></i><div class="flex items-center justify-between mb-6 relative z-10" style="transform: translateZ(30px);"><div class="flex items-center gap-4"><div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white/5 border border-white/10 group-hover/card:bg-electric/10 group-hover/card:border-electric/30 flex items-center justify-center font-display font-black text-white group-hover/card:text-electric text-xl transition-all duration-500 shadow-inner shrink-0">${r.name[0]}</div><div><div class="font-bold text-white tracking-wide text-base sm:text-lg">${r.name}</div><div class="text-[10px] sm:text-xs text-gray-400 font-mono tracking-widest uppercase mt-0.5 group-hover/card:text-electric transition-colors">${r.role}</div></div></div></div><p class="text-sm md:text-base text-gray-300 leading-relaxed mb-8 flex-grow relative z-10 italic drop-shadow-md" style="transform: translateZ(40px);">"${r.text}"</p><div class="flex items-center justify-between mt-auto relative z-10 pt-5 border-t border-white/5 group-hover/card:border-white/10 transition-colors" style="transform: translateZ(30px);"><div class="flex gap-1 text-electric text-base sm:text-lg drop-shadow-[0_0_10px_rgba(37,99,255,0.4)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div><div class="flex items-center gap-2 text-[9px] sm:text-[10px] px-3 py-1.5 rounded-xl font-mono tracking-widest uppercase border backdrop-blur-md transition-all duration-300 ${badgeStyle}"><span class="w-1.5 h-1.5 rounded-full animate-pulse ${dotStyle}"></span>${r.type}</div></div></div></div></div>`;
                 };
 
                 const half = Math.ceil(reviews.length / 2);
@@ -1185,19 +1132,16 @@
                 if (window.matchMedia("(hover: hover)").matches) {
                     document.querySelectorAll('.review-card').forEach(card => {
                         const inner = card.querySelector('.card-inner');
-                        const glow = card.querySelector('.card-glow');
                         
                         card.addEventListener('mousemove', (e) => {
                             const rect = card.getBoundingClientRect();
                             const x = e.clientX - rect.left, y = e.clientY - rect.top;
                             const centerX = rect.width / 2, centerY = rect.height / 2;
                             gsap.to(inner, { rotationX: ((y - centerY) / centerY) * -15, rotationY: ((x - centerX) / centerX) * 15, ease: "power2.out", duration: 0.4 });
-                            if(glow) gsap.to(glow, { opacity: 1, duration: 0.3 });
                         });
                         
                         card.addEventListener('mouseleave', () => {
                             gsap.to(inner, { rotationX: 0, rotationY: 0, duration: 1, ease: "elastic.out(1, 0.3)" });
-                            if(glow) gsap.to(glow, { opacity: 0, duration: 0.5 });
                         });
                     });
                 }
@@ -1216,9 +1160,9 @@
                 </div>
             </div>
 
-            <div class="max-w-6xl w-full mx-auto relative z-10 gsap-stagger-grid">
-                <div class="gsap-stagger-item">
-                    <div class="glass-panel p-6 md:p-12 lg:p-20 rounded-[3rem] md:rounded-[4rem] border-electric/30 relative overflow-hidden group shadow-[0_0_80px_rgba(37,99,255,0.1)] hover:shadow-[0_0_100px_rgba(37,99,255,0.2)] transition-shadow duration-700">
+            <div class="max-w-6xl w-full mx-auto relative z-10">
+                <div class="hw-accel">
+                    <div class="glass-panel p-6 md:p-12 lg:p-20 rounded-[3rem] md:rounded-[4rem] border-electric/30 relative overflow-hidden group shadow-[0_0_60px_rgba(37,99,255,0.1)] hover:shadow-[0_0_90px_rgba(37,99,255,0.2)] transition-shadow duration-700">
                         <div class="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle,rgba(37,99,255,0.15),transparent_60%)] pointer-events-none"></div>
 
                         <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center justify-between relative z-10">
@@ -1226,14 +1170,15 @@
                                 <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-electric/30 bg-electric/10 text-electric text-[10px] font-mono tracking-widest uppercase mb-8 shadow-[0_0_20px_rgba(37,99,255,0.2)]">
                                     <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-electric opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-electric"></span></span> System Online // Ready
                                 </div>
-                                <h2 class="font-display text-4xl sm:text-5xl md:text-7xl lg:text-[6rem] font-black mb-6 tracking-tighter leading-none flex flex-col items-center lg:items-start">
-                                    <span class="text-white">Готовы</span> <span class="text-transparent bg-clip-text bg-gradient-to-r from-gray-100 to-gray-500 -mt-1 md:-mt-3">начать</span>
-                                    <span class="relative -mt-2 md:-mt-4 lg:-mt-6">
-                                        <span class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[120%] w-[120%] -left-[10%] bg-[radial-gradient(circle,rgba(37,99,255,0.2)_0%,transparent_60%)] rounded-full z-0 pointer-events-none"></span>
-                                        <span class="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-electricGlow to-electric italic font-light pr-2 md:pr-6 pb-2 md:pb-4 inline-block drop-shadow-[0_0_1px_rgba(37,99,255,0.5)]">проект?</span>
+                                <h2 class="font-display text-4xl sm:text-5xl md:text-7xl lg:text-[6rem] font-black mb-6 tracking-tighter flex flex-col items-center lg:items-start leading-[1.2] py-2">
+                                    <span class="text-white pb-1">Готовы</span> 
+                                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-gray-100 to-gray-500 italic pr-4 pb-2 -mt-2">начать</span>
+                                    <span class="relative -mt-2 text-electricGlow italic font-light drop-shadow-[0_0_15px_rgba(37,99,255,0.8)]">
+                                        <span class="absolute inset-0 bg-electric/40 blur-[40px] z-0 rounded-full scale-[1.5] pointer-events-none"></span>
+                                        <span class="relative z-10 pr-4 pb-2">проект?</span>
                                     </span>
                                 </h2>
-                                <p class="text-gray-400 text-lg max-w-md mx-auto lg:mx-0 leading-relaxed">Оставьте заявку, и мы обсудим, как сделать ваш продукт визуальным лидером на рынке.</p>
+                                <p class="text-gray-400 text-lg max-w-md mx-auto lg:mx-0 leading-relaxed mt-2">Оставьте заявку, и мы обсудим, как сделать ваш продукт визуальным лидером на рынке.</p>
                                 
                                 <div class="mt-10 flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4 w-full">
                                     <div class="flex items-center gap-4 bg-white/[0.03] border border-white/5 rounded-2xl p-4 pr-6 w-full sm:w-auto hover:bg-white/10 hover:border-white/10 transition-all duration-300">
@@ -1284,7 +1229,13 @@
                         </a>
                         <p class="text-gray-400 text-sm md:text-base leading-relaxed max-w-sm mb-8 font-light">Создаю премиальные интерфейсы и визуальные концепции, которые пробивают баннерную слепоту и увеличивают конверсию.</p>
                         <div class="flex flex-col gap-2 mb-8">
-                            <a href="mailto:vladislavpetroov723@gmail.com" class="text-white hover:text-electric transition-colors text-lg md:text-xl font-bold flex items-center gap-2 break-all">vladislavpetroov723@gmail.com</a>
+                            <!-- ИЗМЕНЕН EMAIL НА КНОПКУ КОПИРОВАНИЯ -->
+                            <button onclick="copyEmail('vladislavpetroov723@gmail.com')" class="group text-white hover:text-electric transition-colors text-lg md:text-xl font-bold flex items-center gap-3 break-all text-left">
+                                vladislavpetroov723@gmail.com 
+                                <div class="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-electric/20 group-hover:border-electric/40 transition-all shrink-0">
+                                    <i class="ph-duotone ph-copy text-gray-400 group-hover:text-electric transition-colors"></i>
+                                </div>
+                            </button>
                             <div class="text-gray-500 text-sm flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[#00F0FF] animate-pulse shadow-[0_0_10px_#00F0FF]"></span> Сейчас на связи</div>
                         </div>
                         <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-electric/30 bg-electric/5">
@@ -1320,23 +1271,31 @@
                     <div class="flex flex-col sm:flex-row items-center gap-2"><span>&copy; 2024 VP-DESIGN.</span><span class="hidden sm:block">Все права защищены.</span></div>
                     <div class="flex flex-wrap justify-center lg:justify-end items-center gap-4 md:gap-6">
                         <span class="font-mono text-[10px] tracking-widest uppercase text-electric/40 hidden xl:block">SYS.END // SECURE</span>
-                        <button onclick="openLegalModal('offer')" class="hover:text-white transition-colors uppercase tracking-wider text-[10px] font-bold">Оферта</button>
-                        <button onclick="openLegalModal('terms')" class="hover:text-white transition-colors uppercase tracking-wider text-[10px] font-bold">Пользовательское соглашение</button>
-                        <button onclick="openLegalModal('privacy')" class="hover:text-white transition-colors uppercase tracking-wider text-[10px] font-bold">Политика конфиденциальности</button>
+                        <a href="offer.html" target="_blank" class="hover:text-white transition-colors uppercase tracking-wider text-[10px] font-bold">Оферта</a>
+                        <a href="terms.html" target="_blank" class="hover:text-white transition-colors uppercase tracking-wider text-[10px] font-bold">Пользовательское соглашение</a>
+                        <a href="privacy.html" target="_blank" class="hover:text-white transition-colors uppercase tracking-wider text-[10px] font-bold">Политика конфиденциальности</a>
                     </div>
                 </div>
             </div>
         </footer>
     </main>
 
-    <div id="cookie-banner" class="fixed bottom-4 left-4 right-4 md:left-auto md:right-8 md:bottom-8 md:max-w-sm glass-panel p-6 rounded-2xl z-[100] translate-y-[150%] opacity-0 transition-all duration-500 flex flex-col gap-4 shadow-[0_0_40px_rgba(0,0,0,0.8)]">
-        <div class="flex items-start gap-3">
-            <div class="text-electric mt-1"><i class="ph-fill ph-cookie text-2xl drop-shadow-[0_0_10px_rgba(37,99,255,0.4)]"></i></div>
-            <div><h4 class="text-white font-bold text-sm mb-1">Мы используем Cookies 🍪</h4><p class="text-xs text-gray-400 leading-relaxed">Этот сайт использует куки для обеспечения лучшего пользовательского опыта и аналитики.</p></div>
+    <div id="cookie-banner" class="fixed bottom-4 left-4 right-4 md:left-auto md:right-8 md:bottom-8 md:w-[380px] bg-[#05050A]/90 backdrop-blur-2xl border border-white/10 border-t-electric/30 p-6 rounded-3xl z-[100] translate-y-[150%] opacity-0 transition-all duration-500 flex flex-col gap-5 shadow-[0_20px_40px_rgba(0,0,0,0.8),0_0_20px_rgba(37,99,255,0.1)] overflow-hidden">
+        <div class="absolute -top-10 -right-10 w-32 h-32 bg-electric/20 rounded-full blur-[40px] pointer-events-none z-0"></div>
+        <div class="absolute inset-0 opacity-[0.03] z-0 pointer-events-none" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 12px 12px;"></div>
+        
+        <div class="flex items-start gap-4 relative z-10">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-electric/20 to-transparent border border-electric/30 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(37,99,255,0.2)]">
+                <i class="ph-duotone ph-cookie text-2xl text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.5)]"></i>
+            </div>
+            <div class="pt-1">
+                <h4 class="text-white font-display font-bold text-base mb-1.5 tracking-wide">Файлы Cookies</h4>
+                <p class="text-[11px] text-gray-400 leading-relaxed font-light">Мы используем куки, чтобы сайт работал быстро и запоминал ваши предпочтения. Никакого спама, только аналитика.</p>
+            </div>
         </div>
-        <div class="flex gap-2 w-full mt-2">
-            <button onclick="acceptCookies()" class="flex-1 bg-electric text-white py-2.5 px-4 rounded-xl text-xs font-bold hover:bg-electricLight active:scale-95 hover:shadow-[0_0_15px_rgba(37,99,255,0.4)] transition-all">Понятно</button>
-            <button onclick="hideCookieBanner()" class="bg-white/5 border border-white/10 text-gray-300 py-2.5 px-4 rounded-xl text-xs font-medium hover:bg-white/10 hover:text-white active:scale-95 transition-all shrink-0">Закрыть</button>
+        <div class="flex gap-3 w-full relative z-10 mt-1">
+            <button onclick="acceptCookies()" class="flex-1 bg-electric hover:bg-electricLight text-white py-3 px-4 rounded-xl text-xs font-bold shadow-[0_0_20px_rgba(37,99,255,0.3)] hover:shadow-[0_0_30px_rgba(37,99,255,0.5)] active:scale-95 transition-all duration-300">Принять всё</button>
+            <button onclick="hideCookieBanner()" class="bg-white/5 border border-white/10 hover:border-white/20 text-gray-300 hover:text-white py-3 px-4 rounded-xl text-xs font-medium active:scale-95 transition-all duration-300 shrink-0">Скрыть</button>
         </div>
     </div>
 
@@ -1351,24 +1310,6 @@
         </button>
     </div>
 
-    <!-- LEGAL DOCUMENTS MODAL -->
-    <div id="legal-modal" class="fixed inset-0 z-[150] flex items-center justify-center opacity-0 pointer-events-none hw-accel">
-        <div id="legal-bg" class="absolute inset-0 bg-[#02050A]/95 backdrop-blur-xl cursor-pointer"></div>
-        <div id="legal-content-wrap" class="relative z-10 w-full max-w-4xl max-h-[85vh] bg-[#05050A] border border-white/10 rounded-3xl shadow-[0_0_60px_rgba(0,0,0,0.8)] flex flex-col opacity-0 scale-95">
-            <!-- Modal Header -->
-            <div class="flex items-center justify-between p-6 md:p-8 border-b border-white/10 shrink-0">
-                <h2 id="legal-title" class="text-2xl md:text-3xl font-display font-bold text-white tracking-tight">Документ</h2>
-                <button id="legal-close" class="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-electric hover:border-electric hover:shadow-[0_0_20px_rgba(37,99,255,0.4)] transition-all">
-                    <i class="ph-bold ph-x text-xl"></i>
-                </button>
-            </div>
-            <!-- Modal Body -->
-            <div id="legal-body" class="p-6 md:p-8 overflow-y-auto legal-scroll text-gray-300 text-sm md:text-base leading-relaxed space-y-6">
-                <!-- Content injected via JS -->
-            </div>
-        </div>
-    </div>
-
     <!-- MOBILE FLOATING CTA -->
     <div class="md:hidden fixed bottom-4 left-4 right-4 z-[40] transition-transform duration-500 translate-y-[150%]" id="mobile-fab">
         <a href="https://t.me/vladpetroov" target="_blank" class="flex items-center justify-center gap-2 w-full py-3.5 bg-electric/95 backdrop-blur-xl text-white font-bold rounded-2xl border border-electric/50 shadow-[0_0_30px_rgba(37,99,255,0.4)] active:scale-95 transition-all text-sm">
@@ -1376,16 +1317,41 @@
         </a>
     </div>
 
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast-notification" class="fixed top-24 right-4 md:top-8 md:right-8 z-[200] translate-x-[150%] opacity-0 transition-all duration-500 bg-[#05050A]/95 backdrop-blur-2xl border border-electric/40 p-4 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.5),0_0_20px_rgba(37,99,255,0.2)] flex items-center gap-3 pointer-events-none">
+        <div class="w-10 h-10 rounded-xl bg-electric/20 border border-electric/30 flex items-center justify-center text-electric shadow-inner"><i class="ph-bold ph-check text-xl"></i></div>
+        <div class="flex flex-col pr-2"><span class="text-white font-bold text-sm">Скопировано</span><span class="text-xs text-gray-400 mt-0.5">Email в буфере обмена</span></div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.32/dist/lenis.min.js"></script>
 
     <script>
+        // КОПИРОВАНИЕ EMAIL И TOAST
+        function copyEmail(email) {
+            const tempInput = document.createElement("input");
+            tempInput.value = email;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            
+            const toast = document.getElementById('toast-notification');
+            toast.classList.remove('translate-x-[150%]', 'opacity-0');
+            
+            // Shake/pop animation for the toast
+            gsap.fromTo(toast, { scale: 0.9 }, { scale: 1, duration: 0.4, ease: "back.out(2)" });
+            
+            setTimeout(() => {
+                toast.classList.add('translate-x-[150%]', 'opacity-0');
+            }, 3000);
+        }
+
         gsap.config({ force3D: true });
         gsap.registerPlugin(ScrollTrigger);
         ScrollTrigger.config({ ignoreMobileResize: true });
 
-        // TAB ATTENTION TRICK
         const docTitle = document.title;
         window.addEventListener("blur", () => document.title = "Вернись, проект ждет! 🚀");
         window.addEventListener("focus", () => document.title = docTitle);
@@ -1394,7 +1360,6 @@
         window.onbeforeunload = () => window.scrollTo(0, 0);
         if (!window.location.hash) window.scrollTo(0, 0);
 
-        // --- Magnetic Buttons & Parallax ---
         if (window.matchMedia("(pointer: fine)").matches) {
             document.querySelectorAll('.magnetic-btn').forEach(btn => {
                 btn.addEventListener('mousemove', (e) => {
@@ -1432,10 +1397,13 @@
             lerp: 0.08, 
             wheelMultiplier: 0.9, 
             smoothTouch: false, 
-            syncTouch: true 
+            syncTouch: false
         });
         window.lenis = lenis;
         
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
         lenis.on('scroll', () => {
             ScrollTrigger.update();
             const scrollY = window.scrollY;
@@ -1495,7 +1463,7 @@
                 ctx.scale(dpr, dpr);
                 particles = [];
                 
-                const particleCount = window.innerWidth < 768 ? 40 : 120;
+                const particleCount = window.innerWidth < 768 ? 15 : 120;
                 for(let i=0; i<particleCount; i++) {
                     particles.push({
                         x: Math.random() * spaceWidth, 
@@ -1612,7 +1580,6 @@
             gsap.to("#about-img-wrap", { y: 50, ease: "none", force3D: true, scrollTrigger: { trigger: "#about", start: "top bottom", end: "bottom top", scrub: true }});
         }
 
-        // Start animation right away
         window.addEventListener('load', () => {
             initHeroAnimation();
         });
@@ -1841,7 +1808,6 @@
         document.addEventListener('keydown', (e) => { 
             if (e.key === 'Escape') {
                 if (isLightboxOpen) closeLightbox();
-                if (!legalModal.classList.contains('pointer-events-none')) closeLegalModal();
             } 
         });
 
@@ -1864,51 +1830,6 @@
                 }
             });
         }
-
-        const legalTexts = {
-            offer: {
-                title: "Публичная оферта",
-                content: `<h3 class="text-white text-xl font-bold mb-4">1. Общие положения</h3><p class="mb-4">Настоящая публичная оферта является официальным предложением независимого дизайнера (Исполнителя) заключить договор на оказание услуг дизайна...</p><h3 class="text-white text-xl font-bold mb-4 mt-8">2. Предмет оферты</h3><p class="mb-4">Исполнитель обязуется по заданию Заказчика оказать услуги по разработке визуальных концепций...</p><h3 class="text-electric text-xl font-bold mb-4 mt-8">3. Порядок расчетов (Оплата)</h3><p class="mb-4">3.1. Услуги оказываются на условиях <strong class="text-white">50% предоплаты</strong> до начала выполнения работ...</p>`
-            },
-            terms: {
-                title: "Пользовательское соглашение",
-                content: `<h3 class="text-white text-xl font-bold mb-4">1. Использование сайта</h3><p class="mb-4">Настоящее Соглашение определяет правила использования веб-сайта vp-design.ru...</p>`
-            },
-            privacy: {
-                title: "Политика конфиденциальности",
-                content: `<h3 class="text-white text-xl font-bold mb-4">1. Сбор и обработка данных</h3><p class="mb-4">Я, Петров Владислав (Владелец сайта), с уважением отношусь к конфиденциальности ваших данных...</p>`
-            }
-        };
-
-        const legalModal = document.getElementById('legal-modal');
-        const legalBg = document.getElementById('legal-bg');
-        const legalContentWrap = document.getElementById('legal-content-wrap');
-        const legalTitle = document.getElementById('legal-title');
-        const legalBody = document.getElementById('legal-body');
-        const legalCloseBtn = document.getElementById('legal-close');
-
-        window.openLegalModal = (type) => {
-            const data = legalTexts[type];
-            if (!data) return;
-            legalTitle.innerText = data.title;
-            legalBody.innerHTML = data.content;
-            if(window.lenis) window.lenis.stop();
-            legalModal.classList.remove('pointer-events-none');
-            gsap.to(legalModal, { opacity: 1, duration: 0.3, ease: "power2.out" });
-            gsap.to(legalContentWrap, { opacity: 1, scale: 1, duration: 0.5, ease: "expo.out", delay: 0.1 });
-        };
-
-        window.closeLegalModal = () => {
-            gsap.to(legalContentWrap, { opacity: 0, scale: 0.95, duration: 0.3, ease: "power2.in" });
-            gsap.to(legalModal, { opacity: 0, duration: 0.3, delay: 0.1, ease: "power2.in", onComplete: () => {
-                legalModal.classList.add('pointer-events-none');
-                if(window.lenis) window.lenis.start();
-                legalBody.innerHTML = '';
-            }});
-        };
-
-        if(legalBg) legalBg.addEventListener('click', closeLegalModal);
-        if(legalCloseBtn) legalCloseBtn.addEventListener('click', closeLegalModal);
     </script>
 </body>
 </html>
