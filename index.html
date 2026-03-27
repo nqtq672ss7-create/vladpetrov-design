@@ -50,27 +50,40 @@
     @media (hover:hover){.glass-panel:hover{border-color:rgba(37,99,255,0.4);box-shadow:var(--electric-glow);transform:translateY(-4px) scale(1.01);background:var(--glass-hover)}}
     .glass-panel-static{background:var(--glass);backdrop-filter:blur(20px);border:1px solid var(--glass-border)}.gsap-reveal{opacity:0;visibility:hidden}
     .filter-btn.active{color:#FFF;border-color:#2563FF;box-shadow:0 0 20px rgba(37,99,255,0.3);background:rgba(37,99,255,0.1)}.marquee-container{mask-image:linear-gradient(to right,transparent,black 10%,black 90%,transparent);-webkit-mask-image:linear-gradient(to right,transparent,black 10%,black 90%,transparent)}
-    .hide-scrollbar::-webkit-scrollbar{display:none}.hide-scrollbar{-ms-overflow-style:none;scrollbar-width:none}.portfolio-item>div,.portfolio-item>a{will-change:transform,opacity;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:translateZ(0)}
-    .portfolio-item img{transition:opacity .6s ease-out,filter .8s ease-out,transform 1s cubic-bezier(0.16,1,0.3,1);will-change:transform,opacity,filter;transform-origin:center;filter:blur(10px) brightness(0.8)}.portfolio-item img.loaded{filter:blur(0) brightness(1)}
-    @media (hover:hover){.portfolio-item:hover img.loaded{transform:scale(1.08)}.portfolio-item>div::after,.portfolio-item>a::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.3) 0%,transparent 50%);opacity:0;transition:opacity .6s ease;pointer-events:none;z-index:10;mix-blend-mode:overlay;border-radius:inherit}.portfolio-item:hover>div::after,.portfolio-item:hover>a::after{opacity:1}}
-    @media (max-width:639px){#portfolio-grid{display:flex!important;overflow-x:auto!important;scroll-snap-type:x mandatory;gap:1rem!important;padding-bottom:2rem;margin-left:-1.5rem;margin-right:-1.5rem;padding-left:1.5rem;padding-right:1.5rem;-ms-overflow-style:none;scrollbar-width:none;-webkit-overflow-scrolling:touch}#portfolio-grid .portfolio-item{width:85vw!important;max-width:320px;flex-shrink:0;scroll-snap-align:center;margin-bottom:0!important}}
-    .footer-3d-scene{perspective:1500px;transform-style:preserve-3d}.footer-massive-text{-webkit-text-stroke:2px rgba(255,255,255,0.1);color:transparent;transition:all .5s cubic-bezier(0.16,1,0.3,1);transform-style:preserve-3d;will-change:transform}
-    @media (hover:hover){.footer-massive-text:hover{color:#FFF;-webkit-text-stroke:2px transparent;text-shadow:0 20px 80px rgba(37,99,255,0.6);transform:scale(1.02) translateZ(50px)}.magnetic-btn{transition:transform .3s cubic-bezier(0.16,1,0.3,1)}}
-    .bg-noise{position:fixed;top:0;left:0;width:100vw;height:100vh;background:url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');opacity:.04;pointer-events:none;z-index:9990;mix-blend-mode:overlay}
-    @media (hover:hover) and (pointer:fine){.premium-glow-card{position:relative}.premium-glow-card::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(600px circle at var(--mouse-x,50%) var(--mouse-y,50%),rgba(37,99,255,0.08),transparent 40%);z-index:0;pointer-events:none;opacity:0;transition:opacity .4s ease;border-radius:inherit}.premium-glow-card:hover::before{opacity:1}}
+    
+    /* Responsive Marquee Animations */
+    @keyframes scroll-x { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    @keyframes scroll-x-reverse { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+    @keyframes scroll-y { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
+    @keyframes scroll-y-reverse { 0% { transform: translateY(-50%); } 100% { transform: translateY(0); } }
+    
+    .animate-marquee-track { animation: scroll-x 35s linear infinite; }
+    .animate-marquee-track-reverse { animation: scroll-x-reverse 35s linear infinite; }
+    .animate-marquee-track:hover, .animate-marquee-track-reverse:hover { animation-play-state: paused; }
+    
+    .mask-fade {
+      mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    }
+    
+    @media (min-width: 768px) {
+      .animate-marquee-track { animation: scroll-y 40s linear infinite; }
+      .animate-marquee-track-reverse { animation: scroll-y-reverse 40s linear infinite; }
+      .mask-fade {
+        mask-image: linear-gradient(to bottom, transparent, black 5%, black 95%, transparent);
+        -webkit-mask-image: linear-gradient(to bottom, transparent, black 5%, black 95%, transparent);
+      }
+    }
 
-    /* Vertical Marquee Animations */
-    @keyframes scroll-y {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-50%); }
-    }
-    @keyframes scroll-y-reverse {
-      0% { transform: translateY(-50%); }
-      100% { transform: translateY(0); }
-    }
-    .animate-scroll-y { animation: scroll-y 40s linear infinite; }
-    .animate-scroll-y-reverse { animation: scroll-y-reverse 40s linear infinite; }
-    .animate-scroll-y:hover, .animate-scroll-y-reverse:hover { animation-play-state: paused; }
+    /* Range Slider Styling */
+    .premium-range { -webkit-appearance: none; width: 100%; background: transparent; }
+    .premium-range:focus { outline: none; }
+    .premium-range::-webkit-slider-runnable-track { width: 100%; height: 6px; cursor: pointer; background: rgba(255,255,255,0.1); border-radius: 99px; border: 1px solid rgba(255,255,255,0.05); }
+    .premium-range::-webkit-slider-thumb { border: 2px solid #FFF; height: 24px; width: 24px; border-radius: 50%; background: #2563FF; cursor: pointer; -webkit-appearance: none; margin-top: -9px; box-shadow: 0 0 20px rgba(37,99,255,0.8); transition: transform 0.1s; }
+    .premium-range::-webkit-slider-thumb:hover { transform: scale(1.15); }
+    .premium-range::-moz-range-track { width: 100%; height: 6px; cursor: pointer; background: rgba(255,255,255,0.1); border-radius: 99px; border: 1px solid rgba(255,255,255,0.05); }
+    .premium-range::-moz-range-thumb { border: 2px solid #FFF; height: 24px; width: 24px; border-radius: 50%; background: #2563FF; cursor: pointer; box-shadow: 0 0 20px rgba(37,99,255,0.8); transition: transform 0.1s; }
+    .premium-range::-moz-range-thumb:hover { transform: scale(1.15); }
   </style>
 
   <script type="text/javascript">
@@ -523,6 +536,88 @@
       </div>
     </section>
 
+    <!-- ROI CALCULATOR SECTION -->
+    <section id="roi-calculator" class="py-24 px-6 md:px-12 relative z-10 border-t border-white/5 bg-[#02050A]">
+      <div class="absolute inset-0 pointer-events-none z-0 flex items-center justify-center">
+        <div class="absolute left-[-10%] top-[20%] w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(37,99,255,0.15)_0%,transparent_60%)] animate-blob hw-accel"></div>
+        <div class="absolute right-[-10%] bottom-[-10%] w-[400px] h-[400px] bg-[radial-gradient(circle,rgba(37,99,255,0.08)_0%,transparent_60%)] animate-blob hw-accel" style="animation-delay: 2s;"></div>
+      </div>
+      
+      <div class="max-w-6xl mx-auto relative z-10">
+        <div class="text-center mb-16 md:mb-20 gsap-reveal">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-electric/30 bg-electric/5 text-[10px] font-mono text-electric uppercase tracking-widest mb-6 shadow-[0_0_15px_rgba(37,99,255,0.15)]">
+            <i class="ph-duotone ph-calculator text-sm"></i> ROI Engine
+          </div>
+          <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">Цена <span class="text-transparent bg-clip-text bg-gradient-to-r from-electricLight to-electric italic drop-shadow-[0_0_15px_rgba(37,99,255,0.4)]">плохого дизайна</span></h2>
+          <p class="text-gray-400 text-base md:text-lg max-w-2xl mx-auto font-light leading-relaxed">Укажите примерные метрики вашей карточки и посмотрите, сколько чистой прибыли вы недозарабатываете из-за низкого CTR.</p>
+        </div>
+
+        <div class="glass-panel p-6 md:p-10 lg:p-12 rounded-[3rem] border-white/10 bg-[#05050A] shadow-[0_20px_60px_rgba(0,0,0,0.5),0_0_30px_rgba(37,99,255,0.1)] relative overflow-hidden flex flex-col lg:flex-row gap-10 lg:gap-16 gsap-reveal">
+          <div class="absolute inset-0 opacity-[0.02] pointer-events-none" style="background-image:radial-gradient(#fff 1px,transparent 1px);background-size:24px 24px;"></div>
+          
+          <!-- Sliders Box -->
+          <div class="flex-1 flex flex-col justify-center gap-10 relative z-10">
+            <!-- Slider 1 -->
+            <div class="flex flex-col gap-5">
+              <div class="flex justify-between items-end">
+                <label class="text-white font-bold text-sm md:text-base">Показов карточки в месяц</label>
+                <span id="val-views" class="text-electricLight font-mono font-bold text-xl drop-shadow-[0_0_8px_rgba(59,130,246,0.6)]">50 000</span>
+              </div>
+              <input type="range" id="calc-views" class="premium-range" min="1000" max="500000" step="1000" value="50000">
+            </div>
+            
+            <!-- Slider 2 -->
+            <div class="flex flex-col gap-5">
+              <div class="flex justify-between items-end">
+                <label class="text-white font-bold text-sm md:text-base">Ваш текущий CTR</label>
+                <span id="val-ctr" class="text-electricLight font-mono font-bold text-xl drop-shadow-[0_0_8px_rgba(59,130,246,0.6)]">3.0%</span>
+              </div>
+              <input type="range" id="calc-ctr" class="premium-range" min="0.5" max="15" step="0.1" value="3.0">
+            </div>
+
+            <!-- Slider 3 -->
+            <div class="flex flex-col gap-5">
+              <div class="flex justify-between items-end">
+                <label class="text-white font-bold text-sm md:text-base">Чистая прибыль с 1 продажи</label>
+                <span id="val-margin" class="text-electricLight font-mono font-bold text-xl drop-shadow-[0_0_8px_rgba(59,130,246,0.6)]">1 000 ₽</span>
+              </div>
+              <input type="range" id="calc-margin" class="premium-range" min="100" max="10000" step="100" value="1000">
+            </div>
+            
+            <div class="text-[10px] text-gray-500 font-mono uppercase tracking-widest mt-2 border-t border-white/5 pt-4 leading-relaxed">
+              * Расчет произведен при усредненной конверсии из клика в заказ (5%) и консервативном росте CTR на 3% с премиальным дизайном VP-DESIGN.
+            </div>
+          </div>
+
+          <!-- Result Box -->
+          <div class="w-full lg:w-[420px] rounded-[2rem] bg-gradient-to-b from-[#0B1021] to-[#05050A] border border-electric/30 p-8 flex flex-col relative overflow-hidden z-10 shadow-[0_0_30px_rgba(37,99,255,0.15)]">
+            <div class="absolute -right-20 -top-20 w-48 h-48 bg-electric/20 rounded-full blur-[40px] pointer-events-none"></div>
+            
+            <div class="mb-10">
+              <div class="text-gray-400 text-xs font-mono uppercase tracking-widest mb-3">Ваша прибыль сейчас:</div>
+              <div id="res-current" class="text-3xl md:text-4xl font-display font-bold text-white">0 ₽</div>
+            </div>
+
+            <div class="mb-10 relative">
+              <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-[120%] bg-electric rounded-full shadow-[0_0_15px_#2563FF]"></div>
+              <div class="pl-6">
+                <div class="text-electricLight text-xs font-mono uppercase tracking-widest mb-3 flex items-center gap-2">
+                  <i class="ph-fill ph-trend-up text-base"></i> Упущенная выгода в месяц:
+                </div>
+                <div id="res-lost" class="text-4xl md:text-5xl font-display font-black text-white drop-shadow-[0_0_15px_rgba(37,99,255,0.5)]">
+                  + 0 ₽
+                </div>
+              </div>
+            </div>
+
+            <a href="#audit" class="magnetic-btn w-full py-4 rounded-xl bg-electric text-white font-bold text-center hover:bg-electricLight transition-all active:scale-95 shadow-[0_0_20px_rgba(37,99,255,0.4)] mt-auto group flex items-center justify-center gap-2">
+              Перестать терять деньги <i class="ph-bold ph-arrow-right group-hover:translate-x-1 transition-transform"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- LEAD MAGNET / FREE AUDIT SECTION -->
     <section id="audit" class="py-12 px-6 md:px-12 relative z-10">
       <style>
@@ -672,7 +767,7 @@
         <div class="absolute top-[10%] left-[5%] text-white/5 font-mono text-[10px] tracking-[0.3em] uppercase rotate-90 origin-left">Testimonials // Impact_Data</div>
       </div>
       
-      <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10 mb-12 md:mb-16">
+      <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10 mb-10 md:mb-16">
         <div class="text-center gsap-reveal">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-electric/30 bg-electric/5 text-[10px] font-mono text-electric uppercase tracking-widest mb-6 shadow-[0_0_15px_rgba(37,99,255,0.15)]">
             <i class="ph-duotone ph-star text-sm"></i> Client Feedback
@@ -682,223 +777,255 @@
         </div>
       </div>
 
-      <!-- Marquee Wrapper -->
-      <div class="w-full relative h-[600px] lg:h-[700px] overflow-hidden" style="mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent); -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);">
-        <div class="max-w-7xl mx-auto px-4 md:px-8 h-full flex gap-4 md:gap-8 justify-center">
+      <!-- Marquee Wrapper (Responsive: Horizontal on Mobile, Vertical on Desktop) -->
+      <div class="w-full relative h-auto md:h-[700px] overflow-hidden mask-fade py-4 md:py-0">
+        <div class="max-w-7xl mx-auto px-0 md:px-8 h-full flex flex-col md:flex-row gap-6 md:gap-8 justify-center">
           
-          <!-- Column 1 (Scrolls UP) -->
-          <div class="flex-1 max-w-md h-full relative">
-            <div class="absolute inset-x-0 flex flex-col gap-4 md:gap-6 animate-scroll-y">
-              <!-- Content Block 1 -->
-              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
-                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
-                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+          <!-- Column/Row 1 (Scrolls UP/LEFT) -->
+          <div class="w-full md:flex-1 md:max-w-md h-auto md:h-full relative overflow-visible md:overflow-hidden">
+            <div class="flex flex-row md:flex-col gap-4 md:gap-6 w-max md:w-full animate-marquee-track hw-accel relative md:absolute md:inset-x-0">
+              
+              <!-- Card 1 -->
+              <div class="glass-panel w-[280px] sm:w-[340px] md:w-full shrink-0 p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 bg-[#05050A]/80 shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_0_40px_rgba(37,99,255,0.15)] transition-all duration-300 relative overflow-hidden group">
+                <div class="absolute inset-0 bg-gradient-to-br from-electric/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.08] transition-colors duration-500 z-0 pointer-events-none"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.4)] relative z-10"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
                 <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Влад полностью переупаковал наш магазин. Карточки пробивают слепоту на ура. За неделю CTR главных фото взлетел с 2.1% до 5.8%. Идеальное понимание алгоритмов маркетплейсов!»</p>
-                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
-                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">М</div>
+                <div class="flex items-center gap-3 border-t border-white/5 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-[#0A0D14] border border-white/10 flex items-center justify-center font-display font-bold text-white group-hover:border-electric/50 group-hover:shadow-[0_0_10px_rgba(37,99,255,0.2)] transition-all">М</div>
                   <div><div class="text-white font-bold text-sm">Максим</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Селлер одежды на WB</div></div>
                 </div>
               </div>
 
-              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
-                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
-                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+              <!-- Card 2 -->
+              <div class="glass-panel w-[280px] sm:w-[340px] md:w-full shrink-0 p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 bg-[#05050A]/80 shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_0_40px_rgba(37,99,255,0.15)] transition-all duration-300 relative overflow-hidden group">
+                <div class="absolute inset-0 bg-gradient-to-br from-electric/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.08] transition-colors duration-500 z-0 pointer-events-none"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.4)] relative z-10"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
                 <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Лендинг получился просто космос. Очень дорого выглядит, анимации плавные. Конверсия в заявку выросла в 2 раза по сравнению со старым сайтом. Работаем дальше!»</p>
-                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
-                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">Е</div>
+                <div class="flex items-center gap-3 border-t border-white/5 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-[#0A0D14] border border-white/10 flex items-center justify-center font-display font-bold text-white group-hover:border-electric/50 group-hover:shadow-[0_0_10px_rgba(37,99,255,0.2)] transition-all">Е</div>
                   <div><div class="text-white font-bold text-sm">Елена</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Владелец клиники</div></div>
                 </div>
               </div>
 
-              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
-                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
-                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+              <!-- Card 3 -->
+              <div class="glass-panel w-[280px] sm:w-[340px] md:w-full shrink-0 p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 bg-[#05050A]/80 shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_0_40px_rgba(37,99,255,0.15)] transition-all duration-300 relative overflow-hidden group">
+                <div class="absolute inset-0 bg-gradient-to-br from-electric/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.08] transition-colors duration-500 z-0 pointer-events-none"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.4)] relative z-10"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
                 <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Берем статику и моушн для рекламы. Цена лида стабильно ниже рынка на 30%, потому что визуал сразу цепляет аудиторию. Без лишних правок, строго по ТЗ.»</p>
-                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
-                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">И</div>
+                <div class="flex items-center gap-3 border-t border-white/5 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-[#0A0D14] border border-white/10 flex items-center justify-center font-display font-bold text-white group-hover:border-electric/50 group-hover:shadow-[0_0_10px_rgba(37,99,255,0.2)] transition-all">И</div>
                   <div><div class="text-white font-bold text-sm">Илья</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Таргетолог</div></div>
                 </div>
               </div>
 
-              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
-                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
-                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+              <!-- Card 4 -->
+              <div class="glass-panel w-[280px] sm:w-[340px] md:w-full shrink-0 p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 bg-[#05050A]/80 shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_0_40px_rgba(37,99,255,0.15)] transition-all duration-300 relative overflow-hidden group">
+                <div class="absolute inset-0 bg-gradient-to-br from-electric/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.08] transition-colors duration-500 z-0 pointer-events-none"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.4)] relative z-10"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
                 <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Рич-контент для Озона собран идеально. Товар премиум-сегмента, и Влад смог передать этот статус через строгую и лаконичную графику.»</p>
-                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
-                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">А</div>
+                <div class="flex items-center gap-3 border-t border-white/5 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-[#0A0D14] border border-white/10 flex items-center justify-center font-display font-bold text-white group-hover:border-electric/50 group-hover:shadow-[0_0_10px_rgba(37,99,255,0.2)] transition-all">А</div>
                   <div><div class="text-white font-bold text-sm">Анна</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Бренд-менеджер</div></div>
                 </div>
               </div>
 
-              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
-                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
-                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+              <!-- Card 5 -->
+              <div class="glass-panel w-[280px] sm:w-[340px] md:w-full shrink-0 p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 bg-[#05050A]/80 shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_0_40px_rgba(37,99,255,0.15)] transition-all duration-300 relative overflow-hidden group">
+                <div class="absolute inset-0 bg-gradient-to-br from-electric/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.08] transition-colors duration-500 z-0 pointer-events-none"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.4)] relative z-10"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
                 <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Строго, стильно, минималистично. Получили шикарный логотип и брендбук для IT-стартапа. Спасибо за скорость работы!»</p>
-                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
-                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">Д</div>
+                <div class="flex items-center gap-3 border-t border-white/5 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-[#0A0D14] border border-white/10 flex items-center justify-center font-display font-bold text-white group-hover:border-electric/50 group-hover:shadow-[0_0_10px_rgba(37,99,255,0.2)] transition-all">Д</div>
                   <div><div class="text-white font-bold text-sm">Дмитрий</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">IT Стартап</div></div>
                 </div>
               </div>
 
-              <!-- Duplicate Content Block 1 for infinite scroll loop -->
-              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
-                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
-                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+              <!-- Duplicate ALL 5 Cards for Infinite Loop -->
+              <div class="glass-panel w-[280px] sm:w-[340px] md:w-full shrink-0 p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 bg-[#05050A]/80 shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_0_40px_rgba(37,99,255,0.15)] transition-all duration-300 relative overflow-hidden group">
+                <div class="absolute inset-0 bg-gradient-to-br from-electric/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.08] transition-colors duration-500 z-0 pointer-events-none"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.4)] relative z-10"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
                 <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Влад полностью переупаковал наш магазин. Карточки пробивают слепоту на ура. За неделю CTR главных фото взлетел с 2.1% до 5.8%. Идеальное понимание алгоритмов маркетплейсов!»</p>
-                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
-                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">М</div>
+                <div class="flex items-center gap-3 border-t border-white/5 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-[#0A0D14] border border-white/10 flex items-center justify-center font-display font-bold text-white group-hover:border-electric/50 group-hover:shadow-[0_0_10px_rgba(37,99,255,0.2)] transition-all">М</div>
                   <div><div class="text-white font-bold text-sm">Максим</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Селлер одежды на WB</div></div>
                 </div>
               </div>
 
-              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
-                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
-                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+              <div class="glass-panel w-[280px] sm:w-[340px] md:w-full shrink-0 p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 bg-[#05050A]/80 shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_0_40px_rgba(37,99,255,0.15)] transition-all duration-300 relative overflow-hidden group">
+                <div class="absolute inset-0 bg-gradient-to-br from-electric/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.08] transition-colors duration-500 z-0 pointer-events-none"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.4)] relative z-10"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
                 <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Лендинг получился просто космос. Очень дорого выглядит, анимации плавные. Конверсия в заявку выросла в 2 раза по сравнению со старым сайтом. Работаем дальше!»</p>
-                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
-                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">Е</div>
+                <div class="flex items-center gap-3 border-t border-white/5 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-[#0A0D14] border border-white/10 flex items-center justify-center font-display font-bold text-white group-hover:border-electric/50 group-hover:shadow-[0_0_10px_rgba(37,99,255,0.2)] transition-all">Е</div>
                   <div><div class="text-white font-bold text-sm">Елена</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Владелец клиники</div></div>
                 </div>
               </div>
 
-              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
-                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
-                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+              <div class="glass-panel w-[280px] sm:w-[340px] md:w-full shrink-0 p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 bg-[#05050A]/80 shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_0_40px_rgba(37,99,255,0.15)] transition-all duration-300 relative overflow-hidden group">
+                <div class="absolute inset-0 bg-gradient-to-br from-electric/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.08] transition-colors duration-500 z-0 pointer-events-none"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.4)] relative z-10"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
                 <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Берем статику и моушн для рекламы. Цена лида стабильно ниже рынка на 30%, потому что визуал сразу цепляет аудиторию. Без лишних правок, строго по ТЗ.»</p>
-                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
-                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">И</div>
+                <div class="flex items-center gap-3 border-t border-white/5 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-[#0A0D14] border border-white/10 flex items-center justify-center font-display font-bold text-white group-hover:border-electric/50 group-hover:shadow-[0_0_10px_rgba(37,99,255,0.2)] transition-all">И</div>
                   <div><div class="text-white font-bold text-sm">Илья</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Таргетолог</div></div>
                 </div>
               </div>
 
-              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
-                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
-                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+              <div class="glass-panel w-[280px] sm:w-[340px] md:w-full shrink-0 p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 bg-[#05050A]/80 shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_0_40px_rgba(37,99,255,0.15)] transition-all duration-300 relative overflow-hidden group">
+                <div class="absolute inset-0 bg-gradient-to-br from-electric/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.08] transition-colors duration-500 z-0 pointer-events-none"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.4)] relative z-10"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
                 <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Рич-контент для Озона собран идеально. Товар премиум-сегмента, и Влад смог передать этот статус через строгую и лаконичную графику.»</p>
-                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
-                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">А</div>
+                <div class="flex items-center gap-3 border-t border-white/5 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-[#0A0D14] border border-white/10 flex items-center justify-center font-display font-bold text-white group-hover:border-electric/50 group-hover:shadow-[0_0_10px_rgba(37,99,255,0.2)] transition-all">А</div>
                   <div><div class="text-white font-bold text-sm">Анна</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Бренд-менеджер</div></div>
                 </div>
               </div>
 
-              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
-                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
-                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+              <div class="glass-panel w-[280px] sm:w-[340px] md:w-full shrink-0 p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 bg-[#05050A]/80 shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_0_40px_rgba(37,99,255,0.15)] transition-all duration-300 relative overflow-hidden group">
+                <div class="absolute inset-0 bg-gradient-to-br from-electric/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.08] transition-colors duration-500 z-0 pointer-events-none"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.4)] relative z-10"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
                 <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Строго, стильно, минималистично. Получили шикарный логотип и брендбук для IT-стартапа. Спасибо за скорость работы!»</p>
-                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
-                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">Д</div>
+                <div class="flex items-center gap-3 border-t border-white/5 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-[#0A0D14] border border-white/10 flex items-center justify-center font-display font-bold text-white group-hover:border-electric/50 group-hover:shadow-[0_0_10px_rgba(37,99,255,0.2)] transition-all">Д</div>
                   <div><div class="text-white font-bold text-sm">Дмитрий</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">IT Стартап</div></div>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Column 2 (Scrolls DOWN) -->
-          <div class="flex-1 max-w-md h-full relative hidden sm:block">
-            <div class="absolute inset-x-0 flex flex-col gap-4 md:gap-6 animate-scroll-y-reverse">
-              <!-- Content Block 2 -->
-              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
-                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
-                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+          <!-- Column/Row 2 (Scrolls DOWN/RIGHT) -->
+          <div class="w-full md:flex-1 md:max-w-md h-auto md:h-full relative overflow-visible md:overflow-hidden mt-2 md:mt-0">
+            <!-- Offload animation to GPU -->
+            <div class="absolute inset-x-0 flex flex-row md:flex-col gap-4 md:gap-6 w-max md:w-full animate-marquee-track-reverse hw-accel relative md:absolute md:inset-x-0">
+              
+              <!-- Card 6 -->
+              <div class="glass-panel w-[280px] sm:w-[340px] md:w-full shrink-0 p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 bg-[#05050A]/80 shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_0_40px_rgba(37,99,255,0.15)] transition-all duration-300 relative overflow-hidden group">
+                <div class="absolute inset-0 bg-gradient-to-br from-electric/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.08] transition-colors duration-500 z-0 pointer-events-none"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.4)] relative z-10"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
                 <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Сначала сомневался из-за цены, но решил взять пакет из 6 слайдов. Окупилось за три дня. Воронка внутри карточки реально работает, закрывает все вопросы покупателей. Буду заказывать на весь ассортимент.»</p>
-                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
-                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">С</div>
+                <div class="flex items-center gap-3 border-t border-white/5 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-[#0A0D14] border border-white/10 flex items-center justify-center font-display font-bold text-white group-hover:border-electric/50 group-hover:shadow-[0_0_10px_rgba(37,99,255,0.2)] transition-all">С</div>
                   <div><div class="text-white font-bold text-sm">Сергей</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Товарный бизнес</div></div>
                 </div>
               </div>
 
-              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
-                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
-                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+              <!-- Card 7 -->
+              <div class="glass-panel w-[280px] sm:w-[340px] md:w-full shrink-0 p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 bg-[#05050A]/80 shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_0_40px_rgba(37,99,255,0.15)] transition-all duration-300 relative overflow-hidden group">
+                <div class="absolute inset-0 bg-gradient-to-br from-electric/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.08] transition-colors duration-500 z-0 pointer-events-none"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.4)] relative z-10"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
                 <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Оформление Телеграм-канала и YouTube получилось супер стильным. Аудитория сразу заметила апгрейд и рост уровня контента. Будем работать дальше!»</p>
-                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
-                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">А</div>
+                <div class="flex items-center gap-3 border-t border-white/5 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-[#0A0D14] border border-white/10 flex items-center justify-center font-display font-bold text-white group-hover:border-electric/50 group-hover:shadow-[0_0_10px_rgba(37,99,255,0.2)] transition-all">А</div>
                   <div><div class="text-white font-bold text-sm">Алина</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Блогер</div></div>
                 </div>
               </div>
 
-              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
-                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
-                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+              <!-- Card 8 -->
+              <div class="glass-panel w-[280px] sm:w-[340px] md:w-full shrink-0 p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 bg-[#05050A]/80 shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_0_40px_rgba(37,99,255,0.15)] transition-all duration-300 relative overflow-hidden group">
+                <div class="absolute inset-0 bg-gradient-to-br from-electric/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.08] transition-colors duration-500 z-0 pointer-events-none"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.4)] relative z-10"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
                 <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Сделали сайт автосервиса под ключ. Дизайн пушка, грузится моментально на телефонах. Заявок стало больше, клиенты говорят, что сайт внушает доверие с первой секунды.»</p>
-                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
-                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">А</div>
+                <div class="flex items-center gap-3 border-t border-white/5 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-[#0A0D14] border border-white/10 flex items-center justify-center font-display font-bold text-white group-hover:border-electric/50 group-hover:shadow-[0_0_10px_rgba(37,99,255,0.2)] transition-all">А</div>
                   <div><div class="text-white font-bold text-sm">Артем</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Владелец СТО</div></div>
                 </div>
               </div>
 
-              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
-                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
-                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+              <!-- Card 9 -->
+              <div class="glass-panel w-[280px] sm:w-[340px] md:w-full shrink-0 p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 bg-[#05050A]/80 shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_0_40px_rgba(37,99,255,0.15)] transition-all duration-300 relative overflow-hidden group">
+                <div class="absolute inset-0 bg-gradient-to-br from-electric/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.08] transition-colors duration-500 z-0 pointer-events-none"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.4)] relative z-10"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
                 <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Лучшие креативы, с которыми я работала за последние годы. Сразу чувствуется, что дизайнер шарит за маркетинг и воронки, а не просто красиво рисует картинки в фотошопе.»</p>
-                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
-                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">В</div>
+                <div class="flex items-center gap-3 border-t border-white/5 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-[#0A0D14] border border-white/10 flex items-center justify-center font-display font-bold text-white group-hover:border-electric/50 group-hover:shadow-[0_0_10px_rgba(37,99,255,0.2)] transition-all">В</div>
                   <div><div class="text-white font-bold text-sm">Виктория</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Lead Маркетолог</div></div>
                 </div>
               </div>
 
-              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
-                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
-                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
-                <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Заказал инфографику сразу для 10 артикулов. Скорость работы впечатляет, качество топовое. Никакого визуального мусора, акцент ровно на преимуществах товара.»</p>
-                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
-                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">Р</div>
-                  <div><div class="text-white font-bold text-sm">Руслан</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Селлер OZON</div></div>
+              <!-- Card 10 -->
+              <div class="glass-panel w-[280px] sm:w-[340px] md:w-full shrink-0 p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 bg-[#05050A]/80 shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_0_40px_rgba(37,99,255,0.15)] transition-all duration-300 relative overflow-hidden group">
+                <div class="absolute inset-0 bg-gradient-to-br from-electric/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.08] transition-colors duration-500 z-0 pointer-events-none"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.4)] relative z-10"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Взял пакет на оформление магазина с нуля. Очень профессиональный подход. Не пришлось ничего объяснять, Влад сам проанализировал нишу и выдал результат, который рвет конкурентов.»</p>
+                <div class="flex items-center gap-3 border-t border-white/5 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-[#0A0D14] border border-white/10 flex items-center justify-center font-display font-bold text-white group-hover:border-electric/50 group-hover:shadow-[0_0_10px_rgba(37,99,255,0.2)] transition-all">Д</div>
+                  <div><div class="text-white font-bold text-sm">Денис</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Селлер OZON</div></div>
                 </div>
               </div>
 
-              <!-- Duplicate Content Block 2 for infinite scroll loop -->
-              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
-                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
-                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+              <!-- Duplicate ALL 5 Cards for Infinite Loop -->
+              <div class="glass-panel w-[280px] sm:w-[340px] md:w-full shrink-0 p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 bg-[#05050A]/80 shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_0_40px_rgba(37,99,255,0.15)] transition-all duration-300 relative overflow-hidden group">
+                <div class="absolute inset-0 bg-gradient-to-br from-electric/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.08] transition-colors duration-500 z-0 pointer-events-none"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.4)] relative z-10"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
                 <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Сначала сомневался из-за цены, но решил взять пакет из 6 слайдов. Окупилось за три дня. Воронка внутри карточки реально работает, закрывает все вопросы покупателей. Буду заказывать на весь ассортимент.»</p>
-                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
-                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">С</div>
+                <div class="flex items-center gap-3 border-t border-white/5 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-[#0A0D14] border border-white/10 flex items-center justify-center font-display font-bold text-white group-hover:border-electric/50 group-hover:shadow-[0_0_10px_rgba(37,99,255,0.2)] transition-all">С</div>
                   <div><div class="text-white font-bold text-sm">Сергей</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Товарный бизнес</div></div>
                 </div>
               </div>
 
-              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
-                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
-                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+              <div class="glass-panel w-[280px] sm:w-[340px] md:w-full shrink-0 p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 bg-[#05050A]/80 shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_0_40px_rgba(37,99,255,0.15)] transition-all duration-300 relative overflow-hidden group">
+                <div class="absolute inset-0 bg-gradient-to-br from-electric/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.08] transition-colors duration-500 z-0 pointer-events-none"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.4)] relative z-10"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
                 <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Оформление Телеграм-канала и YouTube получилось супер стильным. Аудитория сразу заметила апгрейд и рост уровня контента. Будем работать дальше!»</p>
-                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
-                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">А</div>
+                <div class="flex items-center gap-3 border-t border-white/5 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-[#0A0D14] border border-white/10 flex items-center justify-center font-display font-bold text-white group-hover:border-electric/50 group-hover:shadow-[0_0_10px_rgba(37,99,255,0.2)] transition-all">А</div>
                   <div><div class="text-white font-bold text-sm">Алина</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Блогер</div></div>
                 </div>
               </div>
 
-              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
-                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
-                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+              <div class="glass-panel w-[280px] sm:w-[340px] md:w-full shrink-0 p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 bg-[#05050A]/80 shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_0_40px_rgba(37,99,255,0.15)] transition-all duration-300 relative overflow-hidden group">
+                <div class="absolute inset-0 bg-gradient-to-br from-electric/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.08] transition-colors duration-500 z-0 pointer-events-none"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.4)] relative z-10"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
                 <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Сделали сайт автосервиса под ключ. Дизайн пушка, грузится моментально на телефонах. Заявок стало больше, клиенты говорят, что сайт внушает доверие с первой секунды.»</p>
-                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
-                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">А</div>
+                <div class="flex items-center gap-3 border-t border-white/5 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-[#0A0D14] border border-white/10 flex items-center justify-center font-display font-bold text-white group-hover:border-electric/50 group-hover:shadow-[0_0_10px_rgba(37,99,255,0.2)] transition-all">А</div>
                   <div><div class="text-white font-bold text-sm">Артем</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Владелец СТО</div></div>
                 </div>
               </div>
 
-              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
-                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
-                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+              <div class="glass-panel w-[280px] sm:w-[340px] md:w-full shrink-0 p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 bg-[#05050A]/80 shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_0_40px_rgba(37,99,255,0.15)] transition-all duration-300 relative overflow-hidden group">
+                <div class="absolute inset-0 bg-gradient-to-br from-electric/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.08] transition-colors duration-500 z-0 pointer-events-none"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.4)] relative z-10"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
                 <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Лучшие креативы, с которыми я работала за последние годы. Сразу чувствуется, что дизайнер шарит за маркетинг и воронки, а не просто красиво рисует картинки в фотошопе.»</p>
-                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
-                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">В</div>
+                <div class="flex items-center gap-3 border-t border-white/5 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-[#0A0D14] border border-white/10 flex items-center justify-center font-display font-bold text-white group-hover:border-electric/50 group-hover:shadow-[0_0_10px_rgba(37,99,255,0.2)] transition-all">В</div>
                   <div><div class="text-white font-bold text-sm">Виктория</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Lead Маркетолог</div></div>
                 </div>
               </div>
 
-              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
-                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
-                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
-                <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Заказал инфографику сразу для 10 артикулов. Скорость работы впечатляет, качество топовое. Никакого визуального мусора, акцент ровно на преимуществах товара.»</p>
-                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
-                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">Р</div>
-                  <div><div class="text-white font-bold text-sm">Руслан</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Селлер OZON</div></div>
+              <div class="glass-panel w-[280px] sm:w-[340px] md:w-full shrink-0 p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 bg-[#05050A]/80 shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_0_40px_rgba(37,99,255,0.15)] transition-all duration-300 relative overflow-hidden group">
+                <div class="absolute inset-0 bg-gradient-to-br from-electric/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.08] transition-colors duration-500 z-0 pointer-events-none"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.4)] relative z-10"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Взял пакет на оформление магазина с нуля. Очень профессиональный подход. Не пришлось ничего объяснять, Влад сам проанализировал нишу и выдал результат, который рвет конкурентов.»</p>
+                <div class="flex items-center gap-3 border-t border-white/5 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-[#0A0D14] border border-white/10 flex items-center justify-center font-display font-bold text-white group-hover:border-electric/50 group-hover:shadow-[0_0_10px_rgba(37,99,255,0.2)] transition-all">Д</div>
+                  <div><div class="text-white font-bold text-sm">Денис</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Селлер OZON</div></div>
                 </div>
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </section>
@@ -1601,6 +1728,40 @@
         setTimeout(() => ScrollTrigger.refresh(), 500);
       });
     });
+
+    // ROI Calculator Logic
+    const calcViews = document.getElementById('calc-views');
+    const calcCtr = document.getElementById('calc-ctr');
+    const calcMargin = document.getElementById('calc-margin');
+    
+    if (calcViews && calcCtr && calcMargin) {
+      const updateROI = () => {
+        const views = parseFloat(calcViews.value);
+        const ctr = parseFloat(calcCtr.value);
+        const margin = parseFloat(calcMargin.value);
+        
+        document.getElementById('val-views').innerText = views.toLocaleString('ru-RU');
+        document.getElementById('val-ctr').innerText = ctr.toFixed(1) + '%';
+        document.getElementById('val-margin').innerText = margin.toLocaleString('ru-RU') + ' ₽';
+        
+        const conversion = 0.05; // 5% средняя конверсия
+        const currentProfit = views * (ctr / 100) * conversion * margin;
+        
+        // Ожидаемый рост CTR с премиум дизайном (+3%)
+        const projectedCtr = ctr + 3.0; 
+        const projectedProfit = views * (projectedCtr / 100) * conversion * margin;
+        const lostProfit = projectedProfit - currentProfit;
+        
+        document.getElementById('res-current').innerText = Math.round(currentProfit).toLocaleString('ru-RU') + ' ₽';
+        document.getElementById('res-lost').innerText = '+ ' + Math.round(lostProfit).toLocaleString('ru-RU') + ' ₽';
+      };
+      
+      calcViews.addEventListener('input', updateROI);
+      calcCtr.addEventListener('input', updateROI);
+      calcMargin.addEventListener('input', updateROI);
+      
+      updateROI();
+    }
   </script>
 </body>
 </html>
