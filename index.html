@@ -58,6 +58,19 @@
     @media (hover:hover){.footer-massive-text:hover{color:#FFF;-webkit-text-stroke:2px transparent;text-shadow:0 20px 80px rgba(37,99,255,0.6);transform:scale(1.02) translateZ(50px)}.magnetic-btn{transition:transform .3s cubic-bezier(0.16,1,0.3,1)}}
     .bg-noise{position:fixed;top:0;left:0;width:100vw;height:100vh;background:url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');opacity:.04;pointer-events:none;z-index:9990;mix-blend-mode:overlay}
     @media (hover:hover) and (pointer:fine){.premium-glow-card{position:relative}.premium-glow-card::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(600px circle at var(--mouse-x,50%) var(--mouse-y,50%),rgba(37,99,255,0.08),transparent 40%);z-index:0;pointer-events:none;opacity:0;transition:opacity .4s ease;border-radius:inherit}.premium-glow-card:hover::before{opacity:1}}
+
+    /* Vertical Marquee Animations */
+    @keyframes scroll-y {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-50%); }
+    }
+    @keyframes scroll-y-reverse {
+      0% { transform: translateY(-50%); }
+      100% { transform: translateY(0); }
+    }
+    .animate-scroll-y { animation: scroll-y 40s linear infinite; }
+    .animate-scroll-y-reverse { animation: scroll-y-reverse 40s linear infinite; }
+    .animate-scroll-y:hover, .animate-scroll-y-reverse:hover { animation-play-state: paused; }
   </style>
 
   <script type="text/javascript">
@@ -94,6 +107,7 @@
         <a href="#about" class="nav-link relative px-5 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors rounded-full hover:bg-white/10">Обо мне</a>
         <a href="#portfolio" class="nav-link relative px-5 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors rounded-full hover:bg-white/10">Портфолио</a>
         <a href="#services" class="nav-link relative px-5 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors rounded-full hover:bg-white/10">Услуги</a>
+        <a href="#reviews" class="nav-link relative px-5 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors rounded-full hover:bg-white/10">Отзывы</a>
         <a href="#faq" class="nav-link relative px-5 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors rounded-full hover:bg-white/10">FAQ</a>
         <a href="#contact" class="nav-link relative px-5 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors rounded-full hover:bg-white/10">Контакты</a>
       </div>
@@ -138,7 +152,7 @@
               <div class="flex flex-col"><span class="text-white font-bold text-sm leading-none">от 2-х дней</span><span class="text-[10px] text-gray-400 uppercase tracking-widest font-mono mt-1">Сроки работы</span></div>
             </div>
             <div class="flex items-center gap-3 px-4 py-2.5 rounded-[1.25rem] bg-gradient-to-r from-white/[0.05] to-transparent border border-white/10 backdrop-blur-md">
-              <div class="w-8 h-8 rounded-full bg-[#00F0FF]/20 flex items-center justify-center text-[#00F0FF] shadow-[0_0_15px_rgba(0,240,255,0.3)]"><i class="ph-fill ph-trend-up text-lg"></i></div>
+              <div class="w-8 h-8 rounded-full bg-electric/20 flex items-center justify-center text-electric shadow-[0_0_15px_rgba(37,99,255,0.3)]"><i class="ph-fill ph-trend-up text-lg"></i></div>
               <div class="flex flex-col"><span class="text-white font-bold text-sm leading-none">x2 Конверсия</span><span class="text-[10px] text-gray-400 uppercase tracking-widest font-mono mt-1">Рост метрик</span></div>
             </div>
           </div>
@@ -206,7 +220,7 @@
             <div class="relative group mt-8 lg:mt-0 flex justify-center">
               <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] pointer-events-none z-0 flex items-center justify-center transition-all duration-1000 hw-accel group-hover:scale-105">
                 <div class="absolute w-[60%] h-[60%] bg-[radial-gradient(circle,rgba(37,99,255,0.3)_0%,transparent_60%)] rounded-full animate-spin-slow origin-bottom-right transition-colors duration-700"></div>
-                <div class="absolute w-[55%] h-[55%] bg-[radial-gradient(circle,rgba(59,130,246,0.25)_0%,transparent_60%)] rounded-full animate-spin-slow-reverse origin-top-left transition-colors duration-700"></div>
+                <div class="absolute w-[55%] h-[55%] bg-[radial-gradient(circle,rgba(37,99,255,0.2)_0%,transparent_60%)] rounded-full animate-spin-slow-reverse origin-top-left transition-colors duration-700"></div>
                 <div class="absolute w-[45%] h-[45%] bg-[radial-gradient(circle,rgba(255,255,255,0.1)_0%,transparent_60%)] rounded-full animate-pulse-slow"></div>
                 <div class="absolute w-[75%] h-[75%] rounded-full border border-dashed border-white/10 animate-spin-slow-reverse opacity-50 transition-colors duration-700"></div>
                 <div class="absolute w-[90%] h-[90%] rounded-full border border-electric/10 border-t-electric/50 border-r-electric/30 animate-[spin_15s_linear_infinite] transition-colors duration-700"></div>
@@ -260,6 +274,152 @@
           <div class="gsap-stagger-item h-full"><div class="relative p-[1px] rounded-[2.5rem] bg-gradient-to-br from-white/10 to-transparent hover:from-electric/50 hover:to-electric/10 transition-colors duration-500 group overflow-hidden h-full shadow-lg hover:shadow-[0_0_40px_rgba(37,99,255,0.15)]"><div class="bg-[#050508] rounded-[39px] p-8 md:p-10 flex flex-col xl:flex-row gap-8 relative z-10 overflow-hidden h-full"><div class="absolute bottom-[-20%] left-[-10%] w-64 h-64 bg-electric/10 rounded-full blur-[60px] group-hover:bg-electric/25 transition-all duration-700 pointer-events-none"></div><div class="absolute inset-0 opacity-[0.02] group-hover:opacity-[0.05] transition-opacity duration-500" style="background-image:radial-gradient(#fff 1px,transparent 1px);background-size:20px 20px;"></div><div class="xl:w-5/12 flex flex-col relative z-10"><div class="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-electric mb-6 group-hover:scale-110 group-hover:bg-electric/10 group-hover:border-electric/30 transition-all duration-500 shadow-inner"><i class="ph-duotone ph-browsers text-3xl drop-shadow-[0_0_10px_rgba(37,99,255,0.5)]"></i></div><h3 class="text-2xl md:text-3xl font-bold mb-3 text-white group-hover:text-electric transition-colors duration-300">Сайты & Лого</h3><p class="text-gray-400 text-sm leading-relaxed mb-6">Создание премиальных лендингов под ключ и разработка фирменного стиля.</p><div class="mt-auto inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-electric/10 border border-electric/20 text-electric text-[10px] font-mono uppercase tracking-widest w-max shadow-[0_0_15px_rgba(37,99,255,0.2)]"><i class="ph-fill ph-crown text-sm"></i> Premium</div></div><div class="xl:w-7/12 flex flex-col relative z-10 border-t xl:border-t-0 xl:border-l border-white/5 xl:pl-8 pt-6 xl:pt-0"><ul class="space-y-4 mb-8 text-sm flex-grow"><li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-gray-400">Создание сайтов</span><span class="text-white font-bold">от 15 000 ₽</span></li><li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-gray-400">Логотип классика</span><span class="text-gray-300 font-medium">от 4990 ₽</span></li><li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-gray-400">Логотип-маскот</span><span class="text-gray-300 font-medium">от 7990 ₽</span></li></ul><div class="flex items-center justify-between gap-4 mt-auto pt-2"><div class="text-[11px] text-gray-500 font-mono flex items-center gap-2"><i class="ph-bold ph-clock text-electric"></i> от 7 дней</div><a href="https://t.me/vladpetroov" target="_blank" class="magnetic-btn px-6 py-3 rounded-xl bg-electric text-white text-sm font-bold shadow-[0_0_15px_rgba(37,99,255,0.3)] hover:bg-electricLight hover:shadow-[0_0_25px_rgba(37,99,255,0.5)] transition-all duration-300 active:scale-95">Заказать</a></div></div></div></div></div>
           <div class="gsap-stagger-item h-full"><div class="relative p-[1px] rounded-[2.5rem] bg-gradient-to-br from-white/10 to-transparent hover:from-electric/50 hover:to-electric/10 transition-colors duration-500 group overflow-hidden h-full shadow-lg hover:shadow-[0_0_40px_rgba(37,99,255,0.15)]"><div class="bg-[#050508] rounded-[39px] p-8 md:p-10 flex flex-col xl:flex-row gap-8 relative z-10 overflow-hidden h-full"><div class="absolute top-[-20%] right-[-10%] w-64 h-64 bg-electric/10 rounded-full blur-[60px] group-hover:bg-electric/20 transition-all duration-700 pointer-events-none"></div><div class="absolute inset-0 opacity-[0.02] group-hover:opacity-[0.05] transition-opacity duration-500" style="background-image:radial-gradient(#fff 1px,transparent 1px);background-size:20px 20px;"></div><div class="xl:w-5/12 flex flex-col relative z-10"><div class="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-electric mb-6 group-hover:scale-110 group-hover:bg-electric/10 group-hover:border-electric/30 transition-all duration-500 shadow-inner"><i class="ph-duotone ph-instagram-logo text-3xl drop-shadow-[0_0_10px_rgba(37,99,255,0.5)]"></i></div><h3 class="text-2xl md:text-3xl font-bold mb-3 text-white group-hover:text-electric transition-colors duration-300">Оформление соцсетей</h3><p class="text-gray-400 text-sm leading-relaxed mb-6">Упаковка групп ВК, Telegram-каналов и превью для YouTube.</p></div><div class="xl:w-7/12 flex flex-col relative z-10 border-t xl:border-t-0 xl:border-l border-white/5 xl:pl-8 pt-6 xl:pt-0"><ul class="space-y-4 mb-8 text-sm flex-grow"><li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-gray-400">Оформление ВК</span><span class="text-white font-bold">от 6490 ₽</span></li><li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-gray-400">Посты для соцсетей</span><span class="text-gray-300 font-medium">от 1490 ₽</span></li><li class="flex items-center justify-between pb-2"><span class="text-gray-400">Превью YouTube</span><span class="text-gray-300 font-medium">от 1490 ₽</span></li></ul><div class="flex items-center justify-between gap-4 mt-auto pt-2"><div class="text-[11px] text-gray-500 font-mono flex items-center gap-2"><i class="ph-bold ph-clock text-electric"></i> 3–7 дней</div><a href="https://t.me/vladpetroov" target="_blank" class="magnetic-btn px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm font-bold hover:bg-electric hover:border-electric hover:shadow-[0_0_20px_rgba(37,99,255,0.4)] transition-all duration-300 active:scale-95">Заказать</a></div></div></div></div></div>
           <div class="gsap-stagger-item h-full"><div class="relative p-[1px] rounded-[2.5rem] bg-gradient-to-br from-white/10 to-transparent hover:from-electric/50 hover:to-electric/10 transition-colors duration-500 group overflow-hidden h-full shadow-lg hover:shadow-[0_0_40px_rgba(37,99,255,0.15)]"><div class="bg-[#050508] rounded-[39px] p-8 md:p-10 flex flex-col xl:flex-row gap-8 relative z-10 overflow-hidden h-full"><div class="absolute bottom-[-20%] right-[-10%] w-64 h-64 bg-electric/10 rounded-full blur-[60px] group-hover:bg-electric/20 transition-all duration-700 pointer-events-none"></div><div class="absolute inset-0 opacity-[0.02] group-hover:opacity-[0.05] transition-opacity duration-500" style="background-image:radial-gradient(#fff 1px,transparent 1px);background-size:20px 20px;"></div><div class="xl:w-5/12 flex flex-col relative z-10"><div class="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-electric mb-6 group-hover:scale-110 group-hover:bg-electric/10 group-hover:border-electric/30 transition-all duration-500 shadow-inner"><i class="ph-duotone ph-megaphone text-3xl drop-shadow-[0_0_10px_rgba(37,99,255,0.5)]"></i></div><h3 class="text-2xl md:text-3xl font-bold mb-3 text-white group-hover:text-electric transition-colors duration-300">Реклама & Креативы</h3><p class="text-gray-400 text-sm leading-relaxed mb-6">Создание сочных баннеров и моушн-анимации для таргета, снижающих цену клика.</p></div><div class="xl:w-7/12 flex flex-col relative z-10 border-t xl:border-t-0 xl:border-l border-white/5 xl:pl-8 pt-6 xl:pt-0"><ul class="space-y-4 mb-8 text-sm flex-grow"><li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-gray-400">Статичные баннеры</span><span class="text-white font-bold">от 1490 ₽</span></li><li class="flex items-center justify-between border-b border-white/5 group-hover:border-electric/10 pb-3 transition-colors"><span class="text-gray-400">2D анимация</span><span class="text-gray-300 font-medium">от 3490 ₽</span></li></ul><div class="flex items-center justify-between gap-4 mt-auto pt-2"><div class="text-[11px] text-gray-500 font-mono flex items-center gap-2"><i class="ph-bold ph-clock text-electric"></i> 3–7 дней</div><a href="https://t.me/vladpetroov" target="_blank" class="magnetic-btn px-6 py-3 rounded-xl bg-electric text-white text-sm font-bold shadow-[0_0_15px_rgba(37,99,255,0.3)] hover:bg-electricLight hover:shadow-[0_0_25px_rgba(37,99,255,0.5)] transition-all duration-300 active:scale-95">Заказать</a></div></div></div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEW BENTO GRID (VALUE MATRIX) -->
+    <section id="value-matrix" class="py-24 px-6 md:px-12 relative z-10 border-t border-white/5">
+      <!-- Background elements -->
+      <div class="absolute inset-0 pointer-events-none z-0 flex items-center justify-center">
+        <div class="absolute right-[10%] top-[20%] w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(37,99,255,0.08)_0%,transparent_60%)] animate-blob hw-accel"></div>
+        <div class="absolute left-[-5%] bottom-[-10%] w-[400px] h-[400px] bg-[radial-gradient(circle,rgba(37,99,255,0.05)_0%,transparent_60%)] animate-blob hw-accel" style="animation-delay: 2s;"></div>
+      </div>
+
+      <div class="max-w-7xl mx-auto relative z-10">
+        <!-- Header -->
+        <div class="text-center mb-16 md:mb-20 gsap-reveal">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-electric/30 bg-electric/5 text-[10px] font-mono text-electric uppercase tracking-widest mb-6 shadow-[0_0_15px_rgba(37,99,255,0.15)]">
+            <i class="ph-duotone ph-cpu text-sm"></i> Core Architecture
+          </div>
+          <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">Архитектура <span class="text-transparent bg-clip-text bg-gradient-to-r from-electricLight to-electric italic">премиума</span></h2>
+          <p class="text-gray-400 text-base md:text-lg max-w-2xl mx-auto font-light leading-relaxed">Я не продаю красивые картинки. Вы инвестируете в систему, которая захватывает внимание и конвертирует просмотры в чистую прибыль.</p>
+        </div>
+
+        <!-- Bento Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[minmax(250px,auto)] relative z-20 gsap-stagger-grid">
+
+          <!-- Card 1: Meaning & Strategy (Large, spans 2 cols on desktop) -->
+          <div class="gsap-stagger-item md:col-span-2 md:row-span-2 h-full">
+            <div class="glass-panel p-8 md:p-10 rounded-[2.5rem] border-white/5 hover:border-electric/40 bg-[#05050A] shadow-[0_0_30px_rgba(37,99,255,0.05)] hover:shadow-[0_0_50px_rgba(37,99,255,0.15)] transition-all duration-500 h-full relative overflow-hidden group">
+              <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(37,99,255,0.15),transparent_60%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+              <div class="absolute inset-0 opacity-[0.03] group-hover:opacity-[0.06] transition-opacity duration-500 pointer-events-none" style="background-image:radial-gradient(#fff 1px,transparent 1px);background-size:20px 20px;"></div>
+              
+              <!-- Visual Mockup -->
+              <div class="relative w-full h-48 md:h-64 mb-8 rounded-2xl bg-black/50 border border-white/10 overflow-hidden flex items-center justify-center group-hover:border-electric/30 transition-colors duration-500">
+                <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-[conic-gradient(from_90deg_at_50%_50%,#000_0%,#000_50%,rgba(37,99,255,0.3)_100%)] animate-[spin_4s_linear_infinite] opacity-50"></div>
+                <div class="absolute inset-[2px] bg-[#05050A] rounded-2xl flex flex-col items-center justify-center overflow-hidden z-10">
+                   <!-- Fake UI inside -->
+                   <div class="w-3/4 h-8 border border-white/10 rounded-lg mb-3 flex items-center px-4"><div class="w-1/2 h-2 bg-electric/20 rounded-full"></div></div>
+                   <div class="w-3/4 h-24 border border-white/10 rounded-xl flex gap-3 p-3">
+                     <div class="w-1/3 h-full bg-white/5 rounded-lg border border-white/5"></div>
+                     <div class="flex-1 flex flex-col gap-2">
+                       <div class="w-full h-3 bg-white/10 rounded-full"></div>
+                       <div class="w-2/3 h-3 bg-white/5 rounded-full"></div>
+                       <div class="w-1/2 h-6 bg-electric/20 rounded-md mt-auto border border-electric/30 flex items-center justify-center group-hover:bg-electric group-hover:shadow-[0_0_15px_#2563FF] transition-all"><span class="w-12 h-1 bg-electricLight rounded-full"></span></div>
+                     </div>
+                   </div>
+                </div>
+              </div>
+
+              <div class="relative z-10">
+                <div class="w-12 h-12 rounded-xl bg-electric/10 border border-electric/20 flex items-center justify-center text-electric mb-5 shadow-inner">
+                  <i class="ph-duotone ph-crosshair text-2xl"></i>
+                </div>
+                <h3 class="text-2xl md:text-3xl font-bold text-white mb-3 tracking-tight">Смысловая упаковка</h3>
+                <p class="text-gray-400 leading-relaxed text-sm md:text-base font-light">Сначала маркетинг, потом пиксели. Анализирую вашу нишу и конкурентов, чтобы выстроить структуру, которая последовательно закрывает все боли клиента и ведет к покупке.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: AI (Square) -->
+          <div class="gsap-stagger-item md:col-span-1 md:row-span-1 h-full">
+            <div class="glass-panel p-8 rounded-[2.5rem] border-white/5 hover:border-electric/40 bg-[#05050A] shadow-[0_0_30px_rgba(37,99,255,0.05)] hover:shadow-[0_0_40px_rgba(37,99,255,0.2)] transition-all duration-500 h-full relative overflow-hidden group flex flex-col justify-between">
+              <div class="absolute -right-10 -top-10 w-40 h-40 bg-electric/20 blur-3xl group-hover:bg-electric/40 transition-colors duration-500 pointer-events-none"></div>
+              
+              <div class="relative z-10 flex justify-between items-start mb-8">
+                <div class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white group-hover:text-electric group-hover:border-electric/30 transition-all duration-300">
+                  <i class="ph-duotone ph-magic-wand text-2xl"></i>
+                </div>
+                <div class="w-16 h-16 border border-dashed border-electric/30 rounded-full animate-[spin_10s_linear_infinite] flex items-center justify-center group-hover:border-electric transition-colors">
+                  <div class="w-8 h-8 border border-white/20 rounded-full animate-[spin_5s_linear_infinite_reverse]"></div>
+                </div>
+              </div>
+
+              <div class="relative z-10">
+                <h3 class="text-xl md:text-2xl font-bold text-white mb-2 tracking-tight">Нейросети</h3>
+                <p class="text-gray-400 text-sm font-light leading-relaxed">Генерация эксклюзивного контента через Midjourney и SD. Никакого стокового мусора.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Deadline / Zero Bullshit (Square) -->
+          <div class="gsap-stagger-item md:col-span-1 md:row-span-1 h-full">
+             <div class="glass-panel p-8 rounded-[2.5rem] border-white/5 hover:border-electric/40 bg-[#05050A] shadow-[0_0_30px_rgba(37,99,255,0.05)] hover:shadow-[0_0_40px_rgba(37,99,255,0.2)] transition-all duration-500 h-full relative overflow-hidden group flex flex-col justify-between">
+              
+              <div class="absolute inset-0 bg-gradient-to-br from-transparent to-electric/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+
+              <div class="relative z-10 flex justify-between items-start mb-8">
+                <div class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white group-hover:text-electric group-hover:border-electric/30 transition-all duration-300">
+                  <i class="ph-duotone ph-clock text-2xl"></i>
+                </div>
+                <div class="text-3xl font-display font-black text-white/10 group-hover:text-electric/30 transition-colors">100%</div>
+              </div>
+
+              <div class="relative z-10">
+                <h3 class="text-xl md:text-2xl font-bold text-white mb-2 tracking-tight">Zero-Bullshit</h3>
+                <p class="text-gray-400 text-sm font-light leading-relaxed">Строгие дедлайны. Я ценю ваше время: никаких «пропал на неделю» или пустых оправданий.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4: Conversion > Beauty (Wide, spans 3 cols on bottom) -->
+          <div class="gsap-stagger-item md:col-span-3 h-full">
+            <div class="glass-panel p-8 md:p-10 rounded-[2.5rem] border-white/5 hover:border-electric/40 bg-[#05050A] shadow-[0_0_30px_rgba(37,99,255,0.05)] hover:shadow-[0_0_50px_rgba(37,99,255,0.2)] transition-all duration-500 h-full relative overflow-hidden group flex flex-col md:flex-row items-center gap-8 lg:gap-16">
+              
+              <!-- Left content -->
+              <div class="relative z-10 md:w-1/2 flex flex-col items-start text-left">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-electric/30 bg-electric/10 text-electric text-[10px] font-mono tracking-widest uppercase mb-4 shadow-inner">
+                  <span class="w-1.5 h-1.5 rounded-full bg-electric animate-pulse"></span> Metrics Driven
+                </div>
+                <h3 class="text-2xl md:text-4xl font-display font-bold text-white mb-4 tracking-tight drop-shadow-sm">Конверсия > Эстетика</h3>
+                <p class="text-gray-400 text-sm md:text-base font-light leading-relaxed">Красота ради красоты не продает. Задача моего дизайна — управлять фокусом вашего клиента, отстраивать вас от конкурентов и неизбежно вести пользователя к кнопке <span class="text-white font-medium">«Купить»</span>.</p>
+              </div>
+
+              <!-- Right Visual Chart -->
+              <div class="relative z-10 md:w-1/2 w-full h-32 md:h-full min-h-[120px] flex items-center justify-center">
+                <!-- Glowing Chart SVG -->
+                <svg width="100%" height="100%" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full preserve-3d overflow-visible">
+                  <!-- Weak design line (gray) -->
+                  <path d="M0,120 Q50,110 100,115 T200,110 T300,115 T400,118" stroke="rgba(255,255,255,0.1)" stroke-width="2" stroke-dasharray="4 4" fill="none" />
+                  
+                  <!-- VP-DESIGN Growth line (Electric Blue) -->
+                  <path d="M0,120 Q80,110 150,70 T250,40 T350,10 L400,0" stroke="#2563FF" stroke-width="4" fill="none" class="drop-shadow-[0_0_15px_#2563FF]" stroke-linecap="round"/>
+                  
+                  <!-- Gradient fill under blue line -->
+                  <path d="M0,120 Q80,110 150,70 T250,40 T350,10 L400,0 L400,150 L0,150 Z" fill="url(#paint0_linear)" opacity="0.2"/>
+                  
+                  <!-- Dots -->
+                  <circle cx="150" cy="70" r="4" fill="#fff" class="drop-shadow-[0_0_8px_#fff] group-hover:scale-150 transition-transform origin-center" />
+                  <circle cx="250" cy="40" r="4" fill="#fff" class="drop-shadow-[0_0_8px_#fff] group-hover:scale-150 transition-transform origin-center delay-100" />
+                  <circle cx="350" cy="10" r="5" fill="#fff" class="drop-shadow-[0_0_12px_#fff] group-hover:scale-150 transition-transform origin-center delay-200" />
+
+                  <!-- Annotations -->
+                  <text x="345" y="35" fill="rgba(255,255,255,0.5)" font-family="monospace" font-size="10" font-weight="bold" class="group-hover:fill-electricLight transition-colors">+ ROI</text>
+                  <text x="240" y="65" fill="rgba(255,255,255,0.3)" font-family="monospace" font-size="10">Scale</text>
+
+                  <defs>
+                    <linearGradient id="paint0_linear" x1="200" y1="0" x2="200" y2="150" gradientUnits="userSpaceOnUse">
+                      <stop stop-color="#2563FF" />
+                      <stop offset="1" stop-color="transparent" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
+
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
@@ -363,6 +523,60 @@
       </div>
     </section>
 
+    <!-- LEAD MAGNET / FREE AUDIT SECTION -->
+    <section id="audit" class="py-12 px-6 md:px-12 relative z-10">
+      <style>
+        @keyframes scanLine { 0% { top: 0%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
+        .animate-scan { animation: scanLine 3s ease-in-out infinite; }
+      </style>
+      <div class="max-w-6xl mx-auto">
+        <div class="glass-panel p-8 md:p-12 lg:p-16 rounded-[3rem] border-electric/40 bg-[#05050A] relative overflow-hidden group shadow-[0_0_40px_rgba(37,99,255,0.15)] gsap-reveal">
+          <div class="absolute top-0 right-0 w-full md:w-1/2 h-full bg-[radial-gradient(circle_at_center,rgba(37,99,255,0.15)_0%,transparent_70%)] pointer-events-none group-hover:scale-110 transition-transform duration-700"></div>
+          <div class="absolute -right-20 -top-20 w-64 h-64 border border-dashed border-electric/30 rounded-full animate-[spin_20s_linear_infinite] opacity-50"></div>
+          <div class="absolute -right-10 -top-10 w-48 h-48 border border-white/10 rounded-full animate-[spin_15s_linear_infinite_reverse] opacity-50"></div>
+          
+          <div class="flex flex-col lg:flex-row items-center gap-10 lg:gap-16 relative z-10">
+            <div class="flex-1 text-center lg:text-left">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-electric/30 bg-electric/10 text-electric text-[10px] font-mono uppercase tracking-widest mb-6 shadow-[0_0_15px_rgba(37,99,255,0.2)]">
+                <i class="ph-duotone ph-scan text-sm"></i> Visual Crash-Test
+              </div>
+              <h2 class="font-display text-3xl md:text-5xl font-bold text-white mb-5 leading-tight tracking-tight">
+                Теряете клиентов из-за <span class="text-transparent bg-clip-text bg-gradient-to-r from-electricLight to-electric italic pr-2 drop-shadow-[0_0_10px_rgba(37,99,255,0.3)]">слабого визуала?</span>
+              </h2>
+              <p class="text-gray-400 text-sm md:text-base leading-relaxed max-w-lg mx-auto lg:mx-0 mb-8 font-light">
+                Пришлите ссылку на вашу текущую карточку товара или сайт. Я проведу <strong class="text-white font-medium">бесплатный аудит</strong> и запишу голосовое в Telegram с 3-мя конкретными точками роста конверсии.
+              </p>
+              <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                <a href="https://t.me/vladpetroov" target="_blank" class="magnetic-btn w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 bg-electric text-white font-bold rounded-2xl hover:bg-electricLight shadow-[0_0_20px_rgba(37,99,255,0.4)] hover:shadow-[0_0_40px_rgba(37,99,255,0.6)] active:scale-95 transition-all duration-300">
+                  Получить разбор <i class="ph-bold ph-arrow-right"></i>
+                </a>
+                <span class="text-[11px] text-gray-500 font-mono uppercase tracking-widest"><i class="ph-bold ph-clock text-electric mr-1"></i> Займет 3 минуты</span>
+              </div>
+            </div>
+            
+            <!-- Анимация сканера -->
+            <div class="hidden lg:flex w-[350px] shrink-0 justify-end relative">
+              <div class="w-full h-[250px] rounded-3xl bg-[#02050A] border border-white/10 p-4 relative shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden group-hover:border-electric/40 transition-colors duration-500">
+                <div class="absolute inset-0 bg-[linear-gradient(rgba(37,99,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,255,0.05)_1px,transparent_1px)] bg-[size:15px_15px]"></div>
+                <div class="w-full h-full border border-electric/20 rounded-2xl relative flex items-center justify-center bg-black/40 overflow-hidden">
+                  <div class="absolute inset-0 bg-electric/5 group-hover:bg-electric/10 transition-colors duration-500"></div>
+                  <!-- Полоса сканирования -->
+                  <div class="w-full h-[2px] bg-electric absolute left-0 animate-scan shadow-[0_0_20px_#2563FF,0_0_10px_#FFF]"></div>
+                  
+                  <div class="flex flex-col items-center gap-4 text-electric z-10">
+                    <div class="w-16 h-16 rounded-full bg-electric/10 border border-electric/30 flex items-center justify-center shadow-[0_0_15px_rgba(37,99,255,0.3)]">
+                      <i class="ph-duotone ph-crosshair text-3xl"></i>
+                    </div>
+                    <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-electricLight drop-shadow-[0_0_5px_rgba(59,130,246,0.8)]">Awaiting Object</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="workflow-section" class="py-24 px-6 md:px-12 relative z-10">
       <div class="absolute inset-0 pointer-events-none z-0">
         <div class="absolute top-0 right-[15%] w-[1px] h-full bg-gradient-to-b from-transparent via-white/5 to-transparent border-l border-dashed border-white/10"></div>
@@ -450,15 +664,253 @@
       </div>
     </section>
 
+    <!-- NEW MARQUEE REVIEWS SECTION -->
+    <section id="reviews" class="py-24 relative z-10 border-t border-white/5 bg-gradient-to-b from-[#02050A] to-[#000000]">
+      <div class="absolute inset-0 pointer-events-none z-0 flex items-center justify-center overflow-hidden">
+        <div class="absolute left-[5%] top-[20%] w-[400px] h-[400px] bg-[radial-gradient(circle,rgba(37,99,255,0.1)_0%,transparent_60%)] animate-blob hw-accel"></div>
+        <div class="absolute right-[-5%] bottom-[10%] w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(37,99,255,0.08)_0%,transparent_60%)] animate-blob hw-accel" style="animation-delay: 2s;"></div>
+        <div class="absolute top-[10%] left-[5%] text-white/5 font-mono text-[10px] tracking-[0.3em] uppercase rotate-90 origin-left">Testimonials // Impact_Data</div>
+      </div>
+      
+      <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10 mb-12 md:mb-16">
+        <div class="text-center gsap-reveal">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-electric/30 bg-electric/5 text-[10px] font-mono text-electric uppercase tracking-widest mb-6 shadow-[0_0_15px_rgba(37,99,255,0.15)]">
+            <i class="ph-duotone ph-star text-sm"></i> Client Feedback
+          </div>
+          <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">Репутация в <span class="text-transparent bg-clip-text bg-gradient-to-r from-electricLight to-electric italic drop-shadow-[0_0_15px_rgba(37,99,255,0.4)]">цифрах</span></h2>
+          <p class="text-gray-400 text-base md:text-lg max-w-2xl mx-auto font-light leading-relaxed">Я не просто рисую красивый визуал, я создаю инструменты для заработка. Отзывы реальных людей, которые выбрали подход, основанный на метриках.</p>
+        </div>
+      </div>
+
+      <!-- Marquee Wrapper -->
+      <div class="w-full relative h-[600px] lg:h-[700px] overflow-hidden" style="mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent); -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 h-full flex gap-4 md:gap-8 justify-center">
+          
+          <!-- Column 1 (Scrolls UP) -->
+          <div class="flex-1 max-w-md h-full relative">
+            <div class="absolute inset-x-0 flex flex-col gap-4 md:gap-6 animate-scroll-y">
+              <!-- Content Block 1 -->
+              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Влад полностью переупаковал наш магазин. Карточки пробивают слепоту на ура. За неделю CTR главных фото взлетел с 2.1% до 5.8%. Идеальное понимание алгоритмов маркетплейсов!»</p>
+                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">М</div>
+                  <div><div class="text-white font-bold text-sm">Максим</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Селлер одежды на WB</div></div>
+                </div>
+              </div>
+
+              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Лендинг получился просто космос. Очень дорого выглядит, анимации плавные. Конверсия в заявку выросла в 2 раза по сравнению со старым сайтом. Работаем дальше!»</p>
+                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">Е</div>
+                  <div><div class="text-white font-bold text-sm">Елена</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Владелец клиники</div></div>
+                </div>
+              </div>
+
+              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Берем статику и моушн для рекламы. Цена лида стабильно ниже рынка на 30%, потому что визуал сразу цепляет аудиторию. Без лишних правок, строго по ТЗ.»</p>
+                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">И</div>
+                  <div><div class="text-white font-bold text-sm">Илья</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Таргетолог</div></div>
+                </div>
+              </div>
+
+              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Рич-контент для Озона собран идеально. Товар премиум-сегмента, и Влад смог передать этот статус через строгую и лаконичную графику.»</p>
+                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">А</div>
+                  <div><div class="text-white font-bold text-sm">Анна</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Бренд-менеджер</div></div>
+                </div>
+              </div>
+
+              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Строго, стильно, минималистично. Получили шикарный логотип и брендбук для IT-стартапа. Спасибо за скорость работы!»</p>
+                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">Д</div>
+                  <div><div class="text-white font-bold text-sm">Дмитрий</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">IT Стартап</div></div>
+                </div>
+              </div>
+
+              <!-- Duplicate Content Block 1 for infinite scroll loop -->
+              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Влад полностью переупаковал наш магазин. Карточки пробивают слепоту на ура. За неделю CTR главных фото взлетел с 2.1% до 5.8%. Идеальное понимание алгоритмов маркетплейсов!»</p>
+                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">М</div>
+                  <div><div class="text-white font-bold text-sm">Максим</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Селлер одежды на WB</div></div>
+                </div>
+              </div>
+
+              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Лендинг получился просто космос. Очень дорого выглядит, анимации плавные. Конверсия в заявку выросла в 2 раза по сравнению со старым сайтом. Работаем дальше!»</p>
+                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">Е</div>
+                  <div><div class="text-white font-bold text-sm">Елена</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Владелец клиники</div></div>
+                </div>
+              </div>
+
+              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Берем статику и моушн для рекламы. Цена лида стабильно ниже рынка на 30%, потому что визуал сразу цепляет аудиторию. Без лишних правок, строго по ТЗ.»</p>
+                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">И</div>
+                  <div><div class="text-white font-bold text-sm">Илья</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Таргетолог</div></div>
+                </div>
+              </div>
+
+              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Рич-контент для Озона собран идеально. Товар премиум-сегмента, и Влад смог передать этот статус через строгую и лаконичную графику.»</p>
+                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">А</div>
+                  <div><div class="text-white font-bold text-sm">Анна</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Бренд-менеджер</div></div>
+                </div>
+              </div>
+
+              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Строго, стильно, минималистично. Получили шикарный логотип и брендбук для IT-стартапа. Спасибо за скорость работы!»</p>
+                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">Д</div>
+                  <div><div class="text-white font-bold text-sm">Дмитрий</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">IT Стартап</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 2 (Scrolls DOWN) -->
+          <div class="flex-1 max-w-md h-full relative hidden sm:block">
+            <div class="absolute inset-x-0 flex flex-col gap-4 md:gap-6 animate-scroll-y-reverse">
+              <!-- Content Block 2 -->
+              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Сначала сомневался из-за цены, но решил взять пакет из 6 слайдов. Окупилось за три дня. Воронка внутри карточки реально работает, закрывает все вопросы покупателей. Буду заказывать на весь ассортимент.»</p>
+                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">С</div>
+                  <div><div class="text-white font-bold text-sm">Сергей</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Товарный бизнес</div></div>
+                </div>
+              </div>
+
+              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Оформление Телеграм-канала и YouTube получилось супер стильным. Аудитория сразу заметила апгрейд и рост уровня контента. Будем работать дальше!»</p>
+                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">А</div>
+                  <div><div class="text-white font-bold text-sm">Алина</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Блогер</div></div>
+                </div>
+              </div>
+
+              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Сделали сайт автосервиса под ключ. Дизайн пушка, грузится моментально на телефонах. Заявок стало больше, клиенты говорят, что сайт внушает доверие с первой секунды.»</p>
+                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">А</div>
+                  <div><div class="text-white font-bold text-sm">Артем</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Владелец СТО</div></div>
+                </div>
+              </div>
+
+              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Лучшие креативы, с которыми я работала за последние годы. Сразу чувствуется, что дизайнер шарит за маркетинг и воронки, а не просто красиво рисует картинки в фотошопе.»</p>
+                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">В</div>
+                  <div><div class="text-white font-bold text-sm">Виктория</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Lead Маркетолог</div></div>
+                </div>
+              </div>
+
+              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Заказал инфографику сразу для 10 артикулов. Скорость работы впечатляет, качество топовое. Никакого визуального мусора, акцент ровно на преимуществах товара.»</p>
+                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">Р</div>
+                  <div><div class="text-white font-bold text-sm">Руслан</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Селлер OZON</div></div>
+                </div>
+              </div>
+
+              <!-- Duplicate Content Block 2 for infinite scroll loop -->
+              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Сначала сомневался из-за цены, но решил взять пакет из 6 слайдов. Окупилось за три дня. Воронка внутри карточки реально работает, закрывает все вопросы покупателей. Буду заказывать на весь ассортимент.»</p>
+                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">С</div>
+                  <div><div class="text-white font-bold text-sm">Сергей</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Товарный бизнес</div></div>
+                </div>
+              </div>
+
+              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Оформление Телеграм-канала и YouTube получилось супер стильным. Аудитория сразу заметила апгрейд и рост уровня контента. Будем работать дальше!»</p>
+                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">А</div>
+                  <div><div class="text-white font-bold text-sm">Алина</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Блогер</div></div>
+                </div>
+              </div>
+
+              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Сделали сайт автосервиса под ключ. Дизайн пушка, грузится моментально на телефонах. Заявок стало больше, клиенты говорят, что сайт внушает доверие с первой секунды.»</p>
+                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">А</div>
+                  <div><div class="text-white font-bold text-sm">Артем</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Владелец СТО</div></div>
+                </div>
+              </div>
+
+              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Лучшие креативы, с которыми я работала за последние годы. Сразу чувствуется, что дизайнер шарит за маркетинг и воронки, а не просто красиво рисует картинки в фотошопе.»</p>
+                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">В</div>
+                  <div><div class="text-white font-bold text-sm">Виктория</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Lead Маркетолог</div></div>
+                </div>
+              </div>
+
+              <div class="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-electric/40 hover:shadow-[0_0_30px_rgba(37,99,255,0.15)] transition-all duration-300 bg-[#05050A] relative overflow-hidden group">
+                <div class="absolute top-4 right-6 text-white/[0.02] group-hover:text-electric/[0.05] transition-colors duration-500 z-0"><i class="ph-fill ph-quotes text-[60px]"></i></div>
+                <div class="flex items-center gap-1 mb-4 text-electric drop-shadow-[0_0_8px_rgba(37,99,255,0.6)]"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">«Заказал инфографику сразу для 10 артикулов. Скорость работы впечатляет, качество топовое. Никакого визуального мусора, акцент ровно на преимуществах товара.»</p>
+                <div class="flex items-center gap-3 border-t border-white/10 pt-4 mt-auto relative z-10">
+                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric/80 to-[#0A0A0A] border border-electric/30 flex items-center justify-center font-display font-bold text-white shadow-inner">Р</div>
+                  <div><div class="text-white font-bold text-sm">Руслан</div><div class="text-gray-500 text-[10px] font-mono uppercase tracking-wider">Селлер OZON</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- FAQ SECTION -->
-    <section id="faq" class="py-24 px-6 md:px-12 relative z-10">
+    <section id="faq" class="py-24 px-6 md:px-12 relative z-10 border-t border-white/5">
       <div class="absolute inset-0 pointer-events-none z-0 flex items-center justify-center">
         <div class="absolute left-[-10%] top-[40%] w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(37,99,255,0.1)_0%,transparent_60%)] animate-blob hw-accel"></div>
         <div class="absolute right-[5%] bottom-[10%] text-white/5 font-mono text-[10px] tracking-[0.3em] uppercase rotate-90 origin-right">System_FAQ // DB_Query</div>
       </div>
       <div class="max-w-7xl mx-auto relative z-10 grid lg:grid-cols-12 gap-12 lg:gap-20 items-start">
         
-        <!-- УБРАН класс gsap-reveal с родителя, теперь блок не исчезает! Анимации висят на внутренних элементах -->
         <div class="lg:col-span-5 lg:sticky top-32">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-electric/30 bg-electric/5 text-[10px] font-mono text-electric uppercase tracking-widest mb-6 shadow-[0_0_15px_rgba(37,99,255,0.15)] gsap-reveal"><i class="ph-duotone ph-database text-sm"></i> Knowledge Base</div>
           <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[1.1] gsap-reveal"><span class="block text-white">Частые</span><span class="block text-transparent bg-clip-text bg-gradient-to-r from-electricLight to-electric italic drop-shadow-[0_0_15px_rgba(37,99,255,0.4)] mt-1">Вопросы</span></h2>
@@ -576,10 +1028,7 @@
                 <h2 class="font-display text-4xl sm:text-5xl md:text-7xl lg:text-[6rem] font-black mb-6 tracking-tighter flex flex-col items-center lg:items-start leading-[1.2] py-2">
                   <span class="text-white pb-1">Готовы</span> 
                   <span class="text-transparent bg-clip-text bg-gradient-to-r from-gray-100 to-gray-500 italic pr-4 pb-2 -mt-2">начать</span>
-                  <span class="relative -mt-2 text-electricGlow italic font-light drop-shadow-[0_0_15px_rgba(37,99,255,0.8)]">
-                    <span class="absolute inset-0 bg-electric/40 blur-[40px] z-0 rounded-full scale-[1.5] pointer-events-none"></span>
-                    <span class="relative z-10 pr-4 pb-2">проект?</span>
-                  </span>
+                  <span class="relative -mt-2 text-electric italic font-light pr-4 pb-2 drop-shadow-[0_0_10px_rgba(37,99,255,0.3)]">проект?</span>
                 </h2>
                 <p class="text-gray-400 text-lg max-w-md mx-auto lg:mx-0 leading-relaxed mt-2">Оставьте заявку, и мы обсудим, как сделать ваш продукт визуальным лидером на рынке.</p>
                 
@@ -589,7 +1038,7 @@
                     <div class="text-left"><div class="text-white font-bold text-sm">Быстрый старт</div><div class="text-gray-500 text-[11px] font-mono mt-0.5 uppercase tracking-wider">Отвечаю за ~15 мин</div></div>
                   </div>
                   <div class="flex items-center gap-4 bg-white/[0.03] border border-white/5 rounded-2xl p-4 pr-6 w-full sm:w-auto hover:bg-white/10 hover:border-white/10 transition-all duration-300">
-                    <div class="w-12 h-12 rounded-full bg-[#00F0FF]/10 flex items-center justify-center shrink-0"><i class="ph-duotone ph-shield-check text-2xl text-[#00F0FF]"></i></div>
+                    <div class="w-12 h-12 rounded-full bg-electric/10 flex items-center justify-center shrink-0"><i class="ph-duotone ph-shield-check text-2xl text-electric"></i></div>
                     <div class="text-left"><div class="text-white font-bold text-sm">Гарантия качества</div><div class="text-gray-500 text-[11px] font-mono mt-0.5 uppercase tracking-wider">Работаем до идеала</div></div>
                   </div>
                 </div>
@@ -638,7 +1087,7 @@
                   <i class="ph-duotone ph-copy text-gray-400 group-hover:text-electric transition-colors"></i>
                 </div>
               </button>
-              <div class="text-gray-500 text-sm flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[#00F0FF] animate-pulse shadow-[0_0_10px_#00F0FF]"></span> Сейчас на связи</div>
+              <div class="text-gray-500 text-sm flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-electric animate-pulse shadow-[0_0_10px_#2563FF]"></span> Сейчас на связи</div>
             </div>
             <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-electric/30 bg-electric/5">
               <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-electric opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-electric"></span></span>
@@ -883,7 +1332,7 @@
             
             if (p.glow) {
               ctx.shadowBlur = 10;
-              ctx.shadowColor = '#00F0FF';
+              ctx.shadowColor = '#2563FF'; // Изменено на electric
               ctx.fillStyle = `rgba(255, 255, 255, ${currentOpacity + 0.4})`;
             } else {
               ctx.shadowBlur = 0;
@@ -926,7 +1375,15 @@
         .to(".word-3", { y: 0, opacity: 1, scale: 1, duration: 1.4, ease: "back.out(1.2)" }, "-=1.2")
         .fromTo(".hero-keyword", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.1 }, "-=1.0")
         .fromTo(".gsap-hero-el", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.1 }, "-=0.8")
-        .fromTo(".hero-action-el", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.1 }, "-=0.8")
+        .fromTo(".hero-action-el", 
+          { y: 30, opacity: 0, scale: 0.9, filter: "blur(4px)" }, 
+          { y: 0, opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.6, ease: "back.out(1.7)" }, 
+          "-=1.1"
+        )
+        .to(".hero-action-el", 
+          { boxShadow: "0 0 40px rgba(37,99,255,0.9), 0 0 15px rgba(255,255,255,0.6)", duration: 0.3, yoyo: true, repeat: 1, ease: "power1.inOut" }, 
+          "-=0.2"
+        )
         .to(".gsap-hero-image", { x: 0, scale: 1, opacity: 1, rotateY: 0, duration: 2, ease: "expo.out" }, "-=1.8");
 
       gsap.to(".hero-main-img", { y: -15, duration: 3, ease: "sine.inOut", yoyo: true, repeat: -1, force3D: true });
@@ -937,7 +1394,6 @@
     ScrollTrigger.batch(".about-title-line", { onEnter: batch => gsap.to(batch, { y: 0, autoAlpha: 1, rotateX: 0, duration: 1.2, stagger: 0.1, ease: "power3.out", overwrite: true }), start: "top 85%" });
     ScrollTrigger.batch(".services-title-line", { onEnter: batch => gsap.to(batch, { y: 0, autoAlpha: 1, rotateX: 0, duration: 1.2, stagger: 0.1, ease: "power3.out", overwrite: true }), start: "top 85%" });
 
-    // ИСПРАВЛЕНИЕ GSAP REVEAL - Убрано жесткое исключение #faq
     gsap.utils.toArray('.gsap-reveal').forEach(el => {
       if(el.closest('#workflow-steps')) return; 
       gsap.set(el, { autoAlpha: 0, y: 80, rotationX: -25, scale: 0.9, transformPerspective: 1200 });
