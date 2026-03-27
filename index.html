@@ -71,11 +71,24 @@
             overscroll-behavior-y: none; 
             scroll-behavior: auto !important; 
         }
+        
         @media (max-width: 768px) {
             .bg-noise { display: none !important; }
             .animate-blob { animation: none !important; }
             .glass-panel { backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+            
+            /* --- ЖЕСТКАЯ ОПТИМИЗАЦИЯ ДЛЯ МОБИЛЬНЫХ --- */
+            /* 1. Вырезаем рябящие текстуры (точки и сетки) на всех плашках */
+            div[style*="radial-gradient"], div[style*="linear-gradient"] {
+                display: none !important;
+            }
+            
+            /* 2. Убиваем скрытые светящиеся блюр-пятна внутри карточек (они вызывают лаги при касании) */
+            .gsap-stagger-item [class*="blur-"], .review-card [class*="blur-"] {
+                display: none !important;
+            }
         }
+        
         .hw-accel { transform: translateZ(0); backface-visibility: hidden; will-change: transform; } 
         html.lenis { height: auto; }
         .lenis.lenis-smooth { scroll-behavior: auto; }
