@@ -89,47 +89,58 @@
     @media (max-width: 639px) {
       #portfolio-grid {
         display: flex !important;
+        flex-wrap: nowrap !important;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         gap: 1rem;
         padding-bottom: 1.5rem;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
-        align-items: stretch;
+        align-items: center;
       }
       #portfolio-grid::-webkit-scrollbar {
         display: none;
       }
       .portfolio-item {
-        flex: 0 0 85vw !important;
-        width: 85vw !important;
-        height: auto;
+        flex: 0 0 auto !important;
+        width: auto !important;
+        height: 50vh !important;
+        min-height: 360px;
+        max-height: 480px;
         scroll-snap-align: center;
         margin-bottom: 0 !important;
       }
-      .portfolio-item .image-wrapper,
       .portfolio-item > div:not(.glass-panel) {
-        height: 55vh !important;
-        max-height: 450px;
-        min-height: 350px;
-        width: 100%;
-        display: flex;
-        align-items: center;
+        height: 100% !important;
+        width: auto !important;
+        background: transparent !important;
+        border: none !important;
+        display: flex !important;
+        padding: 0 !important;
         justify-content: center;
-        background-color: #05050A;
       }
       .portfolio-item img {
-        width: 100% !important;
         height: 100% !important;
-        object-fit: contain !important; /* Показываем макет целиком без обрезки! */
-        object-position: center !important;
+        width: auto !important;
+        max-width: 85vw !important;
+        object-fit: cover !important;
+        object-position: top center !important;
+        border-radius: 1.25rem;
+        border: 1px solid rgba(255,255,255,0.1);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
       }
-      .portfolio-item.web .glass-panel {
-        height: 100%;
-        min-height: 250px;
-        display: flex;
+      .portfolio-item.web {
+        flex: 0 0 75vw !important;
+        width: 75vw !important;
+      }
+      .portfolio-item.web > a {
+        height: 100% !important;
+        width: 100% !important;
+        display: flex !important;
         flex-direction: column;
         justify-content: center;
+        border: 1px solid rgba(255,255,255,0.1) !important;
+        background: var(--glass) !important;
       }
     }
   </style>
