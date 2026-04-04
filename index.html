@@ -1836,8 +1836,8 @@
 
         function initParticles() {
           particles = [];
-          // Отключаем канвас-частицы на мобилках полностью для спасения FPS
-          const particleCount = window.innerWidth <= 768 ? 0 : 150;
+          // Возвращаем оптимизированное количество частиц на мобилки (50 шт), чтобы фон ожил
+          const particleCount = window.innerWidth <= 768 ? 50 : 150;
           for (let i = 0; i < particleCount; i++) {
             particles.push(new Particle());
           }
