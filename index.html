@@ -184,15 +184,16 @@
           <p class="text-gray-400 text-lg md:text-xl lg:text-2xl font-light mb-8 md:mb-12 max-w-lg leading-relaxed flex flex-wrap justify-center md:justify-start gap-2 items-center">
             <span class="hero-keyword">Инфографика.</span> <span class="hero-keyword text-electric font-bold drop-shadow-[0_0_10px_rgba(37,99,255,0.3)]">Сайты.</span> <span class="hero-keyword">Реклама.</span>
           </p>
-          <div class="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 sm:gap-6 w-auto gsap-hero-el">
-            <!-- Убрали растяжку w-full, поставили w-auto, чтобы кнопка была по размеру контента -->
+          <!-- Кнопка на десктопе (скрыта на мобильных через hidden md:flex) -->
+          <div class="hidden md:flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 sm:gap-6 w-auto gsap-hero-el">
             <a href="https://t.me/vladpetroov" target="_blank" class="magnetic-btn w-auto inline-flex items-center justify-center gap-2 md:gap-3 px-8 py-3.5 md:px-10 md:py-5 bg-electric text-white font-bold text-base md:text-lg rounded-xl md:rounded-2xl hover:bg-electricLight hover:shadow-[0_0_30px_rgba(37,99,255,0.6)] shadow-[0_0_20px_rgba(37,99,255,0.3)] transition-all duration-300 active:scale-95 group/btn">
               Стать клиентом <i class="ph-bold ph-arrow-up-right group-hover/btn:rotate-45 group-hover/btn:scale-110 transition-transform duration-300"></i>
             </a>
           </div>
         </div>
         
-        <div class="relative w-full h-[450px] md:h-[650px] lg:h-[750px] flex justify-center items-end gsap-hero-image -mt-12 md:mt-0 z-10">
+        <!-- Добавили mb-10 md:mb-0 чтобы дать отступ до новой кнопки -->
+        <div class="relative w-full h-[450px] md:h-[650px] lg:h-[750px] flex justify-center items-end gsap-hero-image -mt-12 md:mt-0 z-10 mb-10 md:mb-0">
           <div class="parallax-element-inner absolute inset-0 flex justify-center items-center pointer-events-none z-40">
             <div class="absolute top-[65%] md:top-[60%] lg:top-[65%] -left-4 sm:-left-16 md:-left-24 lg:-left-40 hw-accel">
               <div class="animate-float flex items-center gap-4" style="animation-delay:1s;">
@@ -223,6 +224,14 @@
             <div class="flex flex-col"><span class="text-[9px] md:text-[10px] text-electric font-mono tracking-[0.2em] uppercase mb-0.5 leading-none">Portfolio</span><span class="text-sm md:text-base font-bold text-white leading-none whitespace-nowrap">Смотреть работы</span></div>
           </a>
         </div>
+
+        <!-- Кнопка на мобильных (идет после фото, скрыта на ПК) -->
+        <div class="flex md:hidden flex-col items-center justify-center w-full relative z-30 gsap-hero-el">
+          <a href="https://t.me/vladpetroov" target="_blank" class="magnetic-btn w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-electric text-white font-bold text-base rounded-xl hover:bg-electricLight hover:shadow-[0_0_30px_rgba(37,99,255,0.6)] shadow-[0_0_20px_rgba(37,99,255,0.3)] transition-all duration-300 active:scale-95 group/btn">
+            Стать клиентом <i class="ph-bold ph-arrow-up-right group-hover/btn:rotate-45 group-hover/btn:scale-110 transition-transform duration-300"></i>
+          </a>
+        </div>
+
       </div>
     </section>
 
